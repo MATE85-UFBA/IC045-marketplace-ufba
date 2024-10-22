@@ -1,5 +1,5 @@
 ## Problema
-> _Adicione uma breve descrição para o problema a ser solucionado._   
+> _Adicione uma breve descrição para o problema a ser solucionado Ou a feature a qual está atuando._   
 
 > Exemplos: 
 > - Precisamos corrigir a estrutura de diretorios.
