@@ -26,7 +26,7 @@ async function main() {
   //     id_papel: 2, // Ajuste conforme necessário
   //   },
   // });
-
+  require('dotenv').config();
   await SeedFields(prisma);
   await SeedTags(prisma);
 
