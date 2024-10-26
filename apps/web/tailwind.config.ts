@@ -75,7 +75,7 @@ const config: Config = {
         },
       },
       boxShadow: {
-        DEFAULT: "0px -6px 10px 5px #C6C2DE;",
+        custom: "0px -6px 10px 5px #C6C2DE;",
       },
       borderRadius: {
         lg: "var(--radius)",
