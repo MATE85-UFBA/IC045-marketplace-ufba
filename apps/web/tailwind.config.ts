@@ -11,7 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "hsl(var(--background))",
+        background: "#F4F2FF",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -22,12 +22,34 @@ const config: Config = {
           foreground: "hsl(var(--popover-foreground))",
         },
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#6D5BD0",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT: "#C6C2DE",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        green: {
+          DEFAULT: "#007F00",
+        },
+        red: {
+          DEFAULT: "#D30000",
+        },
+        blue: {
+          strong: {
+            default: "#25213B",
+          },
+          light: {
+            default: "#6E6893",
+          },
+        },
+        white: {
+          default: "#FFFFFF",
+        },
+        purple: {
+          light: {
+            default: "#8B83BA",
+          },
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -41,7 +63,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
-        border: "hsl(var(--border))",
+        border: "#C6C2DE",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         chart: {
