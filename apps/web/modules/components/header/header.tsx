@@ -4,24 +4,18 @@ import { Button } from "@/components/ui/button";
 import "../../../app/globals.css";
 const Header = () => {
   return (
-    <header
-      style={{
-        display: "flex",
-        justifyContent: "space-evenly",
-        alignContent: "center",
-        padding: "15px",
-        boxShadow: "0px -6px 10px 5px #C6C2DE",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <img src="/logo.png" alt="logo ufba" />
-        <h1 style={{ fontSize: "32px", fontWeight: "700" }}>Nexus</h1>
+    <header className="flex justify-evenly p-4 content-center shadow bg-white">
+      <div>
+        <Link href={"/"} className="flex items-center gap-3">
+          <img src="/logo.png" alt="logo ufba" />
+          <h1 className="text-3xl font-bold text-blue-strong">Nexus</h1>
+        </Link>
       </div>
-      <div style={{ display: "flex", gap: "10px", alignContent: "center" }}>
-        <Link href={"/"} style={{ alignContent: "center", fontWeight: "700" }}>
+      <div className="flex gap-3 items-center">
+        <Link href={"/"} className="items-center font-bold text-blue-strong">
           Encontrar Demandas
         </Link>
-        <Link href={"/"} style={{ alignContent: "center", fontWeight: "700" }}>
+        <Link href={"/"} className="items-center font-bold text-blue-strong">
           Encontrar Grupo de Pesquisa
         </Link>
       </div>

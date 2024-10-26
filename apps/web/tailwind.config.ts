@@ -37,18 +37,18 @@ const config: Config = {
         },
         blue: {
           strong: {
-            default: "#25213B",
+            DEFAULT: "#25213B",
           },
           light: {
-            default: "#6E6893",
+            DEFAULT: "#6E6893",
           },
         },
         white: {
-          default: "#FFFFFF",
+          DEFAULT: "#FFFFFF",
         },
         purple: {
           light: {
-            default: "#8B83BA",
+            DEFAULT: "#8B83BA",
           },
         },
         muted: {
@@ -73,6 +73,9 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+      },
+      boxShadow: {
+        DEFAULT: "0px -6px 10px 5px #C6C2DE;",
       },
       borderRadius: {
         lg: "var(--radius)",
