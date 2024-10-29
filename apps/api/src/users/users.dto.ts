@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
 export class CreateUserDto {
     @IsNotEmpty()   
     nome: string;
@@ -8,7 +8,8 @@ export class CreateUserDto {
     @IsEmail()
     email: string;
 
-    @IsNotEmpty()
+    @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+    // 8 or more characters, at least one uppercase letter, one lowercase letter, one number and one special character
     senha: string;
 
     id_papel: number;
