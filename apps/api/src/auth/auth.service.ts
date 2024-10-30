@@ -1,5 +1,5 @@
 import { PrismaService } from '@/infra/database/prisma.service';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
@@ -11,7 +11,6 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    // Valide o usuário no banco de dados (exemplo simplificado)
     const user = await this.findUserByEmail(email);
 
     if (user && bcrypt.compareSync(password, user.senha)) {
