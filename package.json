@@ -1,0 +1,11 @@
+{
+    "name": "ic045-marketplace-ufba",
+    "version": "1.0.0",
+    "description": "- **Como e quando acontecem as divisões de tarefa?**\r     - Descrever o processo e a frequência com que as tarefas serão divididas.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC"
+}
