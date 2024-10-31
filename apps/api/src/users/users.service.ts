@@ -1,96 +1,109 @@
 import { PrismaService } from '@/infra/database/prisma.service';
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './users.dto';
 import * as bcrypt from 'bcrypt';
+import { UsersRoles } from '@prisma/client';
+import { hashPassword } from './utils/hashPassword.util';
 
 @Injectable()
 export class UsersService {
-    constructor(private readonly prismaService: PrismaService) {};
+  constructor(private readonly prismaService: PrismaService) {}
 
-    async create(user: CreateUserDto) {
+  async create(user: CreateUserDto) {
+    const userAlreadyExists = await this.prismaService.tbUsers.findUnique({
+      where: {
+        email: user.email,
+      },
+    });
+    if (userAlreadyExists) throw new ConflictException('Usuário já cadastrado');
 
-        const userAlreadyExists = await this.prismaService.tbUsuario.findUnique({
-            where: {
-                email: user.email
-            }
-        })
-        if(userAlreadyExists) throw new ConflictException("Usuário já cadastrado");
+    const hashedPassword = await hashPassword(user.password);
 
-        const hashedPassword = await bcrypt.hash(user.senha, 10);
+    const createdUser = await this.prismaService.tbUsers.create({
+      data: {
+        name: user.name,
+        img: user.img,
+        email: user.email,
+        password: hashedPassword,
+        role: user.role,
+      },
+    });
 
-        const createdUser = await this.prismaService.tbUsuario.create({
-            data: {
-                nome: user.nome,
-                img: user.img,
-                email: user.email,
-                senha: hashedPassword,
-                id_papel: user.id_papel
-            }
-        })
+    return {
+      id: createdUser.id,
+      name: createdUser.name,
+      img: createdUser.img,
+      email: createdUser.email,
+      role: createdUser.role,
+    };
+  }
 
-        return {
-            id: createdUser.id,
-            nome: createdUser.nome,
-            img: createdUser.img,
-            email: createdUser.email,
-            id_papel: createdUser.id_papel
-        }
-    }
+  async findOne(id: string) {
+    const user = await this.prismaService.tbUsers.findUnique({
+      where: {
+        id: id,
+      },
+    });
 
-    async findOne(id: number) {
-        const user = await this.prismaService.tbUsuario.findUnique({
-            where: {
-                id: +id
-            }
-        })
+    if (!user) throw new NotFoundException('Usuário não encontrado');
 
-        if(!user) throw new NotFoundException("Usuário não encontrado");
+    return {
+      id: user.id,
+      name: user.name,
+      img: user.img,
+      email: user.email,
+      role: user.role,
+    };
+  }
 
-        return {
-            id: user.id,
-            nome: user.nome,
-            img: user.img,
-            email: user.email,
-            id_papel: user.id_papel
-        }
-    }
+  async update(id: string, user: CreateUserDto) {
+    const updatedUser = await this.prismaService.tbUsers.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: user.name,
+        img: user.img,
+        email: user.email,
+        password: user.password,
+        role: user.role,
+      },
+    });
 
-    async update(id: number, user: CreateUserDto) {
-        const updatedUser = await this.prismaService.tbUsuario.update({
-            where: {
-                id: +id
-            },
-            data: {
-                nome: user.nome,
-                img: user.img,
-                email: user.email,
-                senha: user.senha,
-                id_papel: user.id_papel
-            }
-        })
+    return {
+      id: updatedUser.id,
+      name: updatedUser.name,
+      img: updatedUser.img,
+      email: updatedUser.email,
+      role: updatedUser.role,
+    };
+  }
 
-        return {
-            id: updatedUser.id,
-            nome: updatedUser.nome,
-            img: updatedUser.img,
-            email: updatedUser.email,
-            id_papel: updatedUser.id_papel
-        }
-    }
+  async delete(id: string) {
+    const user = await this.prismaService.tbUsers.delete({
+      where: {
+        id: id,
+      },
+    });
 
-    async delete(id: number) {
-        const user = await this.prismaService.tbUsuario.delete({
-            where: {
-                id: +id
-            }
-        })
+    return {
+      id: user.id,
+      name: user.name,
+      img: user.img,
+      email: user.email,
+      role: user.role,
+    };
+  }
 
-        return {
-            id: user.id,
-            nome: user.nome,
-            img: user.img,
-            email: user.email,
-            id_papel: user.id_papel
-        }
-    }
+  async findByEmail(email: string) {
+    return await this.prismaService.tbUsers.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
 }
