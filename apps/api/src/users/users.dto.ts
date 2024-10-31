@@ -1,23 +1,29 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, Matches } from 'class-validator';
+import { UsersRoles } from '@prisma/client';
 export class CreateUserDto {
-    @IsNotEmpty()   
-    nome: string;
+  @IsNotEmpty()
+  name: string;
 
-    img?: string;
-    
-    @IsEmail()
-    email: string;
+  img?: string;
 
-    @IsNotEmpty()
-    senha: string;
+  @IsEmail()
+  email: string;
 
-    id_papel: number;
+  @Matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+  )
+  // 8 or more characters, at least one uppercase letter, one lowercase letter, one number and one special character
+  password: string;
+
+  @IsEnum(UsersRoles)
+  role: UsersRoles;
 }
 
 export class UpdateUserDto {
-    nome?: string;
-    img?: string;
-    email?: string;
-    senha?: string;
-    id_papel?: number;
+  name?: string;
+  img?: string;
+  email?: string;
+  password?: string;
+  @IsEnum(UsersRoles)
+  role?: UsersRoles;
 }

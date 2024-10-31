@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from './users.service';
+
+import { UsersRoles } from '@prisma/client';
 import { PrismaService } from '@/infra/database/prisma.service'; // Import PrismaService
 import { NotFoundException } from '@nestjs/common/exceptions';
+import { UsersService } from '@/users/users.service';
 
 describe('Integration test - UsersService', () => {
   let service: UsersService;
@@ -34,38 +36,42 @@ describe('Integration test - UsersService - findOne', () => {
 
   it('should return user data when user is found', async () => {
     const mockUser = {
-      id: 1,
-      nome: 'John Doe',
+      id: '94b6ce74-3e80-4968-8956-7d812f4a295a',
+      name: 'John Doe',
       img: 'image-url',
       email: 'john@example.com',
-      senha: 'supposed to be encrypted',
-      id_papel: 2
+      password: 'supposed to be encrypted',
+      role: UsersRoles.ADMIN,
+      created_at: new Date(),
+      updated_at: new Date(),
     };
 
-    jest.spyOn(prismaService.tbUsuario, 'findUnique').mockResolvedValue(mockUser);
+    jest.spyOn(prismaService.tbUsers, 'findUnique').mockResolvedValue(mockUser);
 
-    const result = await service.findOne(1);
-    
+    const result = await service.findOne(mockUser.id);
+
     expect(result).toEqual({
       id: mockUser.id,
-      nome: mockUser.nome,
+      name: mockUser.name,
       img: mockUser.img,
       email: mockUser.email,
-      id_papel: mockUser.id_papel,
+      role: mockUser.role,
     });
   });
 
   it('should throw NotFoundException when user is not found', async () => {
-    jest.spyOn(prismaService.tbUsuario, 'findUnique').mockResolvedValue(null);
+    jest.spyOn(prismaService.tbUsers, 'findUnique').mockResolvedValue(null);
 
-    await expect(service.findOne(999)).rejects.toThrow(NotFoundException);
+    await expect(
+      service.findOne('94b6ce74-3d55-4968-8956-7d812f4a295a'),
+    ).rejects.toThrow(NotFoundException);
   });
 });
 
 describe('Integration test with database - findOne', () => {
   let service: UsersService;
   let prismaService: PrismaService;
-  let savedUserId: number;
+  let savedUserId: string;
 
   beforeAll(async () => {
     require('dotenv').config();
@@ -76,13 +82,13 @@ describe('Integration test with database - findOne', () => {
     service = module.get<UsersService>(UsersService);
     prismaService = module.get<PrismaService>(PrismaService);
 
-    const createdUser = await prismaService.tbUsuario.create({
+    const createdUser = await prismaService.tbUsers.create({
       data: {
-        nome: 'John Doe',
+        name: 'John Doe',
         img: 'https://example.com/johndoe.jpg',
-        senha: 'encrypted-pass-hahaha',
+        password: 'encrypted-pass-hahaha',
         email: 'john@example.com',
-        id_papel: 2,
+        role: UsersRoles.ADMIN,
       },
     });
 
@@ -95,7 +101,7 @@ describe('Integration test with database - findOne', () => {
   });
 
   afterAll(async () => {
-    await prismaService.tbUsuario.delete({
+    await prismaService.tbUsers.delete({
       where: {
         id: savedUserId,
       },
