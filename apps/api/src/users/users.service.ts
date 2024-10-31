@@ -5,8 +5,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './users.dto';
-import * as bcrypt from 'bcrypt';
-import { UsersRoles } from '@prisma/client';
 import { hashPassword } from './utils/hashPassword.util';
 
 @Injectable()
