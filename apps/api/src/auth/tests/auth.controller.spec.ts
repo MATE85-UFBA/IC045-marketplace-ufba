@@ -4,6 +4,8 @@ import * as dotenv from 'dotenv';
 import { JwtService } from '@nestjs/jwt';
 import { AuthController } from '@/auth/auth.controller';
 import { AuthService } from '@/auth/auth.service';
+import { UsersService } from '@/users/users.service';
+import { PrismaService } from '@/infra/database/prisma.service';
 dotenv.config();
 
 describe('AuthController', () => {
@@ -19,6 +21,8 @@ describe('AuthController', () => {
       providers: [
         AuthService,
         { provide: JwtService, useValue: mockJwtService },
+        UsersService,
+        PrismaService,
       ],
     }).compile();
 
@@ -34,9 +38,11 @@ describe('AuthController', () => {
     });
 
     it('should return jwt token when username and passwords matches', async () => {
-      const mockBody = { username: 'joao', password: '123456' };
+      const mockBody = {
+        username: 'luke.skywalker@email.com.br',
+        password: 'senhasecreta',
+      };
       const response = await authController.login(mockBody);
-
       expect(response).toEqual({ access_token: 'mockJwtToken' });
     });
   });

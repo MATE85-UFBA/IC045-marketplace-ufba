@@ -13,13 +13,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model TbUsuario {
-  id       Int     @id @default(autoincrement())
-  nome     String
-  img      String?
-  email    String  @unique
-  senha    String
-  id_papel Int
+model TbUsers {
+  id         String     @id @default(uuid())
+  email      String     @unique
+  name       String
+  img        String?
+  password   String
+  role       UsersRoles @default(USER)
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
 }
 
 model TbTags {
@@ -34,4 +36,9 @@ model TbField {
   name       String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+enum UsersRoles {
+  USER
+  ADMIN
 }
