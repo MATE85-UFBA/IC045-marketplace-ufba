@@ -1,7 +1,11 @@
+"use client";
 import { Button } from "@/components/ui/button";
+import { CustomIcon } from "@/modules/components/icon/customIcon";
+import MinhasDemandasFilter from "@/modules/minhas-demandas/components/filter/minhasDemandasFilter";
 import MinhasDemandasTable from "@/modules/minhas-demandas/components/table/minhasDemandasTable";
 import { Demanda } from "@/modules/minhas-demandas/interfaces/demanda";
 import { IoIosAddCircleOutline } from "react-icons/io";
+
 const MinhasDemandas = () => {
   const data: Demanda[] = [
     {
@@ -37,9 +41,11 @@ const MinhasDemandas = () => {
             Minhas Demandas
           </h1>
           <Button className="rounded-full">
-            <IoIosAddCircleOutline /> Nova demanda
+            <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" /> Nova
+            demanda
           </Button>
         </div>
+        <MinhasDemandasFilter />
         <MinhasDemandasTable list={data} />
       </section>
     </main>
