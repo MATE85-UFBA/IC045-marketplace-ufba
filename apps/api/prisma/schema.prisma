@@ -38,6 +38,17 @@ model TbField {
   updated_at DateTime @updatedAt
 }
 
+model Demanda {
+  id          String @id @default(uuid())
+  title       String @unique
+  description String
+
+  links String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
 enum UsersRoles {
   USER
   ADMIN
