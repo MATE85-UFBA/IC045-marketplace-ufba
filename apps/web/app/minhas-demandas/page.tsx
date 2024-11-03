@@ -46,7 +46,7 @@ const MinhasDemandas = () => {
           </Button>
         </div>
         <MinhasDemandasFilter />
-        <MinhasDemandasTable list={data} />
+        <MinhasDemandasTable data={data} />
       </section>
     </main>
   );
