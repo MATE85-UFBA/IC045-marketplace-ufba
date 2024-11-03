@@ -1,11 +1,12 @@
 import { PrismaService } from '@/infra/database/prisma.service';
 import {
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './users.dto';
-import { hashPassword } from './utils/hashPassword.util';
+import { hashPassword, comparePassword } from './utils/hashPassword.util';
 
 @Injectable()
 export class UsersService {
@@ -115,5 +116,22 @@ export class UsersService {
         resetToken: null,
       },
     });
+  }
+
+  async changePassword(id: string, data: { oldPassword: string; newPassword: string }) {
+    const { oldPassword, newPassword } = data;
+
+    const user = await this.prismaService.tbUsers.findUnique({
+      where: {
+        id,
+      },
+    });
+    if(!user) throw new NotFoundException('Usuário não encontrado');
+
+    const isPasswordValid = await comparePassword(oldPassword, user.password);
+    if (!isPasswordValid) throw new ForbiddenException('Senha inválida');
+
+    const hashedPassword = await hashPassword(newPassword);
+    return await this.updatePassword(id, hashedPassword);
   }
 }
