@@ -20,6 +20,7 @@ model TbUsers {
   img        String?
   password   String
   role       UsersRoles @default(USER)
+  resetToken String?
   created_at DateTime   @default(now())
   updated_at DateTime   @updatedAt
 }

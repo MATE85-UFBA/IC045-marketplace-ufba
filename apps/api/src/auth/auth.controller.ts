@@ -1,9 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { ResetPasswordDTO, ForgotPasswordDTO } from './auth.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('login')
   async login(@Body() body: { username: string; password: string }) {
@@ -14,5 +15,16 @@ export class AuthController {
       return { message: 'Invalid credentials' };
     }
     return this.authService.login(user);
+  }
+
+  @Post('forgot-password')
+  async forgotPassword(@Body() body: ForgotPasswordDTO) {
+    const { email } = body;
+    return this.authService.forgotPassword(email);
+  }
+
+  @Post('reset-password/:token')
+  async resetPassword(@Body() body: ResetPasswordDTO, @Param('token') token: string) {
+    return this.authService.resetPassword(token, body.password);
   }
 }

@@ -5,8 +5,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './users.dto';
-import * as bcrypt from 'bcrypt';
-import { UsersRoles } from '@prisma/client';
 import { hashPassword } from './utils/hashPassword.util';
 
 @Injectable()
@@ -103,6 +101,18 @@ export class UsersService {
     return await this.prismaService.tbUsers.findUnique({
       where: {
         email,
+      },
+    });
+  }
+
+  async updatePassword(id: string, password: string) {
+    return await this.prismaService.tbUsers.update({
+      where: {
+        id,
+      },
+      data: {
+        password,
+        resetToken: null,
       },
     });
   }
