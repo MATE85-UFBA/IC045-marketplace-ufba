@@ -30,7 +30,7 @@ const config: Config = {
           foreground: "hsl(var(--secondary-foreground))",
         },
         tertiary: {
-          DEFAULT:"#FFFFFF",
+          DEFAULT: "#FFFFFF",
           foreground: "hsl(var(--tertiary-foreground))",
         },
         green: {
@@ -86,6 +86,9 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      screens: {
+        'xs': '576px'
+      }
     },
   },
 };
