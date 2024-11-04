@@ -11,4 +11,11 @@ export class DemandController {
     console.log(demand);
     return this.demandService.create(demand);
   }
+
+  @Get()
+  findAll(): DemandDTO[] {
+    return this.demandService.findAll;
+  }
+
+
 }

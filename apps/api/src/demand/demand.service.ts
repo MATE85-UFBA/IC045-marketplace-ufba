@@ -32,4 +32,10 @@ export class DemandService {
       descricao: createDemand.description,
     };
   }
+
+  findAll(): DemandDTO []{
+    return this.findAll;
+  }
+
+
 }
