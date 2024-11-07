@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { UsersRoles } from '@prisma/client';
+import { UserRole } from '@prisma/client';
 import { PrismaService } from '@/infra/database/prisma.service'; // Import PrismaService
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { UsersService } from '@/users/users.service';
@@ -41,12 +41,12 @@ describe('Integration test - UsersService - findOne', () => {
       img: 'image-url',
       email: 'john@example.com',
       password: 'supposed to be encrypted',
-      role: UsersRoles.ADMIN,
-      created_at: new Date(),
-      updated_at: new Date(),
+      role: UserRole.ADMIN,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
-    jest.spyOn(prismaService.tbUsers, 'findUnique').mockResolvedValue(mockUser);
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
 
     const result = await service.findOne(mockUser.id);
 
@@ -60,7 +60,7 @@ describe('Integration test - UsersService - findOne', () => {
   });
 
   it('should throw NotFoundException when user is not found', async () => {
-    jest.spyOn(prismaService.tbUsers, 'findUnique').mockResolvedValue(null);
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
 
     await expect(
       service.findOne('94b6ce74-3d55-4968-8956-7d812f4a295a'),
@@ -82,13 +82,13 @@ describe('Integration test with database - findOne', () => {
     service = module.get<UsersService>(UsersService);
     prismaService = module.get<PrismaService>(PrismaService);
 
-    const createdUser = await prismaService.tbUsers.create({
+    const createdUser = await prismaService.user.create({
       data: {
         name: 'John Doe',
         img: 'https://example.com/johndoe.jpg',
         password: 'encrypted-pass-hahaha',
         email: 'john@example.com',
-        role: UsersRoles.ADMIN,
+        role: UserRole.ADMIN,
       },
     });
 
@@ -101,7 +101,7 @@ describe('Integration test with database - findOne', () => {
   });
 
   afterAll(async () => {
-    await prismaService.tbUsers.delete({
+    await prismaService.user.delete({
       where: {
         id: savedUserId,
       },

@@ -13,132 +13,132 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model TbUsers {
-  id          String          @id @default(uuid())
-  email       String          @unique
-  name        String
-  img         String?
-  password    String
-  role        UsersRoles      @default(USER)
-  created_at  DateTime        @default(now())
-  updated_at  DateTime        @updatedAt
-  companies   TbCompanies[]
-  researchers TbResearchers[]
+model User {
+  id         String      @id @default(uuid())
+  email      String      @unique
+  name       String
+  img        String?
+  password   String
+  role       UserRole   @default(USER)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  company    Company?
+  researcher Researcher?
 }
 
-enum UsersRoles {
+enum UserRole {
   USER
   ADMIN
 }
 
-model TbKeywords {
-  id         String       @id @default(uuid())
-  name       String
-  projects   TbProjects[]
-  demands    TbDemands[]
-  created_at DateTime     @default(now())
-  updated_at DateTime     @updatedAt
+model Keyword {
+  id        String    @id @default(uuid())
+  name      String
+  projects  Project[]
+  demands   Demand[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
-model TbCompanies {
-  user         TbUsers     @relation(fields: [userId], references: [id])
-  userId       String      @id
+model Company {
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String   @id
   contactName  String?
   contactEmail String?
   contactPhone String?
-  demands      TbDemands[]
-  created_at   DateTime    @default(now())
-  updated_at   DateTime    @updatedAt
+  demands      Demand[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-model TbResearchers {
-  user                   TbUsers            @relation(fields: [userId], references: [id])
-  userId                 String             @id
+model Researcher {
+  user                   User            @relation(fields: [userId], references: [id])
+  userId                 String          @id
   urlLattes              String?
-  researcherType         ResearchersType    @default(TEACHER)
-  researchGroupsAsLeader TbResearchGroups[] @relation("ResearchGroupLeader")
-  researchGroupsAsMember TbResearchGroups[] @relation("ResearchGroupMembers")
-  created_at             DateTime           @default(now())
-  updated_at             DateTime           @updatedAt
+  researcherType         ResearcherType  @default(TEACHER)
+  researchGroupsAsLeader ResearchGroup[] @relation("ResearchGroupLeader")
+  researchGroupsAsMember ResearchGroup[] @relation("ResearchGroupMembers")
+  createdAt              DateTime        @default(now())
+  updatedAt              DateTime        @updatedAt
 }
 
-enum ResearchersType {
+enum ResearcherType {
   STUDENT
   TEACHER
 }
 
-model TbResearchGroups {
-  id              String             @id @default(uuid())
-  name            String
-  description     String
-  urlCNPQ         String?
-  img             String?
-  leader          TbResearchers      @relation(fields: [researcherId], references: [userId], name: "ResearchGroupLeader")
-  researcherId    String
-  knowledgeAreas  TbKnowledgeAreas[]
-  members         TbResearchers[]    @relation("ResearchGroupMembers")
-  projects        TbProjects[]
-  created_at      DateTime           @default(now())
-  updated_at      DateTime           @updatedAt
-  TbNotifications TbNotifications[]
+model ResearchGroup {
+  id             String          @id @default(uuid())
+  name           String
+  description    String
+  urlCNPQ        String?
+  img            String?
+  leader         Researcher      @relation(fields: [researcherId], references: [userId], name: "ResearchGroupLeader")
+  researcherId   String
+  knowledgeAreas KnowledgeArea[]
+  members        Researcher[]    @relation("ResearchGroupMembers")
+  projects       Project[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  Notifications  Notification[]
 }
 
-model TbKnowledgeAreas {
-  id                   String             @id @default(uuid())
+model KnowledgeArea {
+  id                   String          @id @default(uuid())
   name                 String
-  researchGroupsOfArea TbResearchGroups[]
-  created_at           DateTime           @default(now())
-  updated_at           DateTime           @updatedAt
+  researchGroupsOfArea ResearchGroup[]
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
 }
 
-model TbProjects {
-  id              String           @id @default(uuid())
+model Project {
+  id              String        @id @default(uuid())
   name            String
   started_at      DateTime
   finished_at     DateTime?
-  researchGroup   TbResearchGroups @relation(fields: [researchGroupId], references: [id])
+  researchGroup   ResearchGroup @relation(fields: [researchGroupId], references: [id])
   researchGroupId String
-  demand          TbDemands?       @relation(fields: [demandId], references: [id])
+  demand          Demand?       @relation(fields: [demandId], references: [id])
   demandId        String?
-  keywords        TbKeywords[]
-  created_at      DateTime         @default(now())
-  updated_at      DateTime         @updatedAt
+  keywords        Keyword[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
-model TbDemands {
-  id            String            @id @default(uuid())
+model Demand {
+  id            String         @id @default(uuid())
   name          String
-  company       TbCompanies       @relation(fields: [companyId], references: [userId])
+  company       Company        @relation(fields: [companyId], references: [userId])
   companyId     String
-  projects      TbProjects[]
-  keywords      TbKeywords[]
-  notifications TbNotifications[]
-  attachments   TbAttachments[]
-  created_at    DateTime          @default(now())
-  updated_at    DateTime          @updatedAt
+  projects      Project[]
+  keywords      Keyword[]
+  notifications Notification[]
+  attachments   Attachment[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
-model TbNotifications {
-  id              String                 @id @default(uuid())
+model Notification {
+  id              String                @id @default(uuid())
   message         String
-  demand          TbDemands              @relation(fields: [demandId], references: [id])
+  demand          Demand                @relation(fields: [demandId], references: [id])
   demandId        String
-  researchGroup   TbResearchGroups       @relation(fields: [researchGroupId], references: [id])
+  researchGroup   ResearchGroup         @relation(fields: [researchGroupId], references: [id])
   researchGroupId String
-  started_by      NotificationsStartedBy
-  created_at      DateTime               @default(now())
+  started_by      NotificationStartedBy
+  createdAt       DateTime              @default(now())
 }
 
-enum NotificationsStartedBy {
+enum NotificationStartedBy {
   RESEARCHGROUP
   COMPANY
 }
 
-model TbAttachments {
-  id         String    @id @default(uuid())
-  url        String
-  demand     TbDemands @relation(fields: [demandId], references: [id])
-  demandId   String
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+model Attachment {
+  id        String   @id @default(uuid())
+  url       String
+  demand    Demand   @relation(fields: [demandId], references: [id])
+  demandId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
