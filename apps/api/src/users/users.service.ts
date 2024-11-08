@@ -13,7 +13,7 @@ export class UsersService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(user: CreateUserDto) {
-    const userAlreadyExists = await this.prismaService.tbUsers.findUnique({
+    const userAlreadyExists = await this.prismaService.user.findUnique({
       where: {
         email: user.email,
       },
@@ -22,7 +22,7 @@ export class UsersService {
 
     const hashedPassword = await hashPassword(user.password);
 
-    const createdUser = await this.prismaService.tbUsers.create({
+    const createdUser = await this.prismaService.user.create({
       data: {
         name: user.name,
         img: user.img,
@@ -42,7 +42,7 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    const user = await this.prismaService.tbUsers.findUnique({
+    const user = await this.prismaService.user.findUnique({
       where: {
         id: id,
       },
@@ -60,7 +60,7 @@ export class UsersService {
   }
 
   async update(id: string, user: CreateUserDto) {
-    const updatedUser = await this.prismaService.tbUsers.update({
+    const updatedUser = await this.prismaService.user.update({
       where: {
         id: id,
       },
@@ -83,7 +83,7 @@ export class UsersService {
   }
 
   async delete(id: string) {
-    const user = await this.prismaService.tbUsers.delete({
+    const user = await this.prismaService.user.delete({
       where: {
         id: id,
       },
@@ -99,7 +99,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    return await this.prismaService.tbUsers.findUnique({
+    return await this.prismaService.user.findUnique({
       where: {
         email,
       },
@@ -107,7 +107,7 @@ export class UsersService {
   }
 
   async updatePassword(id: string, password: string) {
-    return await this.prismaService.tbUsers.update({
+    return await this.prismaService.user.update({
       where: {
         id,
       },
@@ -121,7 +121,7 @@ export class UsersService {
   async changePassword(id: string, data: { oldPassword: string; newPassword: string }) {
     const { oldPassword, newPassword } = data;
 
-    const user = await this.prismaService.tbUsers.findUnique({
+    const user = await this.prismaService.user.findUnique({
       where: {
         id,
       },
