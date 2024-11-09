@@ -7,6 +7,7 @@ import { PrismaService } from '@/infra/database/prisma.service';
 import { UsersModule } from '@/users/users.module';
 import { AuthService } from '@/auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
+import { AdminModule } from '@/admin/admin.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { JwtService } from '@nestjs/jwt';
     }),
     AuthModule,
     UsersModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, PrismaService, JwtService],
