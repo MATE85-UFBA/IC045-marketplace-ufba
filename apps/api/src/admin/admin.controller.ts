@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Put, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { JwtAuthGuard } from '@/auth/auth.guard';
 import { Roles } from '@/roles/roles.decorator';
@@ -18,9 +18,16 @@ export class AdminController {
     
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Roles('ADMIN')
-    @Post("users/:id")
+    @Put("users/:id")
     editUser(@Param('id') id: string, @Body() updatedUserData: UpdateUserDto) {
         return this.adminService.editUser(id, updatedUserData);
+    }
+
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles('ADMIN')
+    @Delete("users/:id")
+    deleteUser(@Param('id') id: string) {
+        return this.adminService.deleteUser(id);
     }
 
 }

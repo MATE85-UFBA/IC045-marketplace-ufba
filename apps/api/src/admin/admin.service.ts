@@ -31,4 +31,10 @@ export class AdminService {
             role: updatedUser.role,
         }
     }
+
+    async deleteUser(id: string) {
+        return await this.prismaService.user.delete({
+            where: { id },
+        });
+    }
 }
