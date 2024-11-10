@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsUrl, IsUUID, IsString, IsOptional, IsArray } from "class-validator";
 
-export class createResearchGroupDto {
+export class CreateResearchGroupDto {
 
     @IsNotEmpty()
     @IsString()

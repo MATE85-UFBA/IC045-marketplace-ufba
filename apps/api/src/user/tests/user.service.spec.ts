@@ -42,6 +42,7 @@ describe('Integration test - UsersService - findOne', () => {
       email: 'john@example.com',
       password: 'supposed to be encrypted',
       role: UserRole.ADMIN,
+      resetToken: 'reset token example',
       createdAt: new Date(),
       updatedAt: new Date(),
     };

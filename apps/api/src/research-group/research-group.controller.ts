@@ -6,16 +6,13 @@ import {
     Param,
     Post,
     Put,
-    Request,
-    UseGuards,
 } from '@nestjs/common';
-import { ResearchGroupsService } from './research-group.service';
-import { ChangePasswordDto, CreateResearchGroupDto } from './research-group.dto';
-import { JwtAuthGuard } from '@/auth/auth.guard';
+import { ResearchGroupService } from './research-group.service';
+import { CreateResearchGroupDto } from './research-group.dto';
 
 @Controller('researchGroups')
 export class ResearchGroupsController {
-    constructor(private readonly researchGroupsSevice: ResearchGroupsService) { }
+    constructor(private readonly researchGroupsSevice: ResearchGroupService) { }
 
     @Post()
     create(@Body() researchGroup: CreateResearchGroupDto) {
@@ -35,12 +32,5 @@ export class ResearchGroupsController {
     @Delete(':id')
     delete(@Param('id') id: string) {
         return this.researchGroupsSevice.delete(id);
-    }
-
-    @UseGuards(JwtAuthGuard)
-    @Post('/change-password')
-    changePassword(@Body() data: ChangePasswordDto, @Request() req: { researchGroup: { researchGroupId: string } }) {
-        const id = req.researchGroup.researchGroupId
-        return this.researchGroupsSevice.changePassword(id, data);
     }
 }

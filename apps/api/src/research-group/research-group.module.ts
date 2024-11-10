@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ResearchGroupsService } from './research-group.service';
+import { ResearchGroupService } from './research-group.service';
 import { ResearchGroupsController } from './research-group.controller';
+import { PrismaService } from '@/infra/database/prisma.service';
 
 @Module({
-  providers: [ResearchGroupsService],
-  controllers: [ResearchGroupsController]
+  providers: [ResearchGroupService, PrismaService],
+  controllers: [ResearchGroupsController],
+  exports: [ResearchGroupService]
 })
-export class ResearchGroupsModule {}
+export class ResearchGroupsModule { }
