@@ -10,8 +10,8 @@ import {
 import { ResearchGroupService } from './research-group.service';
 import { CreateResearchGroupDto } from './research-group.dto';
 
-@Controller('researchGroups')
-export class ResearchGroupsController {
+@Controller('researchgroup')
+export class ResearchGroupController {
     constructor(private readonly researchGroupsSevice: ResearchGroupService) { }
 
     @Post()
