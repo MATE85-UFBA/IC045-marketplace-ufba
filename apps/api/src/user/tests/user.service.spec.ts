@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserRole } from '@prisma/client';
 import { PrismaService } from '@/infra/database/prisma.service'; // Import PrismaService
 import { NotFoundException } from '@nestjs/common/exceptions';
-import { UsersService } from '@/users/users.service';
+import { UsersService } from '@/user/user.service';
 
 describe('Integration test - UsersService', () => {
   let service: UsersService;
