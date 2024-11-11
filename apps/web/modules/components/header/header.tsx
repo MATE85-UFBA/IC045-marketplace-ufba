@@ -29,7 +29,7 @@ const Header = ({ userType }: props) => {
           {isLogged && userType == "pesquisador" ? (
             <>
               <Link
-                href={"/"}
+                href={"/encontrar-demandas"}
                 className="items-center font-bold text-blue-strong"
               >
                 Encontrar Demandas
@@ -65,7 +65,7 @@ const Header = ({ userType }: props) => {
           ) : (
             <>
               <Link
-                href={"/"}
+                href={"/encontrar-demandas"}
                 className="items-center font-bold text-blue-strong"
               >
                 Encontrar Demandas
@@ -134,7 +134,7 @@ const Header = ({ userType }: props) => {
           <ul className="flex flex-col gap-4">
             <DrawerClose className="text-left" asChild>
               <Link
-                href={"/"}
+                href={"/encontrar-demandas"}
                 className="items-center font-bold text-blue-strong"
               >
                 Encontrar Demandas

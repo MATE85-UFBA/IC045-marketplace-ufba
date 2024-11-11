@@ -3,7 +3,7 @@ import Image from "next/image";
 import homeBanner from "@/public/home-banner.png";
 
 export default function Home() {
-  return <main className="max-w-screen-xl mx-auto px-8 pb-12">
+  return <main className="max-w-screen-xl mx-auto px-8">
     <section className="flex flex-col lg:flex-row items-center py-8">
       <div className="relative w-full max-lg:text-center">
         <h2 className="font-semibold text-3xl sm:text-4xl leading-snug max-w-[40rem] mx-auto lg:mx-0">Transforme sua ideia em realidade com a parceria certa!</h2>
