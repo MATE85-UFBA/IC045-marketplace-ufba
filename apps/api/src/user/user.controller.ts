@@ -9,8 +9,8 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { ChangePasswordDto, CreateUserDto } from './users.dto';
+import { UsersService } from './user.service';
+import { ChangePasswordDto, CreateUserDto } from './user.dto';
 import { JwtAuthGuard } from '@/auth/auth.guard';
 
 @Controller('users')

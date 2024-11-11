@@ -5,8 +5,8 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './auth.controller';
-import { UsersService } from '@/users/users.service';
-import { UsersModule } from '@/users/users.module';
+import { UsersService } from '@/user/user.service';
+import { UsersModule } from '@/user/user.module';
 import { PrismaService } from '@/infra/database/prisma.service';
 
 @Module({

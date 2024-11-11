@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserRole } from '@prisma/client';
 import { PrismaService } from '@/infra/database/prisma.service'; // Import PrismaService
 import { NotFoundException } from '@nestjs/common/exceptions';
-import { UsersService } from '@/users/users.service';
+import { UsersService } from '@/user/user.service';
 
 describe('Integration test - UsersService', () => {
   let service: UsersService;
@@ -42,6 +42,7 @@ describe('Integration test - UsersService - findOne', () => {
       email: 'john@example.com',
       password: 'supposed to be encrypted',
       role: UserRole.ADMIN,
+      resetToken: 'reset token example',
       createdAt: new Date(),
       updatedAt: new Date(),
     };

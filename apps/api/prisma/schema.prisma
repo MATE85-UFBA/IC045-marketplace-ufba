@@ -19,7 +19,7 @@ model User {
   name       String
   img        String?
   password   String
-  role       UserRole   @default(USER)
+  role       UserRole    @default(USER)
   resetToken String?
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
@@ -70,7 +70,7 @@ enum ResearcherType {
 
 model ResearchGroup {
   id             String          @id @default(uuid())
-  name           String
+  name           String          @unique
   description    String
   urlCNPQ        String?
   img            String?

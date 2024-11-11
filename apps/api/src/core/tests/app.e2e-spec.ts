@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '@/core/app.module';
-import { UsersModule } from '@/users/users.module';
+import { UsersModule } from '@/user/user.module';
 import { AuthModule } from '@/auth/auth.module';
 import { AuthService } from '@/auth/auth.service';
 import { PrismaService } from '@/infra/database/prisma.service';

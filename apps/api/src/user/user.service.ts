@@ -5,7 +5,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from './users.dto';
+import { CreateUserDto } from './user.dto';
 import { hashPassword, comparePassword } from './utils/hashPassword.util';
 
 @Injectable()
