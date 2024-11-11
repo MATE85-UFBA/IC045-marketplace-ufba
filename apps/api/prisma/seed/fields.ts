@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 export async function SeedFields(prisma: PrismaClient) {
-  const fields = [
+  const knowledgeAreas = [
     {
       name: 'Ciências Físicas, Matemática e Tecnologia',
     },
@@ -19,8 +19,8 @@ export async function SeedFields(prisma: PrismaClient) {
   ];
 
   try {
-    await prisma.tbField.createMany({
-      data: fields,
+    await prisma.knowledgeArea.createMany({
+      data: knowledgeAreas,
     });
     console.log('Tabela de Area preenchida com sucesso.');
   } catch (error) {
