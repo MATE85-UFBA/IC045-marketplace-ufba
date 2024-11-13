@@ -27,7 +27,9 @@ jobs:
           npm ci
 
       - name: Lint
-        run: npm run lint
+        run: |
+          cd apps/api 
+          npm run lint
 
       - name: Generate prisma
         run: npx prisma generate
