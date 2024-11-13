@@ -42,7 +42,17 @@ jobs:
           npm run build
 
       - name: Run Docker Database for tests
-        run: docker compose start db
+        run: | 
+          docker compose up -d db
+          docker compose logs
+
+      - name: Migrate Prisma
+        run: npx prisma db push
+
+      - name: Seed Prisma
+        run: |
+          cd apps/api 
+          npm run seed-db
 
       - name: Test
         run: |
