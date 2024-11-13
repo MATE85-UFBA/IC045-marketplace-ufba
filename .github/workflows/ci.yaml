@@ -49,12 +49,12 @@ jobs:
       - name: Migrate Prisma
         run: |
           cd apps/api 
-          npx prisma db push
+          npm run ci:migrate-prisma
 
       - name: Seed Prisma
         run: |
           cd apps/api 
-          npm run seed-db
+          npm run ci:seed-db
 
       - name: Test
         run: |

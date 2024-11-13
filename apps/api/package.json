@@ -13,6 +13,8 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "seed-db": "ts-node prisma/seed.ts",
+    "ci:migrate-prisma": "DATABASE_URL=postgresql://postgres:root@localhost:5432/database?schema=public prisma db push",
+    "ci:seed-db": "DATABASE_URL=postgresql://postgres:root@localhost:5432/database?schema=public ts-node prisma/seed.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest --config ./test/jest-unit.json",
