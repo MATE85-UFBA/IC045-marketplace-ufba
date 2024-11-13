@@ -1,5 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
+
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
 import { SeedFields } from './seed/fields';
 import { SeedTags } from './seed/tags';
 import { SeedUsers } from './seed/users';
@@ -7,7 +9,6 @@ import { SeedUsers } from './seed/users';
 const prisma = new PrismaClient();
 
 async function main() {
-  require('dotenv').config();
   await SeedFields(prisma);
   await SeedTags(prisma);
   await SeedUsers(prisma);

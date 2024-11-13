@@ -32,12 +32,10 @@ export class AuthService {
 
     if (user) {
       const payload = { email };
-
-      const token = this.jwtService.sign(payload, {
+      this.jwtService.sign(payload, {
         secret: process.env.JWT_PASSWORD_TOKEN_SECRET,
         expiresIn: process.env.JWT_PASSWORD_TOKEN_EXPIRATION,
       });
-
       // TODO send email with token
 
       return { message: 'Password reset email sent' };

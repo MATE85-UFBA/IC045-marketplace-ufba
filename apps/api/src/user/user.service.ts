@@ -99,7 +99,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    return await this.prismaService.user.findUnique({
+    return this.prismaService.user.findUnique({
       where: {
         email,
       },
@@ -107,7 +107,7 @@ export class UsersService {
   }
 
   async updatePassword(id: string, password: string) {
-    return await this.prismaService.user.update({
+    return this.prismaService.user.update({
       where: {
         id,
       },
@@ -118,7 +118,10 @@ export class UsersService {
     });
   }
 
-  async changePassword(id: string, data: { oldPassword: string; newPassword: string }) {
+  async changePassword(
+    id: string,
+    data: { oldPassword: string; newPassword: string },
+  ) {
     const { oldPassword, newPassword } = data;
 
     const user = await this.prismaService.user.findUnique({
@@ -126,7 +129,8 @@ export class UsersService {
         id,
       },
     });
-    if(!user) throw new NotFoundException('Usuário não encontrado');
+
+    if (!user) throw new NotFoundException('Usuário não encontrado');
 
     const isPasswordValid = await comparePassword(oldPassword, user.password);
     if (!isPasswordValid) throw new ForbiddenException('Senha inválida');

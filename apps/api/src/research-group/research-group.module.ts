@@ -6,6 +6,6 @@ import { PrismaService } from '@/infra/database/prisma.service';
 @Module({
   providers: [ResearchGroupService, PrismaService],
   controllers: [ResearchGroupController],
-  exports: [ResearchGroupService]
+  exports: [ResearchGroupService],
 })
-export class ResearchGroupsModule { }
+export class ResearchGroupsModule {}
