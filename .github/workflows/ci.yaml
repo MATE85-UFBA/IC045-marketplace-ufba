@@ -32,15 +32,17 @@ jobs:
           npm run lint
 
       - name: Generate prisma
-        run: npx prisma generate
+        run: |
+          cd apps/api 
+          npx prisma generate
 
       - name: Build
-        run: npm run build
+        run: |
+          cd apps/api 
+          npm run build
 
       - name: Run Docker For tests
-        run: |
-          cd ../
-          docker compose up
+        run: docker compose up
 
       - name: Test
         run: |
