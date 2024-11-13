@@ -28,7 +28,7 @@ const Login = () => {
   return (
     <main className="h-screen flex flex-col items-center justify-center">
       <section className="w-full max-w-sm bg-white px-8 py-8 rounded-lg shadow-lg">
-        <Image style={{display:"block", margin:"0 auto"}} src={"/Logo.png"} alt="Logo Nexus" width={233} height={90} />
+        <Image style={{display:"block", margin:"0 auto"}} src={"/header-logo.png"} alt="Logo Nexus" width={233} height={90} />
         <form 
             onSubmit={handleSubmit(loginUser)} 
             className="flex flex-col gap-2 w-full max-w-sm mt-8"
