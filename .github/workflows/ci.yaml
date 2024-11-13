@@ -44,6 +44,7 @@ jobs:
       - name: Run Docker Database for tests
         run: | 
           docker compose up -d db
+          sleep 10
           docker compose logs
 
       - name: Migrate Prisma
