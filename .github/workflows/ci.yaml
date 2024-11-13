@@ -47,7 +47,9 @@ jobs:
           docker compose logs
 
       - name: Migrate Prisma
-        run: npx prisma db push
+        run: |
+          cd apps/api 
+          npx prisma db push
 
       - name: Seed Prisma
         run: |
