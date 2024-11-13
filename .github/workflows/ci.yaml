@@ -41,8 +41,8 @@ jobs:
           cd apps/api 
           npm run build
 
-      - name: Run Docker For tests
-        run: docker compose up
+      - name: Run Docker Database for tests
+        run: docker compose start db
 
       - name: Test
         run: |
