@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { SeedFields } from './seed/fields';
 import { SeedTags } from './seed/tags';
 import { SeedUsers } from './seed/users';
+import { SeedResearchers } from './seed/researchers';
 
 const prisma = new PrismaClient();
 
@@ -11,6 +12,7 @@ async function main() {
   await SeedFields(prisma);
   await SeedTags(prisma);
   await SeedUsers(prisma);
+  await SeedResearchers(prisma);
 
   console.log('Banco de dados preenchido com dados padrão.');
 }

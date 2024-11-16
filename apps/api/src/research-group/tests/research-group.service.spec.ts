@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ResearchGroupService } from '../research-group.service';
+
+import { ResearchGroupService } from '@/research-group/research-group.service';
 import { PrismaService } from '@/infra/database/prisma.service';
 import { NotFoundException } from '@nestjs/common/exceptions';
 
@@ -8,7 +9,7 @@ describe('ResearchGroupService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ResearchGroupService],
+      providers: [ResearchGroupService, PrismaService],
     }).compile();
 
     service = module.get<ResearchGroupService>(ResearchGroupService);

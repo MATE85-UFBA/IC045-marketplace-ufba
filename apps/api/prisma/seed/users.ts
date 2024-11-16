@@ -31,6 +31,14 @@ export async function SeedUsers(prisma: PrismaClient) {
       img: '',
       password: await hashPassword('senhamarota'),
     },
+    {
+      id: '789e4567-e89b-12d3-a456-426614174000',
+      name: 'Anakin Skywalker',
+      email: 'anakin.skywalker@email.com.br',
+      role: UserRole.USER,
+      img: '',
+      password: await hashPassword('senhastarwars'),
+    },
   ];
 
   try {
