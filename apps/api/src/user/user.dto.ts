@@ -1,5 +1,22 @@
-import { IsEmail, IsEnum, IsNotEmpty, Matches } from 'class-validator';
-import { UserRole } from '@prisma/client';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, Matches } from 'class-validator';
+import { ResearcherType, UserRole } from '@prisma/client';
+
+export class CreateCompanyDto {
+  contactName?: string;
+
+  @IsEmail()
+  contactEmail?: string;
+
+  contactPhone?: string;
+}
+
+export class CreateResearcherDto {
+  urlLattes?: string;
+
+  @IsEnum(ResearcherType)
+  researcherType?: ResearcherType;
+}
+
 export class CreateUserDto {
   @IsNotEmpty()
   name: string;
@@ -17,6 +34,14 @@ export class CreateUserDto {
 
   @IsEnum(UserRole)
   role: UserRole;
+
+  @IsOptional()
+  company?: CreateCompanyDto;
+
+  @IsOptional()
+  researcher?: CreateResearcherDto;
+
+
 }
 
 export class UpdateUserDto {

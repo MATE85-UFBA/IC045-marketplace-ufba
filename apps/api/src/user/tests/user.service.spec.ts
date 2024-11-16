@@ -1,9 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { UserRole } from '@prisma/client';
+import { ResearcherType, UserRole } from '@prisma/client';
 import { PrismaService } from '@/infra/database/prisma.service'; // Import PrismaService
-import { NotFoundException } from '@nestjs/common/exceptions';
+import { NotFoundException, ConflictException } from '@nestjs/common/exceptions';
 import { UsersService } from '@/user/user.service';
+import { CreateUserDto } from '@/user/user.dto';
+import { hashPassword } from '@/user/utils/hashPassword.util';
 
 describe('Integration test - UsersService', () => {
   let service: UsersService;
@@ -66,6 +68,180 @@ describe('Integration test - UsersService - findOne', () => {
     await expect(
       service.findOne('94b6ce74-3d55-4968-8956-7d812f4a295a'),
     ).rejects.toThrow(NotFoundException);
+  });
+});
+
+describe('Integration test - UsersService - create', () => {
+  let service: UsersService;
+  let prismaService: PrismaService;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [UsersService, PrismaService],
+    }).compile();
+
+    service = module.get<UsersService>(UsersService);
+    prismaService = module.get<PrismaService>(PrismaService);
+  });
+
+  it('should create a new user', async () => {
+    const mockUserDto: CreateUserDto = {
+      name: 'Jane Doe',
+      img: 'image-url',
+      email: 'jane@example.com',
+      password: 'password123',
+      role: UserRole.USER,
+    };
+
+    const mockCreatedUser = {
+      id: '12345',
+      ...mockUserDto,
+      img: mockUserDto.img ?? null,
+      password: await hashPassword(mockUserDto.password),
+      resetToken: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
+    jest.spyOn(prismaService.user, 'create').mockResolvedValue(mockCreatedUser);
+
+    const result = await service.create(mockUserDto);
+
+    expect(result).toEqual({
+      id: mockCreatedUser.id,
+      name: mockCreatedUser.name,
+      img: mockCreatedUser.img,
+      email: mockCreatedUser.email,
+      role: mockCreatedUser.role,
+    });
+  });
+
+  it('should throw ConflictException if user already exists', async () => {
+    const mockUserDto: CreateUserDto = {
+      name: 'Jane Doe',
+      img: 'image-url',
+      email: 'jane@example.com',
+      password: 'password123',
+      role: UserRole.USER,
+    };
+
+    const mockExistingUser = {
+      id: '12345',
+      ...mockUserDto,
+      img: mockUserDto.img ?? null,
+      password: await hashPassword(mockUserDto.password),
+      resetToken: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockExistingUser);
+
+    await expect(service.create(mockUserDto)).rejects.toThrow(ConflictException);
+  });
+});
+
+describe('Integration test - UsersService - create with researcher', () => {
+  let service: UsersService;
+  let prismaService: PrismaService;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [UsersService, PrismaService],
+    }).compile();
+
+    service = module.get<UsersService>(UsersService);
+    prismaService = module.get<PrismaService>(PrismaService);
+  });
+
+  it('should create a new user with researcher role', async () => {
+    const mockUserDto: CreateUserDto = {
+      name: 'Researcher Doe',
+      img: 'image-url',
+      email: 'researcher@example.com',
+      password: 'password123',
+      role: UserRole.USER,
+      researcher: {
+        researcherType: ResearcherType.STUDENT,
+        urlLattes: 'http://lattes.com/researcher',
+      },
+    };
+
+    const mockCreatedUser = {
+      id: '12345',
+      ...mockUserDto,
+      img: mockUserDto.img ?? null,
+      password: await hashPassword(mockUserDto.password),
+      resetToken: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
+    jest.spyOn(prismaService.user, 'create').mockResolvedValue(mockCreatedUser);
+
+    const result = await service.create(mockUserDto);
+
+    expect(result).toEqual({
+      id: mockCreatedUser.id,
+      name: mockCreatedUser.name,
+      img: mockCreatedUser.img,
+      email: mockCreatedUser.email,
+      role: mockCreatedUser.role,
+    });
+  });
+});
+
+describe('Integration test - UsersService - create with company', () => {
+  let service: UsersService;
+  let prismaService: PrismaService;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [UsersService, PrismaService],
+    }).compile();
+
+    service = module.get<UsersService>(UsersService);
+    prismaService = module.get<PrismaService>(PrismaService);
+  });
+
+  it('should create a new user with company role', async () => {
+    const mockUserDto: CreateUserDto = {
+      name: 'Company Doe',
+      img: 'image-url',
+      email: 'company@example.com',
+      password: 'password123',
+      role: UserRole.USER,
+      company: {
+        contactName: 'Company Inc.',
+        contactEmail: 'dwdwdwd@teste.com',
+        contactPhone: '123456789',
+      },
+    };
+
+    const mockCreatedUser = {
+      id: '12345',
+      ...mockUserDto,
+      img: mockUserDto.img ?? null,
+      password: await hashPassword(mockUserDto.password),
+      resetToken: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
+    jest.spyOn(prismaService.user, 'create').mockResolvedValue(mockCreatedUser);
+
+    const result = await service.create(mockUserDto);
+
+    expect(result).toEqual({
+      id: mockCreatedUser.id,
+      name: mockCreatedUser.name,
+      img: mockCreatedUser.img,
+      email: mockCreatedUser.email,
+      role: mockCreatedUser.role,
+    });
   });
 });
 
