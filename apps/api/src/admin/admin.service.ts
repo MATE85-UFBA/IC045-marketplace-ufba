@@ -1,4 +1,4 @@
-import { PrismaService } from '@/infra/database/prisma.service';
+import { PrismaService } from '../infra/database/prisma.service';
 import { UpdateUserDto } from '@/user/user.dto';
 import { Injectable } from '@nestjs/common';
 
