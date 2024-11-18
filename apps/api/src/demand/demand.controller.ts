@@ -42,7 +42,7 @@ export class DemandController {
 
     if (!user || !user.company) {
       throw new NotFoundException(
-        'Usuário não existe ou não há company associado.',
+        'Usuário não existe ou não há empresa associada.',
       );
     }
 
