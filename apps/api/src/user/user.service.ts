@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './user.dto';
 import { hashPassword, comparePassword } from './utils/hashPassword.util';
+import { UserWithCompany } from '@/types';
 
 @Injectable()
 export class UsersService {
@@ -57,6 +58,24 @@ export class UsersService {
       email: user.email,
       role: user.role,
     };
+  }
+
+  async findOneWithCompany(id: string): Promise<UserWithCompany> {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        company: true,
+      },
+    });
+
+    if (!user) throw new NotFoundException('Usuário não encontrado');
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _password, resetToken: _resetToken, ...rest } = user;
+
+    return rest;
   }
 
   async update(id: string, user: CreateUserDto) {
