@@ -19,9 +19,19 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
-    const payload = { username: user.username, sub: user.id };
+  getUserType(user: any) {
+    if (user.company) {
+      return "company";
+    } else if (user.researcher) {
+      return "researcher";
+    }
+    return "none";
+  }
 
+  async login(user: any) {
+    let utype = this.getUserType(user);
+    
+    const payload = { username: user.name, sub: user.id, img: user.img, role: user.role, utype };
     return {
       access_token: this.jwtService.sign(payload),
     };
