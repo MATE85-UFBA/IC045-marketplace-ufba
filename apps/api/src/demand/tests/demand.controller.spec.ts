@@ -43,7 +43,7 @@ describe('DemandController', () => {
 
     await expect(
       controller.create({ name: 'demanda' }, { user: { userId: 'some-id' } }),
-    ).rejects.toThrow('Usuário não existe ou não há company associado.');
+    ).rejects.toThrow('Usuário não existe ou não há empresa associada.');
 
     expect(demandService.create).toHaveBeenCalledTimes(0);
   });
