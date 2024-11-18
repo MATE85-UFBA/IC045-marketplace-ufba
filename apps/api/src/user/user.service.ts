@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './user.dto';
 import { hashPassword, comparePassword } from './utils/hashPassword.util';
+import { UserWithCompany } from '@/types';
 
 @Injectable()
 export class UsersService {
@@ -59,6 +60,24 @@ export class UsersService {
     };
   }
 
+  async findOneWithCompany(id: string): Promise<UserWithCompany> {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        company: true,
+      },
+    });
+
+    if (!user) throw new NotFoundException('Usuário não encontrado');
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _password, resetToken: _resetToken, ...rest } = user;
+
+    return rest;
+  }
+
   async update(id: string, user: CreateUserDto) {
     const updatedUser = await this.prismaService.user.update({
       where: {
@@ -99,7 +118,7 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    return await this.prismaService.user.findUnique({
+    return this.prismaService.user.findUnique({
       where: {
         email,
       },
@@ -107,7 +126,7 @@ export class UsersService {
   }
 
   async updatePassword(id: string, password: string) {
-    return await this.prismaService.user.update({
+    return this.prismaService.user.update({
       where: {
         id,
       },
@@ -118,7 +137,10 @@ export class UsersService {
     });
   }
 
-  async changePassword(id: string, data: { oldPassword: string; newPassword: string }) {
+  async changePassword(
+    id: string,
+    data: { oldPassword: string; newPassword: string },
+  ) {
     const { oldPassword, newPassword } = data;
 
     const user = await this.prismaService.user.findUnique({
@@ -126,7 +148,8 @@ export class UsersService {
         id,
       },
     });
-    if(!user) throw new NotFoundException('Usuário não encontrado');
+
+    if (!user) throw new NotFoundException('Usuário não encontrado');
 
     const isPasswordValid = await comparePassword(oldPassword, user.password);
     if (!isPasswordValid) throw new ForbiddenException('Senha inválida');

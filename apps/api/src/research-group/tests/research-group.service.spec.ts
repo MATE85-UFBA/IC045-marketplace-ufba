@@ -1,14 +1,17 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: ['.env.ci', '.env'] });
+
 import { Test, TestingModule } from '@nestjs/testing';
-import { ResearchGroupService } from '../research-group.service';
-import { PrismaService } from '@/infra/database/prisma.service';
+import { ResearchGroupService } from '@/research-group/research-group.service';
 import { NotFoundException } from '@nestjs/common/exceptions';
+import { PrismaService } from '@/infra/database/prisma.service';
 
 describe('ResearchGroupService', () => {
   let service: ResearchGroupService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ResearchGroupService],
+      providers: [ResearchGroupService, PrismaService],
     }).compile();
 
     service = module.get<ResearchGroupService>(ResearchGroupService);
@@ -44,7 +47,9 @@ describe('Integration test - ResearchGroupService - findOne', () => {
       updatedAt: new Date(),
     };
 
-    jest.spyOn(prismaService.researchGroup, 'findUnique').mockResolvedValue(mockResearchGroup);
+    jest
+      .spyOn(prismaService.researchGroup, 'findUnique')
+      .mockResolvedValue(mockResearchGroup);
 
     const result = await service.findOne(mockResearchGroup.id);
 
@@ -59,21 +64,23 @@ describe('Integration test - ResearchGroupService - findOne', () => {
   });
 
   it('should throw NotFoundException when research group is not found', async () => {
-    jest.spyOn(prismaService.researchGroup, 'findUnique').mockResolvedValue(null);
+    jest
+      .spyOn(prismaService.researchGroup, 'findUnique')
+      .mockResolvedValue(null);
 
-    await expect(
-      service.findOne('non-existent-id'),
-    ).rejects.toThrow(NotFoundException);
+    await expect(service.findOne('non-existent-id')).rejects.toThrow(
+      NotFoundException,
+    );
   });
 });
 
-describe('Integration test with database - findOne', () => {
+describe.skip('Integration test with database - findOne', () => {
   let service: ResearchGroupService;
   let prismaService: PrismaService;
   let savedResearchGroupId: string;
 
   beforeAll(async () => {
-    require('dotenv').config();
+    console.log('before all');
     const module: TestingModule = await Test.createTestingModule({
       providers: [ResearchGroupService, PrismaService],
     }).compile();

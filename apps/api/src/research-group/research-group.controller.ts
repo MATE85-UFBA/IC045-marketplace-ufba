@@ -1,36 +1,39 @@
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    Post,
-    Put,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
 } from '@nestjs/common';
 import { ResearchGroupService } from './research-group.service';
 import { CreateResearchGroupDto } from './research-group.dto';
 
 @Controller('researchgroup')
 export class ResearchGroupController {
-    constructor(private readonly researchGroupsSevice: ResearchGroupService) { }
+  constructor(private readonly researchGroupsSevice: ResearchGroupService) {}
 
-    @Post()
-    create(@Body() researchGroup: CreateResearchGroupDto) {
-        return this.researchGroupsSevice.create(researchGroup);
-    }
+  @Post()
+  create(@Body() researchGroup: CreateResearchGroupDto) {
+    return this.researchGroupsSevice.create(researchGroup);
+  }
 
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.researchGroupsSevice.findOne(id);
-    }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.researchGroupsSevice.findOne(id);
+  }
 
-    @Put(':id')
-    update(@Param('id') id: string, @Body() researchGroup: CreateResearchGroupDto) {
-        return this.researchGroupsSevice.update(id, researchGroup);
-    }
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() researchGroup: CreateResearchGroupDto,
+  ) {
+    return this.researchGroupsSevice.update(id, researchGroup);
+  }
 
-    @Delete(':id')
-    delete(@Param('id') id: string) {
-        return this.researchGroupsSevice.delete(id);
-    }
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.researchGroupsSevice.delete(id);
+  }
 }
