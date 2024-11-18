@@ -1,9 +1,12 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: ['.env.ci', '.env'] });
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { TagsService } from '../tags.service';
-import {PrismaService} from '@/infra/database/prisma.service';
-import {NotFoundException} from '@nestjs/common/exceptions';
+import { PrismaService } from '@/infra/database/prisma.service';
+import { NotFoundException } from '@nestjs/common/exceptions';
 
-describe('Integration test - TagsService', () => {
+describe('TagsService', () => {
   let tagsService: TagsService;
 
   beforeEach(async () => {
@@ -36,11 +39,11 @@ describe('Integration test - findOne', () => {
     const mockTag = {
       id: '94b6ce74-3e80-4968-8956-7d812f4a295a',
       name: 'Inteligência Artificial',
-      created_at: new Date(),
-      updated_at: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
-    jest.spyOn(prismaService.tbTags, 'findUnique').mockResolvedValue(mockTag);
+    jest.spyOn(prismaService.keyword, 'findUnique').mockResolvedValue(mockTag);
 
     const result = await tagsService.findOne(mockTag.id);
 
@@ -51,10 +54,10 @@ describe('Integration test - findOne', () => {
   });
 
   it('should throw NotFoundException when tag is not found', async () => {
-    jest.spyOn(prismaService.tbUsers, 'findUnique').mockResolvedValue(null);
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
 
     await expect(
-        tagsService.findOne('94b6ce74-3d55-4968-8956-7d812f4a295a'),
+      tagsService.findOne('94b6ce74-3d55-4968-8956-7d812f4a295a'),
     ).rejects.toThrow(NotFoundException);
   });
 });
