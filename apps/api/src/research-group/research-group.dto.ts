@@ -1,76 +1,77 @@
-import { IsNotEmpty, IsUrl, IsUUID, IsString, IsOptional, IsArray } from "class-validator";
+import {
+  IsNotEmpty,
+  IsUrl,
+  IsUUID,
+  IsString,
+  IsOptional,
+  IsArray,
+} from 'class-validator';
 
 export class CreateResearchGroupDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
 
-    @IsNotEmpty()
-    @IsString()
-    name: string;
+  @IsNotEmpty()
+  @IsString()
+  description: string;
 
-    @IsNotEmpty()
-    @IsString()
-    description: string;
+  @IsUrl()
+  urlCNPQ?: string;
 
+  @IsString()
+  img?: string;
 
-    @IsUrl()
-    urlCNPQ?: string;
+  @IsNotEmpty()
+  @IsUUID()
+  researcherId: string;
 
+  @IsArray()
+  @IsUUID('all', { each: true })
+  knowledgeAreas?: string[];
 
-    @IsString()
-    img?: string;
+  @IsArray()
+  @IsUUID('all', { each: true })
+  members?: string[];
 
-    @IsNotEmpty()
-    @IsUUID()
-    researcherId: string;
-
-
-    @IsArray()
-    @IsUUID("all", { each: true })
-    knowledgeAreas?: string[];
-
-
-    @IsArray()
-    @IsUUID("all", { each: true })
-    members?: string[];
-
-
-    @IsArray()
-    @IsUUID("all", { each: true })
-    projects?: string[];
+  @IsArray()
+  @IsUUID('all', { each: true })
+  projects?: string[];
 }
 
 export class UpdateResearchGroupDto {
-    @IsOptional()
-    @IsString()
-    name?: string;
+  @IsOptional()
+  @IsString()
+  name?: string;
 
-    @IsOptional()
-    @IsString()
-    description?: string;
+  @IsOptional()
+  @IsString()
+  description?: string;
 
-    @IsOptional()
-    @IsUrl()
-    urlCNPQ?: string;
+  @IsOptional()
+  @IsUrl()
+  urlCNPQ?: string;
 
-    @IsOptional()
-    @IsUrl()
-    img?: string;
+  @IsOptional()
+  @IsUrl()
+  img?: string;
 
-    @IsOptional()
-    @IsUUID()
-    researcherId?: string;
+  @IsOptional()
+  @IsUUID()
+  researcherId?: string;
 
-    @IsOptional()
-    @IsArray()
-    @IsUUID("all", { each: true })
-    knowledgeAreas?: string[];
+  @IsOptional()
+  @IsArray()
+  @IsUUID('all', { each: true })
+  knowledgeAreas?: string[];
 
-    @IsOptional()
-    @IsArray()
-    @IsUUID("all", { each: true })
-    members?: string[];
+  @IsOptional()
+  @IsArray()
+  @IsUUID('all', { each: true })
+  members?: string[];
 
-    @IsOptional()
-    @IsArray()
-    @IsUUID("all", { each: true })
-    projects?: string[];
+  @IsOptional()
+  @IsArray()
+  @IsUUID('all', { each: true })
+  projects?: string[];
 }

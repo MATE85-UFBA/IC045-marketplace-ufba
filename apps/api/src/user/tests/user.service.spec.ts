@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: ['.env.ci', '.env'] });
+
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { UserRole } from '@prisma/client';
@@ -75,7 +78,6 @@ describe('Integration test with database - findOne', () => {
   let savedUserId: string;
 
   beforeAll(async () => {
-    require('dotenv').config();
     const module: TestingModule = await Test.createTestingModule({
       providers: [UsersService, PrismaService],
     }).compile();

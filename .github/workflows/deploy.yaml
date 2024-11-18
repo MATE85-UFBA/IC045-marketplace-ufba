@@ -1,9 +1,11 @@
-name: CI/CD Nexus
+name: Deploy Nexus
 
-on: [pull_request, push]
+on:
+  push:
+    branches: [ "main" ]
 
 jobs:
-  continuous-integration:
+  deploy:
     runs-on: ubuntu-22.04
 
     steps:

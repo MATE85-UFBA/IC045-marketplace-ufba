@@ -1,12 +1,13 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: ['.env.ci', '.env'] });
+
 import { Test, TestingModule } from '@nestjs/testing';
 
-import * as dotenv from 'dotenv';
 import { JwtService } from '@nestjs/jwt';
 import { AuthController } from '@/auth/auth.controller';
 import { AuthService } from '@/auth/auth.service';
 import { UsersService } from '@/user/user.service';
 import { PrismaService } from '@/infra/database/prisma.service';
-dotenv.config();
 
 describe('AuthController', () => {
   let authController: AuthController;
