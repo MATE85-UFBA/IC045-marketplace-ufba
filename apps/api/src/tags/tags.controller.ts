@@ -6,11 +6,13 @@ import {
   Param,
   Delete,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { TagsService } from './tags.service';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
-
+import { JwtAuthGuard } from '@/auth/auth.guard';
+@UseGuards(JwtAuthGuard)
 @Controller('tags')
 export class TagsController {
   constructor(private readonly tagsService: TagsService) {}
@@ -38,5 +40,10 @@ export class TagsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tagsService.remove(id);
+  }
+
+  @Get(':name')
+  findByName(@Param('name') name: string) {
+    return this.tagsService.findByName(name);
   }
 }
