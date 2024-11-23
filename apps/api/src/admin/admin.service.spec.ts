@@ -29,9 +29,9 @@ describe('AdminService', () => {
     prismaService = module.get<PrismaService>(PrismaService);
   });
 
-
   it('should get users', async () => {
-    const users = [{
+    const users = [
+      {
         id: '1',
         name: 'John',
         email: 'john@example.com',
@@ -40,8 +40,9 @@ describe('AdminService', () => {
         img: null,
         resetToken: null,
         createdAt: new Date(),
-        updatedAt: new Date()
-    }];
+        updatedAt: new Date(),
+      },
+    ];
     jest.spyOn(prismaService.user, 'findMany').mockResolvedValue(users);
 
     expect(await service.getUsers()).toEqual(users);
@@ -49,17 +50,20 @@ describe('AdminService', () => {
 
   it('should edit user', async () => {
     const id = '1';
-    const updatedUserData: UpdateUserDto = { email: 'john.doe@example.com', role: UserRole.ADMIN };
-    const updatedUser = { 
-      id, 
-      name: 'John Doe', 
-      email: updatedUserData.email || 'default@example.com', 
-      role: updatedUserData.role || UserRole.USER, 
-      img: null, 
-      password: 'password', 
-      resetToken: null, 
-      createdAt: new Date(), 
-      updatedAt: new Date() 
+    const updatedUserData: UpdateUserDto = {
+      email: 'john.doe@example.com',
+      role: UserRole.ADMIN,
+    };
+    const updatedUser = {
+      id,
+      name: 'John Doe',
+      email: updatedUserData.email || 'default@example.com',
+      role: updatedUserData.role || UserRole.USER,
+      img: null,
+      password: 'password',
+      resetToken: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
     jest.spyOn(prismaService.user, 'update').mockResolvedValue(updatedUser);
 
@@ -73,16 +77,16 @@ describe('AdminService', () => {
 
   it('should delete user', async () => {
     const id = '1';
-    const deletedUser = { 
-      id, 
-      name: 'John', 
-      email: 'john@example.com', 
-      role: UserRole.USER, 
-      password: 'password', 
-      img: null, 
-      resetToken: null, 
-      createdAt: new Date(), 
-      updatedAt: new Date() 
+    const deletedUser = {
+      id,
+      name: 'John',
+      email: 'john@example.com',
+      role: UserRole.USER,
+      password: 'password',
+      img: null,
+      resetToken: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
     jest.spyOn(prismaService.user, 'delete').mockResolvedValue(deletedUser);
 
