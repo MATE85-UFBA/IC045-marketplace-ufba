@@ -49,6 +49,8 @@ export class UpdateUserDto {
   img?: string;
   email?: string;
   password?: string;
+
+  @IsOptional()
   @IsEnum(UserRole)
   role?: UserRole;
 }
