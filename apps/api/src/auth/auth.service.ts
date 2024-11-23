@@ -1,5 +1,6 @@
 import { UsersService } from '@/user/user.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { getUserType } from '@/user/utils/user.types.util';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
@@ -16,20 +17,11 @@ export class AuthService {
     if (user && bcrypt.compareSync(password, user.password)) {
       return user;
     }
-    return null;
-  }
-
-  getUserType(user: any) {
-    if (user.company) {
-      return "company";
-    } else if (user.researcher) {
-      return "researcher";
-    }
-    return "none";
+    throw new UnauthorizedException("Usuário ou senha incorretos.");
   }
 
   async login(user: any) {
-    let utype = this.getUserType(user);
+    let utype = getUserType(user);
     
     const payload = { username: user.name, sub: user.id, img: user.img, role: user.role, utype };
     return {
