@@ -24,4 +24,4 @@ services:
       - "8001:8001"
       - "3000:3000"
       - "5555:5555"
-    entrypoint: sh -c 'npm ci && npx prisma db push && npx prisma generate && npm run seed-db && npx prisma studio && npm run start:dev'
+    entrypoint: sh -c 'npm install && npx prisma db push && npx prisma generate && npm run seed-db && npx prisma studio & npm run start:dev'
