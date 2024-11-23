@@ -32,15 +32,19 @@ describe('AuthController', () => {
 
   describe('root', () => {
     it('should return Invalid credentials when user not found', async () => {
-      const mockBody = { username: 'test', password: 'test' };
+      const mockBody = { email: 'test', password: 'test' };
       const response = await authController.login(mockBody);
 
-      expect(response).toEqual({ message: 'Invalid credentials' });
+      expect(response).toEqual({
+        message: 'Invalid credentials',
+        error: 'Unauthorized',
+        statusCode: 401,
+      });
     });
 
     it('should return jwt token when username and passwords matches', async () => {
       const mockBody = {
-        username: 'luke.skywalker@email.com.br',
+        email: 'luke.skywalker@email.com.br',
         password: 'senhasecreta',
       };
       const response = await authController.login(mockBody);

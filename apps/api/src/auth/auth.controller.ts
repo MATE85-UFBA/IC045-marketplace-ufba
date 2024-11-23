@@ -1,18 +1,24 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  Post,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ResetPasswordDTO, ForgotPasswordDTO } from './auth.dto';
+import { ForgotPasswordDTO, ResetPasswordDTO } from './auth.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  async login(@Body() body: { username: string; password: string }) {
-    const { username, password } = body;
-    const user = await this.authService.validateUser(username, password);
+  async login(@Body() body: { email: string; password: string }) {
+    const { email, password } = body;
+    const user = await this.authService.validateUser(email, password);
 
     if (!user) {
-      return { message: 'Invalid credentials' };
+      throw new UnauthorizedException('Invalid credentials');
     }
     return this.authService.login(user);
   }
