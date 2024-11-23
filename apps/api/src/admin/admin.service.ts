@@ -1,4 +1,4 @@
-import { PrismaService } from '../infra/database/prisma.service';
+import { PrismaService } from '@/infra/database/prisma.service';
 import { UpdateUserDto } from '@/user/user.dto';
 import { Injectable } from '@nestjs/common';
 
@@ -7,7 +7,7 @@ export class AdminService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async getUsers() {
-    return await this.prismaService.user.findMany({
+    return this.prismaService.user.findMany({
       select: {
         id: true,
         name: true,
@@ -32,7 +32,7 @@ export class AdminService {
   }
 
   async deleteUser(id: string) {
-    return await this.prismaService.user.delete({
+    return this.prismaService.user.delete({
       where: { id },
     });
   }
