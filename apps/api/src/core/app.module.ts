@@ -19,7 +19,7 @@ import { AdminModule } from '@/admin/admin.module';
     AuthModule,
     UsersModule,
     DemandModule,
-    AdminModule
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, PrismaService, JwtService],

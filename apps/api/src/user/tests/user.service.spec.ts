@@ -5,7 +5,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { ResearcherType, UserRole } from '@prisma/client';
 import { PrismaService } from '@/infra/database/prisma.service'; // Import PrismaService
-import { NotFoundException, ConflictException } from '@nestjs/common/exceptions';
+import {
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common/exceptions';
 import { UsersService } from '@/user/user.service';
 import { CreateUserDto } from '@/user/user.dto';
 import { hashPassword } from '@/user/utils/hashPassword.util';
@@ -138,10 +141,14 @@ describe('Integration test - UsersService - create', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    
-    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockExistingUser);
 
-    await expect(service.create(mockUserDto)).rejects.toThrow(ConflictException);
+    jest
+      .spyOn(prismaService.user, 'findUnique')
+      .mockResolvedValue(mockExistingUser);
+
+    await expect(service.create(mockUserDto)).rejects.toThrow(
+      ConflictException,
+    );
   });
 });
 

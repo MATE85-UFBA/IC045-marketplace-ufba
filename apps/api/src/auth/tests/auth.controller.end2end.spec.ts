@@ -29,26 +29,25 @@ describe('AuthController (e2e)', () => {
     // Create test user
     const hashedPassword = await bcrypt.hash(testUser.password, 10);
     const createdUser = await prisma.user.create({
-        data: {
-          email: "emailTesting123@email.com",
-          name: "Name for test",
-          password: hashedPassword,
-          role: UserRole.USER,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        },
+      data: {
+        email: 'emailTesting123@email.com',
+        name: 'Name for test',
+        password: hashedPassword,
+        role: UserRole.USER,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
     });
-    createdUserIds.push(createdUser.id)
+    createdUserIds.push(createdUser.id);
   });
 
   afterAll(async () => {
-
     await prisma.user.deleteMany({
       where: {
         id: {
-          in: createdUserIds
-        }
-      }
+          in: createdUserIds,
+        },
+      },
     });
     await app.close();
   });
@@ -71,7 +70,7 @@ describe('AuthController (e2e)', () => {
         username: testUser.username,
         password: testUser.password,
       });
-  
+
     expect(response.body.access_token).toBeDefined();
     expect(response.body.access_token).not.toBeNull();
   });
@@ -98,16 +97,14 @@ describe('AuthController (e2e)', () => {
     expect(response.status).toBe(401);
   });
 
-
   it('/auth/login (POST) - Not providing informaiton', async () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        username: "",
-        password: "",
+        username: '',
+        password: '',
       });
 
     expect(response.status).toBe(401);
   });
-  
 });

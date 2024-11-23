@@ -34,7 +34,9 @@ describe('AuthController', () => {
   describe('root', () => {
     it('should return Invalid credentials when user not found', async () => {
       const mockBody = { username: 'test', password: 'test' };
-      await expect(authController.login(mockBody)).rejects.toThrow(UnauthorizedException);
+      await expect(authController.login(mockBody)).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
 
     it('should return jwt token when username and passwords matches', async () => {

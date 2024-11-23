@@ -1,4 +1,10 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, Matches } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  Matches,
+} from 'class-validator';
 import { ResearcherType, UserRole } from '@prisma/client';
 
 export class CreateCompanyDto {
@@ -40,8 +46,6 @@ export class CreateUserDto {
 
   @IsOptional()
   researcher?: CreateResearcherDto;
-
-
 }
 
 export class UpdateUserDto {
