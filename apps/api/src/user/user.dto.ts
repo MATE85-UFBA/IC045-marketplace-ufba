@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsNotEmpty, Matches } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, Matches } from 'class-validator';
 import { UserRole } from '@prisma/client';
 export class CreateUserDto {
   @IsNotEmpty()
@@ -24,6 +24,8 @@ export class UpdateUserDto {
   img?: string;
   email?: string;
   password?: string;
+
+  @IsOptional()
   @IsEnum(UserRole)
   role?: UserRole;
 }

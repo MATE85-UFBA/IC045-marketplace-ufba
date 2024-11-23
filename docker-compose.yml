@@ -19,9 +19,21 @@ services:
     expose:
       - "8081"
       - "3000"
-      - "5555"
     ports: # use if it is necessary to expose the container to the host machine
       - "8001:8001"
       - "3000:3000"
+    entrypoint: sh -c 'npm install && npx prisma db push && npx prisma generate && npm run seed-db && npm run start:dev'
+
+  prisma:
+    image: "node:22-alpine"
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./apps/api:/home/node/app
+    depends_on:
+      - node
+    expose:
+      - "5555"
+    ports: # use if it is necessary to expose the container to the host machine
       - "5555:5555"
-    entrypoint: sh -c 'npm ci && npx prisma db push && npx prisma generate && npm run seed-db && npx prisma studio && npm run start:dev'
+    entrypoint: sh -c 'npx prisma studio'
