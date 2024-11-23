@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-export async function SeedFields(prisma: PrismaClient) {
+export async function SeedKnowledgeAreas(prisma: PrismaClient) {
   const knowledgeAreas = [
     {
       id: '581a9d3a-e512-47e4-8a9b-3c3a672f9f75',

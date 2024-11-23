@@ -22,7 +22,7 @@ services:
     ports: # use if it is necessary to expose the container to the host machine
       - "8001:8001"
       - "3000:3000"
-    entrypoint: sh -c 'npm ci && npx prisma db push && npx prisma generate && npm run start:dev'
+    entrypoint: sh -c 'npm install && npx prisma db push && npx prisma generate && npm run seed-db && npm run start:dev'
 
   prisma:
     image: "node:22-alpine"
