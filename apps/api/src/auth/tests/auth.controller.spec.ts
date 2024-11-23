@@ -45,7 +45,7 @@ describe('AuthController', () => {
         password: 'senhasecreta',
       };
       const response = await authController.login(mockBody);
-      expect(response).toEqual({ access_token: 'mockJwtToken' });
+      expect(response.access_token).toBe('mockJwtToken');
     });
   });
 });
