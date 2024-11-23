@@ -8,6 +8,9 @@ import { CreateResearchGroupDto } from './research-group.dto';
 
 @Injectable()
 export class ResearchGroupService {
+  findAll() {
+    return this.prismaService.researchGroup.findMany();
+  }
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(group: CreateResearchGroupDto) {
