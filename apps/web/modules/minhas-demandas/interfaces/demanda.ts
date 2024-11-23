@@ -1,6 +1,6 @@
 export interface Demanda {
   id: number;
-  title: string;
+  name: string;
   status: string; //todo fazer um enum
   createdAt: string;
 }

@@ -111,6 +111,7 @@ model Demand {
   name          String
   company       Company        @relation(fields: [companyId], references: [userId])
   companyId     String
+  status        String         @default("CREATED")
   projects      Project[]
   keywords      Keyword[]
   notifications Notification[]

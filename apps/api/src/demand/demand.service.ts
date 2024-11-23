@@ -21,6 +21,14 @@ export class DemandService {
     return this.prismaService.demand.findMany() || [];
   }
 
+  async my(userId: string): Promise<Demand[]> {
+    return (
+      this.prismaService.demand.findMany({
+        where: { companyId: userId },
+      }) || []
+    );
+  }
+
   async delete(id: string) {
     return this.prismaService.demand.delete({ where: { id } });
   }

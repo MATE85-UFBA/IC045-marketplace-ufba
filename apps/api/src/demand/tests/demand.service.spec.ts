@@ -31,6 +31,7 @@ describe('DemandService', () => {
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
+      status: 'CREATED',
       companyId: '123e4567-e89b-12d3-a456-426614174000',
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -75,6 +76,7 @@ describe('DemandService', () => {
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
+      status: 'CREATED',
       companyId: '123e4567-e89b-12d3-a456-426614174000',
       createdAt: new Date(),
       updatedAt: new Date(),
