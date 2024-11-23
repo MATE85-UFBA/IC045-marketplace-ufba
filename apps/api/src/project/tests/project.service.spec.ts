@@ -8,7 +8,7 @@ describe('ProjectService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ProjectService],
+      providers: [ProjectService, PrismaService],
     }).compile();
 
     service = module.get<ProjectService>(ProjectService);
@@ -52,8 +52,12 @@ describe('Integration test - ProjectService - FindOne', () => {
     expect(result).toEqual({
       id: mockProject.id,
       name: mockProject.name,
-      researchGrouyId: mockProject.researchGroupId,
+      started_at: mockProject.started_at,
+      finished_at: mockProject.finished_at,
+      researchGroupId: mockProject.researchGroupId,
       demandId: mockProject.demandId,
+      //createdAt: mockProject.createdAt,
+      //updatedAt: mockProject.updatedAt,
     });
   });
   it('should throw NotFoundException when project is not found', async () => {

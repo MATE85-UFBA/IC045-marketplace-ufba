@@ -6,29 +6,30 @@ import { UpdateProjectDto } from './project.dto';
 @Controller('project')
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
-
-  @Post()
-  create(@Body() project: CreateProjectDto) {
-    return this.projectService.create(project);
-  }
-
-  @Get()
+  
+  @Get('/all')
   findAll() {
     return this.projectService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.projectService.findOne(+id);
+    return this.projectService.findOne(id);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.projectService.delete(id);
+  }
+
+  @Post()
+  create(@Body() project: CreateProjectDto) {
+    return this.projectService.create(project);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() project: UpdateProjectDto) {
-    return this.projectService.update(+id, project);
+    return this.projectService.update(id, project);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.projectService.remove(+id);
-  }
 }

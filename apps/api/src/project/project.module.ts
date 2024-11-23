@@ -4,8 +4,8 @@ import { ProjectController } from './project.controller';
 import { PrismaService } from '@/infra/database/prisma.service';
 
 @Module({
-  controllers: [ProjectController, PrismaService],
-  providers: [ProjectService],
+  controllers: [ProjectController],
+  providers: [ProjectService, PrismaService],
   exports: [ProjectService],
 })
 export class ProjectModule {}

@@ -9,6 +9,8 @@ import { AuthService } from '@/auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { DemandModule } from '@/demand/demand.module';
 import { AdminModule } from '@/admin/admin.module';
+import { ProjectModule } from '@/project/project.module';
+import { ResearchGroupsModule } from '@/research-group/research-group.module';
 
 @Module({
   imports: [
@@ -19,7 +21,9 @@ import { AdminModule } from '@/admin/admin.module';
     AuthModule,
     UsersModule,
     DemandModule,
-    AdminModule
+    AdminModule,
+    ProjectModule,
+    ResearchGroupsModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, PrismaService, JwtService],

@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ResearchGroupService } from './research-group.service';
-import { CreateResearchGroupDto } from './research-group.dto';
+import { CreateResearchGroupDto, UpdateResearchGroupDto } from './research-group.dto';
 
 @Controller('researchgroup')
 export class ResearchGroupController {
@@ -32,7 +32,7 @@ export class ResearchGroupController {
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() researchGroup: CreateResearchGroupDto,
+    @Body() researchGroup: UpdateResearchGroupDto,
   ) {
     return this.researchGroupsSevice.update(id, researchGroup);
   }

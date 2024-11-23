@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateProjectDto } from './project.dto';
+import { CreateProjectDto, UpdateProjectDto } from './project.dto';
 
 @Injectable()
 export class ProjectService {
@@ -13,7 +13,7 @@ export class ProjectService {
   async create(project: CreateProjectDto) {
     const projectAlreadyExists = await this.prismaService.project.findUnique({
       where: {
-        name: project.name,
+        name:project.name
       },
     });
     if (projectAlreadyExists)
@@ -41,9 +41,7 @@ export class ProjectService {
 
   async findOne(id: string) {
     const project = await this.prismaService.project.findUnique({
-      where: {
-        id: id,
-      },
+      where: { id },
     });
 
     if (!project) throw new NotFoundException('Projeto não encontrado');
@@ -58,7 +56,12 @@ export class ProjectService {
     };
   }
 
-  async update(id: string, project: CreateProjectDto) {
+  async findAll() {
+    const projects = await this.prismaService.project.findMany();
+    return projects;
+  }
+
+  async update(id: string, project: UpdateProjectDto) {
     const updatedProject = await this.prismaService.project.update({
       where: {
         id: id,
@@ -84,9 +87,7 @@ export class ProjectService {
 
   async delete(id: string) {
     const project = await this.prismaService.project.delete({
-      where: {
-        id: id,
-      },
+      where: { id },
     });
 
     return {
@@ -97,6 +98,7 @@ export class ProjectService {
       researchGroupId: project.researchGroupId,
       demandId: project.demandId,
     };
+
   }
 
   async findByName(name: string) {

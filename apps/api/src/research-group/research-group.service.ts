@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateResearchGroupDto } from './research-group.dto';
+import { CreateResearchGroupDto, UpdateResearchGroupDto } from './research-group.dto';
 
 @Injectable()
 export class ResearchGroupService {
@@ -62,7 +62,7 @@ export class ResearchGroupService {
     };
   }
 
-  async update(id: string, group: CreateResearchGroupDto) {
+  async update(id: string, group: UpdateResearchGroupDto) {
     const updatedGroup = await this.prismaService.researchGroup.update({
       where: {
         id: id,
