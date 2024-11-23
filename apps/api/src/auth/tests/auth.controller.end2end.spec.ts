@@ -11,7 +11,7 @@ describe('AuthController (e2e)', () => {
   let prisma: PrismaService;
 
   const testUser = {
-    username: 'emailTesting123@email.com',
+    email: 'emailTesting123@email.com',
     password: 'password123',
   };
   const createdUserIds: string[] = [];
@@ -56,7 +56,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        username: testUser.username,
+        email: testUser.email,
         password: testUser.password,
       });
 
@@ -67,7 +67,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        username: testUser.username,
+        email: testUser.email,
         password: testUser.password,
       });
 
@@ -79,7 +79,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        username: 'wronguser',
+        email: 'wronguser',
         password: 'wrongpassword',
       });
 
@@ -90,7 +90,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        username: testUser.username,
+        email: testUser.email,
         password: 'wrongpassword',
       });
 
@@ -101,7 +101,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        username: '',
+        email: '',
         password: '',
       });
 
