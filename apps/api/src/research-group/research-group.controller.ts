@@ -19,6 +19,11 @@ export class ResearchGroupController {
     return this.researchGroupsSevice.create(researchGroup);
   }
 
+  @Get()
+  findAll() {
+    return this.researchGroupsSevice.findAll();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.researchGroupsSevice.findOne(id);
