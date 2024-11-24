@@ -23,6 +23,11 @@ class UserRegisterStore {
     this.isLoading = true;
     this.errorMessage = "";
     
+    if (userData.password != userData.passwordConfirmation) {
+      this.errorMessage = "As senhas não estão iguais."
+      this.isLoading = false;
+      return;
+    }
     try {
       await userService.register(getUserFromData(userData));
       router.push(this.successUrl);

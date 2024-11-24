@@ -28,16 +28,44 @@ import { useState } from "react";
 import registerStore from "../store/user-register/user.register.store";
 import { useRouter } from "next/navigation";
 
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  name: z.string().min(1, "Nome é obrigatório"),
+  email: z.string().email("Email inválido"),
+  password: z
+    .string()
+    .regex(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+      "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial"
+    ),
+  passwordConfirmation: z
+    .string()
+    .regex(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+      "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial"
+    ),
+});
+
 export default observer(function Cadastro() {
-  const form = useForm();
+  const form = useForm({
+    resolver: zodResolver(schema),
+  });
   const router = useRouter();
   const [utype, setUtype] = useState<"empresa" | "pesquisador">("empresa");
 
   const onSubmit = form.handleSubmit(async (data) => {
-    await registerStore.registerUser({
-      name: data.name, email: data.email, utype: utype, password: data.password, 
-      passwordConfirmation: data.passwordConfirmation
-    }, router);
+    await registerStore.registerUser(
+      {
+        name: data.name,
+        email: data.email,
+        utype: utype,
+        password: data.password,
+        passwordConfirmation: data.passwordConfirmation,
+      },
+      router
+    );
   });
 
   return (
@@ -73,6 +101,11 @@ export default observer(function Cadastro() {
         </div>
         <Form {...form}>
           <form onSubmit={onSubmit} style={{ marginTop: 40, width: 320 }}>
+            {registerStore.errorMessage && (
+              <div style={{ color: "red", marginBottom: 16 }}>
+                {registerStore.errorMessage}
+              </div>
+            )}
             <FormField
               control={form.control}
               name="utype"
@@ -104,11 +137,7 @@ export default observer(function Cadastro() {
                 <FormItem style={{ marginTop: 16 }}>
                   <FormLabel style={{ fontSize: 16 }}>Nome</FormLabel>
                   <FormControl>
-                    <Input
-                      style={{ marginTop: 0 }}
-                      placeholder="Digite seu nome"
-                      {...field}
-                    />
+                    <Input style={{ marginTop: 0 }} placeholder="Digite seu nome" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -121,11 +150,7 @@ export default observer(function Cadastro() {
                 <FormItem style={{ marginTop: 16 }}>
                   <FormLabel style={{ fontSize: 16 }}>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      style={{ marginTop: 0 }}
-                      placeholder="Digite seu e-mail"
-                      {...field}
-                    />
+                    <Input style={{ marginTop: 0 }} placeholder="Digite seu e-mail" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
