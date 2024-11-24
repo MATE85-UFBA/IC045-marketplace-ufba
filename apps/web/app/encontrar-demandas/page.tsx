@@ -1,48 +1,16 @@
-import { DemandList } from '@/components/DemandList'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { FiSearch } from "react-icons/fi"
+'use client';
+
+import { DemandList } from '@/components/DemandList';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { FiSearch } from 'react-icons/fi';
+import useGetAllDemands from '@/api/use-get-all-demands';
 
 function EncontrarDemandas() {
-    const demands = [
-        {
-            id: 1,
-            title: "Demanda Nova 01",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Provident animi perspiciatis eveniet dolore maxime veniam similique praesentium at minima, minus excepturi quam repellendus aspernatur consequuntur ut numquam asperiores rerum porro totam saepe eligendi iusto? Distinctio quas consectetur facere, porro quae recusandae quia doloribus consequatur consequuntur fugit quibusdam nam itaque aperiam, amet dicta fugiat harum quo maxime totam accusamus eveniet impedit sit, possimus ipsum. Qui voluptatum iste dolorum eligendi autem placeat minus iusto consequuntur, voluptates accusantium ipsam assumenda? Tempore, at nisi!",
-            keywords: [],
-            company: {
-                id: 1,
-                name: "Empresa BA",
-                image: "",
-                address: {
-                    city: "Salvador",
-                    state: "Bahia",
-                    country: "Brasil",
-                },
-            },
-            createdAt: new Date(2024, 10, 4, 12, 30),
-        },
-        {
-            id: 2,
-            title: "Demanda Nova 02",
-            description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque, iusto quos. Incidunt dignissimos enim aliquam assumenda et. Nihil iste omnis ipsum odit vel similique. Aliquid, sunt dolorem quam inventore tempora nihil vero repudiandae dolorum eaque iure sequi harum fugiat animi quos culpa quaerat placeat aut, sapiente, similique dolore labore perspiciatis maxime a distinctio! Fugiat veritatis, sit laborum, alias animi esse quod ipsam quibusdam eaque tempora eos, nostrum soluta ratione repellendus ea aut eveniet! Ex assumenda nemo amet neque molestiae rerum dolor sequi, obcaecati, facilis repellendus iure animi? Facilis saepe atque dignissimos possimus, rem itaque perspiciatis quibusdam non commodi adipisci et!",
-            keywords: [{ id: 1, label: "machine learning" }, { id: 2, label: "python" }],
-            company: {
-                id: 1,
-                name: "Empresa SP",
-                image: "",
-                address: {
-                    city: "São Paulo",
-                    state: "São Paulo",
-                    country: "Brasil",
-                },
-            },
-            createdAt: new Date(2024, 10, 3, 18, 45),
-        },
-    ]
+    const { data: demands = [] }  = useGetAllDemands();
 
     return <main className='max-w-screen-xl px-8 m-auto grid grid-cols-[auto_1fr] md:gap-3'>
         <h1 className='font-semibold text-4xl mt-12 mb-8 col-span-2'>Encontrar Demandas</h1>

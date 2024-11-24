@@ -18,13 +18,24 @@ export class DemandService {
   }
 
   async all(): Promise<Demand[]> {
-    return this.prismaService.demand.findMany() || [];
+    return (
+      this.prismaService.demand.findMany({
+        include: {
+          company: true,
+          keywords: true,
+        },
+      }) || []
+    );
   }
 
   async my(userId: string): Promise<Demand[]> {
     return (
       this.prismaService.demand.findMany({
         where: { companyId: userId },
+        include: {
+          company: true,
+          keywords: true,
+        },
       }) || []
     );
   }
