@@ -9,6 +9,9 @@ export class CreateDemandDTO {
 }
 
 export class UpdateDemandDTO {
-  name: string;
-  description: string;
+  @IsNotEmpty()
+  name?: string;
+
+  @IsNotEmpty()
+  description?: string;
 }

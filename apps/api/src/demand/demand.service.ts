@@ -9,6 +9,7 @@ export class DemandService {
 
   async create(demand: CreateDemandDTO, companyId: string): Promise<Demand> {
     const { name, description } = demand;
+
     return this.prismaService.demand.create({
       data: {
         companyId: companyId,

@@ -106,6 +106,7 @@ describe.only('DemandController (e2e)', () => {
   it('/demand (POST)', async () => {
     const newDemand = {
       name: 'Test Demand',
+      description: 'test description',
     };
 
     const response = await request(app.getHttpServer())
