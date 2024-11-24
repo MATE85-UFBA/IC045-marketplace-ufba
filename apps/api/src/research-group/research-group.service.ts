@@ -61,6 +61,7 @@ export class ResearchGroupService {
       description: group.description,
       urlCNPQ: group.urlCNPQ,
       img: group.img,
+      researcherId: group.researcherId,
       leader: group.leader,
     };
   }
@@ -84,6 +85,7 @@ export class ResearchGroupService {
       description: group.description,
       urlCNPQ: group.urlCNPQ,
       img: group.img,
+      researcherId: group.researcherId,
       leader: group.leader,
       members: group.members,
     };
@@ -108,6 +110,7 @@ export class ResearchGroupService {
       description: group.description,
       urlCNPQ: group.urlCNPQ,
       img: group.img,
+      researcherId: group.researcherId,
       leader: group.leader,
       projects: group.projects,
     };
@@ -133,6 +136,7 @@ export class ResearchGroupService {
       description: group.description,
       urlCNPQ: group.urlCNPQ,
       img: group.img,
+      researcherId: group.researcherId,
       leader: group.leader,
       projects: group.projects,
       members: group.members,
