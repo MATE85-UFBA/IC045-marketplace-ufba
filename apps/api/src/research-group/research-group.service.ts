@@ -122,8 +122,8 @@ export class ResearchGroupService {
   async findOneComplete(id: string) {
     const group = await this.prismaService.researchGroup.findUnique({
       where: {
-        id, 
-      }, 
+        id
+      },
       include: {
         leader: true,
         projects: true,
