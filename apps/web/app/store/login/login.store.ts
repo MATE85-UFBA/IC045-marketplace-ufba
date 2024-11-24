@@ -1,15 +1,19 @@
-import { makeAutoObservable } from 'mobx';
-import { deleteUserFromLocalStorage, persistUserToLocalStorage } from './login.actions';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { makeAutoObservable } from "mobx";
+import userService from "../../service/user.service";
+import {
+  persistUserToLocalStorage,
+  deleteUserFromLocalStorage,
+} from "../../service/auth.storage";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { User } from "./login.types";
 
 class LoginStore {
-  user: { email: string; token: string | null } | null = null;
-  isLoggedIn: boolean = false;
   isLoading: boolean = false;
-  isAuthenticated = false;
+  isAuthenticated: boolean = false;
   errorMessage: string = "";
-  
-  whenLoginSucessURL: string = "/"
+  user: User | null = null;
+
+  whenLoginSuccessURL: string = "/";
 
   constructor() {
     makeAutoObservable(this);
@@ -18,32 +22,22 @@ class LoginStore {
   async login(email: string, password: string, router: AppRouterInstance) {
     this.isLoading = true;
     this.errorMessage = "";
-    
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    }).then( async (value: Response) => {
-     
-      const content = await value.json();
-      if (value.ok) {
-        persistUserToLocalStorage(content);
-        router.push(this.whenLoginSucessURL);
-        this.isAuthenticated = true;
-      } else {
-        this.errorMessage = "Falha no login.";
-      }
-      
-    }).catch( async (reason) => {
-      this.errorMessage = "Falha no login";
-    }).finally( async () => {
+
+    try {
+      const user: User = await userService.login(email, password);
+      this.user = user;
+      persistUserToLocalStorage(user);
+      this.isAuthenticated = true;
+      router.push(this.whenLoginSuccessURL);
+    } catch (error: any) {
+      this.errorMessage = error.message || "Login failed.";
+    } finally {
       this.isLoading = false;
-    });
+    }
   }
 
   reset() {
+    this.user = null;
     this.isLoading = false;
     this.isAuthenticated = false;
     this.errorMessage = "";
@@ -51,7 +45,7 @@ class LoginStore {
 
   logout() {
     this.user = null;
-    this.isLoggedIn = false;
+    this.isAuthenticated = false;
     deleteUserFromLocalStorage();
   }
 }
