@@ -52,7 +52,7 @@ const MinhasDemandasTable = ({ data }: Params) => {
     getPaginationRowModel: getPaginationRowModel(),
   });
   return (
-    <div className="bg-white rounded-2xl px-6 py-8">
+    <div className="bg-white rounded-2xl px-3 py-4">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
