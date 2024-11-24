@@ -8,10 +8,11 @@ export class DemandService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(demand: CreateDemandDTO, companyId: string): Promise<Demand> {
-    const { name } = demand;
+    const { name, description } = demand;
     return this.prismaService.demand.create({
       data: {
         companyId: companyId,
+        description: description,
         name: name,
       },
     });
