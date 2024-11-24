@@ -1,4 +1,4 @@
-import { 
+import {
   Controller,
   Get,
   Post,
@@ -6,7 +6,7 @@ import {
   Param,
   Delete,
   Put,
-  NotFoundException
+  NotFoundException,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './project.dto';
@@ -20,7 +20,7 @@ export class ProjectController {
     private readonly projectService: ProjectService,
     private readonly researchGroupService: ResearchGroupService,
   ) {}
-  
+
   @Get('/all')
   findAll() {
     return this.projectService.findAll();
@@ -37,10 +37,12 @@ export class ProjectController {
   }
 
   @Post()
-  async create( @Body() project: CreateProjectDto ) {
-    const researchGroup = await this.researchGroupService.findOne(project.researchGroupId);
+  async create(@Body() project: CreateProjectDto) {
+    const researchGroup = await this.researchGroupService.findOne(
+      project.researchGroupId,
+    );
 
-    if(!researchGroup){
+    if (!researchGroup) {
       throw new NotFoundException('Grupo de Pesquisa não existe');
     }
 

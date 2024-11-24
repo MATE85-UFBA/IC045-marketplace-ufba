@@ -4,7 +4,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateResearchGroupDto, UpdateResearchGroupDto } from './research-group.dto';
+import {
+  CreateResearchGroupDto,
+  UpdateResearchGroupDto,
+} from './research-group.dto';
 
 @Injectable()
 export class ResearchGroupService {
@@ -119,11 +122,11 @@ export class ResearchGroupService {
   async findOneComplete(id: string) {
     const group = await this.prismaService.researchGroup.findUnique({
       where: {
-        id,
-      },
-      include:{
-        leader:true,
-        projects:true,
+        id, 
+      }, 
+      include:{ 
+        leader:true, 
+        projects:true, 
         members:true,
       },
     });

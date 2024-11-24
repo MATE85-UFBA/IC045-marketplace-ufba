@@ -11,10 +11,10 @@ import { Project } from '@prisma/client';
 export class ProjectService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(project: CreateProjectDto): Promise<Project>{
+  async create(project: CreateProjectDto): Promise<Project> {
     const projectAlreadyExists = await this.prismaService.project.findFirst({
       where: {
-        name:project.name
+        name: project.name,
       },
     });
     if (projectAlreadyExists)
@@ -101,7 +101,6 @@ export class ProjectService {
       researchGroupId: project.researchGroupId,
       demandId: project.demandId,
     };
-
   }
 
   async findByName(name: string) {

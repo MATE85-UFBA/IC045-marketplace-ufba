@@ -37,7 +37,7 @@ export class CreateResearchGroupDto {
   @IsArray()
   @IsUUID('all', { each: true })
   members?: string[];
-  
+
   @IsOptional()
   @IsArray()
   @IsUUID('all', { each: true })

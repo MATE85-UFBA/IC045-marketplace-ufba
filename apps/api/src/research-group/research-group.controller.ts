@@ -9,15 +9,16 @@ import {
   Query,
 } from '@nestjs/common';
 import { ResearchGroupService } from './research-group.service';
-import { CreateResearchGroupDto, UpdateResearchGroupDto } from './research-group.dto';
+import {
+  CreateResearchGroupDto,
+  UpdateResearchGroupDto,
+} from './research-group.dto';
 
 
 //TODO colocar os useGuard
 @Controller('researchgroup')
 export class ResearchGroupController {
-  constructor(
-    private readonly researchGroupsService: ResearchGroupService,
-  ) {}
+  constructor( private readonly researchGroupsService: ResearchGroupService ) {}
 
   @Post()
   async create(@Body() researchGroup: CreateResearchGroupDto) {
@@ -36,13 +37,13 @@ export class ResearchGroupController {
     @Query('members') members?: boolean,
     @Query('projects') projects?: boolean,
   ) {
-    if(members && projects){
+    if (members && projects) {
       return this.researchGroupsService.findOneComplete(id);
     }
-    if(members){
+    if (members) {
       return this.researchGroupsService.findOneWithMembers(id);
     }
-    if(projects){
+    if (projects) {
       return this.researchGroupsService.findOneWithProjects(id);
     }
     return this.researchGroupsService.findOne(id);
