@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ResearchGroupService } from './research-group.service';
 import { CreateResearchGroupDto, UpdateResearchGroupDto } from './research-group.dto';
@@ -15,23 +16,36 @@ import { CreateResearchGroupDto, UpdateResearchGroupDto } from './research-group
 @Controller('researchgroup')
 export class ResearchGroupController {
   constructor(
-    private readonly researchGroupsSevice: ResearchGroupService,
+    private readonly researchGroupsService: ResearchGroupService,
   ) {}
 
   @Post()
   async create(@Body() researchGroup: CreateResearchGroupDto) {
     //TODO Verificar se um líder de projeto existe e se é um Pesquisador
-    return this.researchGroupsSevice.create(researchGroup);
+    return this.researchGroupsService.create(researchGroup);
   }
 
   @Get('/all')
   findAll() {
-    return this.researchGroupsSevice.findAll();
+    return this.researchGroupsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.researchGroupsSevice.findOne(id);
+  findOne(
+    @Param('id') id: string,
+    @Query('members') members?: boolean,
+    @Query('projects') projects?: boolean,
+  ) {
+    if(members && projects){
+      return this.researchGroupsService.findOneComplete(id);
+    }
+    if(members){
+      return this.researchGroupsService.findOneWithMembers(id);
+    }
+    if(projects){
+      return this.researchGroupsService.findOneWithProjects(id);
+    }
+    return this.researchGroupsService.findOne(id);
   }
 
   @Put(':id')
@@ -40,11 +54,11 @@ export class ResearchGroupController {
     @Body() researchGroup: UpdateResearchGroupDto,
   ) {
     //TODO ampliar regras de validação
-    return this.researchGroupsSevice.update(id, researchGroup);
+    return this.researchGroupsService.update(id, researchGroup);
   }
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return this.researchGroupsSevice.delete(id);
+    return this.researchGroupsService.delete(id);
   }
 }
