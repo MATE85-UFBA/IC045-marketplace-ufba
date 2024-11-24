@@ -6,7 +6,8 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -23,6 +24,7 @@
     "date-fns": "^4.1.0",
     "lucide-react": "^0.452.0",
     "mobx": "^6.13.5",
+    "mobx-react-lite": "^4.0.7",
     "next": "14.2.15",
     "next-auth": "^4.24.8",
     "react": "^18",
@@ -39,6 +41,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cypress": "^13.16.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.15",
     "postcss": "^8",
