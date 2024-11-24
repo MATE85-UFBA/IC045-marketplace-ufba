@@ -11,6 +11,7 @@ import { DemandModule } from '@/demand/demand.module';
 import { AdminModule } from '@/admin/admin.module';
 import { ProjectModule } from '@/project/project.module';
 import { ResearchGroupsModule } from '@/research-group/research-group.module';
+import { ResearchersModule } from '@/researchers/researchers.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ResearchGroupsModule } from '@/research-group/research-group.module';
     AdminModule,
     ProjectModule,
     ResearchGroupsModule,
+    ResearchersModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, PrismaService, JwtService],
