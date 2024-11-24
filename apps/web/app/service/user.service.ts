@@ -5,12 +5,23 @@ class UserService {
 
     userUrl: string = `${process.env.NEXT_PUBLIC_API_URL}`;
 
+    async handleAuthResponse(response: Response) {
+        const data = await response.json();
+        if (!response.ok) {
+            const errorMessage = data?.message || 'Falha no login';
+            throw new Error(errorMessage);
+        }
+        return data;
+    }
+
     async login(email: string, password: string) {
-        return (await httpService.post(`${this.userUrl}/auth/login`, { email, password })).json();
+        const response = await httpService.post('/auth/login', { email, password });
+        return await this.handleAuthResponse(response);
     }
 
     async register(user: CreateUser) {
-        return (await httpService.post(`${this.userUrl}/users`, {user})).json();
+        const response = await httpService.post('/users', {...user});
+        return await this.handleAuthResponse(response);
     }
 
     async getUserProfile() {
