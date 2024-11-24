@@ -1,45 +1,79 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { UsersService } from '@/user/user.service';
+import { getUserType } from '@/user/utils/user.types.util';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly usersService: UsersService,
+  ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
-    // Valide o usuário no banco de dados (exemplo simplificado)
-    const user = await this.findUserByUsername(username);
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.usersService.findByEmail(email);
 
     if (user && bcrypt.compareSync(password, user.password)) {
       return user;
     }
-    return null;
-  }
-
-  async findUserByUsername(username: string) {
-    // Simulação de um banco de dados fake
-    const fakeUsers = [
-      {
-        id: 1,
-        username: 'joao',
-        password: await bcrypt.hash('123456', 10), // Senha criptografada
-      },
-      {
-        id: 2,
-        username: 'maria',
-        password: await bcrypt.hash('123456', 10),
-      },
-    ];
-
-    // Busca o usuário no array fake
-    return fakeUsers.find((user) => user.username === username);
+    throw new UnauthorizedException('Usuário ou senha incorretos.');
   }
 
   async login(user: any) {
-    const payload = { username: user.username, sub: user.id };
+    const utype = getUserType(user);
 
+    const payload = {
+      username: user.name,
+      sub: user.id,
+      img: user.img,
+      role: user.role,
+      utype,
+    };
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async forgotPassword(email: string) {
+    const user = await this.usersService.findByEmail(email);
+
+    if (user) {
+      const payload = { email };
+      this.jwtService.sign(payload, {
+        secret: process.env.JWT_PASSWORD_TOKEN_SECRET,
+        expiresIn: process.env.JWT_PASSWORD_TOKEN_EXPIRATION,
+      });
+      // TODO send email with token
+
+      return { message: 'Password reset email sent' };
+    }
+    return { message: 'Invalid email' };
+  }
+
+  async resetPassword(token: string, password: string) {
+    try {
+      const payload = this.jwtService.verify(token, {
+        secret: process.env.JWT_PASSWORD_TOKEN_SECRET,
+      });
+
+      const user = await this.usersService.findByEmail(payload.email);
+
+      if (user) {
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        await this.usersService.updatePassword(user.id, hashedPassword);
+
+        return { message: 'Password has been reset' };
+      }
+    } catch (error) {
+      if (error?.name === 'TokenExpiredError') {
+        throw new BadRequestException('Email confirmation token expired');
+      }
+      throw new BadRequestException('Bad confirmation token');
+    }
   }
 }

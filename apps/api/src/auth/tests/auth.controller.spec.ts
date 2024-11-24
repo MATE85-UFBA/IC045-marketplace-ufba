@@ -1,10 +1,14 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: ['.env.ci', '.env'] });
+
 import { Test, TestingModule } from '@nestjs/testing';
 
-import * as dotenv from 'dotenv';
 import { JwtService } from '@nestjs/jwt';
 import { AuthController } from '@/auth/auth.controller';
 import { AuthService } from '@/auth/auth.service';
-dotenv.config();
+import { UsersService } from '@/user/user.service';
+import { PrismaService } from '@/infra/database/prisma.service';
+import { UnauthorizedException } from '@nestjs/common';
 
 describe('AuthController', () => {
   let authController: AuthController;
@@ -19,6 +23,8 @@ describe('AuthController', () => {
       providers: [
         AuthService,
         { provide: JwtService, useValue: mockJwtService },
+        UsersService,
+        PrismaService,
       ],
     }).compile();
 
@@ -27,16 +33,18 @@ describe('AuthController', () => {
 
   describe('root', () => {
     it('should return Invalid credentials when user not found', async () => {
-      const mockBody = { username: 'test', password: 'test' };
-      const response = await authController.login(mockBody);
-
-      expect(response).toEqual({ message: 'Invalid credentials' });
+      const mockBody = { email: 'test', password: 'test' };
+      await expect(authController.login(mockBody)).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
 
     it('should return jwt token when username and passwords matches', async () => {
-      const mockBody = { username: 'joao', password: '123456' };
+      const mockBody = {
+        email: 'luke.skywalker@email.com.br',
+        password: 'senhasecreta',
+      };
       const response = await authController.login(mockBody);
-
       expect(response).toEqual({ access_token: 'mockJwtToken' });
     });
   });

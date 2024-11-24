@@ -1,0 +1,22 @@
+name: Deploy Nexus
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: "Copiar arquivos para a VPS"
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{secrets.HOST}} 
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          port: ${{secrets.PORT}}
+          source: "."
+          target: "/home/nexus"

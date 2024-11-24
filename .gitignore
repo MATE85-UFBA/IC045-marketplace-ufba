@@ -1,1 +1,3 @@
 .idea
+apps/api/yarn.lock
+apps/web/yarn.lock

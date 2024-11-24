@@ -9,7 +9,7 @@ O projeto NEXUS proposto como forma de avaliação da disciplina **IC045/MATE85 
 - **Back-end**: Node.js/Nest.js
 - **Front-end**: React/Next.js
 - **Banco de Dados**: PostgreSQL
-- **Cloud**: Oracle/VPS
+- **Cloud**: Hostinger/VPS
 
 ## Requisitos do Sistema
 
@@ -19,25 +19,53 @@ A proposta dos requisitos do sistema estão descritos em formato de Histórias d
 
 A elaboração do protótipo foi desenvolvida na plataforma **figma**. Para ter acesso ao protótipo, <a href="https://www.figma.com/design/U5N3RoAaeq6vumpVkFnAS5/Captador-Grupo-de-Pesquisa" target="_blank">clique aqui</a>.
 
+## Arquitetura
+
+A elaboração da arquitetura foi desenvolvida na plataforma **diagrams.net**. Para ter acesso à arquitetura, <a href="https://app.diagrams.net/#G1FRVE7PX1_m17UYSkPEMUprJo9rQqdlKX" target="_blank">clique aqui</a>.
+
 ## Ambiente e Instalação
 
 ## Time de Desenvolvimento
 
+### Squad Alfa - Pesquisador e Grupo de Pesquisa
+- [Felipe Vieira](https://github.com/felipejrvieira)
 - [Matheus Barretto](https://github.com/mattd-silva22)
+- [Erick Ferreira](https://github.com/EFBN0)
+- [Matheus Marçal](https://github.com/zxmatheus)
+- [Pierre Lucas](https://github.com/erreip-m)
+- [Raphael Matos](https://github.com/raphamdc)
+
+### Squad Beta - Autenticação e Administrador
+- [Joel Pires](https://github.com/joel021)
+- [Fabio Lopes](https://github.com/flgomes94)
+- [Bruno Behrmann](https://github.com/BrunoBehrmann)
+- [Marcos Vinicius](https://github.com/mvcs08)
+- [Israel Pedreira](https://github.com/israelpedreira)
+- [Davi Azevedo](https://github.com/DvAzevedo)
+- [Marcelo]
+
+### Squad Gama - Empresa e Demandas
+- [Paulo Macêdo](https://github.com/prmacedo)
 - [Matheus Quevedo](https://github.com/matheusquevedodev)
 - [Carlos Eduardo Vasconcelos](https://github.com/EduardoVasconceloss)
 - [Pedro](https://github.com/1pedro)
 - [João Pedro](https://github.com/JhonPrFer)
-- [Felipe Vieira](https://github.com/felipejrvieira)
 - [Jonathan Bispo ](https://github.com/jonathanbisp)
-- [Israel Pedreira](https://github.com/israelpedreira)
-- [Matheus Marçal](https://github.com/zxmatheus)
-- [Erick Ferreira](https://github.com/EFBN0)
-- [Bruno Behrmann](https://github.com/BrunoBehrmann)
-- [Paulo Macêdo](https://github.com/prmacedo)
-- [Joel Pires](https://github.com/joel021)
-- [Davi Azevedo](https://github.com/DvAzevedo)
-- [Marcos Vinicius](https://github.com/mvcs08)
-- [Pierre Lucas](https://github.com/erreip-m)
-- [Fabio Lopes](https://github.com/flgomes94)
+
+
+
+
+url: http://195.200.2.55:3001/cadastro-demanda
+
+
+
+
+
+
+
+
+
+
+
+
 

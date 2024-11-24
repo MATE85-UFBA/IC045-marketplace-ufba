@@ -1,34 +1,29 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
+
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
-import { SeedFields } from './seed/fields';
-import { SeedTags } from './seed/tags';
+import { SeedKnowledgeAreas } from './seed/knowledgeareas';
+import { SeedKeywords } from './seed/keywords';
+import { SeedUsers } from './seed/users';
+import { SeedResearchers } from './seed/researchers';
+import { SeedResearchGroups } from './seed/researchgroups';
+import { SeedProjects } from './seed/projects';
+import { SeedCompanies } from './seed/companies';
+import { SeedDemands } from './seed/demands';
+import { SeedNotifications } from './seed/notifications';
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // Criar usuários de exemplo
-  // const user1 = await prisma.tbUsuario.create({
-  //   data: {
-  //     nome: 'Alice Silva',
-  //     img: 'https://example.com/alice.jpg',
-  //     email: 'alice@example.com',
-  //     senha: await bcrypt.hash('123456', 10), // Em produção, não armazene senhas em texto plano
-  //     id_papel: 1, // Ajuste conforme necessário
-  //   },
-  // });
-
-  // const user2 = await prisma.tbUsuario.create({
-  //   data: {
-  //     nome: 'João Souza',
-  //     img: 'https://example.com/joao.jpg',
-  //     email: 'joao@example.com',
-  //     senha: await bcrypt.hash('123456', 10), // Em produção, não armazene senhas em texto plano
-  //     id_papel: 2, // Ajuste conforme necessário
-  //   },
-  // });
-
-  await SeedFields(prisma);
-  await SeedTags(prisma);
+  await SeedKnowledgeAreas(prisma);
+  await SeedKeywords(prisma);
+  await SeedUsers(prisma);
+  await SeedResearchers(prisma);
+  await SeedResearchGroups(prisma);
+  await SeedCompanies(prisma);
+  await SeedProjects(prisma);
+  await SeedDemands(prisma);
+  await SeedNotifications(prisma);
 
   console.log('Banco de dados preenchido com dados padrão.');
 }
