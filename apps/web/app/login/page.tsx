@@ -21,7 +21,7 @@ const Login = observer(() => {
   });
 
   async function loginUser(data: LoginUserFormData) {
-    await loginStore.login(data.email, data.password, router);
+    await loginStore.login(data.email, data.password, router);  // Pass router to login method
   }
   
   return (
