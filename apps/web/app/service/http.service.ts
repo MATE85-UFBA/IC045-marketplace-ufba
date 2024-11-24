@@ -10,10 +10,10 @@ class HttpService {
     }
   
     private getHeaders(additionalHeaders: Record<string, string> = {}): HeadersInit {
-      const user: User = loadUserFromLocalStorage();
+      const user: User| undefined = loadUserFromLocalStorage();
       return {
         "Content-Type": "application/json",
-        ...(user.access_token && { Authorization: `Bearer ${user.access_token}` }),
+        ...(user?.access_token && { Authorization: `Bearer ${user.access_token}` }),
         ...additionalHeaders,
       };
     }
