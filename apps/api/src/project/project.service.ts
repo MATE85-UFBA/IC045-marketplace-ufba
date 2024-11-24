@@ -5,12 +5,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateProjectDto, UpdateProjectDto } from './project.dto';
+import { Project } from '@prisma/client';
 
 @Injectable()
 export class ProjectService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(project: CreateProjectDto) {
+  async create(project: CreateProjectDto): Promise<Project>{
     const projectAlreadyExists = await this.prismaService.project.findUnique({
       where: {
         name:project.name
@@ -36,6 +37,8 @@ export class ProjectService {
       finished_at: createdProject.finished_at,
       researchGroupId: createdProject.researchGroupId,
       demandId: createdProject.demandId,
+      createdAt: createdProject.createdAt,
+      updatedAt: createdProject.updatedAt,
     };
   }
 

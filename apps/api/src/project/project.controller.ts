@@ -1,11 +1,16 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, Request, NotFoundException } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './project.dto';
 import { UpdateProjectDto } from './project.dto';
+import { ResearchGroupService } from '@/research-group/research-group.service';
 
+//TODO colocar os useGuard
 @Controller('project')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor(
+    private readonly projectService: ProjectService,
+    private readonly researchGroupService: ResearchGroupService,
+  ) {}
   
   @Get('/all')
   findAll() {
@@ -23,7 +28,17 @@ export class ProjectController {
   }
 
   @Post()
-  create(@Body() project: CreateProjectDto) {
+  async create(
+    @Body() project: CreateProjectDto
+  ) {
+    const researchGroup = await this.researchGroupService.findOne(project.researchGroupId);
+
+    if(!researchGroup){
+      throw new NotFoundException(
+        'Grupo de Pesquisa não existe',
+      );
+    }
+
     return this.projectService.create(project);
   }
 

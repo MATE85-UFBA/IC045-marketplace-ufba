@@ -10,16 +10,21 @@ import {
 import { ResearchGroupService } from './research-group.service';
 import { CreateResearchGroupDto, UpdateResearchGroupDto } from './research-group.dto';
 
+
+//TODO colocar os useGuard
 @Controller('researchgroup')
 export class ResearchGroupController {
-  constructor(private readonly researchGroupsSevice: ResearchGroupService) {}
+  constructor(
+    private readonly researchGroupsSevice: ResearchGroupService,
+  ) {}
 
   @Post()
-  create(@Body() researchGroup: CreateResearchGroupDto) {
+  async create(@Body() researchGroup: CreateResearchGroupDto) {
+    //TODO Verificar se um líder de projeto existe e se é um Pesquisador
     return this.researchGroupsSevice.create(researchGroup);
   }
 
-  @Get()
+  @Get('/all')
   findAll() {
     return this.researchGroupsSevice.findAll();
   }
@@ -34,6 +39,7 @@ export class ResearchGroupController {
     @Param('id') id: string,
     @Body() researchGroup: UpdateResearchGroupDto,
   ) {
+    //TODO ampliar regras de validação
     return this.researchGroupsSevice.update(id, researchGroup);
   }
 

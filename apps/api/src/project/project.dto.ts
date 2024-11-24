@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsDate,
   IsDateString,
+  IsISO8601,
 } from 'class-validator';
 
 export class CreateProjectDto {
@@ -13,18 +14,18 @@ export class CreateProjectDto {
   name: string;
 
   @IsNotEmpty()
-  @IsDate()
+  @IsISO8601()
   started_at: Date;
 
   @IsOptional()
-  @IsDate()
+  @IsISO8601()
   finished_at?: Date;
 
   @IsNotEmpty()
   @IsUUID()
   researchGroupId: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsUUID()
   demandId: string;
 }
@@ -35,11 +36,11 @@ export class UpdateProjectDto {
   name?: string;
 
   @IsOptional()
-  @IsDate()
+  @IsISO8601()
   started_at?: Date;
 
   @IsOptional()
-  @IsDate()
+  @IsISO8601()
   finished_at?: Date;
 
   @IsOptional()

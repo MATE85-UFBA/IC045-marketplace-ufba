@@ -16,9 +16,11 @@ export class CreateResearchGroupDto {
   @IsString()
   description: string;
 
+  @IsOptional()
   @IsUrl()
   urlCNPQ?: string;
 
+  @IsOptional()
   @IsString()
   img?: string;
 
@@ -26,14 +28,17 @@ export class CreateResearchGroupDto {
   @IsUUID()
   researcherId: string;
 
+  @IsOptional()
   @IsArray()
   @IsUUID('all', { each: true })
   knowledgeAreas?: string[];
 
+  @IsOptional()
   @IsArray()
   @IsUUID('all', { each: true })
   members?: string[];
-
+  
+  @IsOptional()
   @IsArray()
   @IsUUID('all', { each: true })
   projects?: string[];
