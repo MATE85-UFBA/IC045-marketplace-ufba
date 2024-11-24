@@ -51,8 +51,8 @@ export class ResearchGroupService {
       where: {
         id,
       },
-      include:{
-        leader:true,
+      include: {
+        leader: true,
       },
     });
 
@@ -74,9 +74,9 @@ export class ResearchGroupService {
       where: {
         id,
       },
-      include:{
-        leader:true,
-        members:true,
+      include: {
+        leader: true,
+        members: true,
       },
     });
 
@@ -99,9 +99,9 @@ export class ResearchGroupService {
       where: {
         id,
       },
-      include:{
-        leader:true,
-        projects:true,
+      include: {
+        leader: true,
+        projects: true,
       },
     });
 
@@ -124,10 +124,10 @@ export class ResearchGroupService {
       where: {
         id, 
       }, 
-      include:{ 
-        leader:true, 
-        projects:true, 
-        members:true,
+      include: {
+        leader: true,
+        projects: true,
+        members: true,
       },
     });
 

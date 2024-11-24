@@ -14,11 +14,10 @@ import {
   UpdateResearchGroupDto,
 } from './research-group.dto';
 
-
 //TODO colocar os useGuard
 @Controller('researchgroup')
 export class ResearchGroupController {
-  constructor( private readonly researchGroupsService: ResearchGroupService ) {}
+  constructor(private readonly researchGroupsService: ResearchGroupService) {}
 
   @Post()
   async create(@Body() researchGroup: CreateResearchGroupDto) {
