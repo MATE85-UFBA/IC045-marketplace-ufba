@@ -44,7 +44,7 @@ function EncontrarDemandas() {
         },
     ]
 
-    return <main className='max-w-screen-xl px-8 m-auto grid grid-cols-[auto_1fr] md:gap-3'>
+    return <main className='max-w-screen-xl px-8 mx-auto mb-auto grid grid-cols-[auto_1fr] md:gap-3'>
         <h1 className='font-semibold text-4xl mt-12 mb-8 col-span-2'>Encontrar Demandas</h1>
 
         <aside className='bg-white h-fit border py-8 px-6 rounded-2xl min-w-60 lg:min-w-80 hidden md:flex md:flex-col md:gap-5 row-span-2'>
