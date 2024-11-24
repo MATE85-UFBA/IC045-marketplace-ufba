@@ -18,6 +18,22 @@ export async function SeedUsers(prisma: PrismaClient) {
       password: await hashPassword('superpassword'),
     },
     {
+      id: '09e1f3d8-6ff2-4187-8e99-55de3fb97040',
+      name: 'NVidia',
+      email: 'atendimento@nvidia.com',
+      role: UserRole.USER,
+      img: '',
+      password: await hashPassword('supernvidia'),
+    },
+    {
+      id: '0e1bc090-3273-4eb9-acdd-e214e8cd724f',
+      name: 'Coelba',
+      email: 'atendimento@coelba.com.br',
+      role: UserRole.USER,
+      img: '',
+      password: await hashPassword('supercoelba'),
+    },
+    {
       name: 'Luke Skywalker',
       email: 'luke.skywalker@email.com.br',
       role: UserRole.USER,
@@ -38,6 +54,14 @@ export async function SeedUsers(prisma: PrismaClient) {
       role: UserRole.USER,
       img: '',
       password: await hashPassword('senhastarwars'),
+    },
+    {
+      id: '6d78e1e5-5917-4a81-bce6-65610e79d4f1',
+      name: 'Fred Durão',
+      email: 'fred.durao@email.com.br',
+      role: UserRole.ADMIN,
+      img: '',
+      password: await hashPassword('senhaufba'),
     },
   ];
 

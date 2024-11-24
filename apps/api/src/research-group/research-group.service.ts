@@ -4,7 +4,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateResearchGroupDto } from './research-group.dto';
+import {
+  CreateResearchGroupDto,
+  UpdateResearchGroupDto,
+} from './research-group.dto';
 
 @Injectable()
 export class ResearchGroupService {
@@ -46,7 +49,10 @@ export class ResearchGroupService {
   async findOne(id: string) {
     const group = await this.prismaService.researchGroup.findUnique({
       where: {
-        id: id,
+        id,
+      },
+      include: {
+        leader: true,
       },
     });
 
@@ -59,10 +65,88 @@ export class ResearchGroupService {
       urlCNPQ: group.urlCNPQ,
       img: group.img,
       researcherId: group.researcherId,
+      leader: group.leader,
     };
   }
 
-  async update(id: string, group: CreateResearchGroupDto) {
+  async findOneWithMembers(id: string) {
+    const group = await this.prismaService.researchGroup.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        leader: true,
+        members: true,
+      },
+    });
+
+    if (!group) throw new NotFoundException('Grupo de pesquisa não encontrado');
+
+    return {
+      id: group.id,
+      name: group.name,
+      description: group.description,
+      urlCNPQ: group.urlCNPQ,
+      img: group.img,
+      researcherId: group.researcherId,
+      leader: group.leader,
+      members: group.members,
+    };
+  }
+
+  async findOneWithProjects(id: string) {
+    const group = await this.prismaService.researchGroup.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        leader: true,
+        projects: true,
+      },
+    });
+
+    if (!group) throw new NotFoundException('Grupo de pesquisa não encontrado');
+
+    return {
+      id: group.id,
+      name: group.name,
+      description: group.description,
+      urlCNPQ: group.urlCNPQ,
+      img: group.img,
+      researcherId: group.researcherId,
+      leader: group.leader,
+      projects: group.projects,
+    };
+  }
+
+  async findOneComplete(id: string) {
+    const group = await this.prismaService.researchGroup.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        leader: true,
+        projects: true,
+        members: true,
+      },
+    });
+
+    if (!group) throw new NotFoundException('Grupo de pesquisa não encontrado');
+
+    return {
+      id: group.id,
+      name: group.name,
+      description: group.description,
+      urlCNPQ: group.urlCNPQ,
+      img: group.img,
+      researcherId: group.researcherId,
+      leader: group.leader,
+      projects: group.projects,
+      members: group.members,
+    };
+  }
+
+  async update(id: string, group: UpdateResearchGroupDto) {
     const updatedGroup = await this.prismaService.researchGroup.update({
       where: {
         id: id,

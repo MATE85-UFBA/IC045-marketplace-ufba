@@ -8,6 +8,7 @@ import { AuthController } from '@/auth/auth.controller';
 import { AuthService } from '@/auth/auth.service';
 import { UsersService } from '@/user/user.service';
 import { PrismaService } from '@/infra/database/prisma.service';
+import { UnauthorizedException } from '@nestjs/common';
 
 describe('AuthController', () => {
   let authController: AuthController;
@@ -32,19 +33,19 @@ describe('AuthController', () => {
 
   describe('root', () => {
     it('should return Invalid credentials when user not found', async () => {
-      const mockBody = { username: 'test', password: 'test' };
-      const response = await authController.login(mockBody);
-
-      expect(response).toEqual({ message: 'Invalid credentials' });
+      const mockBody = { email: 'test', password: 'test' };
+      await expect(authController.login(mockBody)).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
 
     it('should return jwt token when username and passwords matches', async () => {
       const mockBody = {
-        username: 'luke.skywalker@email.com.br',
+        email: 'luke.skywalker@email.com.br',
         password: 'senhasecreta',
       };
       const response = await authController.login(mockBody);
-      expect(response).toEqual({ access_token: 'mockJwtToken' });
+      expect(response.access_token).toBe('mockJwtToken');
     });
   });
 });

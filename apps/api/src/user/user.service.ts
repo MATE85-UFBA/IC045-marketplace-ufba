@@ -23,14 +23,28 @@ export class UsersService {
 
     const hashedPassword = await hashPassword(user.password);
 
+    const userData: any = {
+      name: user.name,
+      img: user.img,
+      email: user.email,
+      password: hashedPassword,
+      role: user.role,
+    };
+
+    if (user.company) {
+      userData.company = {
+        create: user.company,
+      };
+    }
+
+    if (user.researcher) {
+      userData.researcher = {
+        create: user.researcher,
+      };
+    }
+
     const createdUser = await this.prismaService.user.create({
-      data: {
-        name: user.name,
-        img: user.img,
-        email: user.email,
-        password: hashedPassword,
-        role: user.role,
-      },
+      data: userData,
     });
 
     return {

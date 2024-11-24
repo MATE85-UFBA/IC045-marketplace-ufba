@@ -2,6 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/core/app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as dotenv from 'dotenv';
+import { GlobalExceptionFilter } from './middleware/global.exception.filter';
+
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,7 +21,14 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+  app.useGlobalFilters(new GlobalExceptionFilter());
+  app.enableCors({
+    origin: [process.env.FRONT_END_ORIGIN || 'http://localhost:3001'],
+    methods: ['GET', 'POST'],
+    credentials: true,
+  });
 
-  await app.listen(3000);
+  const serverPort = process.env.SERVER_PORT || 8080;
+  await app.listen(serverPort);
 }
-bootstrap()
+bootstrap();

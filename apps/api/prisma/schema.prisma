@@ -94,7 +94,7 @@ model KnowledgeArea {
 
 model Project {
   id              String        @id @default(uuid())
-  name            String
+  name            String        @unique
   started_at      DateTime
   finished_at     DateTime?
   researchGroup   ResearchGroup @relation(fields: [researchGroupId], references: [id])

@@ -90,7 +90,7 @@ const Header = ({ userType }: props) => {
                 className="rounded-full py-2.5 px-8 border-primary"
               >
                 <Link
-                  href={"/"}
+                  href={"/login"}
                   className="font-medium text-primary bg-white text-base"
                 >
                   Entrar
