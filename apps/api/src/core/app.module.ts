@@ -23,7 +23,7 @@ import { ResearchGroupsModule } from '@/research-group/research-group.module';
     DemandModule,
     AdminModule,
     ProjectModule,
-    ResearchGroupsModule
+    ResearchGroupsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, PrismaService, JwtService],

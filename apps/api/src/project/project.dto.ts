@@ -3,8 +3,6 @@ import {
   IsUUID,
   IsString,
   IsOptional,
-  IsDate,
-  IsDateString,
   IsISO8601,
 } from 'class-validator';
 

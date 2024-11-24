@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, Request, NotFoundException } from '@nestjs/common';
+import { 
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+  NotFoundException
+} from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './project.dto';
 import { UpdateProjectDto } from './project.dto';
@@ -28,15 +37,11 @@ export class ProjectController {
   }
 
   @Post()
-  async create(
-    @Body() project: CreateProjectDto
-  ) {
+  async create( @Body() project: CreateProjectDto ) {
     const researchGroup = await this.researchGroupService.findOne(project.researchGroupId);
 
     if(!researchGroup){
-      throw new NotFoundException(
-        'Grupo de Pesquisa não existe',
-      );
+      throw new NotFoundException('Grupo de Pesquisa não existe');
     }
 
     return this.projectService.create(project);
@@ -46,5 +51,4 @@ export class ProjectController {
   update(@Param('id') id: string, @Body() project: UpdateProjectDto) {
     return this.projectService.update(id, project);
   }
-
 }
