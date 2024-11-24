@@ -6,39 +6,59 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ResearchGroupService } from './research-group.service';
-import { CreateResearchGroupDto } from './research-group.dto';
+import {
+  CreateResearchGroupDto,
+  UpdateResearchGroupDto,
+} from './research-group.dto';
 
+//TODO colocar os useGuard
 @Controller('researchgroup')
 export class ResearchGroupController {
-  constructor(private readonly researchGroupsSevice: ResearchGroupService) {}
+  constructor(private readonly researchGroupsService: ResearchGroupService) {}
 
   @Post()
-  create(@Body() researchGroup: CreateResearchGroupDto) {
-    return this.researchGroupsSevice.create(researchGroup);
+  async create(@Body() researchGroup: CreateResearchGroupDto) {
+    //TODO Verificar se um líder de projeto existe e se é um Pesquisador
+    return this.researchGroupsService.create(researchGroup);
   }
 
-  @Get()
+  @Get('/all')
   findAll() {
-    return this.researchGroupsSevice.findAll();
+    return this.researchGroupsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.researchGroupsSevice.findOne(id);
+  findOne(
+    @Param('id') id: string,
+    @Query('members') members?: boolean,
+    @Query('projects') projects?: boolean,
+  ) {
+    if (members && projects) {
+      return this.researchGroupsService.findOneComplete(id);
+    }
+    if (members) {
+      return this.researchGroupsService.findOneWithMembers(id);
+    }
+    if (projects) {
+      return this.researchGroupsService.findOneWithProjects(id);
+    }
+    return this.researchGroupsService.findOne(id);
   }
 
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() researchGroup: CreateResearchGroupDto,
+    @Body() researchGroup: UpdateResearchGroupDto,
   ) {
-    return this.researchGroupsSevice.update(id, researchGroup);
+    //TODO ampliar regras de validação
+    return this.researchGroupsService.update(id, researchGroup);
   }
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return this.researchGroupsSevice.delete(id);
+    return this.researchGroupsService.delete(id);
   }
 }
