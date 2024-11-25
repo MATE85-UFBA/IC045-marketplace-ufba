@@ -1,4 +1,4 @@
-import { FRONT_END_URL } from "../config";
+import { FRONT_END_URL } from "./config";
 
 describe('Login page', () => {
   const userEmail = 'reginaldo.rossi@email.com.br';
@@ -34,7 +34,7 @@ describe('Login page', () => {
       .should('have.value', "wrongPassword");
 
     cy.get('form').submit();
-    cy.contains('Falha').should('be.visible');
+    cy.contains('Usuário ou senha incorretos.').should('be.visible');
   });
 
   it('should show message for empty email', () => {
