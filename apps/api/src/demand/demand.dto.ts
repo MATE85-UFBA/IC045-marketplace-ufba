@@ -6,6 +6,8 @@ export class CreateDemandDTO {
 
   @IsNotEmpty()
   description: string;
+
+  public?: boolean;
 }
 
 export class UpdateDemandDTO {

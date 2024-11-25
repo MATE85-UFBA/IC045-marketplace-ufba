@@ -5,9 +5,34 @@ import MinhasDemandasFilter from '@/modules/minhas-demandas/components/filter/mi
 import MinhasDemandasTable from '@/modules/minhas-demandas/components/table/minhasDemandasTable';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import useGetMyDemands from '@/api/use-get-my-demands';
+import { useRouter } from 'next/navigation';
+import useDeleteDemand from '@/api/use-delete-demand';
 
 const MinhasDemandas = () => {
   const { data: demands = [] }  = useGetMyDemands();
+  const router = useRouter();
+
+
+  const deleteDemandaMutation = useDeleteDemand(
+    () => alert("Demanda removida com sucesso!"),
+    () => alert("Não foi possivel remover demanda.")
+  );
+
+  const handleRedirect = () => {
+    router.push('/cadastro-demandas'); // Navigates to the "about" page
+  };
+
+  const handleDelete = async (id: string) => {
+
+    const shouldDelete = confirm("Tem certeza que deseja remover essa demanda?")
+
+    if(shouldDelete) {
+      deleteDemandaMutation.mutate(id);
+
+      router.push("/minhas-demandas");
+    }
+
+  }
 
   return (
     <main className="flex justify-center ">
@@ -16,13 +41,13 @@ const MinhasDemandas = () => {
           <h1 className="font-bold text-4xl text-blue-strong">
             Minhas Demandas
           </h1>
-          <Button className="rounded-full">
+          <Button className="rounded-full" onClick={handleRedirect}>
             <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" /> Nova
             demanda
           </Button>
         </div>
         <MinhasDemandasFilter />
-        <MinhasDemandasTable data={demands} />
+        <MinhasDemandasTable data={demands} onEdit={() => undefined} onDelete={handleDelete} />
       </section>
     </main>
   );

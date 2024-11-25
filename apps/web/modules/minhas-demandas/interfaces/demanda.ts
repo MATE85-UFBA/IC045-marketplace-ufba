@@ -1,6 +1,6 @@
 type Keyword = {id: string, name :string }
 export interface Demanda {
-  id: number;
+  id: string;
   name: string;
   status: string; //todo fazer um enum
   createdAt: string;
