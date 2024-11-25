@@ -8,6 +8,7 @@ import { loginFormSchema, LoginUserFormData } from "./login.form.schema";
 import { authStore } from "../store/login";
 import { useRouter } from "next/navigation";
 import loginStore from "../store/login/login.store";
+import Link from "next/link";
 
 
 const Login = observer(() => {
@@ -23,7 +24,7 @@ const Login = observer(() => {
   async function loginUser(data: LoginUserFormData) {
     await loginStore.login(data.email, data.password, router);  // Pass router to login method
   }
-  
+
   return (
     <main className="h-screen flex flex-col items-center justify-center">
       <section className="w-full max-w-sm bg-white px-8 py-8 rounded-lg shadow-lg">
@@ -89,9 +90,9 @@ const Login = observer(() => {
 
         <p className="text-xs text-center mt-12">
           Ainda não possui uma conta?{" "}
-          <a href="#" className="text-center underline">
-            cadastre-se
-          </a>
+          <Link href="/user-register" className="text-center underline">
+            Cadastre-se
+          </Link>
         </p>
       </section>
     </main>
