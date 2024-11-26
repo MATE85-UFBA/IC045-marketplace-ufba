@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResearchersService } from '../researchers.service';
 import { PrismaService } from '@/infra/database/prisma.service';
-import { url } from 'inspector';
 import { ResearcherType } from '@prisma/client';
 
 describe('ResearchersService', () => {
