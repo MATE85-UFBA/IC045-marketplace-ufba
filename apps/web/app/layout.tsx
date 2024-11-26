@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Header from "@/modules/components/header/header";
-import Footer from "@/modules/components/footer/footer";
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Header from '@/modules/components/header/header';
+import Footer from '@/modules/components/footer/footer';
+import ReactQueryProvider from '@/lib/react-query';
 
 const inter = Inter({ subsets: ["latin"] });
 

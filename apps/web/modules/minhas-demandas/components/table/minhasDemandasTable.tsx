@@ -1,38 +1,23 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
-import { FaTrash } from "react-icons/fa";
-import { IoMdCreate } from "react-icons/io";
-import { Demanda } from "../../interfaces/demanda";
-import { CustomIcon } from "@/modules/components/icon/customIcon";
-import { GoArrowLeft } from "react-icons/go";
-import { GoArrowRight } from "react-icons/go";
+import { Button } from '@/components/ui/button';
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { FaTrash } from 'react-icons/fa';
+import { IoMdCreate } from 'react-icons/io';
+import { Demanda } from '../../interfaces/demanda';
+import { CustomIcon } from '@/modules/components/icon/customIcon';
+import { GoArrowLeft, GoArrowRight } from 'react-icons/go';
 
 interface Params {
   data: Demanda[];
+  onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
 }
-const MinhasDemandasTable = ({ data }: Params) => {
-  const handleClick = () => {
-    console.log("teste");
-  };
+const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
 
   const columns: ColumnDef<Demanda>[] = [
     {
-      accessorKey: "title",
+      accessorKey: "name",
       header: "Título",
     },
     {
@@ -95,7 +80,7 @@ const MinhasDemandasTable = ({ data }: Params) => {
                     <Button
                       variant={"ghost"}
                       size={"icon"}
-                      onClick={handleClick}
+                      onClick={() => onEdit(row.id)}
                       title="Editar"
                     >
                       <CustomIcon icon={IoMdCreate} className="!size-5" />
@@ -103,7 +88,7 @@ const MinhasDemandasTable = ({ data }: Params) => {
                     <Button
                       variant={"ghost"}
                       size={"icon"}
-                      onClick={handleClick}
+                      onClick={() => onDelete(row.original.id)}
                       title="Apagar"
                     >
                       <CustomIcon icon={FaTrash} className="!size-5" />
