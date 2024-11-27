@@ -9,7 +9,9 @@ export class KeywordsService {
 
   async findByText(text: string) {
     const keywordList = await this.prismaService.keyword.findMany();
-    return keywordList.filter((keyword) => keyword.name.toLowerCase().includes(text.toLowerCase()));
+    return keywordList.filter((keyword) =>
+      keyword.name.toLowerCase().includes(text.toLowerCase()),
+    );
   }
 
   async create(keyword: CreateKeywordDto) {
