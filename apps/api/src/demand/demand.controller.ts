@@ -27,6 +27,12 @@ export class DemandController {
     return this.demandService.all();
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('/my')
+  my(@Request() req: { user: { userId: string } }) {
+    return this.demandService.my(req.user.userId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.demandService.findOne(id);

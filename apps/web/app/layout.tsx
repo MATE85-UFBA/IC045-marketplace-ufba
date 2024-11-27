@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Header from "@/modules/components/header/header";
-import Footer from "@/modules/components/footer/footer";
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Header from '@/modules/components/header/header';
+import Footer from '@/modules/components/footer/footer';
+import ReactQueryProvider from '@/lib/react-query';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
-      <body className={inter.className}>
+    <html lang="pt-br" className="h-full">
+      <body className={`${inter.className} flex flex-col h-full`}>
         <Header userType="empresa" /> {/* todo remover */}
         {children}
         <Footer />

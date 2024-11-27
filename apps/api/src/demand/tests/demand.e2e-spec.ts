@@ -20,6 +20,7 @@ describe.only('DemandController (e2e)', () => {
     return prismaService.demand.create({
       data: {
         name: 'demand',
+        description: 'abcde',
         company: {
           connect: {
             userId: companyId,
@@ -72,6 +73,7 @@ describe.only('DemandController (e2e)', () => {
     createdDemand = await prismaService.demand.create({
       data: {
         name: 'New Demand',
+        description: 'test description',
         company: {
           connect: {
             userId: userId,
@@ -104,6 +106,7 @@ describe.only('DemandController (e2e)', () => {
   it('/demand (POST)', async () => {
     const newDemand = {
       name: 'Test Demand',
+      description: 'test description',
     };
 
     const response = await request(app.getHttpServer())
