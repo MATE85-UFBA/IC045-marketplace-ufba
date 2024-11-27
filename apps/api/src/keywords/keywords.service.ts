@@ -1,16 +1,21 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateTagDto } from './dto/create-tag.dto';
-import { UpdateTagDto } from './dto/update-tag.dto';
+import { CreateKeywordDto } from './dto/create-keyword.dto';
+import { UpdateKeywordDto } from './dto/update-keyword.dto';
 import { PrismaService } from '@/infra/database/prisma.service';
 
 @Injectable()
-export class TagsService {
+export class KeywordsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async create(tag: CreateTagDto) {
+  async findByText(text: string) {
+    const keywordList = await this.prismaService.keyword.findMany();
+    return keywordList.filter((keyword) => keyword.name.toLowerCase().includes(text.toLowerCase()));
+  }
+
+  async create(keyword: CreateKeywordDto) {
     return this.prismaService.keyword.create({
       data: {
-        name: tag.name,
+        name: keyword.name,
       },
     });
   }
@@ -20,27 +25,27 @@ export class TagsService {
   }
 
   async findOne(id: string) {
-    const tag = await this.prismaService.keyword.findUnique({
+    const keyword = await this.prismaService.keyword.findUnique({
       where: {
         id: id,
       },
     });
 
-    if (!tag) throw new NotFoundException('Tag não encontrada');
+    if (!keyword) throw new NotFoundException('Keyword não encontrada');
 
     return {
-      id: tag.id,
-      name: tag.name,
+      id: keyword.id,
+      name: keyword.name,
     };
   }
 
-  async update(id: string, updateTagDto: UpdateTagDto) {
+  async update(id: string, updateKeywordDto: UpdateKeywordDto) {
     return this.prismaService.keyword.update({
       where: {
         id: id,
       },
       data: {
-        name: updateTagDto.name,
+        name: updateKeywordDto.name,
       },
     });
   }
