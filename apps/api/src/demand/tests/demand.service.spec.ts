@@ -31,6 +31,9 @@ describe('DemandService', () => {
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
+      description: 'teste description',
+      public: true,
+      status: 'CREATED',
       companyId: '123e4567-e89b-12d3-a456-426614174000',
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -46,6 +49,9 @@ describe('DemandService', () => {
       id: mockDemand.id,
       name: mockDemand.name,
       companyId: mockDemand.companyId,
+      description: 'teste description',
+      public: true,
+      status: 'CREATED',
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
     });
@@ -75,6 +81,9 @@ describe('DemandService', () => {
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
+      description: 'teste description',
+      public: true,
+      status: 'CREATED',
       companyId: '123e4567-e89b-12d3-a456-426614174000',
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -93,10 +102,13 @@ describe('DemandService', () => {
     expect(spyPrismaUpdate).toHaveBeenCalledWith({
       data: {
         companyId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: expect.any(Date),
         id: '123e4567-e89b-12d3-a456-426614174000',
         name: 'teste',
+        description: 'teste description',
+        public: true,
+        status: 'CREATED',
         updatedAt: expect.any(Date),
+        createdAt: expect.any(Date),
       },
       where: {
         id: 'some-id',
