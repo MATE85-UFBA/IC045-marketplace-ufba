@@ -110,7 +110,10 @@ model Demand {
   id            String         @id @default(uuid())
   name          String
   company       Company        @relation(fields: [companyId], references: [userId])
+  description   String
   companyId     String
+  status        String         @default("CREATED")
+  public        Boolean        @default(true)
   projects      Project[]
   keywords      Keyword[]
   notifications Notification[]

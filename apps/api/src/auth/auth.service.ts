@@ -28,13 +28,15 @@ export class AuthService {
     const utype = getUserType(user);
 
     const payload = {
-      username: user.name,
       sub: user.id,
-      img: user.img,
+      name: user.name,
       role: user.role,
-      utype,
     };
     return {
+      id: user.id,
+      name: user.name,
+      img: user.img,
+      utype: utype,
       access_token: this.jwtService.sign(payload),
     };
   }
