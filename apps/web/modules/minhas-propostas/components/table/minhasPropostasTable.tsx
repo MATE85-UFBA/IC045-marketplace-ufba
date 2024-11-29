@@ -58,7 +58,7 @@ const MinhasPropostasTable = ({ data }: Params) => {
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead
-                    className="text-blue-strong font-semibold text-lg sm:text-2xl min-w-[150px]"
+                    className="text-blue-strong font-semibold text-lg sm:text-2xl min-w-[150px] px-3 py-4"
                     key={header.id}
                   >
                     {header.isPlaceholder
@@ -81,7 +81,7 @@ const MinhasPropostasTable = ({ data }: Params) => {
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell className="text-blue-light py-6" key={cell.id}>
+                  <TableCell className="text-blue-light py-6 px-3" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
