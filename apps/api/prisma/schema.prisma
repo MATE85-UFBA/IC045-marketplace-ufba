@@ -14,17 +14,19 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(uuid())
-  email      String      @unique
-  name       String
-  img        String?
-  password   String
-  role       UserRole    @default(USER)
-  resetToken String?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  company    Company?
-  researcher Researcher?
+  id          String      @id @default(uuid())
+  email       String      @unique
+  name        String
+  img         String?
+  password    String
+  role        UserRole    @default(USER)
+  isApproved  Boolean     @default(false)
+  isBlocked   Boolean     @default(false)
+  resetToken  String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  company     Company?
+  researcher  Researcher?
 }
 
 enum UserRole {
