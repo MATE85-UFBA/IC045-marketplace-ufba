@@ -36,4 +36,29 @@ export class AdminService {
       where: { id },
     });
   }
+
+  // Dashboard methods
+  async getEntityCounts() {
+    const researchers = await this.prismaService.researcher.count();
+    const companies = await this.prismaService.company.count();
+    const researchGroups = await this.prismaService.researchGroup.count();
+    const demands = await this.prismaService.demand.count();
+
+    return{
+      companies,
+      researchers,
+      researchGroups,
+      demands
+    }
+  
+  }
+
+  async getDemandsByCompany() {
+    return this.prismaService.demand.groupBy({
+      by: ['companyId'],
+      _count: {
+        id: true,
+      },
+    });
+  }
 }

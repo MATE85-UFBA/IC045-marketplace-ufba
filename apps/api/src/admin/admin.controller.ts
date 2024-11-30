@@ -37,4 +37,18 @@ export class AdminController {
   deleteUser(@Param('id') id: string) {
     return this.adminService.deleteUser(id);
   }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
+  @Get('dashboard/entity-counts')
+  getEntityCounts() {
+    return this.adminService.getEntityCounts();
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
+  @Get('dashboard/demands-by-company')
+  getDemandsByCompany() {
+    return this.adminService.getDemandsByCompany();
+  }
 }
