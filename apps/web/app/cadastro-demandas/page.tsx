@@ -53,9 +53,9 @@ const CadastrarDemanda = () => {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex mb-4">
-          <h1 className="text-4xl font-bold text-blue-strong">
+          <h2 className="text-4xl font-bold text-blue-strong">
             Cadastrar Demanda
-          </h1>
+          </h2>
         </div>
         <div className="p-4 bg-white shadow rounded-xl mt-4 h-[700] max-w-[1350]">
           <form
