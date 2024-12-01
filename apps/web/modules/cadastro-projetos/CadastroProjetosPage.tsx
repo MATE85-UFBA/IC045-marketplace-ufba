@@ -17,7 +17,7 @@ const CadastrarProjeto = () => {
   // Tipagem simulada para evitar erro
   type CreateProjeto = {
     titulo: string;
-    links?: string;
+    keywords: string;
     descricao: string;
   };
 
@@ -43,7 +43,7 @@ const CadastrarProjeto = () => {
                 className="hover:text-blue-strong"
                 href="/cadastro-projetos"
               >
-                Minhas Projetos
+                Meus Projetos
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -79,25 +79,6 @@ const CadastrarProjeto = () => {
               )}
             </label>
 
-            {errors.links && <span>This field is required</span>}
-            <label className="font-bold text-blue-strong mt-4">
-              Links Úteis
-              <input
-                type="url"
-                placeholder="Informe links úteis"
-                className="w-full py-3 px-4 text-base font-normal rounded-lg border mt-2"
-                {...register("links", { required: false })}
-              />
-            </label>
-
-            <div className="font-bold text-base text-blue-strong">
-              <label>Anexo</label>
-              <div className="flex items-center mt-2">
-                <Button className="rounded-full py-2.5 px-8">
-                  Adicionar anexo
-                </Button>
-              </div>
-            </div>
 
             <label className="font-bold text-blue-strong mt-4">
               Descrição*
@@ -109,7 +90,18 @@ const CadastrarProjeto = () => {
               />
             </label>
 
-            {errors.descricao && <span>This field is required</span>}
+            {errors.descricao && <span>Este Campo é obrigatório</span>}
+
+            {errors.keywords && <span>Este Campo é obrigatório</span>}
+            <label className="font-bold text-blue-strong mt-4">
+              Palavras-Chave (Separadas por vírgula)
+              <input
+                type="text"
+                placeholder="Ex: Palavra-Chave 1, Palavra-Chave 2"
+                className="w-full py-3 px-4 text-base font-normal rounded-lg border mt-2"
+                {...register("keywords", { required: true })}
+              />
+            </label>
 
             <div className="flex gap-4 justify-center mt-10">
               <Button
