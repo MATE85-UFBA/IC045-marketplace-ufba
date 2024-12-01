@@ -51,4 +51,11 @@ export class AdminController {
   getDemandsByCompany() {
     return this.adminService.getDemandsByCompany();
   }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
+  @Get('dashboard/demands-by-research-group')
+  getDemandsByResearchGroup() {
+    return this.adminService.getDemandsByResearchGroup();
+  }
 }

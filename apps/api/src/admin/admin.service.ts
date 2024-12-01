@@ -61,4 +61,19 @@ export class AdminService {
       },
     });
   }
+
+  async getDemandsByResearchGroup() {
+    return await this.prismaService.researchGroup.findMany({
+      select: {
+          id: true,
+          name: true,
+          _count: {
+              select: {
+                  projects: true,
+              },
+          },
+      },
+  });
+  }
+
 }
