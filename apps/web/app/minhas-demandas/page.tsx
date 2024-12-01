@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import { CustomIcon } from "@/modules/components/icon/customIcon";
 import MinhasDemandasFilter from "@/modules/minhas-demandas/components/filter/minhasDemandasFilter";
 import MinhasDemandasTable from "@/modules/minhas-demandas/components/table/minhasDemandasTable";
-import { Demanda } from "@/modules/minhas-demandas/interfaces/demanda";
-import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import useGetMyDemands from "@/api/use-get-my-demands";
+import { useRouter } from "next/navigation";
+import useDeleteDemand from "@/api/use-delete-demand";
 
 const MinhasDemandas = () => {
-  const { data: demands = [] }  = useGetMyDemands();
+  const { data: demands = [] } = useGetMyDemands();
   const router = useRouter();
-
 
   const deleteDemandaMutation = useDeleteDemand(
     () => alert("Demanda removida com sucesso!"),
@@ -18,20 +18,20 @@ const MinhasDemandas = () => {
   );
 
   const handleRedirect = () => {
-    router.push('/cadastro-demandas'); // Navigates to the "about" page
+    router.push("/cadastro-demandas"); // Navigates to the "about" page
   };
 
   const handleDelete = async (id: string) => {
+    const shouldDelete = confirm(
+      "Tem certeza que deseja remover essa demanda?"
+    );
 
-    const shouldDelete = confirm("Tem certeza que deseja remover essa demanda?")
-
-    if(shouldDelete) {
+    if (shouldDelete) {
       deleteDemandaMutation.mutate(id);
 
       router.push("/minhas-demandas");
     }
-
-  }
+  };
 
   return (
     <main className="flex justify-center flex-grow m-8">
@@ -40,15 +40,17 @@ const MinhasDemandas = () => {
           <h1 className="font-bold text-2xl text-blue-strong sm:text-4xl">
             Minhas Demandas
           </h1>
-          <Button asChild className="rounded-full">
-            <Link href={"/cadastro-demandas"}>
-              <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" />
-              Nova demanda
-            </Link>
+          <Button className="rounded-full" onClick={handleRedirect}>
+            <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" /> Nova
+            demanda
           </Button>
         </div>
         <MinhasDemandasFilter />
-        <MinhasDemandasTable data={demands} onEdit={() => undefined} onDelete={handleDelete} />
+        <MinhasDemandasTable
+          data={demands}
+          onEdit={() => undefined}
+          onDelete={handleDelete}
+        />
       </section>
     </main>
   );

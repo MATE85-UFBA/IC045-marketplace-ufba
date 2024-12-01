@@ -1,16 +1,16 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-import { Inter } from 'next/font/google';
-import './globals.css';
-import Header from '@/modules/components/header/header';
-import Footer from '@/modules/components/footer/footer';
-import ReactQueryProvider from '@/lib/react-query';
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Header from "@/modules/components/header/header";
+import Footer from "@/modules/components/footer/footer";
+import ReactQueryProvider from "@/lib/react-query";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Nexus",
-  description: "Nexus",
+  title: "COOPERA-UFBA",
+  description: "COOPERA-UFBA",
 };
 
 export default function RootLayout({
@@ -20,9 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className="h-full">
-      <body className={`${inter.className} flex flex-col h-full`}>
-        <Header userType="empresa" /> {/* todo remover */}
-        {children}
+      <body className={`${inter.className} h-full flex flex-col`}>
+        <Header />
+        <ReactQueryProvider>{children}</ReactQueryProvider>
         <Footer />
       </body>
     </html>

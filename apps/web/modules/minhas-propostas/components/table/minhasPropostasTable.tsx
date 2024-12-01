@@ -14,6 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 
 interface Params {
   data: Proposta[];
@@ -50,8 +52,8 @@ const MinhasPropostasTable = ({ data }: Params) => {
   });
 
   return (
-    <div>
-      <Table className="bg-white rounded-2xl px-3 py-4">
+    <div className="bg-white rounded-2xl px-3 py-4">
+      <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
@@ -81,7 +83,10 @@ const MinhasPropostasTable = ({ data }: Params) => {
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell className="text-blue-light py-6 px-3" key={cell.id}>
+                  <TableCell
+                    className="text-blue-light py-6 px-3"
+                    key={cell.id}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -96,6 +101,25 @@ const MinhasPropostasTable = ({ data }: Params) => {
           )}
         </TableBody>
       </Table>
+      <div className="flex items-center justify-center space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <GoArrowLeft />
+        </Button>
+        <div>{table.getPageCount()}</div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          <GoArrowRight />
+        </Button>
+      </div>
     </div>
   );
 };
