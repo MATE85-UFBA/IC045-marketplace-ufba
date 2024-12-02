@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { decrypt } from "@/app/lib/session";
-import { cookies } from "next/headers";
 import { loadUserFromLocalStorage } from "./app/service/auth.storage";
+import { cookies } from "next/headers";
 
 const protectedRoutes = ["/dashboard"];
 const publicRoutes = ["/login", "/user-register", "/"];
@@ -14,9 +13,10 @@ export default async function middleware(req: NextRequest) {
   //const cookie = (await cookies()).get("session")?.value;
   //const session = await decrypt(cookie);
 
-  const user = loadUserFromLocalStorage();
+  const cookieStore = cookies();
+  const user = cookieStore.get("user");
 
-  if (!user) {
+  if (!user && isProtectedRoute) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   } else {
     return NextResponse.next();
