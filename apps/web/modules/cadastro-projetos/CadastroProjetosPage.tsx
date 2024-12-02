@@ -7,11 +7,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
+} from '@/components/ui/breadcrumb';
+import { Button } from '@/components/ui/button';
 
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
+import { useToast } from '@/hooks/use-toast';
 
 const CadastrarProjeto = () => {
   // Tipagem simulada para evitar erro
@@ -27,10 +27,12 @@ const CadastrarProjeto = () => {
     formState: { errors },
   } = useForm<CreateProjeto>();
 
+  const {toast} = useToast();
+
   // Função mock para substituir o backend
   const onSubmit = (data: CreateProjeto) => {
     console.log("Dados enviados (mock):", data);
-    alert("Projeto cadastrada (mock). Backend ainda não implementado.");
+    toast({title: "Projeto cadastrada (mock). Backend ainda não implementado."});
   };
 
   return (

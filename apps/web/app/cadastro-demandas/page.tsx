@@ -12,37 +12,39 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useForm } from 'react-hook-form';
 import useAddDemand from '@/api/use-add-demand';
-import { CreateDemand } from '@/types/demand'; // Importando a tipagem correta
-import { useState } from 'react';
+import { CreateDemand } from '@/types/demand';
+import { useToast } from '@/hooks/use-toast';
 
 
 const CadastrarDemanda = () => {
   const { handleSubmit, register, formState: { errors } } = useForm<CreateDemand>();
-  const [loading, setLoading] = useState(false);
+  const { toast } = useToast()
 
-  // Usando a mutação do backend
-  const { mutate, isError, isSuccess, error } = useAddDemand(
+  const { mutate, isPending } = useAddDemand(
     () => {
-      // Sucesso - Você pode redirecionar ou fazer outra ação
-      alert("Demanda cadastrada com sucesso!");
+      toast({
+        title: "Sucesso",
+        description: "A demanda foi cadastrada com sucesso."
+      });
     },
     () => {
-      // Erro - Exibe mensagem de erro
-      alert("Ocorreu um erro ao cadastrar a demanda.");
+      toast({
+        variant: 'destructive',
+        title: "Ocorreu um error",
+        description: "Ocorreu um erro ao tentar criar nova demanda."
+      });
     }
   );
 
   const onSubmit = (data: CreateDemand) => {
-    setLoading(true);
 
     const demandData: CreateDemand = {
-      name: data.name,          // Mapeando para o formato da API
-      description: data.description, // Mapeando para o formato da API
-      links: data.links ? (Array.isArray(data.links) ? data.links : [data.links]) : [],  // Transformando links em um array (caso não esteja vazio)
-      public: data.public,       // Campo público é diretamente passado
+      name: data.name,
+      description: data.description,
+      links: data.links ? (Array.isArray(data.links) ? data.links : [data.links]) : [],
+      public: data.public === "on",
     };
 
-    // Chamando a mutação para enviar os dados para a API
     mutate(demandData);
   };
 
@@ -134,8 +136,8 @@ const CadastrarDemanda = () => {
                 >
                   Cancelar
                 </Button>
-                <Button type="submit" className="rounded-full py-2.5 px-8" disabled={loading}>
-                  {loading ? "Cadastrando..." : "Cadastrar demanda"}
+                <Button type="submit" className="rounded-full py-2.5 px-8" disabled={isPending}>
+                  {isPending ? "Cadastrando..." : "Cadastrar demanda"}
                 </Button>
               </div>
             </form>
