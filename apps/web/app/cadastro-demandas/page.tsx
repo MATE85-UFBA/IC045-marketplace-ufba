@@ -1,13 +1,19 @@
 "use client";
 
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { useForm } from "react-hook-form";
-import useAddDemand from "@/api/use-add-demand";
-import { CreateDemand } from "@/types/demand";  // Importando a tipagem correta
-import { useState } from "react";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { useForm } from 'react-hook-form';
+import useAddDemand from '@/api/use-add-demand';
+import { CreateDemand } from '@/types/demand'; // Importando a tipagem correta
+import { useState } from 'react';
 
 
 const CadastrarDemanda = () => {
@@ -40,10 +46,7 @@ const CadastrarDemanda = () => {
     mutate(demandData);
   };
 
-  const queryClient = new QueryClient();
-
   return (
-    <QueryClientProvider client={queryClient}>
       <main className="p-8 w-full flex justify-center">
         <section className="max-w-7xl w-full">
           <Breadcrumb>
@@ -139,7 +142,6 @@ const CadastrarDemanda = () => {
           </div>
         </section>
       </main>
-    </QueryClientProvider >
   );
 };
 
