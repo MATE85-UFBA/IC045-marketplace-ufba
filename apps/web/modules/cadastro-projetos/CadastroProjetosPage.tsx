@@ -1,5 +1,6 @@
 "use client";
 
+import useAddProject from "@/api/use-add-project";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,50 +10,52 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
+import { CreateProject } from "@/types/project";
 import { CalendarIcon } from "@radix-ui/react-icons";
 
 import { useForm } from "react-hook-form";
 
 const CadastrarProjeto = () => {
   // Tipagem simulada para evitar erro
-  type CreateProjeto = {
-    titulo: string;
-    descricao: string;
-    started_at: string;
-    finished_at?: string;
-    keywords: string;
-  };
 
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<CreateProjeto>();
+  } = useForm<CreateProject>();
+  const { toast } = useToast();
 
-  // Função mock para substituir o backend
-  const onSubmit = async (data: CreateProjeto) => {
-    try {
-      const response = await fetch("/project", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...data,
-          keywords: data.keywords.split(",").map((keyword) => keyword.trim()),
-        }),
+  const { mutate, isPending } = useAddProject(
+    () => {
+      toast({
+        title: "Sucesso",
+        description: "O projeto foi cadastrado com sucesso.",
       });
-
-      if (!response.ok) {
-        throw new Error("Erro ao cadastrar o projeto.");
-      }
-
-      alert("Projeto cadastrado com sucesso!");
-    } catch (error) {
-      console.error("Erro:", error);
-      alert("Erro ao cadastrar o projeto.");
+    },
+    () => {
+      toast({
+        variant: "destructive",
+        title: "Ocorreu um error",
+        description: "Ocorreu um erro ao tentar criar novo projeto.",
+      });
     }
+  );
+
+  const onSubmit = (data: CreateProject) => {
+    const demandData: CreateProject = {
+      name: data.name,
+      description: data.description,
+      started_at: data.started_at,
+      finished_at: data.finished_at,
+      keywords: data.keywords
+        ? Array.isArray(data.keywords)
+          ? data.keywords
+          : [data.keywords]
+        : [],
+    };
+
+    mutate(demandData);
   };
 
   return (
@@ -89,12 +92,12 @@ const CadastrarProjeto = () => {
             <label className="font-bold text-blue-strong mt-4">
               Título*
               <input
-                {...register("titulo", { required: true })}
+                {...register("name", { required: true })}
                 type="text"
                 placeholder="Título do projeto"
                 className="w-full py-3 px-4 text-base font-medium rounded-lg border mt-2"
               />
-              {errors.titulo && (
+              {errors.name && (
                 <span className="text-red font-normal text-sm">
                   Titulo é obrigatório
                 </span>
@@ -104,14 +107,14 @@ const CadastrarProjeto = () => {
             <label className="font-bold text-blue-strong mt-4">
               Descrição*
               <textarea
-                {...register("descricao", { required: true })}
+                {...register("description", { required: true })}
                 placeholder="Digite o texto..."
                 rows={4}
                 className="w-full py-3 px-4 text-base font-normal border rounded-lg mt-2"
               />
             </label>
 
-            {errors.descricao && <span>Este Campo é obrigatório</span>}
+            {errors.description && <span>Este Campo é obrigatório</span>}
 
             <label className="font-bold text-blue-strong mt-4">
               Palavras-Chave (Separadas por vírgula)
