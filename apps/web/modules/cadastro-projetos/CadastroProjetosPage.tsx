@@ -33,25 +33,25 @@ const CadastrarProjeto = () => {
   // Função mock para substituir o backend
   const onSubmit = async (data: CreateProjeto) => {
     try {
-      const response = await fetch('/project', {
-        method: 'POST',
+      const response = await fetch("/project", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...data,
-          keywords: data.keywords.split(',').map((keyword) => keyword.trim()),
+          keywords: data.keywords.split(",").map((keyword) => keyword.trim()),
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Erro ao cadastrar o projeto.');
+        throw new Error("Erro ao cadastrar o projeto.");
       }
 
-      alert('Projeto cadastrado com sucesso!');
+      alert("Projeto cadastrado com sucesso!");
     } catch (error) {
-      console.error('Erro:', error);
-      alert('Erro ao cadastrar o projeto.');
+      console.error("Erro:", error);
+      alert("Erro ao cadastrar o projeto.");
     }
   };
 
@@ -169,5 +169,3 @@ const CadastrarProjeto = () => {
 };
 
 export default CadastrarProjeto;
-
-
