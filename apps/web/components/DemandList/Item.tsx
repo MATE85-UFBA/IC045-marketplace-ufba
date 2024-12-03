@@ -1,11 +1,10 @@
-import Link from 'next/link';
-import { Button } from '../ui/button';
-import Image from 'next/image';
-import { TbUserCircle } from 'react-icons/tb';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import Image from 'next/image';
+import Link from 'next/link';
+import { TbUserCircle } from 'react-icons/tb';
+import { Button } from '../ui/button';
 import { Address } from './types';
-import { Demanda } from '@/modules/minhas-demandas/interfaces/demanda';
 
 function addressToString(address?: Address) {
     if (!address) return;
@@ -13,8 +12,8 @@ function addressToString(address?: Address) {
     return `${address.city}, ${address.state} - ${address.country}`
 }
 
-function Item(demand: Demanda) {
-    return <li className="px-8 py-10 bg-white border rounded-2xl">
+function Item(demand: Demand) {
+    return <li className="px-4 py-5 bg-white border rounded-2xl">
         <div className="flex xs:items-center justify-between mb-8 flex-col xs:flex-row">
             <h2 className="text-3xl font-semibold">{demand.name}</h2>
             <Button asChild variant={'outline'} className="px-9 py-2.5 rounded-full mt-3 xs:mt-0">
@@ -47,4 +46,4 @@ function Item(demand: Demanda) {
     </li>
 }
 
-export { Item }
+export { Item };

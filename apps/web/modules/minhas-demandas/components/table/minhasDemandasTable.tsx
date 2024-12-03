@@ -8,13 +8,13 @@ import { Demanda } from '../../interfaces/demanda';
 import { CustomIcon } from '@/modules/components/icon/customIcon';
 import { GoArrowLeft, GoArrowRight } from 'react-icons/go';
 
+
 interface Params {
   data: Demanda[];
+  onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
 }
-const MinhasDemandasTable = ({ data }: Params) => {
-  const handleClick = () => {
-    console.log("teste");
-  };
+const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
 
   const columns: ColumnDef<Demanda>[] = [
     {
@@ -38,7 +38,7 @@ const MinhasDemandasTable = ({ data }: Params) => {
     getPaginationRowModel: getPaginationRowModel(),
   });
   return (
-    <div className="bg-white rounded-2xl px-6 py-8">
+    <div className="bg-white rounded-2xl px-3 py-4">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -46,7 +46,7 @@ const MinhasDemandasTable = ({ data }: Params) => {
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead
-                    className="text-blue-strong font-semibold text-2xl"
+                    className="text-blue-strong font-semibold text-lg sm:text-2xl min-w-[150px]"
                     key={header.id}
                   >
                     {header.isPlaceholder
@@ -58,7 +58,7 @@ const MinhasDemandasTable = ({ data }: Params) => {
                   </TableHead>
                 );
               })}
-              <TableHead className="text-blue-strong font-semibold text-2xl">
+              <TableHead className="text-blue-strong font-semibold text-lg sm:text-2xl">
                 Ações
               </TableHead>
             </TableRow>
@@ -81,7 +81,7 @@ const MinhasDemandasTable = ({ data }: Params) => {
                     <Button
                       variant={"ghost"}
                       size={"icon"}
-                      onClick={handleClick}
+                      onClick={() => onEdit(row.id)}
                       title="Editar"
                     >
                       <CustomIcon icon={IoMdCreate} className="!size-5" />
@@ -89,7 +89,7 @@ const MinhasDemandasTable = ({ data }: Params) => {
                     <Button
                       variant={"ghost"}
                       size={"icon"}
-                      onClick={handleClick}
+                      onClick={() => onDelete(row.original.id)}
                       title="Apagar"
                     >
                       <CustomIcon icon={FaTrash} className="!size-5" />

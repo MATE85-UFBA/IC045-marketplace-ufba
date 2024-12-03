@@ -15,6 +15,7 @@ export class DemandService {
         companyId: companyId,
         description: description,
         name: name,
+        public: demand.public,
       },
     });
   }
@@ -22,6 +23,12 @@ export class DemandService {
   async all(): Promise<Demand[]> {
     return (
       this.prismaService.demand.findMany({
+        where: {
+          public: true,
+          status: {
+            not: 'DELETED',
+          },
+        },
         include: {
           company: true,
           keywords: true,
@@ -33,7 +40,12 @@ export class DemandService {
   async my(userId: string): Promise<Demand[]> {
     return (
       this.prismaService.demand.findMany({
-        where: { companyId: userId },
+        where: {
+          companyId: userId,
+          status: {
+            not: 'DELETED',
+          },
+        },
         include: {
           company: true,
           keywords: true,
@@ -43,7 +55,10 @@ export class DemandService {
   }
 
   async delete(id: string) {
-    return this.prismaService.demand.delete({ where: { id } });
+    return this.prismaService.demand.update({
+      data: { status: 'DELETED' },
+      where: { id },
+    });
   }
 
   async patch(id: string, demand: UpdateDemandDTO): Promise<Demand> {

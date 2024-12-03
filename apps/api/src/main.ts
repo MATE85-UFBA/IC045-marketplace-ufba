@@ -24,7 +24,7 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.enableCors({
     origin: process.env.FRONT_END_ORIGIN || 'http://localhost:3001',
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'DELETE'],
     credentials: true,
   });
 

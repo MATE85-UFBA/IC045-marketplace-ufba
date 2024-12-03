@@ -52,4 +52,12 @@ export class TagsService {
       },
     });
   }
+
+  async findByName(name: string) {
+    return this.prismaService.keyword.findFirst({
+      where: {
+        name: name,
+      },
+    });
+  }
 }
