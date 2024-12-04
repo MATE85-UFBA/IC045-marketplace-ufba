@@ -16,8 +16,8 @@ const MinhasDemandas = () => {
 
 
   const deleteDemandaMutation = useDeleteDemand(
-    () => toast({title: "Demanda removida com sucesso!"}),
-    () => toast({title: "Não foi possivel remover demanda."})
+    () => toast({ title: "Demanda removida com sucesso!" }),
+    () => toast({ title: "Não foi possivel remover demanda." })
   );
 
   const handleRedirect = () => {
@@ -36,6 +36,11 @@ const MinhasDemandas = () => {
     }
   };
 
+  const handleEdit = async (id: string) => {
+    console.log('click')
+    router.push(`/atualizar-demanda/${id}`);
+  };
+
   return (
     <main className="flex justify-center flex-grow m-8">
       <section className="flex flex-col w-full max-w-7xl pt-12 gap-6">
@@ -51,7 +56,7 @@ const MinhasDemandas = () => {
         <MinhasDemandasFilter />
         <MinhasDemandasTable
           data={demands}
-          onEdit={() => undefined}
+          onEdit={handleEdit}
           onDelete={handleDelete}
         />
       </section>

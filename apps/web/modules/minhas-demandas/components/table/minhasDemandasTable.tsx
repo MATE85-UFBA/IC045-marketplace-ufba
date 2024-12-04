@@ -52,9 +52,9 @@ const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                   </TableHead>
                 );
               })}
@@ -81,7 +81,7 @@ const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
                     <Button
                       variant={"ghost"}
                       size={"icon"}
-                      onClick={() => onEdit(row.id)}
+                      onClick={() => onEdit(row.original.id)}
                       title="Editar"
                     >
                       <CustomIcon icon={IoMdCreate} className="!size-5" />
