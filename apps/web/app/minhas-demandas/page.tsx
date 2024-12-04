@@ -36,6 +36,10 @@ const MinhasDemandas = () => {
     }
   };
 
+  const handleEdit = async (id: string) => {
+    router.push(`/minhas-demandas/${id}`);
+  };
+
   return (
     <main className="flex justify-center flex-grow m-8">
       <section className="flex flex-col w-full max-w-7xl pt-12 gap-6">
@@ -51,7 +55,7 @@ const MinhasDemandas = () => {
         <MinhasDemandasFilter />
         <MinhasDemandasTable
           data={demands}
-          onEdit={() => undefined}
+          onEdit={handleEdit}
           onDelete={handleDelete}
         />
       </section>

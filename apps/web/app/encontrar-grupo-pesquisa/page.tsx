@@ -1,10 +1,9 @@
-import { ResearchGroupList } from "@/components/ResearchGroupList";
-import { ResearchGroup } from "@/components/ResearchGroupList/type";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FiSearch } from "react-icons/fi"
+import { ResearchGroupList } from '@/components/ResearchGroupList';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { FiSearch } from 'react-icons/fi';
 
 function EncontrarGrupoPesquisa() {
     const researchgroups = [

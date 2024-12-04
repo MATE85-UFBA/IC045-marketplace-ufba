@@ -1,5 +1,5 @@
 import axios, { CreateAxiosDefaults } from 'axios';
-import { loadUserFromLocalStorage } from '@/app/store/login';
+import { loadUserFromLocalStorage } from '@/app/service/auth.storage';
 
 export const api = (apiUrl: string, auth = false) => {
 const user = loadUserFromLocalStorage()

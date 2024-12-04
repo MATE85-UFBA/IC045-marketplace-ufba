@@ -3,20 +3,20 @@ import { api } from '@/lib/axios';
 import { CreateDemand } from '@/types/demand';
 
 
-async function addDemand(_data: CreateDemand) {
+async function addDemand(id:string, _data: CreateDemand) {
   const apiURL = process.env.NEXT_PUBLIC_API_URL || ''
 
   const { data } = await api(apiURL, true).post(
-    `/demand`,
+    `/grupo-de-pesquisa/${id}`,
     JSON.stringify(_data),
   )
 
   return data
 }
 
-export default function useAddDemand(onSuccess: () => void, onError: () => void) {
+export default function useAddTeste(id:string, onSuccess: () => void, onError: () => void) {
   return useMutation({
-    mutationFn: (data: CreateDemand) => addDemand( data),
+    mutationFn: (data: CreateDemand) => addDemand(id, data),
     onSuccess,
     onError
   })
