@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateTagDto {
+export class CreateKeywordDto {
   @IsNotEmpty()
   name: string;
 }
