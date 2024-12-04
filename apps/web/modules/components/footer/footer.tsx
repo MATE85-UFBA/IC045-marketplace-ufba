@@ -1,8 +1,12 @@
 const Footer = () => {
   return (
     <footer className="bg-primary py-5 flex justify-center mt-12">
-      <p className="text-white font-bold w-fit">
-        Copyright ©{new Date().getFullYear()} Todos os direitos reservados
+      <p className="text-white font-bold w-fit text-center">
+        Copyright © 2024
+        {new Date().getFullYear() === 2024
+          ? " "
+          : `- ${new Date().getFullYear()} `}
+        Todos os direitos reservados
       </p>
     </footer>
   );
