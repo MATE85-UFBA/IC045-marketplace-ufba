@@ -43,7 +43,9 @@ describe('Integration test - findOne', () => {
       updatedAt: new Date(),
     };
 
-    jest.spyOn(prismaService.keyword, 'findUnique').mockResolvedValue(mockKeyword);
+    jest
+      .spyOn(prismaService.keyword, 'findUnique')
+      .mockResolvedValue(mockKeyword);
 
     const result = await keywordsService.findOne(mockKeyword.id);
 
