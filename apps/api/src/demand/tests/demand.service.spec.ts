@@ -7,7 +7,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { PrismaService } from '@/infra/database/prisma.service';
 import { DemandService } from '@/demand/demand.service';
-import { UsersService } from '@/user/user.service';
+import { UserService } from '@/user/user.service';
 
 describe('DemandService', () => {
   let service: DemandService;
@@ -16,7 +16,7 @@ describe('DemandService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [DemandController],
-      providers: [DemandService, PrismaService, UsersService],
+      providers: [DemandService, PrismaService, UserService],
     }).compile();
 
     service = module.get<DemandService>(DemandService);

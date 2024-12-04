@@ -13,13 +13,13 @@ import {
 import { CreateDemandDTO, UpdateDemandDTO } from './demand.dto';
 import { DemandService } from '@/demand/demand.service';
 import { JwtAuthGuard } from '@/auth/auth.guard';
-import { UsersService } from '@/user/user.service';
+import { UserService } from '@/user/user.service';
 
 @Controller('demand')
 export class DemandController {
   constructor(
     private readonly demandService: DemandService,
-    private readonly userService: UsersService,
+    private readonly userService: UserService,
   ) {}
 
   @Get('/all')

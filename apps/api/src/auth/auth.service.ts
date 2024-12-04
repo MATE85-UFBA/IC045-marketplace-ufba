@@ -1,4 +1,4 @@
-import { UsersService } from '@/user/user.service';
+import { UserService } from '@/user/user.service';
 import { getUserType } from '@/user/utils/user.types.util';
 import {
   BadRequestException,
@@ -12,7 +12,7 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {

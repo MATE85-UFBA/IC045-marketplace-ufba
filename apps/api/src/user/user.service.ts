@@ -10,7 +10,7 @@ import { hashPassword, comparePassword } from './utils/hashPassword.util';
 import { UserWithCompany } from '@/types';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(user: CreateUserDto) {

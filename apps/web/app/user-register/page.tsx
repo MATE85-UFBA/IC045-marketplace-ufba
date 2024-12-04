@@ -25,11 +25,11 @@ import { MoveLeftIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import registerStore from "../store/user-register/user.register.store";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import {registerSchema} from "./register.form.schema";
+import { registerStore } from "@/context/userRegisterContext";
 
 export default observer(function Cadastro() {
   const form = useForm({
