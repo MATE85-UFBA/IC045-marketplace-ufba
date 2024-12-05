@@ -1,11 +1,12 @@
 import { PrismaService } from '@/infra/database/prisma.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDemandDTO, UpdateDemandDTO } from './demand.dto';
-import { Demand } from '@prisma/client';
+import { Demand, UserStatus } from '@prisma/client';
+import { UserService } from '@/user/user.service';
 
 @Injectable()
 export class DemandService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService, private readonly userService: UserService) {}
 
   async create(demand: CreateDemandDTO, companyId: string): Promise<Demand> {
     const { name, description } = demand;
@@ -73,7 +74,10 @@ export class DemandService {
 
   async findOne(id: string): Promise<Demand> {
     const demand = await this.prismaService.demand.findUnique({
-      where: { id },
+      where: {
+        id,
+        public: true
+      },
     });
 
     if (!demand) {
@@ -81,5 +85,39 @@ export class DemandService {
     }
 
     return demand;
+  }
+
+
+  async findOneIncludingPrivate(id: string, userId: string): Promise<Demand> {
+    const demand = await this.prismaService.demand.findUnique({
+      where: { id },
+      include: {
+        company: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+
+    if (!demand) {
+      throw new NotFoundException('Demanda não encontrada');
+    }
+
+    if (demand.public) {
+      return demand;
+    }
+
+    const user = await this.userService.findOneWithProfiles(userId);
+
+    if (user.researcher && user.status == UserStatus.APPROVED) {
+      return demand;
+    }
+
+    if (demand?.company?.user?.id == userId) {
+      return demand;
+    }
+
+    throw new ForbiddenException('Você não tem acesso a esta demanda');
   }
 }

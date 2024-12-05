@@ -3,7 +3,7 @@ require('dotenv').config({ path: ['.env', '.env.ci'] });
 import { v4} from 'uuid';
 
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import {INestApplication, NotFoundException} from '@nestjs/common';
 import * as request from 'supertest';
 import { JwtService } from '@nestjs/jwt';
 import { DemandController } from '@/demand/demand.controller';
@@ -21,16 +21,12 @@ describe('DemandController (e2e)', () => {
   let userService: Partial<UserService>;
   let token: string;
   let user: User;
-  let demands: { [key: string]: {}}
   let userDemandOwner: {id: String, name: String, email:String, company: {} | null}
   let userDemandOwnerToken: string;
 
   beforeAll(async () => {
 
-    demands = {
-      "1": {id: "1", name: "demand 1", description: "desc", status: "CREATED", public: true},
-      "2": {id: "2", name: "demand 2", description: "desc", status: "CREATED", public: false}
-    }
+
     demandService = {
       my: jest.fn().mockResolvedValue([
         { id: 'demand-1', title: 'Demand 1', ownerId: 'mock-user-id' },
@@ -38,11 +34,17 @@ describe('DemandController (e2e)', () => {
       ]),
       findOne: jest.fn()
       .mockImplementationOnce((id: string) => {
-        if (demands.hasOwnProperty(id)) {
-          return demands[id];
+        if (id != "1") {
+          throw new NotFoundException(`id ${id} not found`);
+        } else {
+          return {id: "1", name: "demand 1", description: "desc", status: "CREATED", public: true};
         }
-        return null;
-      })
+
+      }),
+      findOneIncludingPrivate: jest.fn()
+        .mockImplementationOnce((id: string) => {
+          return {id: "2", name: "demand 2", description: "desc", status: "CREATED", public: true};
+        }),
     };
     
     user = {
@@ -67,7 +69,7 @@ describe('DemandController (e2e)', () => {
 
     const company = {
       userId: userDemandOwner.id,
-      demands: demands,
+      demands: [{id: "1", name: "demand 1", description: "desc", status: "CREATED", public: true}],
       createdAt: new Date(),
       updatedAt: new Date()
     }
@@ -118,41 +120,32 @@ describe('DemandController (e2e)', () => {
       .expect(401);
   });
 
-  it('/:id (GET) one public demand', async () => {
+  it('/:id (GET) non public demand without token - expect not found', async () => {
 
     await request(app.getHttpServer())
-      .get(`/demand/1`)
-      .set('Authorization', `Bearer ${token}`)
-      .expect(200);
-
+        .get(`/demand/2`)
+        .expect(404);
   });
 
-  it('/:id (GET) one public demand without token', async () => {
+  it('/:id (GET) one public demand - should return ok', async () => {
 
     await request(app.getHttpServer())
       .get(`/demand/1`)
       .expect(200);
+
   });
 
-  it('/:id (GET) non public demand without token', async () => {
+  it('/:id (GET) one non public without token - forbidden', async () => {
 
     await request(app.getHttpServer())
-      .get(`/demand/1`)
-      .expect(405);
-  });
-
-  it('/:id (GET) one non public demand without access', async () => {
-
-    await request(app.getHttpServer())
-      .get(`/demand/2`)
-      .set('Authorization', `Bearer ${token}`)
-      .expect(405);
+      .get(`/demand/private/2`)
+      .expect(401);
   });
 
   it('/:id (GET) one non public demand with access', async () => {
 
     await request(app.getHttpServer())
-      .get(`/demand/2`)
+      .get(`/demand/private/2`)
       .set('Authorization', `Bearer ${userDemandOwnerToken}`)
       .expect(200);
   });

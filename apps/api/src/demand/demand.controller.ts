@@ -39,6 +39,12 @@ export class DemandController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('/private/:id')
+  findOnePrivate(@Param('id') id: string, @Request() req: { user: { userId: string } }) {
+    return this.demandService.findOneIncludingPrivate(id, req.user.userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(
     @Body() demand: CreateDemandDTO,
