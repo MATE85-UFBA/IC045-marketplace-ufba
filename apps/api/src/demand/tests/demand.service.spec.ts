@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import {ForbiddenException} from "@nestjs/common";
+import {ForbiddenException} from '@nestjs/common';
 
 require('dotenv').config({ path: ['.env.ci', '.env'] });
 
@@ -128,7 +128,6 @@ describe('DemandService', () => {
   });
 
   it('findOnePrivate() - public demand- should return demand', async () => {
-
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
@@ -165,7 +164,6 @@ describe('DemandService', () => {
   });
 
   it('findOnePrivate() - private demand- user blocked - should throw ForbiddenException', async () => {
-
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
@@ -205,7 +203,6 @@ describe('DemandService', () => {
   });
 
   it('findOnePrivate() - private demand - researcher - allow', async () => {
-
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
@@ -246,7 +243,6 @@ describe('DemandService', () => {
 
 
   it('findOnePrivate() - private demand - non profile - deny', async () => {
-
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
@@ -283,7 +279,6 @@ describe('DemandService', () => {
   });
 
   it('findOnePrivate() - private demand - company owner - return demand', async () => {
-
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
@@ -326,7 +321,6 @@ describe('DemandService', () => {
   });
 
   it('findOnePrivate() - private demand - company but not owner - should throw ForbiddenException ', async () => {
-
     const mockDemand = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Demand',
@@ -349,19 +343,15 @@ describe('DemandService', () => {
       createdAt: new Date(),
       updatedAt: new Date(),
       company: {
-        userId: '123e4567-e89b-12d3-a456-426614174000'
+        userId: '123e4567-e89b-12d3-a456-426614174000',
       }
-    }
+    };
 
-    jest
-        .spyOn(prismaService.demand, 'findUnique')
-        .mockResolvedValue(mockDemand);
+    jest.spyOn(prismaService.demand, 'findUnique').mockResolvedValue(mockDemand);
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
 
-    jest
-        .spyOn(prismaService.user, 'findUnique')
-        .mockResolvedValue(mockUser);
-
-    await expect(demandService.findOneIncludingPrivate(mockDemand.id, mockUser.id)).rejects.toThrow(ForbiddenException);
+    await expect(
+      demandService.findOneIncludingPrivate(mockDemand.id, mockUser.id),
+    ).rejects.toThrow(ForbiddenException);
   });
-
 });

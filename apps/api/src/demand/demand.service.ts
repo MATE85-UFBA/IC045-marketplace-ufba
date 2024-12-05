@@ -1,12 +1,16 @@
 import { PrismaService } from '@/infra/database/prisma.service';
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateDemandDTO, UpdateDemandDTO } from './demand.dto';
 import { Demand, UserStatus } from '@prisma/client';
 import { UserService } from '@/user/user.service';
 
 @Injectable()
 export class DemandService {
-  constructor(private readonly prismaService: PrismaService, private readonly userService: UserService) {}
+  constructor(private readonly prismaService: PrismaService,
+              private readonly userService: UserService,) {}
 
   async create(demand: CreateDemandDTO, companyId: string): Promise<Demand> {
     const { name, description } = demand;

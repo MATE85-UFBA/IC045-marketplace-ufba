@@ -1,4 +1,4 @@
-require('dotenv').config({ path: ['.env', '.env.ci'] });
+
 
 import { v4} from 'uuid';
 
@@ -21,12 +21,12 @@ describe('DemandController (e2e)', () => {
   let userService: Partial<UserService>;
   let token: string;
   let user: User;
-  let userDemandOwner: {id: String, name: String, email:String, company: {} | null}
+  let userDemandOwner: {id: string, name: string, email:string, company: {} | null}
   let userDemandOwnerToken: string;
 
   beforeAll(async () => {
 
-
+    require('dotenv').config({ path: ['.env', '.env.ci'] });
     demandService = {
       my: jest.fn().mockResolvedValue([
         { id: 'demand-1', title: 'Demand 1', ownerId: 'mock-user-id' },

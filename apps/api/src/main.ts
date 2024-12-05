@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/core/app.module';
@@ -7,6 +7,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { GlobalExceptionFilter } from './middleware/global.exception.filter';
 
 async function bootstrap() {
+
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe());
