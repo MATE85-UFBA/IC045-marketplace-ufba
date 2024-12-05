@@ -3,7 +3,7 @@ import { DemandController } from '@/demand/demand.controller';
 import { DemandService } from '@/demand/demand.service';
 import { PrismaService } from '@/infra/database/prisma.service';
 import { UserService } from '@/user/user.service';
-import { UserRole } from '@prisma/client';
+import { UserRole, UserStatus } from '@prisma/client';
 
 describe('DemandController', () => {
   let controller: DemandController;
@@ -36,6 +36,7 @@ describe('DemandController', () => {
       resetToken: 'reset token example',
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest.spyOn(demandService, 'create');

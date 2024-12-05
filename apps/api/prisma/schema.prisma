@@ -14,22 +14,29 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(uuid())
-  email      String      @unique
-  name       String
-  img        String?
-  password   String
-  role       UserRole    @default(USER)
-  resetToken String?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  company    Company?
-  researcher Researcher?
+  id          String          @id @default(uuid())
+  email       String          @unique
+  name        String
+  img         String?
+  password    String
+  role        UserRole        @default(USER)
+  status   UserStatus         @default(PENDING)     
+  resetToken  String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  company     Company?
+  researcher  Researcher?
 }
 
 enum UserRole {
   USER
   ADMIN
+}
+
+enum UserStatus {
+  APPROVED
+  BLOCK
+  PENDING
 }
 
 model Keyword {

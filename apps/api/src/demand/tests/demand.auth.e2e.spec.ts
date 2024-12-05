@@ -10,7 +10,7 @@ import { DemandController } from '@/demand/demand.controller';
 import { DemandService } from '@/demand/demand.service';
 import { UserService } from '@/user/user.service';
 import { AuthModule } from '@/auth/auth.module';
-import { User, UserRole } from '@prisma/client';
+import { User, UserRole, UserStatus } from '@prisma/client';
 
 
 describe('DemandController (e2e)', () => {
@@ -51,6 +51,7 @@ describe('DemandController (e2e)', () => {
       email: `${v4().toString()}@email.com`,
       img: null,
       password: "userPass",
+      status: UserStatus.APPROVED,
       role: UserRole.USER,
       resetToken: null,
       createdAt: new Date(),
