@@ -3,7 +3,7 @@ require('dotenv').config({ path: ['.env.ci', '.env'] });
 
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ResearcherType, UserRole } from '@prisma/client';
+import { ResearcherType, UserRole, UserStatus } from '@prisma/client';
 import { PrismaService } from '@/infra/database/prisma.service'; // Import PrismaService
 import {
   NotFoundException,
@@ -53,6 +53,7 @@ describe('Integration test - UsersService - findOne', () => {
       resetToken: 'reset token example',
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
@@ -107,6 +108,7 @@ describe('Integration test - UsersService - create', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
@@ -140,6 +142,7 @@ describe('Integration test - UsersService - create', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest
@@ -186,6 +189,7 @@ describe('Integration test - UsersService - create with researcher', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
@@ -238,6 +242,7 @@ describe('Integration test - UsersService - create with company', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
