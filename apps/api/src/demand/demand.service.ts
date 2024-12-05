@@ -1,5 +1,6 @@
 import { PrismaService } from '@/infra/database/prisma.service';
-import { ForbiddenException,
+import {
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -9,8 +10,10 @@ import { UserService } from '@/user/user.service';
 
 @Injectable()
 export class DemandService {
-  constructor(private readonly prismaService: PrismaService,
-              private readonly userService: UserService,) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly userService: UserService,
+  ) {}
 
   async create(demand: CreateDemandDTO, companyId: string): Promise<Demand> {
     const { name, description } = demand;
@@ -80,7 +83,7 @@ export class DemandService {
     const demand = await this.prismaService.demand.findUnique({
       where: {
         id,
-        public: true
+        public: true,
       },
     });
 
@@ -90,7 +93,6 @@ export class DemandService {
 
     return demand;
   }
-
 
   async findOneIncludingPrivate(id: string, userId: string): Promise<Demand> {
     const demand = await this.prismaService.demand.findUnique({

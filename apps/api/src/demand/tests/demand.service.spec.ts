@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import {ForbiddenException} from '@nestjs/common';
+import { ForbiddenException } from '@nestjs/common';
 
 require('dotenv').config({ path: ['.env.ci', '.env'] });
 
@@ -10,7 +10,7 @@ import { NotFoundException } from '@nestjs/common/exceptions';
 import { PrismaService } from '@/infra/database/prisma.service';
 import { DemandService } from '@/demand/demand.service';
 import { UserService } from '@/user/user.service';
-import {User, UserRole, UserStatus} from '@prisma/client';
+import { User, UserRole, UserStatus } from '@prisma/client';
 
 describe('DemandService', () => {
   let demandService: DemandService;
@@ -124,7 +124,9 @@ describe('DemandService', () => {
       .spyOn(prismaService.demand, 'findUniqueOrThrow')
       .mockRejectedValue(new Error('Not found'));
 
-    await expect(demandService.patch('some-id', { name: 'teste' })).rejects.toThrow();
+    await expect(
+      demandService.patch('some-id', { name: 'teste' }),
+    ).rejects.toThrow();
   });
 
   it('findOnePrivate() - public demand- should return demand', async () => {
@@ -149,17 +151,18 @@ describe('DemandService', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
+    };
 
     jest
-        .spyOn(prismaService.demand, 'findUnique')
-        .mockResolvedValue(mockDemand);
+      .spyOn(prismaService.demand, 'findUnique')
+      .mockResolvedValue(mockDemand);
 
-    jest
-        .spyOn(prismaService.user, 'findUnique')
-        .mockResolvedValue(mockUser);
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
 
-    const result = await demandService.findOneIncludingPrivate(mockDemand.id, mockUser.id);
+    const result = await demandService.findOneIncludingPrivate(
+      mockDemand.id,
+      mockUser.id,
+    );
     expect(result).toEqual(expect.objectContaining(mockDemand));
   });
 
@@ -187,19 +190,18 @@ describe('DemandService', () => {
       updatedAt: new Date(),
       researcher: {
         userId: '123e4567-e89b-12d3-a456-426614174000',
-      }
-    }
+      },
+    };
 
     jest
-        .spyOn(prismaService.demand, 'findUnique')
-        .mockResolvedValue(mockDemand);
+      .spyOn(prismaService.demand, 'findUnique')
+      .mockResolvedValue(mockDemand);
 
-    jest
-        .spyOn(prismaService.user, 'findUnique')
-        .mockResolvedValue(mockUser);
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
 
-    await expect(demandService.findOneIncludingPrivate(mockDemand.id, mockUser.id)).rejects.toThrow(ForbiddenException);
-
+    await expect(
+      demandService.findOneIncludingPrivate(mockDemand.id, mockUser.id),
+    ).rejects.toThrow(ForbiddenException);
   });
 
   it('findOnePrivate() - private demand - researcher - allow', async () => {
@@ -226,21 +228,21 @@ describe('DemandService', () => {
       updatedAt: new Date(),
       researcher: {
         userId: '123e4567-e89b-12d3-a456-426614174000',
-      }
-    }
+      },
+    };
 
     jest
-        .spyOn(prismaService.demand, 'findUnique')
-        .mockResolvedValue(mockDemand);
+      .spyOn(prismaService.demand, 'findUnique')
+      .mockResolvedValue(mockDemand);
 
-    jest
-        .spyOn(prismaService.user, 'findUnique')
-        .mockResolvedValue(mockUser);
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
 
-    const result = await demandService.findOneIncludingPrivate(mockDemand.id, mockUser.id);
+    const result = await demandService.findOneIncludingPrivate(
+      mockDemand.id,
+      mockUser.id,
+    );
     expect(result).toEqual(expect.objectContaining(mockDemand));
   });
-
 
   it('findOnePrivate() - private demand - non profile - deny', async () => {
     const mockDemand = {
@@ -264,18 +266,17 @@ describe('DemandService', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
+    };
 
     jest
-        .spyOn(prismaService.demand, 'findUnique')
-        .mockResolvedValue(mockDemand);
+      .spyOn(prismaService.demand, 'findUnique')
+      .mockResolvedValue(mockDemand);
 
-    jest
-        .spyOn(prismaService.user, 'findUnique')
-        .mockResolvedValue(mockUser);
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
 
-    await expect(demandService.findOneIncludingPrivate(mockDemand.id, mockUser.id)).rejects.toThrow(ForbiddenException);
-
+    await expect(
+      demandService.findOneIncludingPrivate(mockDemand.id, mockUser.id),
+    ).rejects.toThrow(ForbiddenException);
   });
 
   it('findOnePrivate() - private demand - company owner - return demand', async () => {
@@ -292,8 +293,8 @@ describe('DemandService', () => {
         id: '123e4567-e89b-12d3-a456-426614174000',
         user: {
           id: '123e4567-e89b-12d3-a456-426614174000',
-        }
-      }
+        },
+      },
     };
     const mockUser = {
       id: '123e4567-e89b-12d3-a456-426614174000',
@@ -306,17 +307,18 @@ describe('DemandService', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
+    };
 
     jest
-        .spyOn(prismaService.demand, 'findUnique')
-        .mockResolvedValue(mockDemand);
+      .spyOn(prismaService.demand, 'findUnique')
+      .mockResolvedValue(mockDemand);
 
-    jest
-        .spyOn(prismaService.user, 'findUnique')
-        .mockResolvedValue(mockUser);
+    jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
 
-    const result = await demandService.findOneIncludingPrivate(mockDemand.id, mockUser.id);
+    const result = await demandService.findOneIncludingPrivate(
+      mockDemand.id,
+      mockUser.id,
+    );
     expect(result).toEqual(expect.objectContaining(mockDemand));
   });
 
@@ -344,10 +346,12 @@ describe('DemandService', () => {
       updatedAt: new Date(),
       company: {
         userId: '123e4567-e89b-12d3-a456-426614174000',
-      }
+      },
     };
 
-    jest.spyOn(prismaService.demand, 'findUnique').mockResolvedValue(mockDemand);
+    jest
+      .spyOn(prismaService.demand, 'findUnique')
+      .mockResolvedValue(mockDemand);
     jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
 
     await expect(
