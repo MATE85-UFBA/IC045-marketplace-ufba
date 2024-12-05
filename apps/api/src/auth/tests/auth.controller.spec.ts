@@ -47,6 +47,5 @@ describe('AuthController', () => {
       const response = await authController.login(mockBody);
       expect(response.access_token).toBe('mockJwtToken');
     });
-
   });
 });
