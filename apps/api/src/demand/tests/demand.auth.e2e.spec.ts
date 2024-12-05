@@ -8,7 +8,7 @@ import { DemandController } from '@/demand/demand.controller';
 import { DemandService } from '@/demand/demand.service';
 import { UserService } from '@/user/user.service';
 import { AuthModule } from '@/auth/auth.module';
-import { Company, User, UserRole } from '@prisma/client';
+import { User, UserRole, UserStatus } from '@prisma/client';
 
 describe('DemandController (e2e)', () => {
   let app: INestApplication;
@@ -17,12 +17,7 @@ describe('DemandController (e2e)', () => {
   let userService: Partial<UserService>;
   let token: string;
   let user: User;
-  let userDemandOwner: {
-    id: string;
-    name: string;
-    email: string;
-    company: Company | null;
-  };
+  let userDemandOwner: User;
   let userDemandOwnerToken: string;
 
   beforeAll(async () => {
@@ -71,27 +66,17 @@ describe('DemandController (e2e)', () => {
     };
 
     userDemandOwner = {
-      name: 'name',
+      name: 'User test',
       id: v4().toString(),
       email: `${v4().toString()}@email.com`,
-      company: null,
-    };
-
-    const company = {
-      userId: userDemandOwner.id,
-      demands: [
-        {
-          id: '1',
-          name: 'demand 1',
-          description: 'desc',
-          status: 'CREATED',
-          public: true,
-        },
-      ],
+      img: null,
+      password: 'userPass',
+      status: UserStatus.APPROVED,
+      role: UserRole.USER,
+      resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    userDemandOwner.company = company;
 
     // Mock UsersService
     userService = {
@@ -109,7 +94,7 @@ describe('DemandController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    jwtService = app.get<JwtService>(JwtService); // Retrieve JwtService from context
+    jwtService = app.get<JwtService>(JwtService);
     await app.init();
 
     token = jwtService.sign({ sub: user.id, name: user.name, role: user.role });

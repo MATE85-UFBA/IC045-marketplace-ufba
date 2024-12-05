@@ -1,7 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 import { ForbiddenException } from '@nestjs/common';
-
-require('dotenv').config({ path: ['.env.ci', '.env'] });
 
 import { demands } from '@/research-group/tests/fixtures';
 import { DemandController } from '@/demand/demand.controller';
