@@ -20,7 +20,7 @@ export class AdminService {
         {
           status: 'desc',
         },
-      ],  
+      ],
     });
   }
 
@@ -51,13 +51,12 @@ export class AdminService {
     const researchGroups = await this.prismaService.researchGroup.count();
     const demands = await this.prismaService.demand.count();
 
-    return{
+    return {
       companies,
       researchers,
       researchGroups,
-      demands
-    }
-  
+      demands,
+    };
   }
 
   async getDemandsByCompany() {
@@ -72,15 +71,14 @@ export class AdminService {
   async getDemandsByResearchGroup() {
     return await this.prismaService.researchGroup.findMany({
       select: {
-          id: true,
-          name: true,
-          _count: {
-              select: {
-                  projects: true,
-              },
+        id: true,
+        name: true,
+        _count: {
+          select: {
+            projects: true,
           },
+        },
       },
-  });
+    });
   }
-
 }

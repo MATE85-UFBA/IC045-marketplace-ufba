@@ -132,7 +132,9 @@ describe('AdminController', () => {
         _count: { id: 3 },
       },
     ];
-    jest.spyOn(service, 'getDemandsByCompany').mockResolvedValue(demandsByCompany);
+    jest
+      .spyOn(service, 'getDemandsByCompany')
+      .mockResolvedValue(demandsByCompany);
 
     expect(await controller.getDemandsByCompany()).toEqual(demandsByCompany);
   });
@@ -150,8 +152,12 @@ describe('AdminController', () => {
         _count: { projects: 4 },
       },
     ];
-    jest.spyOn(service, 'getDemandsByResearchGroup').mockResolvedValue(demandsByResearchGroup);
+    jest
+      .spyOn(service, 'getDemandsByResearchGroup')
+      .mockResolvedValue(demandsByResearchGroup);
 
-    expect(await controller.getDemandsByResearchGroup()).toEqual(demandsByResearchGroup);
+    expect(await controller.getDemandsByResearchGroup()).toEqual(
+      demandsByResearchGroup,
+    );
   });
 });
