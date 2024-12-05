@@ -8,10 +8,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
-import { JwtAuthGuard } from '@/auth/auth.guard';
-import { Roles } from '@/roles/roles.decorator';
-import { RolesGuard } from '@/roles/roles.guard';
-import { UpdateUserDto } from '@/user/user.dto';
+import { JwtAuthGuard } from '../auth/auth.guard';
+import { Roles } from '../roles/roles.decorator';
+import { RolesGuard } from '../roles/roles.guard';
+import { UpdateUserDto } from '../user/user.dto';
 
 @Controller('admin')
 export class AdminController {
