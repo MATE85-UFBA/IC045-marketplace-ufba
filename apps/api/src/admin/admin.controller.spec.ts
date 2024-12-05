@@ -4,7 +4,7 @@ import { AdminService } from './admin.service';
 import { JwtAuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../roles/roles.guard';
 import { UpdateUserDto } from '../user/user.dto';
-import { UserRole } from '@prisma/client';
+import { UserRole, UserStatus } from '@prisma/client';
 
 describe('AdminController', () => {
   let controller: AdminController;
@@ -52,9 +52,7 @@ describe('AdminController', () => {
 
         password: 'password',
 
-        isApproved: true,
-
-        isBlocked: false,
+        status: UserStatus.APPROVED,
 
         resetToken: null,
 
@@ -101,8 +99,7 @@ describe('AdminController', () => {
       role: UserRole.USER,
       img: null,
       password: 'password',
-      isApproved: true,
-      isBlocked: false,
+      status: UserStatus.APPROVED,
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),

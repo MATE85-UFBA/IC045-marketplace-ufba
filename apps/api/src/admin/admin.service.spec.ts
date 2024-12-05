@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AdminService } from './admin.service';
 import { PrismaService } from '../infra/database/prisma.service';
 import { UpdateUserDto } from '../user/user.dto';
-import { UserRole } from '@prisma/client';
+import { UserRole, UserStatus } from '@prisma/client';
 
 describe('AdminService', () => {
   let service: AdminService;
@@ -55,8 +55,7 @@ describe('AdminService', () => {
         resetToken: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-        isApproved: true,
-        isBlocked: false,
+        status: UserStatus.APPROVED,
       },
     ];
     jest.spyOn(prismaService.user, 'findMany').mockResolvedValue(users);
@@ -80,8 +79,7 @@ describe('AdminService', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
-      isApproved: true,
-      isBlocked: false,
+      status: UserStatus.APPROVED,
     };
     jest.spyOn(prismaService.user, 'update').mockResolvedValue(updatedUser);
 
@@ -105,8 +103,7 @@ describe('AdminService', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
-      isApproved: true,
-      isBlocked: false,
+      status: UserStatus.APPROVED,
     };
     jest.spyOn(prismaService.user, 'delete').mockResolvedValue(deletedUser);
 

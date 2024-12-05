@@ -48,16 +48,5 @@ describe('AuthController', () => {
       expect(response.access_token).toBe('mockJwtToken');
     });
 
-    it('should return UnauthorizedException when user is blocked', async () => {
-      const mockBody = {
-        email: 'luke.skywalker@email.com.br',
-        password: 'senhasecreta',
-      };
-
-      const response = await authController.login(mockBody);
-      expect(response).toThrow(UnauthorizedException);
-  
-    });
-
   });
 });

@@ -6,6 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { UserStatus } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -17,7 +18,7 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findByEmail(email);
-    if(user?.isBlocked) throw new UnauthorizedException('Usuário bloqueado.');
+    if(user?.status === UserStatus.BLOCK) throw new UnauthorizedException('Usuário bloqueado.');
 
     if (user && bcrypt.compareSync(password, user.password)) {
       return user;

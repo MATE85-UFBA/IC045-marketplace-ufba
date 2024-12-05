@@ -13,7 +13,14 @@ export class AdminService {
         name: true,
         email: true,
         role: true,
+        status: true,
+        img: true,
       },
+      orderBy: [
+        {
+          status: 'desc',
+        },
+      ],  
     });
   }
 
