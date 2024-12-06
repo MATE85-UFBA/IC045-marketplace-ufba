@@ -56,12 +56,12 @@ export class AuthService {
         expiresIn: process.env.JWT_PASSWORD_TOKEN_EXPIRATION,
       });
 
-      const resetLink = `${process.env.FRONT_END_ORIGIN}/reset-password?token=${token}`;
-      // TODO send email with token
+      const resetUrl = `${process.env.FRONT_END_ORIGIN}/reset-password?token=${token}`;
       await this.mailService.sendEmail(
         email,
         'Password Reset Request',
-        `To reset your password, click the link: ${resetLink}`,
+        user.name,
+        resetUrl,
       );
 
       return { message: 'Password reset email sent' };
