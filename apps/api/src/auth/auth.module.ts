@@ -1,3 +1,4 @@
+import { MailModule } from './../mailsend/mail.module';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -17,6 +18,7 @@ import { PrismaService } from '@/infra/database/prisma.service';
       signOptions: { expiresIn: '12h' },
     }),
     UsersModule,
+    MailModule,
   ],
   providers: [PrismaService, AuthService, JwtStrategy, UsersService],
   controllers: [AuthController],
