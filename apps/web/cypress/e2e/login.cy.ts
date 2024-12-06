@@ -52,4 +52,14 @@ describe('Login page', () => {
     cy.get('form').submit();
     cy.contains('A senha é obrigatória').should('be.visible');
   });
+
+  it('Go to forgot password', () => {
+    cy.get('a[href="/recuperar-senha"]').click(); 
+    cy.url().should('contain', '/recuperar-senha'); 
+  });
+
+  it('Go to register', () => {
+    cy.get('a[href="/user-register"]').click(); 
+    cy.url().should('contain', '/user-register'); 
+  });
 });

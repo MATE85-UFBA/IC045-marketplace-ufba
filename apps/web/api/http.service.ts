@@ -1,5 +1,6 @@
-import { User } from "../store/login";
-import { loadUserFromLocalStorage } from "./auth.storage";
+
+import { User } from "@/context/loginContext";
+import { loadUserFromLocalStorage } from "../lib/user.storage";
 
 
 class HttpService {
@@ -59,4 +60,3 @@ class HttpService {
   const httpService = new HttpService(process.env.NEXT_PUBLIC_API_URL as string);
   
   export default httpService;
-  

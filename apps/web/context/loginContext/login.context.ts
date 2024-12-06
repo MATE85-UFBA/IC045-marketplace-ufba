@@ -1,13 +1,11 @@
 import { makeAutoObservable } from "mobx";
-import userService from "../../service/user.service";
-import {
-  persistUserToLocalStorage,
-  deleteUserFromLocalStorage,
-} from "../../service/auth.storage";
+
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { User } from "./login.types";
+import { deleteUserFromLocalStorage, persistUserToLocalStorage } from "@/lib/user.storage";
+import userService from "@/api/user.service";
 
-class LoginStore {
+class LoginContext {
   isLoading: boolean = false;
   isAuthenticated: boolean = false;
   errorMessage: string = "";
@@ -50,4 +48,4 @@ class LoginStore {
   }
 }
 
-export default new LoginStore();
+export default new LoginContext();

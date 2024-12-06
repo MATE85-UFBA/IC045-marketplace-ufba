@@ -6,7 +6,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { JwtService } from '@nestjs/jwt';
 import { AuthController } from '@/auth/auth.controller';
 import { AuthService } from '@/auth/auth.service';
-import { UsersService } from '@/user/user.service';
+import { UserService } from '@/user/user.service';
 import { PrismaService } from '@/infra/database/prisma.service';
 import { UnauthorizedException } from '@nestjs/common';
 import { MailService } from '@/mailsend/mail.service';
@@ -24,7 +24,7 @@ describe('AuthController', () => {
       providers: [
         AuthService,
         { provide: JwtService, useValue: mockJwtService },
-        UsersService,
+        UserService,
         PrismaService,
         MailService,
       ],

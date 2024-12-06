@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DemandController } from '@/demand/demand.controller';
 import { DemandService } from '@/demand/demand.service';
 import { PrismaService } from '@/infra/database/prisma.service';
-import { UsersService } from '@/user/user.service';
+import { UserService } from '@/user/user.service';
 import { UserRole, UserStatus } from '@prisma/client';
 
 describe('DemandController', () => {
@@ -13,7 +13,7 @@ describe('DemandController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [DemandController],
-      providers: [DemandService, PrismaService, UsersService],
+      providers: [DemandService, PrismaService, UserService],
     }).compile();
 
     controller = module.get<DemandController>(DemandController);
