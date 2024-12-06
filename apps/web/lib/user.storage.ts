@@ -1,4 +1,5 @@
-import { User } from "../store/login/login.types";
+import { User } from "@/context/loginContext";
+
 
 export const persistUserToLocalStorage = (user: User) => {
     localStorage.setItem('user', JSON.stringify(user));

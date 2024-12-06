@@ -1,4 +1,4 @@
-import { CreateUser } from "../store/user-register/register.types";
+import { CreateUser } from "@/context/userRegisterContext";
 import httpService from "./http.service";
 
 class UserService {
