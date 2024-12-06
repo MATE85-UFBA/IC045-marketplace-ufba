@@ -1,19 +1,19 @@
 import { Item } from "./Item"
-import { ResearchGroup } from "./types"
+import { ResearchGroup } from "./type"
 
-type ResearchGroupListProps = {
+type MyResearchGroupListProps = {
     researchgroups: ResearchGroup[]
 }
 
-function ResearchGroupList({ researchgroups }: ResearchGroupListProps) {
+function MyResearchGroupList({ researchgroups }: MyResearchGroupListProps) {
     console.log(typeof researchgroups)
     return <ul className="grid grid-cols-2 gap-3">
         {
             researchgroups.length
                 ? researchgroups.map(researchgroup => <Item key={researchgroup.id} {...researchgroup} />)
-                : <div>No momento não há grupos de pesquisa cadastrado</div>
+                : <div>Você não participa de nenhum grupo de pesquisa no momento</div>
         }
     </ul>
 }
 
-export { ResearchGroupList }
+export { MyResearchGroupList }
