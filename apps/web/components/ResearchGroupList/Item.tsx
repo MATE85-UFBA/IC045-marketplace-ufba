@@ -1,9 +1,9 @@
-import Link from "next/link"
-import { Button } from "../ui/button"
-import Image from "next/image"
-import { TbUserCircle } from "react-icons/tb"
-import { ptBR } from "date-fns/locale"
-import { ResearchGroup } from "./type"
+import Link from "next/link";
+import { Button } from "../ui/button";
+import Image from "next/image";
+import { TbUserCircle } from "react-icons/tb";
+import { ResearchGroup } from "./type";
+import { FaImagePortrait } from "react-icons/fa6";
 
 function Item(researchgroup: ResearchGroup) {
     return <li className="px-8 py-10 bg-white border rounded-2xl">
@@ -12,9 +12,9 @@ function Item(researchgroup: ResearchGroup) {
         </div>
 
         {
-            researchgroup.keywords.length > 0 &&
+            researchgroup.knowlegdeAreas.length > 0 &&
             <ul className="mb-8 flex gap-2">
-                {researchgroup.keywords.map(keyword => <li key={keyword.id} className="px-3 py-2 text-center bg-border rounded-full text-xs">{keyword.name}</li>)}
+                {researchgroup.knowlegdeAreas.map(knowlegdearea => <li key={knowlegdearea.id} className="px-3 py-2 text-center bg-border rounded-full text-xs">{knowlegdearea.name}</li>)}
             </ul>
 
         }

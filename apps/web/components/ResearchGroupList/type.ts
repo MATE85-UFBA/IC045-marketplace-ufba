@@ -1,8 +1,3 @@
-export type Keyword = {
-    id: number;
-    name: string;
-}
-
 export type Reseacher = {
     id: number;
     name: string;
@@ -16,14 +11,19 @@ export type Project = {
     status: string;
 }
 
+export type KnowlegdeAreas = {
+    id: number;
+    name: string;
+}
+
 export type ResearchGroup = {
     id: number;
     name: string;
     description: string;
-    urlCNPQ: string;
-    img: string;
+    urlCNPQ?: string;
+    image?: string;
     leader: Reseacher;
     members: Reseacher[];
     projects: Project[];
-    keywords: Keyword[];
+    knowlegdeAreas: KnowlegdeAreas[];
 }
