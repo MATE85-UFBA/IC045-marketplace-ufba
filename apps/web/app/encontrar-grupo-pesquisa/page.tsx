@@ -1,12 +1,15 @@
+'use client';
+
 import { ResearchGroupList } from "@/components/ResearchGroupList";
-import { ResearchGroup } from "@/components/ResearchGroupList/type";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FiSearch } from "react-icons/fi";
+import useGetAllResearchGroups from '@/api/research-group/use-get-all-research-group';
 
 function EncontrarGrupoPesquisa() {
+    /*
     const researchgroups = [
         {
             id: 1,
@@ -31,6 +34,9 @@ function EncontrarGrupoPesquisa() {
             knowlegdeAreas: [ { id: 1, name: "Ações afirmativas" }, { id: 2, name: "Inclusão Digital"} ]
         }
     ]
+    */
+
+    const { data: researchgroups = [] }  = useGetAllResearchGroups();
 
     return <main className='max-w-screen-xl px-8 m-auto grid grid-cols-[auto_1fr] md:gap-3'>
         <h1 className='font-semibold text-4xl mt-12 mb-8 col-span-2'>Encontrar grupo de pesquisa</h1>
