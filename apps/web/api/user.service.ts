@@ -3,8 +3,6 @@ import httpService from "./http.service";
 
 class UserService {
 
-    userUrl: string = `${process.env.NEXT_PUBLIC_API_URL}`;
-
     async handleAuthResponse(response: Response) {
         const data = await response.json();
         if (!response.ok) {

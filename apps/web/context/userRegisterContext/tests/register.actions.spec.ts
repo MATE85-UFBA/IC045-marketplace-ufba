@@ -1,12 +1,13 @@
-import { RESEARCHER, COMPANY, getUserFromData } from "../register.actions";
-import { CreateUser, ResearcherType, UserRole } from "../register.types";
+import { getUserFromData } from "../register.actions";
+import {CreateUser} from "@/context/userRegisterContext";
+import {ResearcherType, UserProfileType, UserRole} from "@/types/user";
 
 describe('getUserFromData function', () => {
 
   it('should create a CreateUser object with company details for user type EMPRESA', () => {
     const userData = {
       name: 'John Doe',
-      utype: COMPANY,
+      utype: UserProfileType.COMPANY,
       email: 'johndoe@example.com',
       password: 'secretPassword',
       passwordConfirmation: 'secretPassword',
@@ -29,7 +30,7 @@ describe('getUserFromData function', () => {
   it('should create a CreateUser object with researcher details for user type RESEARCHER', () => {
     const userData = {
       name: 'Jane Doe',
-      utype: RESEARCHER,
+      utype: UserProfileType.RESEARCHER,
       email: 'janedoe@example.com',
       password: 'secretPassword',
       passwordConfirmation: 'secretPassword',
@@ -51,7 +52,7 @@ describe('getUserFromData function', () => {
   it('should set researcherType to STUDENT by default for RESEARCHER user type', () => {
     const userData = {
       name: 'Another User',
-      utype: RESEARCHER,
+      utype: UserProfileType.RESEARCHER,
       email: 'anotheruser@example.com',
       password: 'secretPassword',
       passwordConfirmation: 'secretPassword',

@@ -14,6 +14,6 @@ export function login(email: string, password: string) {
         },
     }
     cy.request(options).then((response) => {
-        localStorage.setItem("user", JSON.stringify(response.body))
+        localStorage.setItem('user', JSON.stringify(response.body))
     })
 }

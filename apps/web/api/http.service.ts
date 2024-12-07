@@ -1,5 +1,5 @@
-import { User } from "@/context/loginContext";
 import { loadUserFromLocalStorage } from "@/lib/user.storage";
+import {User} from "@/types/user";
 
 
 class HttpService {

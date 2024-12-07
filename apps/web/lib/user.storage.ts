@@ -1,4 +1,4 @@
-import { User } from "@/context/loginContext";
+import {User} from "@/types/user";
 
 
 export const persistUserToLocalStorage = (user: User) => {

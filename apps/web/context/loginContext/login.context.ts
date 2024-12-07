@@ -1,9 +1,9 @@
 import { makeAutoObservable } from "mobx";
 
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { User } from "./login.types";
 import { deleteUserFromLocalStorage, persistUserToLocalStorage } from "@/lib/user.storage";
 import userService from "@/api/user.service";
+import {User} from "@/types/user";
 
 class LoginContext {
   isLoading: boolean = false;
