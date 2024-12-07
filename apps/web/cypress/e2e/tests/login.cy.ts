@@ -1,4 +1,4 @@
-import { FRONT_END_URL } from "./config";
+import { FRONT_END_URL } from "../config";
 
 describe('Login page', () => {
   const userEmail = 'reginaldo.rossi@email.com.br';

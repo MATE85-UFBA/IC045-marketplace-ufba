@@ -1,5 +1,5 @@
-import { FRONT_END_URL } from "./config";
-import { login } from "./setup.auth";
+import { FRONT_END_URL } from "../config";
+import { login } from "../setup.auth";
 
 describe('Just show page', () => {
 
