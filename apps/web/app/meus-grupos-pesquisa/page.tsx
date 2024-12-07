@@ -1,11 +1,10 @@
+"use client";
 import { MyResearchGroupList } from "@/components/MyResearchGroupList";
-import { ResearchGroup } from "@/components/MyResearchGroupListProps/type";
+import MeusGruposPesquisaFilter from "@/modules/meus-grupos-pesquisa/components/filter/meusGruposPesquisaFilter";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { CustomIcon } from '@/modules/components/icon/customIcon';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import { FiSearch } from "react-icons/fi";
+
 
 function MeusGruposPesquisa() {
     const researchgroups = [
@@ -21,16 +20,18 @@ function MeusGruposPesquisa() {
         }
     ]
 
-    return <main className='max-w-screen-xl px-8 m-auto grid grid-cols-[auto_1fr] md:gap-3'>
+    return <main className='flex justify-center flex-grow m-8'>
         <section className="flex flex-col w-full max-w-7xl pt-12 gap-6">
           <div className="flex justify-between">
             <h1 className="font-bold text-2xl text-blue-strong sm:text-4xl">
-              Minhas Demandas
+              Meus Grupos de Pesquisa
             </h1>
-            <Button className="rounded-full" >
-              <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" /> Nova grupo de pesquisa
+            <Button className="rounded-full">
+              <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" /> Novo grupo de pesquisa
             </Button>
           </div>
+          <MeusGruposPesquisaFilter />
+          <MyResearchGroupList researchgroups={researchgroups} />
         </section>
     </main>
 }

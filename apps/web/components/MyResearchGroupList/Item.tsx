@@ -2,6 +2,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
+import { IoIosArrowForward } from "react-icons/io";
 import { TbUserCircle } from 'react-icons/tb';
 import { Button } from '../ui/button';
 import { ResearchGroup } from './type';
