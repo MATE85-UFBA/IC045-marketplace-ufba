@@ -17,7 +17,7 @@ export type KnowlegdeAreas = {
 }
 
 export type ResearchGroup = {
-    id: number;
+    id: string;
     name: string;
     description: string;
     urlCNPQ?: string;

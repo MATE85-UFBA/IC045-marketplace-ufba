@@ -1,4 +1,5 @@
-import { UsersService } from '@/user/user.service';
+import { MailService } from '@/mailsend/mail.service';
+import { UserService } from '@/user/user.service';
 import { getUserType } from '@/user/utils/user.types.util';
 import {
   BadRequestException,
@@ -6,17 +7,21 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { UserStatus } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
+    private readonly mailService: MailService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findByEmail(email);
+    if (user?.status === UserStatus.BLOCK)
+      throw new UnauthorizedException('Usuário bloqueado.');
 
     if (user && bcrypt.compareSync(password, user.password)) {
       return user;
@@ -46,11 +51,18 @@ export class AuthService {
 
     if (user) {
       const payload = { email };
-      this.jwtService.sign(payload, {
+      const token = this.jwtService.sign(payload, {
         secret: process.env.JWT_PASSWORD_TOKEN_SECRET,
         expiresIn: process.env.JWT_PASSWORD_TOKEN_EXPIRATION,
       });
-      // TODO send email with token
+
+      const resetUrl = `${process.env.FRONT_END_ORIGIN}/reset-password?token=${token}`;
+      await this.mailService.sendEmail(
+        email,
+        'Password Reset Request',
+        user.name,
+        resetUrl,
+      );
 
       return { message: 'Password reset email sent' };
     }

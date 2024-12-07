@@ -1,4 +1,4 @@
-import userService from "@/app/service/user.service";
+import userService from "@/api/user.service";
 import { makeAutoObservable } from "mobx";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { getUserFromData } from "./register.actions";
