@@ -1,12 +1,4 @@
-export enum ResearcherType {
-    STUDENT = 'STUDENT',
-    TEACHER = 'TEACHER',
-}
-
-export enum UserRole {
-    USER = 'USER',
-    ADMIN = 'ADMIN'
-}
+import {ResearcherType, UserRole} from "@/types/user";
 
 export interface CreateUser {
     name: string;

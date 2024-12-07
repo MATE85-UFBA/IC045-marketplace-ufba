@@ -1,6 +1,5 @@
-
-import { User } from "@/context/loginContext";
-import { loadUserFromLocalStorage } from "../lib/user.storage";
+import { loadUserFromLocalStorage } from "@/lib/user.storage";
+import {User} from "@/types/user";
 
 
 class HttpService {
@@ -52,7 +51,7 @@ class HttpService {
       });
     }
   
-    async delete<T>(endpoint: string): Promise<Response> {
+    async delete(endpoint: string): Promise<Response> {
       return this.request(endpoint, { method: "DELETE" });
     }
   }

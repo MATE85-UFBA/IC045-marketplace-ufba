@@ -1,11 +1,11 @@
-export const COMPANY = 'company';
-export const RESEARCHER = 'researcher';
-export const NONE = 'none';
+export const COMPANY = 'COMPANY';
+export const RESEARCHER = 'RESEARCHER';
+export const NONE = 'NONE';
 
 export function getUserType(user: any) {
-  if (user.company) {
+  if (user.company && user?.company?.contactEmail) {
     return COMPANY;
-  } else if (user.researcher) {
+  } else if (user.researcher && user.researcher?.researcherType) {
     return RESEARCHER;
   }
   return NONE;
