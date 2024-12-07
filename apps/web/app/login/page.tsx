@@ -9,10 +9,14 @@ import { authStore } from "../store/login";
 import { useRouter } from "next/navigation";
 import loginStore from "../store/login/login.store";
 import Link from "next/link";
-
+import { useUser } from "@/context/UserContext";
+import { loadUserFromLocalStorage } from "../service/auth.storage";
 
 const Login = observer(() => {
   const router = useRouter();
+
+  const { setUser } = useUser();
+
   const {
     register,
     handleSubmit,
@@ -22,7 +26,8 @@ const Login = observer(() => {
   });
 
   async function loginUser(data: LoginUserFormData) {
-    await loginStore.login(data.email, data.password, router);  // Pass router to login method
+    await loginStore.login(data.email, data.password, router); // Pass router to login method
+    setUser(loadUserFromLocalStorage());
   }
 
   return (

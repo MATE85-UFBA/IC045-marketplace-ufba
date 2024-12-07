@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/modules/components/header/header";
 import Footer from "@/modules/components/footer/footer";
 import ReactQueryProvider from "@/lib/react-query";
+import { UserProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +23,13 @@ export default function RootLayout({
     <html lang="pt-br" className="h-full">
       <body className={`${inter.className} flex flex-col h-full`}>
         {/* Envolvendo toda a aplicação com ReactQueryProvider */}
-        <ReactQueryProvider>
-          <Header userType="empresa" /> {/* todo remover */}
-          {children}
-          <Footer />
-        </ReactQueryProvider>
+        <UserProvider>
+          <ReactQueryProvider>
+            <Header />
+            {children}
+            <Footer />
+          </ReactQueryProvider>
+        </UserProvider>
       </body>
     </html>
   );
