@@ -4,13 +4,7 @@ import {
   RESEARCHER,
   NONE,
 } from '@/user/utils/user.types.util';
-import {
-  User,
-  UserRole,
-  UserStatus,
-  ResearcherType,
-  Company,
-} from '@prisma/client'; // Assuming you have Prisma Client installed
+import { UserRole, UserStatus, ResearcherType, Company } from '@prisma/client'; // Assuming you have Prisma Client installed
 
 describe('getUserType', () => {
   it('should return COMPANY when user.company is true', () => {
