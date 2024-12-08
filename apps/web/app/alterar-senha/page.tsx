@@ -56,7 +56,7 @@ export default function PasswordRecovery() {
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         setIsLoading(true);
         const response = await userService.resetPassword(token ?? "", data.password);
-        if(response.status !== 201) {
+        if(response.status !== 200) {
             toast({
                 title: 'Erro ao alterar a senha',
                 description: "Não foi possível alterar a senha, tente novamente mais tarde",
