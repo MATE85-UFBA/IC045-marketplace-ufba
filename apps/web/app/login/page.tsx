@@ -69,9 +69,9 @@ const Login = observer(() => {
               <span className="text-red-600">{errors.password.message}</span>
             )}
           </div>
-          <a href="" className="text-right text-xs underline">
+          <Link href="/recuperar-senha" className="text-right text-xs underline">
             Esqueci minha senha
-          </a>
+          </Link>
 
           <button
             type="submit"
