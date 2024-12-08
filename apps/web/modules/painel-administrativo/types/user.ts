@@ -3,5 +3,5 @@ export type UserType = {
   name: string
   role: 'ADMIN' |'USER'
   utype: 'COMPANY' | 'RESEARCHER' | 'NONE'
-  isActive: boolean
+  status: 'APPROVED' | 'BLOCKED' | 'PENDING'
 }

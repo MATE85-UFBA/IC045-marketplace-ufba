@@ -63,7 +63,7 @@ const columns: ColumnDef<UserType>[] = [
     },
   },
   {
-    accessorKey: "isActive",
+    accessorKey: "status",
     header: ({ column }) => {
       return (
         <Button
@@ -76,7 +76,13 @@ const columns: ColumnDef<UserType>[] = [
       );
     },
     cell: ({ row }) => {
-      const label = row.getValue("isActive") ? "Ativo" : "Inativo";
+      const status = row.getValue("status");
+      const label =
+        status === "APPROVED"
+          ? "Aprovado"
+          : status === "BLOCKED"
+          ? "Bloqueado"
+          : "Pendente";
 
       return <div className="capitalize">{label}</div>;
     },

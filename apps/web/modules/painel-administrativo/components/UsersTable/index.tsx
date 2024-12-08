@@ -24,87 +24,11 @@ import { UserType } from "../../types/user";
 import { columns } from "./columns";
 import { Pagination } from "./pagination";
 
-const data: UserType[] = [
-  {
-    id: "1",
-    name: "Paulo",
-    role: "ADMIN",
-    utype: "RESEARCHER",
-    isActive: true,
-  },
-  {
-    id: "2",
-    name: "Joel",
-    role: "USER",
-    utype: "RESEARCHER",
-    isActive: false,
-  },
-  {
-    id: "3",
-    name: "Nvidia",
-    role: "USER",
-    utype: "COMPANY",
-    isActive: false,
-  },
-  {
-    id: "4",
-    name: "Felipe",
-    role: "USER",
-    utype: "RESEARCHER",
-    isActive: true,
-  },
-  {
-    id: "5",
-    name: "Empresa 1",
-    role: "ADMIN",
-    utype: "COMPANY",
-    isActive: false,
-  },
-  {
-    id: "6",
-    name: "Empresa 2",
-    role: "ADMIN",
-    utype: "COMPANY",
-    isActive: true,
-  },
-  {
-    id: "7",
-    name: "Empresa 3",
-    role: "ADMIN",
-    utype: "COMPANY",
-    isActive: true,
-  },
-  {
-    id: "8",
-    name: "Empresa 4",
-    role: "ADMIN",
-    utype: "COMPANY",
-    isActive: true,
-  },
-  {
-    id: "9",
-    name: "Matheus",
-    role: "USER",
-    utype: "RESEARCHER",
-    isActive: false,
-  },
-  {
-    id: "10",
-    name: "Pedro",
-    role: "ADMIN",
-    utype: "RESEARCHER",
-    isActive: false,
-  },
-  {
-    id: "11",
-    name: "Empresa 5",
-    role: "ADMIN",
-    utype: "COMPANY",
-    isActive: false,
-  },
-];
+interface UsersTableProps {
+  data: UserType[];
+}
 
-function UsersTable() {
+function UsersTable({ data }: UsersTableProps) {
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,

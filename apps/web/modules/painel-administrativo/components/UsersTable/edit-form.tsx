@@ -6,7 +6,6 @@ import { z } from "zod";
 
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -29,7 +28,7 @@ const FormSchema = z.object({
   name: z.string(),
   role: z.string(),
   utype: z.string(),
-  isActive: z.boolean(),
+  status: z.string(),
 });
 
 interface EditFormProps {
@@ -45,7 +44,7 @@ export function EditForm({ user, closeModal }: EditFormProps) {
       name: user.name,
       role: user.role,
       utype: user.utype,
-      isActive: user.isActive,
+      status: user.status,
     },
   });
 
@@ -98,6 +97,7 @@ export function EditForm({ user, closeModal }: EditFormProps) {
                 <SelectContent>
                   <SelectItem value="ADMIN">Administrador</SelectItem>
                   <SelectItem value="USER">Usuário</SelectItem>
+                  <SelectItem value="NONE">Nenhum</SelectItem>
                 </SelectContent>
               </Select>
             </FormItem>
@@ -127,18 +127,22 @@ export function EditForm({ user, closeModal }: EditFormProps) {
 
         <FormField
           control={form.control}
-          name="isActive"
+          name="status"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel>Ativo</FormLabel>
-              </div>
+            <FormItem>
+              <FormLabel>Status</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className="bg-white h-12 text-blue-strong">
+                    <SelectValue placeholder="Selecione o tipo do usuário" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="APPROVED">Aprovado</SelectItem>
+                  <SelectItem value="BLOCKED">Bloqueado</SelectItem>
+                  <SelectItem value="PENDING">Pendente</SelectItem>
+                </SelectContent>
+              </Select>
             </FormItem>
           )}
         />
