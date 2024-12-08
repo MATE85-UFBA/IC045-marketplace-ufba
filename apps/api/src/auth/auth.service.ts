@@ -57,7 +57,7 @@ export class AuthService {
         expiresIn: process.env.JWT_PASSWORD_TOKEN_EXPIRATION,
       });
 
-      const resetUrl = `${process.env.FRONT_END_ORIGIN}/reset-password?token=${token}`;
+      const resetUrl = `${process.env.FRONT_END_ORIGIN}/alterar-senha?token=${token}`;
       await this.mailService.sendEmail(
         email,
         'Password Reset Request',

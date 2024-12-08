@@ -37,6 +37,10 @@ class UserService {
     async recoverPassword(email: string) {
         return httpService.post("/auth/forgot-password", { email });
     }
+
+    async resetPassword(token: string, password: string) {
+        return httpService.post(`/auth/reset-password/${token}`, { password });
+    }
 }
 
 export default new UserService();
