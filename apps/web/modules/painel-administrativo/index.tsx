@@ -1,6 +1,6 @@
 "use client";
 
-import useGetAllUsers from "@/api/use-get-all-users";
+import useGetAllUsers from "@/api/admin/user/use-get-all-users";
 import { UsersTable } from "./components/UsersTable";
 
 const PainelAdministrativoPage = () => {
