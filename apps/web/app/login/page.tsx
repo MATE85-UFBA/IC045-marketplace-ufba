@@ -7,12 +7,16 @@ import { observer } from "mobx-react-lite";
 import { loginFormSchema, LoginUserFormData } from "./login.form.schema";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useUser } from "@/context/UserContext";
 import loginStore from "@/context/loginContext/login.context";
 import { authStore } from "@/context/loginContext";
-
+import { loadUserFromLocalStorage } from "@/lib/user.storage";
 
 const Login = observer(() => {
   const router = useRouter();
+
+  const { setUser } = useUser();
+
   const {
     register,
     handleSubmit,
@@ -22,7 +26,8 @@ const Login = observer(() => {
   });
 
   async function loginUser(data: LoginUserFormData) {
-    await loginStore.login(data.email, data.password, router);  // Pass router to login method
+    await loginStore.login(data.email, data.password, router); // Pass router to login method
+    setUser(loadUserFromLocalStorage());
   }
 
   return (
