@@ -33,6 +33,10 @@ class UserService {
     async deleteUserAccount() {
         return httpService.delete("/user");
     }
+
+    async recoverPassword(email: string) {
+        return httpService.post("/auth/forgot-password", { email });
+    }
 }
 
 export default new UserService();

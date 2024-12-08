@@ -67,7 +67,7 @@ export class AuthService {
 
       return { message: 'Password reset email sent' };
     }
-    return { message: 'Invalid email' };
+    throw new BadRequestException('Invalid email');
   }
 
   async resetPassword(token: string, password: string) {
