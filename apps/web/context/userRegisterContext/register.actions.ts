@@ -1,7 +1,6 @@
-import { CreateUser, CreateUserCompany, CreateUserResearcher, ResearcherType, UserRole } from "./register.types";
+import { CreateUser, CreateUserCompany, CreateUserResearcher } from "./register.types";
+import {ResearcherType, UserProfileType, UserRole} from "@/types/user";
 
-export const COMPANY = 'empresa';
-export const RESEARCHER = 'pesquisador';
 
 export function getUserFromData(userData: {
     name: string,
@@ -11,15 +10,15 @@ export function getUserFromData(userData: {
     passwordConfirmation: string
   }): CreateUser {
 
-    var company: CreateUserCompany | undefined;
-    var researcher: CreateUserResearcher | undefined;
+    let company: CreateUserCompany | undefined;
+    let researcher: CreateUserResearcher | undefined;
 
-    if (userData.utype == COMPANY) {
+    if (userData.utype == UserProfileType.COMPANY) {
         company = {
             contactName: userData.name,
             contactEmail: userData.email
         }
-    } else if (userData.utype == RESEARCHER) {
+    } else if (userData.utype == UserProfileType.RESEARCHER) {
         researcher = {
             researcherType: ResearcherType.STUDENT
         }

@@ -24,12 +24,6 @@ export async function SeedCompanies(prisma: PrismaClient) {
       contactEmail: 'contact@nvidia.com',
       contactPhone: '(71) 00000-0000',
     },
-    {
-      userId: '6d78e1e5-5917-4a81-bce6-65610e79d4f1',
-      contactName: 'Fred durao inc.',
-      contactEmail: 'contact@nvidia.com',
-      contactPhone: '(71) 00000-0000',
-    },
   ];
 
   try {

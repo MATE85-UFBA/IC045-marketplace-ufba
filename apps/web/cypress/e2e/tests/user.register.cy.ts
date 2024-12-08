@@ -1,4 +1,4 @@
-import { FRONT_END_URL } from "./config";
+import { FRONT_END_URL } from "../config";
 
 describe('User Registration Page', () => {
     const { v4: uuid } = require('uuid');

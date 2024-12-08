@@ -155,6 +155,10 @@ export class UserService {
       where: {
         email,
       },
+      include: {
+        company: true,
+        researcher: true,
+      },
     });
   }
 
