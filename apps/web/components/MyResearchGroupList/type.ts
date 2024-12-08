@@ -1,8 +1,14 @@
-import { Reseacher } from "../ResearchGroupList/types";
+//import { Reseacher } from "../ResearchGroupList/types";
 
-export type ResearchGroup = {
-    id: number;
-    name: string;
-    image?: string;
-    leader: Reseacher;
+type ResearchGroup = {
+	id: string;
+	name :string;
+	image?: string;
+	leader: {
+		userId:string;
+	} }
+
+export type PesquisadorGrupo = {
+    id: string;
+    groupsAsMember: ResearchGroup[];
 }

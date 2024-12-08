@@ -10,8 +10,7 @@ export class ResearchersController {
   @UseGuards(JwtAuthGuard)
   @Get('/myresearchgroup')
   async myResearchGroups(@Request() req: { user: { userId: string } }) {
-    //TODO desenvolver lógica para caso o grupo de pesquisa apareça na lista de líder, não apareça na de membro.
-    return this.researchService.findOne(req.user.userId,true);
+    return this.researchService.myResearchGroups(req.user.userId,true);
   }
 
   @Get(':id')

@@ -1,12 +1,12 @@
 import { Item } from "./Item"
-import { ResearchGroup } from "./type"
+import { PesquisadorGrupo } from "./type"
 
 type MyResearchGroupListProps = {
-    researchgroups: ResearchGroup[]
+    researchgroups: PesquisadorGrupo[]
 }
 
 function MyResearchGroupList({ researchgroups }: MyResearchGroupListProps) {
-    console.log(typeof researchgroups)
+    console.log(typeof researchgroups);
     return <ul className="grid grid-cols-2 gap-3">
         {
             researchgroups.length

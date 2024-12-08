@@ -1,7 +1,6 @@
 'use client';
 
 import { ResearchGroupList } from "@/components/ResearchGroupList";
-import { ResearchGroup } from "@/components/ResearchGroupList/types";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
