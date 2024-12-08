@@ -1,3 +1,4 @@
+import { getUserType } from '@/user/utils/user.types.util';
 import { PrismaService } from '../infra/database/prisma.service';
 import { UpdateUserDto } from '../user/user.dto';
 import { Injectable } from '@nestjs/common';
@@ -7,7 +8,7 @@ export class AdminService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async getUsers() {
-    return this.prismaService.user.findMany({
+    const users = await this.prismaService.user.findMany({
       select: {
         id: true,
         name: true,
@@ -15,6 +16,8 @@ export class AdminService {
         role: true,
         status: true,
         img: true,
+        company: true,
+        researcher: true,
       },
       orderBy: [
         {
@@ -22,6 +25,16 @@ export class AdminService {
         },
       ],
     });
+
+    return users.map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      status: user.status,
+      img: user.img,
+      utype: getUserType(user),
+    }));
   }
 
   async editUser(id: string, updatedUserData: UpdateUserDto) {
