@@ -2,9 +2,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IoIosArrowForward } from "react-icons/io";
 import { TbUserCircle } from 'react-icons/tb';
-import { Button } from '../ui/button';
 import { ResearchGroup } from './type';
 
 function Item(researchgroup: ResearchGroup) {
@@ -16,7 +14,7 @@ function Item(researchgroup: ResearchGroup) {
                     : <TbUserCircle className="text-primary font-normal size-16 row-span-2 col-start-1" />
             }
             <h2 className="self-end font-semibold text-lg leading-none gap-3">{researchgroup.name}</h2>
-            <p className="px-3 py-2 bg-border rounded-full text-xs">Líder</p>
+            <p className="px-3 py-2 justify-self-start bg-border rounded-full text-xs">Líder</p>
         </div>
     </li>
 }
