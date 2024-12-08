@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../roles/roles.guard';
 import { UpdateUserDto } from '../user/user.dto';
 import { UserRole, UserStatus } from '@prisma/client';
+import * as UserTypes from '@/user/utils/user.types.util';
 
 describe('AdminController', () => {
   let controller: AdminController;
@@ -53,6 +54,8 @@ describe('AdminController', () => {
         password: 'password',
 
         status: UserStatus.APPROVED,
+
+        utype: UserTypes.COMPANY,
 
         resetToken: null,
 
