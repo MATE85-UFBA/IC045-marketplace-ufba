@@ -1,7 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { UserType } from "../../types/user";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Edit } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import { EditModal } from "./edit-modal";
 
 const columns: ColumnDef<UserType>[] = [
   {
@@ -83,12 +84,9 @@ const columns: ColumnDef<UserType>[] = [
   {
     id: "actions",
     header: () => <div className="text-blue-light">Ações</div>,
-    cell: () => {
-      return (
-        <Button>
-          <Edit />
-        </Button>
-      );
+    cell: ({ row }) => {
+      const { original } = row;
+      return <EditModal {...original} />;
     },
   },
 ];
