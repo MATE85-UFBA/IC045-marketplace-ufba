@@ -27,37 +27,38 @@ import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Separator } from "@/components/ui/separator";
 import { useUser } from "@/context/UserContext";
-import loginStore from "@/app/store/login/login.store";
+import { authStore } from "@/context/loginContext";
+import { useRouter } from "next/navigation";
 
 const headerLinks = {
-  none: [
+  NONE: [
     {
       label: "Encontrar Demandas",
       path: "/encontrar-demandas",
     },
     {
       label: "Encontrar Grupos de Pesquisa",
-      path: "/",
+      path: "/encontrar-grupo-pesquisa",
     },
   ],
-  company: [
+  COMPANY: [
     {
       label: "Encontrar Grupos de Pesquisa",
-      path: "/",
+      path: "/encontrar-grupo-pesquisa",
     },
     {
       label: "Minhas Demandas",
       path: "/minhas-demandas",
     },
   ],
-  researcher: [
+  RESEARCHER: [
     {
       label: "Encontrar Demandas",
       path: "/encontrar-demandas",
     },
     {
       label: "Minhas Propostas",
-      path: "/",
+      path: "/minhas-propostas",
     },
     {
       label: "Meus Grupos de pesquisa",
@@ -75,11 +76,11 @@ type Notification = {
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width: 64rem)");
 
+  const router = useRouter();
+
   const { user, setUser } = useUser();
 
-  console.log(user);
-
-  const linksType = user ? user.utype : "none";
+  const linksType = user ? user.utype : "NONE";
 
   const notifications = [
     {
@@ -100,8 +101,9 @@ const Header = () => {
   ] as Notification[];
 
   function handleLogout() {
-    loginStore.logout();
+    authStore.logout();
     setUser(null);
+    router.push("/");
   }
 
   return isDesktop ? (
@@ -123,7 +125,7 @@ const Header = () => {
           ))}
         </div>
         <div className="flex gap-2.5 items-center content-center">
-          {linksType === "none" ? (
+          {linksType === "NONE" ? (
             <>
               <Button
                 variant={"outline"}
@@ -190,12 +192,16 @@ const Header = () => {
                   <TbUserCircle className="text-primary/80 hover:text-primary size-8 cursor-pointer" />
                 </PopoverTrigger>
                 <PopoverContent className="grid gap-2">
-                  <Link href={"/"} className="font-medium hover:underline">
+                  <Link
+                    href={"/"}
+                    className="font-medium hover:underline text-blue-strong"
+                  >
                     Meu Perfil
                   </Link>
                   <Button
+                    variant="link"
                     onClick={handleLogout}
-                    className="font-medium hover:underline"
+                    className="font-medium hover:underline outline-none text-blue-strong text-base text-left p-0 justify-start h-auto"
                   >
                     Sair
                   </Button>
@@ -247,7 +253,7 @@ const Header = () => {
             </DrawerClose>
           ))}
 
-          {linksType === "none" ? (
+          {linksType === "NONE" ? (
             <>
               <Button
                 variant={"outline"}
@@ -288,8 +294,9 @@ const Header = () => {
               </DrawerClose>
               <DrawerClose className="text-left" asChild>
                 <Button
+                  variant="link"
                   onClick={handleLogout}
-                  className="items-center font-bold text-blue-strong"
+                  className="font-bold text-blue-strong outline-none text-base text-left p-0 justify-start h-auto"
                 >
                   Sair
                 </Button>

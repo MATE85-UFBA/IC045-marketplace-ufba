@@ -5,12 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { observer } from "mobx-react-lite";
 import { loginFormSchema, LoginUserFormData } from "./login.form.schema";
-import { authStore } from "../store/login";
 import { useRouter } from "next/navigation";
-import loginStore from "../store/login/login.store";
 import Link from "next/link";
 import { useUser } from "@/context/UserContext";
-import { loadUserFromLocalStorage } from "../service/auth.storage";
+import loginStore from "@/context/loginContext/login.context";
+import { authStore } from "@/context/loginContext";
+import { loadUserFromLocalStorage } from "@/lib/user.storage";
 
 const Login = observer(() => {
   const router = useRouter();

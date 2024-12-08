@@ -6,6 +6,7 @@ import Header from "@/modules/components/header/header";
 import Footer from "@/modules/components/footer/footer";
 import ReactQueryProvider from "@/lib/react-query";
 import { UserProvider } from "@/context/UserContext";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
             <Header />
             {children}
             <Footer />
+            <Toaster />
           </ReactQueryProvider>
         </UserProvider>
       </body>

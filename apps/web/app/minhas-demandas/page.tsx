@@ -1,20 +1,23 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { CustomIcon } from "@/modules/components/icon/customIcon";
-import MinhasDemandasFilter from "@/modules/minhas-demandas/components/filter/minhasDemandasFilter";
-import MinhasDemandasTable from "@/modules/minhas-demandas/components/table/minhasDemandasTable";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import useGetMyDemands from "@/api/use-get-my-demands";
-import { useRouter } from "next/navigation";
-import useDeleteDemand from "@/api/use-delete-demand";
+import { Button } from '@/components/ui/button';
+import { CustomIcon } from '@/modules/components/icon/customIcon';
+import MinhasDemandasFilter from '@/modules/minhas-demandas/components/filter/minhasDemandasFilter';
+import MinhasDemandasTable from '@/modules/minhas-demandas/components/table/minhasDemandasTable';
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import useGetMyDemands from '@/api/use-get-my-demands';
+import { useRouter } from 'next/navigation';
+import useDeleteDemand from '@/api/use-delete-demand';
+import { useToast } from '@/hooks/use-toast';
 
 const MinhasDemandas = () => {
   const { data: demands = [] } = useGetMyDemands();
   const router = useRouter();
+  const { toast } = useToast()
+
 
   const deleteDemandaMutation = useDeleteDemand(
-    () => alert("Demanda removida com sucesso!"),
-    () => alert("Não foi possivel remover demanda.")
+    () => toast({title: "Demanda removida com sucesso!"}),
+    () => toast({title: "Não foi possivel remover demanda."})
   );
 
   const handleRedirect = () => {
