@@ -16,6 +16,10 @@ export class AdminService {
         role: true,
         status: true,
         img: true,
+        password: true,
+        createdAt: true,
+        updatedAt: true,
+        resetToken: true,
         company: true,
         researcher: true,
       },
@@ -33,6 +37,10 @@ export class AdminService {
       role: user.role,
       status: user.status,
       img: user.img,
+      password: user.password,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      resetToken: user.resetToken,
       utype: getUserType(user),
     }));
   }

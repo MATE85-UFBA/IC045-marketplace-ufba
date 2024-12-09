@@ -55,7 +55,7 @@ describe('AdminController', () => {
 
         status: UserStatus.APPROVED,
 
-        utype: UserTypes.COMPANY,
+        utype: UserTypes.NONE,
 
         resetToken: null,
 
