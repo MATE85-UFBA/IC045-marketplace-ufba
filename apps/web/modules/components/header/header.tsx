@@ -54,6 +54,12 @@ const headerLinks = {
       path: "/",
     },
   ],
+  ADMIN: [
+    {
+      label: "Painel Administrativo",
+      path: "/painel-administrativo",
+    },
+  ],
 };
 
 type Notification = {
@@ -69,7 +75,11 @@ const Header = () => {
 
   const { user, setUser } = useUser();
 
-  const linksType = user ? user.utype.toUpperCase() : "NONE";
+  const linksType = user
+    ? user.role === "ADMIN"
+      ? "ADMIN"
+      : user.utype
+    : "NONE";
 
   const notifications = [
     {
