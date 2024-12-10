@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 import Link from "next/link";
-import { MoveLeftIcon } from "lucide-react";
+import { EyeOffIcon, MoveLeftIcon } from "lucide-react";
 
 import { useForm } from "react-hook-form";
 import { observer } from "mobx-react-lite";
@@ -28,10 +28,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {registerSchema} from "./register.form.schema";
+import { registerSchema } from "./register.form.schema";
 import { registerStore } from "@/context/userRegisterContext";
+import { EyeIcon } from "lucide-react";
 
 export default observer(function Cadastro() {
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const form = useForm({
     resolver: zodResolver(registerSchema),
   });
@@ -94,11 +96,15 @@ export default observer(function Cadastro() {
               name="utype"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel style={{ fontSize: 16 }}>Tipo de Cadastro</FormLabel>
+                  <FormLabel style={{ fontSize: 16 }}>
+                    Tipo de Cadastro
+                  </FormLabel>
                   <FormControl>
                     <Select
                       value={utype}
-                      onValueChange={(value) => setUtype(value as "empresa" | "pesquisador")}
+                      onValueChange={(value) =>
+                        setUtype(value as "empresa" | "pesquisador")
+                      }
                     >
                       <SelectTrigger style={{ marginTop: 0 }}>
                         <SelectValue placeholder={"empresa"} />
@@ -120,7 +126,11 @@ export default observer(function Cadastro() {
                 <FormItem style={{ marginTop: 16 }}>
                   <FormLabel style={{ fontSize: 16 }}>Nome</FormLabel>
                   <FormControl>
-                    <Input style={{ marginTop: 0 }} placeholder="Digite seu nome" {...field} />
+                    <Input
+                      style={{ marginTop: 0 }}
+                      placeholder="Digite seu nome"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,7 +143,11 @@ export default observer(function Cadastro() {
                 <FormItem style={{ marginTop: 16 }}>
                   <FormLabel style={{ fontSize: 16 }}>Email</FormLabel>
                   <FormControl>
-                    <Input style={{ marginTop: 0 }} placeholder="Digite seu e-mail" {...field} />
+                    <Input
+                      style={{ marginTop: 0 }}
+                      placeholder="Digite seu e-mail"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -143,17 +157,37 @@ export default observer(function Cadastro() {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem style={{ marginTop: 16 }}>
+                <FormItem style={{ marginTop: 16 }} className="relative">
                   <FormLabel style={{ fontSize: 16 }}>Senha</FormLabel>
                   <FormControl>
                     <Input
                       style={{ marginTop: 0 }}
                       placeholder="Digite sua senha"
-                      type="password"
+                      type={passwordVisible ? "text" : "password"}
                       {...field}
                     />
                   </FormControl>
                   <FormMessage />
+                  <span className="absolute right-3 top-6">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPasswordVisible(!passwordVisible);
+                        }}
+                      >
+                        {passwordVisible ? (
+                          <EyeIcon
+                            size={20}
+                            className="cursor-pointer text-slate-600"
+                          />
+                        ) : (
+                          <EyeOffIcon
+                            size={20}
+                            className="cursor-pointer text-slate-600"
+                          />
+                        )}
+                      </button>
+                    </span>
                 </FormItem>
               )}
             />
@@ -161,17 +195,39 @@ export default observer(function Cadastro() {
               control={form.control}
               name="passwordConfirmation"
               render={({ field }) => (
-                <FormItem style={{ marginTop: 16 }}>
-                  <FormLabel style={{ fontSize: 16 }}>Confirme sua senha</FormLabel>
+                <FormItem style={{ marginTop: 16 }} className="relative">
+                  <FormLabel style={{ fontSize: 16 }}>
+                    Confirme sua senha
+                  </FormLabel>
                   <FormControl>
                     <Input
                       style={{ marginTop: 0 }}
                       placeholder="Confirme sua senha"
-                      type="password"
+                      type={passwordVisible ? "text" : "password"}
                       {...field}
                     />
                   </FormControl>
                   <FormMessage />
+                  <span className="absolute right-3 top-6">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPasswordVisible(!passwordVisible);
+                        }}
+                      >
+                        {passwordVisible ? (
+                          <EyeIcon
+                            size={20}
+                            className="cursor-pointer text-slate-600"
+                          />
+                        ) : (
+                          <EyeOffIcon
+                            size={20}
+                            className="cursor-pointer text-slate-600"
+                          />
+                        )}
+                      </button>
+                    </span>
                 </FormItem>
               )}
             />
