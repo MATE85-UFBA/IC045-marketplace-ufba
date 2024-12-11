@@ -5,14 +5,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { observer } from "mobx-react-lite";
 import { loginFormSchema, LoginUserFormData } from "./login.form.schema";
-import { authStore } from "../store/login";
 import { useRouter } from "next/navigation";
-import loginStore from "../store/login/login.store";
 import Link from "next/link";
-
+import { useUser } from "@/context/UserContext";
+import loginStore from "@/context/loginContext/login.context";
+import { authStore } from "@/context/loginContext";
+import { loadUserFromLocalStorage } from "@/lib/user.storage";
+import { useState } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 const Login = observer(() => {
   const router = useRouter();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const { setUser } = useUser();
+
   const {
     register,
     handleSubmit,
@@ -22,7 +29,8 @@ const Login = observer(() => {
   });
 
   async function loginUser(data: LoginUserFormData) {
-    await loginStore.login(data.email, data.password, router);  // Pass router to login method
+    await loginStore.login(data.email, data.password, router); // Pass router to login method
+    setUser(loadUserFromLocalStorage());
   }
 
   return (
@@ -52,21 +60,34 @@ const Login = observer(() => {
             )}
           </div>
 
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 relative">
             <label htmlFor="password">Senha</label>
             <input
-              type="password"
+              type={passwordVisible ? "text" : "password"}
               id="password"
               className="border border-zinc-200 shadow-sm rounded-lg p-2"
               {...register("password")}
             />
+            <span className="absolute right-3 top-10">
+              <button type="button" onClick={()=> {setPasswordVisible(!passwordVisible)}}>
+                {passwordVisible ? (
+                  <EyeIcon size={20} className="cursor-pointer text-slate-600" />
+
+                ) : (
+                  <EyeOffIcon size={20} className="cursor-pointer text-slate-600"/>
+                )}
+              </button>
+            </span>
             {errors.password && (
               <span className="text-red-600">{errors.password.message}</span>
             )}
           </div>
-          <a href="" className="text-right text-xs underline">
+          <Link
+            href="/recuperar-senha"
+            className="text-right text-xs underline"
+          >
             Esqueci minha senha
-          </a>
+          </Link>
 
           <button
             type="submit"
