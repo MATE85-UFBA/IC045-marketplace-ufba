@@ -1,4 +1,11 @@
-import { Controller, Get, Param, Query, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { ResearchersService } from './researchers.service';
 import { FindResearcherDto } from './dtos/find-researcher.dto';
 import { JwtAuthGuard } from '@/auth/auth.guard';
@@ -10,7 +17,7 @@ export class ResearchersController {
   @UseGuards(JwtAuthGuard)
   @Get('/myresearchgroup')
   async myResearchGroups(@Request() req: { user: { userId: string } }) {
-    return this.researchService.myResearchGroups(req.user.userId,true);
+    return this.researchService.myResearchGroups(req.user.userId, true);
   }
 
   @Get(':id')

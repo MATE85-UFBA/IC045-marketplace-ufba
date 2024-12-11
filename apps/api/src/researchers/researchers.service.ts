@@ -74,8 +74,8 @@ export class ResearchersService {
                 leader: {
                   select: {
                     userId: true,
-                  }
-                }
+                  },
+                },
               },
             }
           : false,
