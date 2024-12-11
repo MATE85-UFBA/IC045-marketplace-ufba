@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import homeBanner from "@/public/home-banner.png";
+import Link from "next/link";
 
 export default function Home() {
   return <main className="max-w-screen-xl mx-auto px-8">
@@ -9,8 +10,12 @@ export default function Home() {
         <h2 className="font-semibold text-3xl sm:text-4xl leading-snug max-w-[40rem] mx-auto lg:mx-0">Transforme sua ideia em realidade com a parceria certa!</h2>
         <p className="text-blue-light mt-4 mb-8 max-w-[25rem] mx-auto lg:mx-0">Cadastre seu projeto e descubra grupos de pesquisa prontos para desenvolver soluções de impacto!</p>
         <div className="flex gap-4 flex-col sm:flex-row max-lg:justify-center">
-          <Button className="rounded-full text-base px-9 py-2.5">Cadastre sua ideia</Button>
-          <Button variant={'outline'} className="rounded-full text-base px-9 py-2.5">Conecte-se com especialistas</Button>
+          <Button className="rounded-full text-base px-9 py-2.5" asChild>
+            <Link href="/cadastro-demandas">Cadastre sua ideia</Link>
+          </Button>
+          <Button variant={'outline'} className="rounded-full text-base px-9 py-2.5" asChild>
+            <Link href="/encontrar-grupo-pesquisa">Conecte-se com especialistas</Link>
+          </Button>
         </div>
       </div>
       <Image src={homeBanner} alt="Banner da página inicial" className="relative xl:-right-8 max-lg:my-8 lg lg:max-xl:h-80" />
