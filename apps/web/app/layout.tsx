@@ -1,11 +1,11 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-import { Inter } from 'next/font/google';
-import './globals.css';
-import Header from '@/modules/components/header/header';
-import Footer from '@/modules/components/footer/footer';
-import ReactQueryProvider from '@/lib/react-query';
-import { Toaster } from '@/components/ui/toaster';
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Header from "@/modules/components/header/header";
+import Footer from "@/modules/components/footer/footer";
+import ReactQueryProvider from "@/lib/react-query";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className="h-full">
-      <body className={`${inter.className} flex flex-col h-full`}>
+      <body className={`${inter.className} flex flex-col h-full min-h-screen`}>
         {/* Envolvendo toda a aplicação com ReactQueryProvider */}
         <ReactQueryProvider>
           <Header userType="empresa" /> {/* todo remover */}

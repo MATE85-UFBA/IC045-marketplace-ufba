@@ -8,6 +8,17 @@ export type TLeader = {
   updatedAt: string;
 };
 
+export type TProject = {
+  id: string;
+  name: string;
+  started_at: string;
+  finished_at: string | null;
+  researchGroupId: string;
+  demandId: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type TMember = {
   userId: string;
   urlLattes: string | null;
@@ -25,4 +36,5 @@ export type TResearchGroup = {
   researcherId: string;
   leader: TLeader;
   members: TMember[];
+  projects: TProject[];
 };
