@@ -9,10 +9,12 @@ import {
 } from "@/components/ui/table";
 
 import React from "react";
-import { FaTrash } from "react-icons/fa";
-import { IoMdCreate } from "react-icons/io";
+import { TMember } from "../types/researchgroup.type";
 
-export default function MembersSection() {
+type TProps = {
+  members: TMember[];
+};
+export default function MembersSection(props: TProps) {
   return (
     <div className="bg-white rounded-2xl px-3 py-4 w-[100%]">
       <Table>
@@ -36,19 +38,24 @@ export default function MembersSection() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="text-blue-light py-6">Ola</TableCell>
-            <TableCell className="text-blue-light py-6">Ola</TableCell>
-            <TableCell className="text-blue-light py-6">Ola</TableCell>
-            <TableCell className="text-blue-light py-6">Ola</TableCell>
-          </TableRow>
-
-          <TableRow>
-            <TableCell className="text-blue-light py-6">Ola</TableCell>
-            <TableCell className="text-blue-light py-6">Ola</TableCell>
-            <TableCell className="text-blue-light py-6">Ola</TableCell>
-            <TableCell className="text-blue-light py-6">Ola</TableCell>
-          </TableRow>
+          {props.members.map((member) => {
+            return (
+              <TableRow>
+                <TableCell className="text-blue-light py-6">
+                  {member.userId}
+                </TableCell>
+                <TableCell className="text-blue-light py-6">
+                  {member.updatedAt}
+                </TableCell>
+                <TableCell className="text-blue-light py-6">
+                  {member.updatedAt}
+                </TableCell>
+                <TableCell className="text-blue-light py-6">
+                  {member.updatedAt}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>

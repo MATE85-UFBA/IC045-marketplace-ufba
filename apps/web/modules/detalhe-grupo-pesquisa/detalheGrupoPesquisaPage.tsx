@@ -12,9 +12,26 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { CustomIcon } from "../components/icon/customIcon";
 import Image from "next/image";
 import MembersSection from "./components/membersSection";
+import { useParams } from "next/navigation";
+import useGetResearchGroup from "@/api/grupos/use-get-research-group";
+import { is } from "date-fns/locale";
+import { TMember } from "./types/researchgroup.type";
 
 export default function DetalheGrupoPesquisaPage() {
+  const params = useParams();
+  const groupId = params.id;
+
+  const {
+    data: researchGroup,
+    isError,
+    error,
+    isLoading,
+  } = useGetResearchGroup(groupId as string);
   const handleAddProject = () => {};
+
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
   return (
     <main className="p-8 w-full flex justify-center">
       <section className="max-w-7xl w-full">
@@ -40,7 +57,7 @@ export default function DetalheGrupoPesquisaPage() {
 
           <div className="flex mb-4 justify-between center">
             <h1 className="text-4xl font-bold text-blue-strong">
-              Detalhes do Grupo de Pesquisas
+              {researchGroup?.name}
             </h1>
 
             <Button className="rounded-full" onClick={handleAddProject}>
@@ -58,19 +75,9 @@ export default function DetalheGrupoPesquisaPage() {
               className="max-w-[80%]"
             />
 
-            <h1 className="font-size-lg text-2xl">Grupo de Pesquisa</h1>
+            <h1 className="font-size-lg text-2xl">{researchGroup?.name}</h1>
 
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              non faucibus eros. Vivamus lobortis ornare nunc. Integer at orci
-              non nunc molestie euismod scelerisque non neque. Proin a ipsum
-              rhoncus, finibus nulla vitae, mollis nibh. Interdum et malesuada
-              fames ac ante ipsum primis in faucibus. Vestibulum dignissim ante
-              a porttitor luctus. In ligula nisl, mollis in lacus at, ultricies
-              dictum ipsum. Aliquam nulla mauris, rhoncus vel neque ut, sagittis
-              ultricies sapien. Maecenas et ipsum a leo interdum vestibulum vel
-              et sapien.
-            </p>
+            <p>{researchGroup?.description}</p>
           </div>
 
           <div className="flex flex-col gap-5 w-[100%]">
@@ -79,7 +86,11 @@ export default function DetalheGrupoPesquisaPage() {
 
               <Button className="rounded-full">Lista de Projetos</Button>
             </div>
-            <MembersSection />
+            {researchGroup ? (
+              <MembersSection members={researchGroup.members as TMember[]} />
+            ) : (
+              <div>Carregando...</div>
+            )}
           </div>
         </div>
       </section>
