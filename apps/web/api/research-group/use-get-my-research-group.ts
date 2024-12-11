@@ -3,10 +3,10 @@ import { api } from '@/lib/axios';
 import { PesquisadorGrupo } from '@/modules/meus-grupos-pesquisa/interfaces/pesquisador-grupo';
 
 
-async function getMyReseachGroup(): Promise<PesquisadorGrupo[]> {
+async function getMyReseachGroup(): Promise<PesquisadorGrupo> {
   const apiURL = process.env.NEXT_PUBLIC_API_URL || ''
 
-  const { data } = await api(apiURL, true).get<PesquisadorGrupo[]>(`/researcher/myresearchgroup`)
+  const { data } = await api(apiURL, true).get<PesquisadorGrupo>(`/researcher/myresearchgroup`)
 
   return data
 }

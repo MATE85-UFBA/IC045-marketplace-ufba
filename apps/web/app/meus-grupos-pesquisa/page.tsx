@@ -24,7 +24,9 @@ function MeusGruposPesquisa() {
     ]
   */
 
-    const { data: researchgroups = [] }  = useGetMyResearchGroups();
+    const { data: pesquisador }  = useGetMyResearchGroups();
+
+    console.log(pesquisador);
     
     return <main className='flex justify-center flex-grow m-8'>
         <section className="flex flex-col w-full max-w-7xl pt-12 gap-6">
@@ -37,7 +39,9 @@ function MeusGruposPesquisa() {
             </Button>
           </div>
           <MeusGruposPesquisaFilter />
-          <MyResearchGroupList researchgroups={researchgroups} />
+          
+          { pesquisador && 
+            <MyResearchGroupList pesquisador={pesquisador} />}
         </section>
     </main>
 }

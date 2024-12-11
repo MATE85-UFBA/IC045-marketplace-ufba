@@ -1,4 +1,4 @@
-type ResearchGroup = {
+export type MyResearchGroup = {
 	id: string;
 	name :string;
 	image?: string;
@@ -6,7 +6,7 @@ type ResearchGroup = {
 		userId:string;
 	} }
 	
-export interface PesquisadorGrupo {
+export type PesquisadorGrupo = {
   id: string;
-	groupsAsMember: ResearchGroup[];
+  groupsAsMember: MyResearchGroup[];
 }

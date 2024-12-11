@@ -1,17 +1,23 @@
+import { MyResearchGroup } from "@/modules/meus-grupos-pesquisa/interfaces/pesquisador-grupo";
 import { Item } from "./Item"
 import { PesquisadorGrupo } from "./type"
 
-type MyResearchGroupListProps = {
-    researchgroups: PesquisadorGrupo[]
+interface MyResearchGroupListProps  {
+    pesquisador: PesquisadorGrupo;
 }
 
-function MyResearchGroupList({ researchgroups }: MyResearchGroupListProps) {
-    console.log(typeof researchgroups);
+function MyResearchGroupList({ pesquisador }: MyResearchGroupListProps) {
+    console.log(typeof pesquisador)
+    console.log(pesquisador);
+    const data  : MyResearchGroup[] =  pesquisador.groupsAsMember;
+
     return <ul className="grid grid-cols-2 gap-3">
         {
-            researchgroups.length
-                ? researchgroups.map(researchgroup => <Item key={researchgroup.id} {...researchgroup} />)
+            
+            data.length > 0 
+                ? data.map(pesquisador => <Item key={pesquisador.name} {...pesquisador} />)
                 : <div>Você não participa de nenhum grupo de pesquisa no momento</div>
+                
         }
     </ul>
 }
