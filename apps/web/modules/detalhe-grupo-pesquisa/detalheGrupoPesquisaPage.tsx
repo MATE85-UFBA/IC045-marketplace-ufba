@@ -87,7 +87,7 @@ export default function DetalheGrupoPesquisaPage() {
               <Button className="rounded-full">Lista de Projetos</Button>
             </div>
             {researchGroup ? (
-              <MembersSection members={researchGroup.members as TMember[]} />
+              <MembersSection members={researchGroup?.members} />
             ) : (
               <div>Carregando...</div>
             )}
