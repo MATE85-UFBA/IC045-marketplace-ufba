@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { CreateProject } from "@/types/project";
 import { CalendarIcon } from "@radix-ui/react-icons";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
 
@@ -25,13 +27,15 @@ const CadastrarProjeto = () => {
     formState: { errors },
   } = useForm<CreateProject>();
   const { toast } = useToast();
-
+  const params = useParams<{ id: string }>();
+  const router = useRouter();
   const { mutate, isPending } = useAddProject(
     () => {
       toast({
         title: "Sucesso",
         description: "O projeto foi cadastrado com sucesso.",
       });
+      router.back();
     },
     () => {
       toast({
@@ -44,6 +48,7 @@ const CadastrarProjeto = () => {
 
   const onSubmit = (data: CreateProject) => {
     const demandData: CreateProject = {
+      researchGroupId: params.id,
       name: data.name,
       description: data.description,
       started_at: data.started_at,
