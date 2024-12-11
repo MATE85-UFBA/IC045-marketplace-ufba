@@ -3,6 +3,7 @@ import { AdminService } from './admin.service';
 import { PrismaService } from '../infra/database/prisma.service';
 import { UpdateUserDto } from '../user/user.dto';
 import { UserRole, UserStatus } from '@prisma/client';
+import * as UserTypes from '@/user/utils/user.types.util';
 
 describe('AdminService', () => {
   let service: AdminService;
@@ -56,6 +57,7 @@ describe('AdminService', () => {
         createdAt: new Date(),
         updatedAt: new Date(),
         status: UserStatus.APPROVED,
+        utype: UserTypes.NONE,
       },
     ];
     jest.spyOn(prismaService.user, 'findMany').mockResolvedValue(users);
