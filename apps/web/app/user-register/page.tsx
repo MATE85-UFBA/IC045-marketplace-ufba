@@ -54,25 +54,8 @@ export default observer(function Cadastro() {
   });
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        height: "100vh",
-        justifyContent: "center",
-      }}
-    >
-      <Card
-        style={{
-          maxWidth: 416,
-          maxHeight: 760,
-          margin: "auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: 48,
-        }}
-      >
+    <div className="flex items-center justify-center flex-1 py-8">
+      <Card className="w-full max-w-sm bg-white px-8 py-8 rounded-lg shadow-lg border-none flex flex-col items-center justify-center">
         <div
           style={{
             display: "flex",
@@ -246,19 +229,9 @@ export default observer(function Cadastro() {
             </Button>
           </form>
         </Form>
-        <Link href={"/login"}>
-          <div
-            style={{
-              display: "flex",
-              marginBottom: 41,
-              marginTop: 16,
-              alignItems: "center",
-              color: "#6E6893",
-            }}
-          >
-            <MoveLeftIcon />
-            <p style={{ marginLeft: 5, fontSize: 12 }}>Voltar para login</p>
-          </div>
+        <Link href={"/login"} className="flex items-center justify-center mt-4 hover:underline">
+          <MoveLeftIcon />
+          <p style={{ marginLeft: 5, fontSize: 12 }}>Voltar para login</p>
         </Link>
       </Card>
     </div>

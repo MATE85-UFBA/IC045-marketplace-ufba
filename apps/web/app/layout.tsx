@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className="h-full">
-      <body className={`${inter.className} flex flex-col h-full`}>
+      <body className={`${inter.className} flex flex-col min-h-screen h-full`}>
         {/* Envolvendo toda a aplicação com ReactQueryProvider */}
         <UserProvider>
           <ReactQueryProvider>

@@ -34,7 +34,7 @@ const Login = observer(() => {
   }
 
   return (
-    <main className="h-screen flex flex-col items-center justify-center">
+    <main className="flex flex-col items-center justify-center flex-1 py-8">
       <section className="w-full max-w-sm bg-white px-8 py-8 rounded-lg shadow-lg">
         <Image
           style={{ display: "block", margin: "0 auto" }}
