@@ -47,20 +47,18 @@ const CadastrarProjeto = () => {
   );
 
   const onSubmit = (data: CreateProject) => {
-    const demandData: CreateProject = {
+    const projectData: CreateProject = {
       researchGroupId: params.id,
       name: data.name,
       description: data.description,
-      started_at: data.started_at,
-      finished_at: data.finished_at,
-      keywords: data.keywords
-        ? Array.isArray(data.keywords)
-          ? data.keywords
-          : [data.keywords]
-        : [],
+      started_at: new Date(data.started_at),
+      finished_at: data.finished_at ? new Date(data.finished_at) : undefined,
+      keywords: Array.isArray(data.keywords)
+        ? data.keywords.map((keyword) => keyword.split(",")[0])
+        : data.keywords,
     };
-
-    mutate(demandData);
+    console.log(data);
+    mutate(projectData);
   };
 
   return (

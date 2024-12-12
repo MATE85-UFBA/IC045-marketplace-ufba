@@ -16,6 +16,7 @@ import { useParams } from "next/navigation";
 import useGetResearchGroup from "@/api/grupos/use-get-research-group";
 import { is } from "date-fns/locale";
 import { TMember } from "./types/researchgroup.type";
+import Link from "next/link";
 
 export default function DetalheGrupoPesquisaPage() {
   const params = useParams();
@@ -27,7 +28,11 @@ export default function DetalheGrupoPesquisaPage() {
     error,
     isLoading,
   } = useGetResearchGroup(groupId as string);
-  const handleAddProject = () => {};
+  const handleAddProject = () => {
+    return (
+      <Link href={`/cadastro-projetos/${groupId}`}>cadastrar projeto</Link>
+    );
+  };
 
   if (isLoading) {
     return <div>Carregando...</div>;
@@ -62,7 +67,7 @@ export default function DetalheGrupoPesquisaPage() {
 
             <Button className="rounded-full" onClick={handleAddProject}>
               <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" />{" "}
-              Novo Projeto
+              <Link href={`/cadastro-projetos/${groupId}`}>Novo Projeto</Link>
             </Button>
           </div>
         </div>
