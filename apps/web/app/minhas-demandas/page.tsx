@@ -4,9 +4,9 @@ import { CustomIcon } from '@/modules/components/icon/customIcon';
 import MinhasDemandasFilter from '@/modules/minhas-demandas/components/filter/minhasDemandasFilter';
 import MinhasDemandasTable from '@/modules/minhas-demandas/components/table/minhasDemandasTable';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import useGetMyDemands from '@/api/use-get-my-demands';
+import useGetMyDemands from '@/api/demandas/use-get-my-demands';
 import { useRouter } from 'next/navigation';
-import useDeleteDemand from '@/api/use-delete-demand';
+import useDeleteDemand from '@/api/demandas/use-delete-demand';
 import { useToast } from '@/hooks/use-toast';
 
 const MinhasDemandas = () => {

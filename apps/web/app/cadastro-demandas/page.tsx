@@ -11,11 +11,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { useForm } from 'react-hook-form';
-import useAddDemand from '@/api/use-add-demand';
+import useAddDemand from '@/api/demandas/use-add-demand';
 import { CreateDemand } from '@/types/demand';
 import { useToast } from '@/hooks/use-toast';
-import {checkAccessAndRedirect} from "@/lib/access.control";
-import {useRouter, usePathname} from "next/navigation";
+import { checkAccessAndRedirect } from '@/lib/access.control';
+import { usePathname, useRouter } from 'next/navigation';
 
 
 const CadastrarDemanda = () => {
