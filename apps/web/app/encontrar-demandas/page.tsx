@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FiSearch } from 'react-icons/fi';
-import useGetAllDemands from '@/api/use-get-all-demands';
+import useGetAllDemands from '@/api/demandas/use-get-all-demands';
 
 function EncontrarDemandas() {
     const { data: demands = [] }  = useGetAllDemands();
