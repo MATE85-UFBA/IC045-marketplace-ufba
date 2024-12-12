@@ -4,7 +4,6 @@ import {
   IsString,
   IsOptional,
   IsISO8601,
-  IsDate,
 } from 'class-validator';
 
 export class CreateProjectDto {
