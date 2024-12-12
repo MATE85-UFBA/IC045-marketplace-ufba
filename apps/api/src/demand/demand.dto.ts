@@ -19,3 +19,11 @@ export class UpdateDemandDTO {
   @IsNotEmpty()
   description?: string;
 }
+
+export class SearchDemandDTO {
+  title?: string;          
+  description?: string;    
+  keywords?: string[];     
+  startDate?: string;      
+  endDate?: string;
+}

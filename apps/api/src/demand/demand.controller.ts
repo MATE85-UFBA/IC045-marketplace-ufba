@@ -9,8 +9,9 @@ import {
   Post,
   Request,
   UseGuards,
+  Query,
 } from '@nestjs/common';
-import { CreateDemandDTO, UpdateDemandDTO } from './demand.dto';
+import { CreateDemandDTO, UpdateDemandDTO, SearchDemandDTO } from './demand.dto';
 import { DemandService } from '@/demand/demand.service';
 import { JwtAuthGuard } from '@/auth/auth.guard';
 import { UserService } from '@/user/user.service';
@@ -77,4 +78,9 @@ export class DemandController {
   patch(@Param('id') id: string, @Body() demand: UpdateDemandDTO) {
     return this.demandService.patch(id, demand);
   }
+
+  @Get('/search')
+  async search(@Query() criteria: SearchDemandDTO) {
+  return this.demandService.search(criteria);
+}
 }

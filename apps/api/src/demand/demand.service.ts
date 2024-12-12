@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateDemandDTO, UpdateDemandDTO } from './demand.dto';
+import { CreateDemandDTO, UpdateDemandDTO, SearchDemandDTO } from './demand.dto';
 import { Demand, UserStatus } from '@prisma/client';
 import { UserService } from '@/user/user.service';
 
@@ -125,5 +125,53 @@ export class DemandService {
     }
 
     throw new ForbiddenException('Você não tem acesso a esta demanda');
+  }
+
+  async search(criteria: SearchDemandDTO): Promise<Demand[]> {
+    const { title, description, keywords, startDate, endDate } = criteria;
+  
+    // Definir explicitamente os filtros como `DemandWhereInput[]`
+    const filters: Prisma.DemandWhereInput[] = [
+      title ? { name: { contains: title, mode: 'insensitive' } } : null,
+      description
+        ? { description: { contains: description, mode: 'insensitive' } }
+        : null,
+      keywords && keywords.length > 0
+        ? {
+            keywords: {
+              some: {
+                name: { in: keywords },
+              },
+            },
+          }
+        : null,
+      startDate
+        ? {
+            createdAt: {
+              gte: new Date(startDate),
+            },
+          }
+        : null,
+      endDate
+        ? {
+            createdAt: {
+              lte: new Date(endDate),
+            },
+          }
+        : null,
+    ].filter((filter): filter is Prisma.DemandWhereInput => filter !== null); // Filtrar `null` e garantir o tipo correto
+  
+    return this.prismaService.demand.findMany({
+      where: {
+        public: true,
+        status: {
+          not: 'DELETED',
+        },
+        AND: filters, // Aplicar os filtros definidos
+      },
+      include: {
+        keywords: true,
+      },
+    });
   }
 }
