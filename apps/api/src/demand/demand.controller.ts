@@ -79,8 +79,11 @@ export class DemandController {
     return this.demandService.patch(id, demand);
   }
 
-  @Get('/search')
-  async search(@Query() criteria: SearchDemandDTO) {
-  return this.demandService.search(criteria);
-}
+  @Get('/suggest')
+  async suggest(@Query('query') query: string) {
+    if (!query || query.length < 3) {
+      return [];
+    }
+    return this.demandService.suggest(query);
+  }
 }
