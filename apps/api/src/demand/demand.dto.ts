@@ -20,10 +20,8 @@ export class UpdateDemandDTO {
   description?: string;
 }
 
-export class SearchDemandDTO {
-  title?: string;          
-  description?: string;    
-  keywords?: string[];     
-  startDate?: string;      
-  endDate?: string;
+export class SuggestDemandDTO {
+  id: string;
+  name: string;
+  description: string;
 }

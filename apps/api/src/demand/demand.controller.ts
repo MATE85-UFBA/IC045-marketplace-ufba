@@ -11,7 +11,7 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common';
-import { CreateDemandDTO, UpdateDemandDTO, SearchDemandDTO } from './demand.dto';
+import { CreateDemandDTO, UpdateDemandDTO, SuggestDemandDTO } from './demand.dto';
 import { DemandService } from '@/demand/demand.service';
 import { JwtAuthGuard } from '@/auth/auth.guard';
 import { UserService } from '@/user/user.service';
@@ -80,10 +80,10 @@ export class DemandController {
   }
 
   @Get('/suggest')
-  async suggest(@Query('query') query: string) {
-    if (!query || query.length < 3) {
-      return [];
-    }
-    return this.demandService.suggest(query);
+async suggest(@Query('query') query: string): Promise<SuggestDemandDTO[]> {
+  if (!query || query.length < 3) {
+    return [];
   }
+  return this.demandService.suggest(query);
+}
 }

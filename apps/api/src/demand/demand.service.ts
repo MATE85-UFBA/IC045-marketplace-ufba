@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateDemandDTO, UpdateDemandDTO, SearchDemandDTO } from './demand.dto';
+import { CreateDemandDTO, UpdateDemandDTO, SuggestDemandDTO } from './demand.dto';
 import { Demand, UserStatus } from '@prisma/client';
 import { UserService } from '@/user/user.service';
 
@@ -136,12 +136,15 @@ export class DemandService {
           { keywords: { some: { name: { contains: query, mode: 'insensitive' } } } },
         ],
       },
+      orderBy: {
+        createdAt: 'desc', // Ordena pelas demandas mais recentes
+      },
       select: {
         id: true,
         name: true,
-        description: true,
+        description: true, // Não inclui `createdAt` no retorno
       },
-      take: 10, // Limita os resultados para 10 sugestões
+      take: 10, // Limita os resultados a 10 sugestões
     });
   }
 }
