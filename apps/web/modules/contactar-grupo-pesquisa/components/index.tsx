@@ -84,7 +84,7 @@ const ContactResearchGroup = () => {
             <h4 className="font-semibold text-xl">Demanda</h4>
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Selecione o Demanda" />
+                <SelectValue placeholder="Selecione a demanda" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="demanda1">Demanda1</SelectItem>

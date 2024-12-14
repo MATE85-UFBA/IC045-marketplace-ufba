@@ -56,4 +56,66 @@ export class ResearchersService {
 
     return researcher;
   }
+
+  async myResearchGroups(
+    id: string,
+    includeGroups: boolean,
+    search: string,
+    order: 'asc' | 'desc',
+  ) {
+    const result = await this.prismaService.researcher.findUnique({
+      where: {
+        userId: id,
+      },
+
+      select: {
+        urlLattes: true,
+        researcherType: true,
+        researchGroupsAsMember: includeGroups
+          ? {
+              where: {
+                name: {
+                  contains: search || '',
+                  mode: 'insensitive',
+                },
+              },
+              select: {
+                id: true,
+                name: true,
+                leader: {
+                  select: {
+                    userId: true,
+                  },
+                },
+              },
+              orderBy: {
+                createdAt: order,
+              },
+            }
+          : false,
+
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            img: true,
+          },
+        },
+      },
+    });
+
+    if (!result) {
+      throw new NotFoundException('Researcher not found');
+    }
+
+    const researcher = {
+      ...result.user,
+      researcherType: result.researcherType,
+      urlLattes: result.urlLattes,
+      groupsAsMember: result.researchGroupsAsMember,
+    };
+
+    return researcher;
+  }
 }

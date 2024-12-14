@@ -21,6 +21,7 @@ export class AuthController {
   }
 
   @Post('reset-password/:token')
+  @HttpCode(200)
   async resetPassword(
     @Body() body: ResetPasswordDTO,
     @Param('token') token: string,

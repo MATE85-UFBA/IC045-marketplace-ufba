@@ -1,18 +1,26 @@
 "use client";
 
 import { loadUserFromLocalStorage } from "@/lib/user.storage";
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 
-interface User {
+export interface UserContextType {
   id: string;
   name: string;
+  email: string;
   img: string;
+  role: "ADMIN" | "USER";
   utype: "COMPANY" | "RESEARCHER" | "NONE";
 }
 
 interface UserContextData {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: UserContextType | null;
+  setUser: React.Dispatch<React.SetStateAction<UserContextType | null>>;
 }
 
 const UserContext = createContext<UserContextData | undefined>(undefined);
@@ -22,9 +30,11 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(
-    loadUserFromLocalStorage() || null
-  );
+  const [user, setUser] = useState<UserContextType | null>(null);
+
+  useEffect(() => {
+    setUser(loadUserFromLocalStorage);
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
