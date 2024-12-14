@@ -57,7 +57,12 @@ export class ResearchersService {
     return researcher;
   }
 
-  async myResearchGroups(id: string, includeGroups: boolean) {
+  async myResearchGroups(
+    id: string,
+    includeGroups: boolean,
+    search: string,
+    order: 'asc' | 'desc',
+  ) {
     const result = await this.prismaService.researcher.findUnique({
       where: {
         userId: id,
@@ -68,6 +73,12 @@ export class ResearchersService {
         researcherType: true,
         researchGroupsAsMember: includeGroups
           ? {
+              where: {
+                name: {
+                  contains: search || '',
+                  mode: 'insensitive',
+                },
+              },
               select: {
                 id: true,
                 name: true,
@@ -76,6 +87,9 @@ export class ResearchersService {
                     userId: true,
                   },
                 },
+              },
+              orderBy: {
+                createdAt: order,
               },
             }
           : false,
