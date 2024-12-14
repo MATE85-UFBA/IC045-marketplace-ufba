@@ -13,7 +13,7 @@ function MyResearchGroupList({ pesquisador }: MyResearchGroupListProps) {
         {
             
             data.length > 0 
-                ? data.map(pesquisador => <Item key={pesquisador.name} {...pesquisador} />)
+                ? data.map(group => <Item key={group.id} idPesquisador={pesquisador.id} researchgroup={group} />)
                 : <div>Você não participa de nenhum grupo de pesquisa no momento</div>
                 
         }

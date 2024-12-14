@@ -1,6 +1,6 @@
 //import { Reseacher } from "../ResearchGroupList/types";
 
-type ResearchGroup = {
+export type ResearchGroup = {
 	id: string;
 	name :string;
 	image?: string;

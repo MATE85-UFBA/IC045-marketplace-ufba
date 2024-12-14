@@ -22,17 +22,8 @@ function Item(researchgroup: ResearchGroup) {
 
     <li className="px-8 py-6 bg-white border rounded-2xl">
       <div className="flex xs:items-center justify-between mb-4 flex-col xs:flex-row">
-        <h2 className="text-2xl font-semibold">{researchgroup.name}</h2
+        <h2 className="text-2xl font-semibold">{researchgroup.name}</h2>
       </div>
-      {/*
-        {
-            researchgroup.knowlegdeAreas.length > 0 &&
-            <ul className="mb-8 flex gap-2">
-                {researchgroup.knowlegdeAreas.map(knowlegdearea => <li key={knowlegdearea.id} className="px-3 py-2 text-center bg-border rounded-full text-xs">{knowlegdearea.name}</li>)}
-            </ul>
-
-        }
-*/}
 
       <p className="mb-8 text-justify">
         {truncate(researchgroup.description, 200, true)}
