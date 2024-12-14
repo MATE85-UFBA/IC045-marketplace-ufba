@@ -24,7 +24,7 @@ class LoginContext {
     try {
       const user: User = await userService.login(email, password);
       this.user = user;
-      persistUserToLocalStorage(user);
+      persistUserToLocalStorage({...user, email});
       this.isAuthenticated = true;
       router.push(this.whenLoginSuccessURL);
     } catch (error: any) {
