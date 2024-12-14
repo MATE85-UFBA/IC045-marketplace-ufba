@@ -19,8 +19,8 @@ function EncontrarDemandas() {
   const { data: demands = [] } = useGetAllDemands();
 
   return (
-    <main className="max-w-screen-xl w-full px-8 mx-auto mb-auto grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] md:gap-3">
-      <h1 className="font-semibold text-4xl mt-12 mb-8 col-span-2">
+    <main className="max-w-screen-xl w-full px-8 mx-auto mb-auto grid md:grid-cols-[auto_1fr] md:grid-rows-[auto_auto_1fr] md:gap-3">
+      <h1 className="font-semibold text-4xl mt-12 mb-8 md:col-span-2">
         Encontrar Demandas
       </h1>
 
@@ -89,7 +89,7 @@ function EncontrarDemandas() {
         </div>
       </aside>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-4 md:mb-0">
         <Input
           className="bg-white h-12 rounded-lg"
           placeholder="Buscar demanda"
