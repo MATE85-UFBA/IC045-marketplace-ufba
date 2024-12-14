@@ -34,8 +34,6 @@ const MinhasDemandas = () => {
 
     if (shouldDelete) {
       deleteDemandaMutation.mutate(id);
-
-      router.refresh();
     }
   };
 

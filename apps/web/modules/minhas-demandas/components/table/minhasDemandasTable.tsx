@@ -109,7 +109,7 @@ const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                Nenhuma demanda cadastrada
               </TableCell>
             </TableRow>
           )}
