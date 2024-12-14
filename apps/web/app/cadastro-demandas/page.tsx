@@ -8,6 +8,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useForm } from "react-hook-form";
@@ -16,6 +22,7 @@ import { CreateDemand } from "@/types/demand";
 import { useToast } from "@/hooks/use-toast";
 import { checkAccessAndRedirect } from "@/lib/access.control";
 import { usePathname, useRouter } from "next/navigation";
+import { FiInfo } from "react-icons/fi";
 
 const CadastrarDemanda = () => {
   const router = useRouter();
@@ -34,6 +41,8 @@ const CadastrarDemanda = () => {
         title: "Sucesso",
         description: "A demanda foi cadastrada com sucesso.",
       });
+
+      router.push("/minhas-demandas");
     },
     () => {
       toast({
@@ -117,7 +126,16 @@ const CadastrarDemanda = () => {
 
             <div className="flex gap-2 items-center">
               <Switch {...register("public")} />
-              <label>Demanda Pública? </label>
+              <label>Demanda Pública?</label>
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <FiInfo color="#6E6893" />
+                </TooltipTrigger>
+                <TooltipContent className="bg-black/80 max-w-60">
+                  Demandas públicas são visíveis para todos os usuários do site.
+                </TooltipContent>
+              </Tooltip>
             </div>
 
             {errors.links && <span>This field is required</span>}

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -7,6 +7,7 @@ import Footer from "@/modules/components/footer/footer";
 import ReactQueryProvider from "@/lib/react-query";
 import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,10 +27,12 @@ export default function RootLayout({
         {/* Envolvendo toda a aplicação com ReactQueryProvider */}
         <UserProvider>
           <ReactQueryProvider>
-            <Header />
-            {children}
-            <Footer />
-            <Toaster />
+            <TooltipProvider>
+              <Header />
+              {children}
+              <Footer />
+              <Toaster />
+            </TooltipProvider>
           </ReactQueryProvider>
         </UserProvider>
       </body>
