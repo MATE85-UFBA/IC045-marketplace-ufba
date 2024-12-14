@@ -35,7 +35,7 @@ const MinhasDemandas = () => {
     if (shouldDelete) {
       deleteDemandaMutation.mutate(id);
 
-      router.push("/minhas-demandas");
+      router.refresh();
     }
   };
 

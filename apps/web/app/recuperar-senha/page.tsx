@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 import userService from "@/api/user.service";
+import Image from "next/image";
 
 const formSchema = z.object({
   email: z.string().email("Endereço de email inválido"),
@@ -54,9 +55,14 @@ export default function PasswordRecovery() {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center bg-gray-100">
-      <Card className="w-[350px]">
+      <Card className="max-w-md w-full">
         <CardHeader className="flex flex-col items-center">
-          <img src="/header-logo.png" alt="logo" className="w-25 h-20 mb-4" />
+          <div className="flex items-center gap-2.5">
+            <img src="/logo.png" alt="logo" className="w-25 h-20 mb-4" />
+            <h2 className="text-3xl font-bold text-blue-strong">
+              COOPERA-UFBA
+            </h2>
+          </div>
           <CardTitle>Recuperação de Senha</CardTitle>
           <CardDescription>
             Para recuperar a senha, informe abaixo o email de cadastro e uma
