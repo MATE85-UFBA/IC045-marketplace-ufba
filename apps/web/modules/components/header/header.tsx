@@ -62,7 +62,7 @@ const headerLinks = {
     },
     {
       label: "Meus Grupos de pesquisa",
-      path: "/",
+      path: "/meus-grupos-pesquisa",
     },
   ],
   ADMIN: [
@@ -203,10 +203,10 @@ const Header = () => {
                 </PopoverTrigger>
                 <PopoverContent className="grid gap-2">
                   <Link
-                    href={"/"}
+                    href={"/perfil"}
                     className="font-medium hover:underline text-blue-strong"
                   >
-                    Meu Perfil
+                    Meu perfil
                   </Link>
                   <Button
                     variant="link"
@@ -300,10 +300,10 @@ const Header = () => {
               </DrawerClose>
               <DrawerClose className="text-left" asChild>
                 <Link
-                  href="/"
+                  href="/perfil"
                   className="items-center font-bold text-blue-strong"
                 >
-                  Meu Perfil
+                  Meu perfil
                 </Link>
               </DrawerClose>
               <DrawerClose className="text-left" asChild>

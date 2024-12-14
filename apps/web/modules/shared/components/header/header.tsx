@@ -195,7 +195,7 @@ const Header = () => {
                 </PopoverTrigger>
                 <PopoverContent className="grid gap-2">
                   <Link href={"/"} className="font-medium hover:underline">
-                    Meu Perfil
+                    Meu perfil
                   </Link>
                   <Link href={"/"} className="font-medium hover:underline">
                     Sair
@@ -284,7 +284,7 @@ const Header = () => {
                   href="/"
                   className="items-center font-bold text-blue-strong"
                 >
-                  Meu Perfil
+                  Meu perfil
                 </Link>
               </DrawerClose>
               <DrawerClose className="text-left" asChild>
