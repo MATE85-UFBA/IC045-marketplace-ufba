@@ -1,28 +1,39 @@
 "use client";
 
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-import '../../../app/globals.css';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
-import { FiMenu } from 'react-icons/fi';
-import Image from 'next/image';
+import "../../../app/globals.css";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { FiMenu } from "react-icons/fi";
+import Image from "next/image";
 
-import ufbaLogo from '@/public/logo.png';
-import { TbBell, TbUserCircle } from 'react-icons/tb';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { formatDistanceToNow } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import { Separator } from '@/components/ui/separator';
-import { useUser } from '@/context/UserContext';
-import { authStore } from '@/context/loginContext';
-import { useRouter } from 'next/navigation';
+import ufbaLogo from "@/public/logo.png";
+import { TbBell, TbUserCircle } from "react-icons/tb";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { Separator } from "@/components/ui/separator";
+import { useUser } from "@/context/UserContext";
+import { authStore } from "@/context/loginContext";
+import { useRouter } from "next/navigation";
 
 const headerLinks = {
   NONE: [
     {
-      label: "Encontrar Demandas",
+      label: "Encontrar demandas",
       path: "/encontrar-demandas",
     },
     {
@@ -36,13 +47,13 @@ const headerLinks = {
       path: "/encontrar-grupo-pesquisa",
     },
     {
-      label: "Minhas Demandas",
+      label: "Minhas demandas",
       path: "/minhas-demandas",
     },
   ],
   RESEARCHER: [
     {
-      label: "Encontrar Demandas",
+      label: "Encontrar demandas",
       path: "/encontrar-demandas",
     },
     {
@@ -84,17 +95,17 @@ const Header = () => {
   const notifications = [
     {
       id: "1",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
       datetime: new Date(),
     },
     {
       id: "2",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
       datetime: new Date(),
     },
     {
       id: "3",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
       datetime: new Date(),
     },
   ] as Notification[];
@@ -217,7 +228,9 @@ const Header = () => {
         <div className="flex justify-between max-w-screen-xl mx-auto">
           <Link href={"/"} className="flex items-center gap-3">
             <Image src={ufbaLogo} alt="logo ufba" />
-            <h1 className="text-3xl font-bold text-blue-strong">COOPERA-UFBA</h1>
+            <h1 className="text-3xl font-bold text-blue-strong">
+              COOPERA-UFBA
+            </h1>
           </Link>
           <DrawerTrigger>
             <FiMenu className="text-primary text-3xl" />
