@@ -4,7 +4,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateDemandDTO, UpdateDemandDTO, SuggestDemandDTO } from './demand.dto';
+import {
+  CreateDemandDTO,
+  UpdateDemandDTO,
+  SuggestDemandDTO,
+} from './demand.dto';
 import { Demand, UserStatus } from '@prisma/client';
 import { UserService } from '@/user/user.service';
 
@@ -127,13 +131,19 @@ export class DemandService {
     throw new ForbiddenException('Você não tem acesso a esta demanda');
   }
 
-  async suggest(query: string): Promise<{ id: string; name: string; description: string }[]> {
+  async suggest(
+    query: string,
+  ): Promise<{ id: string; name: string; description: string }[]> {
     return this.prismaService.demand.findMany({
       where: {
         OR: [
           { name: { contains: query, mode: 'insensitive' } },
           { description: { contains: query, mode: 'insensitive' } },
-          { keywords: { some: { name: { contains: query, mode: 'insensitive' } } } },
+          {
+            keywords: {
+              some: { name: { contains: query, mode: 'insensitive' } },
+            },
+          },
         ],
       },
       orderBy: {
