@@ -33,7 +33,7 @@ import { useRouter } from "next/navigation";
 const headerLinks = {
   NONE: [
     {
-      label: "Encontrar Demandas",
+      label: "Encontrar demandas",
       path: "/encontrar-demandas",
     },
     {
@@ -47,13 +47,13 @@ const headerLinks = {
       path: "/encontrar-grupo-pesquisa",
     },
     {
-      label: "Minhas Demandas",
+      label: "Minhas demandas",
       path: "/minhas-demandas",
     },
   ],
   RESEARCHER: [
     {
-      label: "Encontrar Demandas",
+      label: "Encontrar demandas",
       path: "/encontrar-demandas",
     },
     {
@@ -95,17 +95,17 @@ const Header = () => {
   const notifications = [
     {
       id: "1",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
       datetime: new Date(),
     },
     {
       id: "2",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
       datetime: new Date(),
     },
     {
       id: "3",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
       datetime: new Date(),
     },
   ] as Notification[];
@@ -117,8 +117,8 @@ const Header = () => {
   }
 
   return isDesktop ? (
-    <header className="flex justify-center shadow-custom bg-white">
-      <div className="flex justify-between px-4 w-full max-w-7xl">
+    <header className="flex justify-center shadow-custom bg-white z-50">
+      <div className="flex justify-between px-4 w-full max-w-screen-xl">
         <Link href={"/"} className="flex items-center gap-3 py-4">
           <Image src={ufbaLogo} alt="logo ufba" />
           <h1 className="text-3xl font-bold text-blue-strong">COOPERA-UFBA</h1>
@@ -224,14 +224,18 @@ const Header = () => {
     </header>
   ) : (
     <Drawer direction="right">
-      <header className="flex justify-between shadow-custom bg-white p-4">
-        <Link href={"/"} className="flex items-center gap-3">
-          <Image src={ufbaLogo} alt="logo ufba" />
-          <h1 className="text-3xl font-bold text-blue-strong">COOPERA-UFBA</h1>
-        </Link>
-        <DrawerTrigger>
-          <FiMenu className="text-primary text-3xl" />
-        </DrawerTrigger>
+      <header className="shadow-custom bg-white p-4 z-50">
+        <div className="flex justify-between max-w-screen-xl mx-auto">
+          <Link href={"/"} className="flex items-center gap-3">
+            <Image src={ufbaLogo} alt="logo ufba" />
+            <h1 className="text-3xl font-bold text-blue-strong">
+              COOPERA-UFBA
+            </h1>
+          </Link>
+          <DrawerTrigger>
+            <FiMenu className="text-primary text-3xl" />
+          </DrawerTrigger>
+        </div>
       </header>
 
       <DrawerContent>

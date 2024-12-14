@@ -32,13 +32,16 @@ import { registerSchema } from "./register.form.schema";
 import { registerStore } from "@/context/userRegisterContext";
 import { EyeIcon } from "lucide-react";
 
+type UserType = "COMPANY" | "RESEARCHER"
+
 export default observer(function Cadastro() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordConfirmationVisible, setPasswordConfirmationVisible] = useState(false);
   const form = useForm({
     resolver: zodResolver(registerSchema),
   });
   const router = useRouter();
-  const [utype, setUtype] = useState<"empresa" | "pesquisador">("empresa");
+  const [utype, setUtype] = useState<UserType>("COMPANY");
 
   const onSubmit = form.handleSubmit(async (data) => {
     await registerStore.registerUser(
@@ -54,25 +57,8 @@ export default observer(function Cadastro() {
   });
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        height: "100vh",
-        justifyContent: "center",
-      }}
-    >
-      <Card
-        style={{
-          maxWidth: 416,
-          maxHeight: 760,
-          margin: "auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: 48,
-        }}
-      >
+    <div className="flex items-center justify-center flex-1 py-8">
+      <Card className="w-full max-w-lg bg-white px-8 py-8 rounded-lg shadow-lg border-none flex flex-col items-center justify-center">
         <div
           style={{
             display: "flex",
@@ -85,7 +71,7 @@ export default observer(function Cadastro() {
           <h1 style={{ fontSize: 48 }}>NEXUS</h1>
         </div>
         <Form {...form}>
-          <form onSubmit={onSubmit} style={{ marginTop: 40, width: 320 }}>
+          <form onSubmit={onSubmit} className="mt-4 w-full">
             {registerStore.errorMessage && (
               <div style={{ color: "red", marginBottom: 16 }}>
                 {registerStore.errorMessage}
@@ -102,16 +88,16 @@ export default observer(function Cadastro() {
                   <FormControl>
                     <Select
                       value={utype}
-                      onValueChange={(value) =>
-                        setUtype(value as "empresa" | "pesquisador")
+                      onValueChange={(value: UserType) =>
+                        setUtype(value)
                       }
                     >
-                      <SelectTrigger style={{ marginTop: 0 }}>
+                      <SelectTrigger>
                         <SelectValue placeholder={"empresa"} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="empresa">Empresa</SelectItem>
-                        <SelectItem value="pesquisador">Pesquisador</SelectItem>
+                        <SelectItem value="COMPANY">Empresa</SelectItem>
+                        <SelectItem value="RESEARCHER">Pesquisador</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -127,7 +113,6 @@ export default observer(function Cadastro() {
                   <FormLabel style={{ fontSize: 16 }}>Nome</FormLabel>
                   <FormControl>
                     <Input
-                      style={{ marginTop: 0 }}
                       placeholder="Digite seu nome"
                       {...field}
                     />
@@ -141,10 +126,9 @@ export default observer(function Cadastro() {
               name="email"
               render={({ field }) => (
                 <FormItem style={{ marginTop: 16 }}>
-                  <FormLabel style={{ fontSize: 16 }}>Email</FormLabel>
+                  <FormLabel style={{ fontSize: 16 }}>E-mail</FormLabel>
                   <FormControl>
                     <Input
-                      style={{ marginTop: 0 }}
                       placeholder="Digite seu e-mail"
                       {...field}
                     />
@@ -161,14 +145,14 @@ export default observer(function Cadastro() {
                   <FormLabel style={{ fontSize: 16 }}>Senha</FormLabel>
                   <FormControl>
                     <Input
-                      style={{ marginTop: 0 }}
+                      className="pr-8"
                       placeholder="Digite sua senha"
                       type={passwordVisible ? "text" : "password"}
                       {...field}
                     />
                   </FormControl>
                   <FormMessage />
-                  <span className="absolute right-3 top-6">
+                  <span className="absolute right-3 top-8">
                       <button
                         type="button"
                         onClick={() => {
@@ -201,21 +185,21 @@ export default observer(function Cadastro() {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      style={{ marginTop: 0 }}
+                      className="pr-8"
                       placeholder="Confirme sua senha"
-                      type={passwordVisible ? "text" : "password"}
+                      type={passwordConfirmationVisible ? "text" : "password"}
                       {...field}
                     />
                   </FormControl>
                   <FormMessage />
-                  <span className="absolute right-3 top-6">
+                  <span className="absolute right-3 top-8">
                       <button
                         type="button"
                         onClick={() => {
-                          setPasswordVisible(!passwordVisible);
+                          setPasswordConfirmationVisible(!passwordConfirmationVisible);
                         }}
                       >
-                        {passwordVisible ? (
+                        {passwordConfirmationVisible ? (
                           <EyeIcon
                             size={20}
                             className="cursor-pointer text-slate-600"
@@ -233,32 +217,16 @@ export default observer(function Cadastro() {
             />
             <Button
               type="submit"
-              style={{
-                width: 320,
-                height: 55,
-                borderRadius: 64,
-                marginTop: 32,
-                backgroundColor: "#6D5BD0",
-              }}
+              className="w-full rounded-full h-12 mt-4"
               disabled={registerStore.isLoading}
             >
               {registerStore.isLoading ? "Cadastrando..." : "Cadastrar"}
             </Button>
           </form>
         </Form>
-        <Link href={"/login"}>
-          <div
-            style={{
-              display: "flex",
-              marginBottom: 41,
-              marginTop: 16,
-              alignItems: "center",
-              color: "#6E6893",
-            }}
-          >
-            <MoveLeftIcon />
-            <p style={{ marginLeft: 5, fontSize: 12 }}>Voltar para login</p>
-          </div>
+        <Link href={"/login"} className="flex items-center justify-center mt-4 hover:underline">
+          <MoveLeftIcon />
+          <p style={{ marginLeft: 5, fontSize: 12 }}>Voltar para login</p>
         </Link>
       </Card>
     </div>
