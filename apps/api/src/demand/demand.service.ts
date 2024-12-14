@@ -4,11 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import {
-  CreateDemandDTO,
-  UpdateDemandDTO,
-  SuggestDemandDTO,
-} from './demand.dto';
+import { CreateDemandDTO, UpdateDemandDTO } from './demand.dto';
 import { Demand, UserStatus } from '@prisma/client';
 import { UserService } from '@/user/user.service';
 
