@@ -20,7 +20,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { ProjectFormData } from "./types/project-form-data";
 
-
 const CadastrarProjeto = () => {
   // Tipagem simulada para evitar erro
 
@@ -35,6 +34,7 @@ const CadastrarProjeto = () => {
   const { mutate, isPending } = useAddProject(
     () => {
       toast({
+        variant: "success",
         title: "Sucesso",
         description: "O projeto foi cadastrado com sucesso.",
       });
@@ -50,17 +50,18 @@ const CadastrarProjeto = () => {
   );
 
   const onSubmit = (data: ProjectFormData) => {
-    const keywords: string[] = data.keywords.split(',').map(keyword => keyword.trim());
+    const keywords: string[] = data.keywords
+      .split(",")
+      .map((keyword) => keyword.trim());
 
     const projectData: CreateProject = {
       researchGroupId: params.id,
       name: data.name,
       description: data.description,
-      started_at: data.started_at,
-      finished_at: data.finished_at,
+      started_at: new Date(data.started_at),
+      finished_at: data.finished_at && new Date(data.finished_at),
       keywords: keywords,
     };
-    console.log(projectData);
     mutate(projectData);
   };
 
@@ -72,9 +73,9 @@ const CadastrarProjeto = () => {
             <BreadcrumbItem>
               <BreadcrumbLink
                 className="hover:text-blue-strong"
-                href="/cadastro-projetos"
+                href={`/detalhe-grupo-pesquisa/${params.id}`}
               >
-                Meus Projetos
+                Detalhes do Grupo de Pesquisa
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -131,7 +132,6 @@ const CadastrarProjeto = () => {
                 {...register("keywords", { required: true })}
               />
             </label>
-
 
             {errors.keywords && <span>Este Campo é obrigatório</span>}
 
