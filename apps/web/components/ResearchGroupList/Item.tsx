@@ -1,9 +1,6 @@
-import Link from "next/link"
-import { Button } from "../ui/button"
-import Image from "next/image"
-import { TbUserCircle } from "react-icons/tb"
-import { ptBR } from "date-fns/locale"
-import { ResearchGroup } from "./type"
+import Link from 'next/link';
+import { Button } from '../ui/button';
+import { ResearchGroup } from './type';
 
 function Item(researchgroup: ResearchGroup) {
     return <li className="px-8 py-10 bg-white border rounded-2xl">
