@@ -10,6 +10,8 @@ export class CreateDemandDTO {
   public?: boolean;
 
   links?: string;
+
+  keywords: string[];
 }
 
 export class UpdateDemandDTO {
@@ -18,4 +20,6 @@ export class UpdateDemandDTO {
 
   @IsNotEmpty()
   description?: string;
+
+  keywords?: string[];
 }

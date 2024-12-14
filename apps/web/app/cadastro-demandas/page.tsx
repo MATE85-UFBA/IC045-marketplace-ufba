@@ -30,8 +30,7 @@ const CadastrarDemanda = () => {
 const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
 const {data: keywords = [], refetch} = useGetKeywords();
 const mappedKeywords = keywords.map(({name, id}) => ({label: name, value:id}))
-
-
+  
   const {
     handleSubmit,
     register,
@@ -90,6 +89,7 @@ const mappedKeywords = keywords.map(({name, id}) => ({label: name, value:id}))
           : [data.links]
         : [],
       public: data.public === "on",
+      keywords: selectedKeywords
     };
 
     mutate(demandData);

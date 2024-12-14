@@ -16,7 +16,8 @@ export class DemandService {
   ) {}
 
   async create(demand: CreateDemandDTO, companyId: string): Promise<Demand> {
-    const { name, description } = demand;
+    const { name, description, keywords = [] } = demand;
+    const keywordsIds = keywords.map((k) => ({ id: k }));
 
     return this.prismaService.demand.create({
       data: {
@@ -24,6 +25,9 @@ export class DemandService {
         description: description,
         name: name,
         public: demand.public,
+        keywords: {
+          connect: keywordsIds,
+        },
       },
     });
   }
@@ -70,13 +74,21 @@ export class DemandService {
   }
 
   async patch(id: string, demand: UpdateDemandDTO): Promise<Demand> {
+    const { keywords = [] } = demand;
+    const keywordsIds = keywords.map((k) => ({ id: k }));
+
+    delete demand.keywords;
+
     const savedDemand = await this.prismaService.demand.findUniqueOrThrow({
       where: { id },
     });
 
     const updated = { ...savedDemand, ...demand };
 
-    return this.prismaService.demand.update({ where: { id }, data: updated });
+    return this.prismaService.demand.update({
+      where: { id },
+      data: { ...updated, keywords: { connect: keywordsIds } },
+    });
   }
 
   async findOne(id: string): Promise<Demand> {
