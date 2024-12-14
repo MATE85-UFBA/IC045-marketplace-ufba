@@ -38,6 +38,7 @@ const CadastrarDemanda = () => {
   const { mutate, isPending } = useAddDemand(
     () => {
       toast({
+        variant: "success",
         title: "Sucesso",
         description: "A demanda foi cadastrada com sucesso.",
       });

@@ -15,8 +15,12 @@ const MinhasDemandas = () => {
   const { toast } = useToast();
 
   const deleteDemandaMutation = useDeleteDemand(
-    () => toast({ title: "Demanda removida com sucesso!" }),
-    () => toast({ title: "Não foi possivel remover demanda." })
+    () => toast({ title: "Demanda removida com sucesso!", variant: "success" }),
+    () =>
+      toast({
+        title: "Não foi possivel remover demanda.",
+        variant: "destructive",
+      })
   );
 
   const handleRedirect = () => {
