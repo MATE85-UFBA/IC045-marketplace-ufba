@@ -62,7 +62,7 @@ const headerLinks = {
     },
     {
       label: "Meus Grupos de pesquisa",
-      path: "/",
+      path: "/meus-grupos-pesquisa",
     },
   ],
   ADMIN: [

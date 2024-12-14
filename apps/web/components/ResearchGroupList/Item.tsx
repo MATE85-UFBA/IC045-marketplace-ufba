@@ -19,9 +19,10 @@ function truncate(str: string, n: number, useWordBoundary: boolean) {
 
 function Item(researchgroup: ResearchGroup) {
   return (
+
     <li className="px-8 py-6 bg-white border rounded-2xl">
       <div className="flex xs:items-center justify-between mb-4 flex-col xs:flex-row">
-        <h2 className="text-2xl font-semibold">{researchgroup.name}</h2>
+        <h2 className="text-2xl font-semibold">{researchgroup.name}</h2
       </div>
       {/*
         {
@@ -32,6 +33,7 @@ function Item(researchgroup: ResearchGroup) {
 
         }
 */}
+
       <p className="mb-8 text-justify">
         {truncate(researchgroup.description, 200, true)}
       </p>
@@ -39,9 +41,12 @@ function Item(researchgroup: ResearchGroup) {
       <Button
         asChild
         variant={"outline"}
-        className="px-9 py-2.5 rounded-full mt-2 xs:mt-0"
+        className="px-9 py-2.5 rounded-full mt-3 xs:mt-0"
       >
-        <Link href={"/"}>ver mais</Link>
+        <Link href={`/detalhe-grupo-pesquisa/${researchgroup.id}`}>
+          ver mais
+        </Link>
+
       </Button>
     </li>
   );
