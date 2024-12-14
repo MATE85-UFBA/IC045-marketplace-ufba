@@ -61,4 +61,9 @@ export class ResearchGroupController {
   delete(@Param('id') id: string) {
     return this.researchGroupsService.delete(id);
   }
+
+  @Post('search')
+  search(@Query('data') query: string) {
+    return this.researchGroupsService.search(query);
+  }
 }

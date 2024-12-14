@@ -194,4 +194,15 @@ export class ResearchGroupService {
       },
     });
   }
+
+  async search(query: string) {
+    return await this.prismaService.researchGroup.findMany({
+      where: {
+        name: {
+          contains: query,
+          mode: 'insensitive',
+        },
+      },
+    });
+  }
 }

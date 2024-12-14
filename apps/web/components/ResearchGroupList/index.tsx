@@ -6,7 +6,6 @@ type ResearchGroupListProps = {
 };
 
 function ResearchGroupList({ researchgroups }: ResearchGroupListProps) {
-  console.log(typeof researchgroups);
   return (
     <ul className="grid md:grid-cols-2 gap-3">
       {researchgroups.length ? (
