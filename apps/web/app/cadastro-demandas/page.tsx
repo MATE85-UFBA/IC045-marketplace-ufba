@@ -142,20 +142,21 @@ const CadastrarDemanda = () => {
 
             {errors.description && <span>This field is required</span>}
 
-            <div className="flex gap-4 justify-center mt-10">
-              <Button
-                variant={"outline"}
-                className="rounded-full py-2.5 px-8"
-                type="reset"
-              >
-                Cancelar
-              </Button>
+            <div className="flex flex-row-reverse gap-4 justify-center mt-10">
               <Button
                 type="submit"
                 className="rounded-full py-2.5 px-8"
                 disabled={isPending}
               >
                 {isPending ? "Cadastrando..." : "Cadastrar demanda"}
+              </Button>
+
+              <Button
+                variant={"outline"}
+                className="rounded-full py-2.5 px-8"
+                type="reset"
+              >
+                Cancelar
               </Button>
             </div>
           </form>

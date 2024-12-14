@@ -7,11 +7,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 
-import { useForm } from 'react-hook-form';
-import { useToast } from '@/hooks/use-toast';
+import { useForm } from "react-hook-form";
+import { useToast } from "@/hooks/use-toast";
 
 const CadastrarProjeto = () => {
   // Tipagem simulada para evitar erro
@@ -27,12 +27,14 @@ const CadastrarProjeto = () => {
     formState: { errors },
   } = useForm<CreateProjeto>();
 
-  const {toast} = useToast();
+  const { toast } = useToast();
 
   // Função mock para substituir o backend
   const onSubmit = (data: CreateProjeto) => {
     console.log("Dados enviados (mock):", data);
-    toast({title: "Projeto cadastrada (mock). Backend ainda não implementado."});
+    toast({
+      title: "Projeto cadastrada (mock). Backend ainda não implementado.",
+    });
   };
 
   return (
@@ -81,7 +83,6 @@ const CadastrarProjeto = () => {
               )}
             </label>
 
-
             <label className="font-bold text-blue-strong mt-4">
               Descrição*
               <textarea
@@ -105,16 +106,16 @@ const CadastrarProjeto = () => {
               />
             </label>
 
-            <div className="flex gap-4 justify-center mt-10">
+            <div className="flex flex-row-reverse gap-4 justify-center mt-10">
+              <Button type="submit" className="rounded-full py-2.5 px-8">
+                Cadastrar projeto
+              </Button>
               <Button
                 variant={"outline"}
                 className="rounded-full py-2.5 px-8"
                 type="reset"
               >
                 Cancelar
-              </Button>
-              <Button type="submit" className="rounded-full py-2.5 px-8">
-                Cadastrar projeto
               </Button>
             </div>
           </form>
