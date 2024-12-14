@@ -1,6 +1,6 @@
 "use client";
 
-import useAddProject from "@/api/use-add-project";
+import useAddProject from "@/api/projects/use-add-project";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,6 +18,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
+import { ProjectFormData } from "./types/project-form-data";
 
 
 const CadastrarProjeto = () => {
@@ -27,8 +28,7 @@ const CadastrarProjeto = () => {
     handleSubmit,
     register,
     formState: { errors },
-
-  } = useForm<CreateProject>();
+  } = useForm<ProjectFormData>();
   const { toast } = useToast();
   const params = useParams<{ id: string }>();
   const router = useRouter();
@@ -49,18 +49,18 @@ const CadastrarProjeto = () => {
     }
   );
 
-  const onSubmit = (data: CreateProject) => {
+  const onSubmit = (data: ProjectFormData) => {
+    const keywords: string[] = data.keywords.split(',').map(keyword => keyword.trim());
+
     const projectData: CreateProject = {
       researchGroupId: params.id,
       name: data.name,
       description: data.description,
-      started_at: new Date(data.started_at),
-      finished_at: data.finished_at ? new Date(data.finished_at) : undefined,
-      keywords: Array.isArray(data.keywords)
-        ? data.keywords.map((keyword) => keyword.split(",")[0])
-        : data.keywords,
+      started_at: data.started_at,
+      finished_at: data.finished_at,
+      keywords: keywords,
     };
-    console.log(data);
+    console.log(projectData);
     mutate(projectData);
   };
 
@@ -159,7 +159,7 @@ const CadastrarProjeto = () => {
               </label>
             </div>
 
-            <div className="flex flex-row-reverse gap-4 justify-center mt-10">
+            <div className="flex flex-row gap-4 justify-center mt-10">
               <Button type="submit" className="rounded-full py-2.5 px-8">
                 Cadastrar projeto
               </Button>
