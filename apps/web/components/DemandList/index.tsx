@@ -6,7 +6,6 @@ type DemandListProps = {
 }
 
 function DemandList({ demands }: DemandListProps) {
-    console.log(typeof demands)
     return <ul className="flex flex-col gap-6">
         {
             demands.length
