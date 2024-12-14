@@ -1,4 +1,4 @@
-type EResearcherType = "TEACHER" | "STUDENT";
+export type EResearcherType = "TEACHER" | "STUDENT";
 
 export type TLeader = {
   userId: string;
@@ -6,6 +6,12 @@ export type TLeader = {
   researcherType: EResearcherType;
   createdAt: string;
   updatedAt: string;
+};
+
+export type TUser = {
+  id: string;
+  name: string;
+  email: string;
 };
 
 export type TProject = {
@@ -25,6 +31,7 @@ export type TMember = {
   researcherType: EResearcherType;
   createdAt: string;
   updatedAt: string;
+  user: TUser;
 };
 
 export type TResearchGroup = {

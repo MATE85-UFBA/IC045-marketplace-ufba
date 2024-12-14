@@ -127,7 +127,17 @@ export class ResearchGroupService {
       include: {
         leader: true,
         projects: true,
-        members: true,
+        members: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
       },
     });
 
