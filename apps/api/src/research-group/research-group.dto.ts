@@ -24,14 +24,13 @@ export class CreateResearchGroupDto {
   @IsString()
   img?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsUUID()
   researcherId: string;
 
   @IsOptional()
-  @IsArray()
-  @IsUUID('all', { each: true })
-  knowledgeAreas?: string[];
+  @IsUUID()
+  knowledgeArea: string;
 
   @IsOptional()
   @IsArray()

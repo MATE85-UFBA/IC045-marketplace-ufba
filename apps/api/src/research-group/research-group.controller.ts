@@ -7,21 +7,46 @@ import {
   Post,
   Put,
   Query,
+  Request,
+  NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { ResearchGroupService } from './research-group.service';
 import {
   CreateResearchGroupDto,
   UpdateResearchGroupDto,
 } from './research-group.dto';
+import { ResearchersService } from '@/researchers/researchers.service';
+import { JwtAuthGuard } from '@/auth/auth.guard';
 
 //TODO colocar os useGuard
 @Controller('researchgroup')
 export class ResearchGroupController {
-  constructor(private readonly researchGroupsService: ResearchGroupService) {}
-
+  constructor(
+    private readonly researchGroupsService: ResearchGroupService,
+    private readonly researcherService: ResearchersService,
+  ) {}
+  @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() researchGroup: CreateResearchGroupDto) {
+  async create(
+    @Body() researchGroup: CreateResearchGroupDto,
+    @Request() req: { user: { userId: string } },
+  ) {
     //TODO Verificar se um líder de projeto existe e se é um Pesquisador
+    const researcher = await this.researcherService.findOne(
+      req.user.userId,
+      false,
+    );
+
+    if (!researcher) {
+      // eslint-disable-next-line
+      throw new NotFoundException(
+        'Pesquisador não encontrado.',
+      );
+    }
+
+    researchGroup.researcherId = researcher.id;
+
     return this.researchGroupsService.create(researchGroup);
   }
 
