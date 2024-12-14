@@ -19,9 +19,10 @@ function truncate(str: string, n: number, useWordBoundary: boolean) {
 
 function Item(researchgroup: ResearchGroup) {
   return (
-    <li className="px-8 py-10 bg-white border rounded-2xl">
-      <div className="flex xs:items-center justify-between mb-8 flex-col xs:flex-row">
-        <h2 className="text-3xl font-semibold">{researchgroup.name}</h2>
+
+    <li className="px-8 py-6 bg-white border rounded-2xl">
+      <div className="flex xs:items-center justify-between mb-4 flex-col xs:flex-row">
+        <h2 className="text-2xl font-semibold">{researchgroup.name}</h2
       </div>
       {/*
         {
@@ -32,7 +33,10 @@ function Item(researchgroup: ResearchGroup) {
 
         }
 */}
-      <p className="mb-8">{truncate(researchgroup.description, 200, true)}</p>
+
+      <p className="mb-8 text-justify">
+        {truncate(researchgroup.description, 200, true)}
+      </p>
 
       <Button
         asChild
@@ -42,6 +46,7 @@ function Item(researchgroup: ResearchGroup) {
         <Link href={`/detalhe-grupo-pesquisa/${researchgroup.id}`}>
           ver mais
         </Link>
+
       </Button>
     </li>
   );

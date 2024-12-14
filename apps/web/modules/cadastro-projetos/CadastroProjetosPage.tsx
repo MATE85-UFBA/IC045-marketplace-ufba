@@ -10,6 +10,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
+
 import { useToast } from "@/hooks/use-toast";
 import { CreateProject } from "@/types/project";
 import { CalendarIcon } from "@radix-ui/react-icons";
@@ -18,6 +19,7 @@ import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
 
+
 const CadastrarProjeto = () => {
   // Tipagem simulada para evitar erro
 
@@ -25,6 +27,7 @@ const CadastrarProjeto = () => {
     handleSubmit,
     register,
     formState: { errors },
+
   } = useForm<CreateProject>();
   const { toast } = useToast();
   const params = useParams<{ id: string }>();
@@ -129,6 +132,7 @@ const CadastrarProjeto = () => {
               />
             </label>
 
+
             {errors.keywords && <span>Este Campo é obrigatório</span>}
 
             <div className="grid grid-cols-2 gap-4">
@@ -155,16 +159,16 @@ const CadastrarProjeto = () => {
               </label>
             </div>
 
-            <div className="flex gap-4 justify-center mt-10">
+            <div className="flex flex-row-reverse gap-4 justify-center mt-10">
+              <Button type="submit" className="rounded-full py-2.5 px-8">
+                Cadastrar projeto
+              </Button>
               <Button
                 variant={"outline"}
                 className="rounded-full py-2.5 px-8"
                 type="reset"
               >
                 Cancelar
-              </Button>
-              <Button type="submit" className="rounded-full py-2.5 px-8">
-                Cadastrar projeto
               </Button>
             </div>
           </form>

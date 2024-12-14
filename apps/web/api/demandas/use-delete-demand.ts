@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/axios';
 
 
@@ -14,9 +14,14 @@ async function deleteDemand(demandId: string) {
 }
 
 export default function useDeleteDemand(onSuccess: () => void, onError: () => void) {
+  const queryClient = useQueryClient();
+  
   return useMutation({
     mutationFn: (demandId: string) => deleteDemand(demandId),
-    onSuccess,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['demands']});
+      onSuccess()
+    },
     onError
   })
 }

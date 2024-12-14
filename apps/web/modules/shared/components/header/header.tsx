@@ -30,7 +30,7 @@ import { Separator } from "@/modules/shared/ui/separator";
 const headerLinks = {
   none: [
     {
-      label: "Encontrar Demandas",
+      label: "Encontrar demandas",
       path: "/encontrar-demandas",
     },
     {
@@ -44,13 +44,13 @@ const headerLinks = {
       path: "/",
     },
     {
-      label: "Minhas Demandas",
+      label: "Minhas demandas",
       path: "/minhas-demandas",
     },
   ],
   researcher: [
     {
-      label: "Encontrar Demandas",
+      label: "Encontrar demandas",
       path: "/encontrar-demandas",
     },
     {
@@ -93,17 +93,17 @@ const Header = () => {
   const notifications = [
     {
       id: "1",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
       datetime: new Date(),
     },
     {
       id: "2",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
       datetime: new Date(),
     },
     {
       id: "3",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
       datetime: new Date(),
     },
   ] as Notification[];

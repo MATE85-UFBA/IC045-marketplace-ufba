@@ -11,7 +11,7 @@ function DemandList({ demands }: DemandListProps) {
         {
             demands.length
                 ? demands.map(demand => <Item key={demand.id} {...demand} />)
-                : <div>Não há demandas no momento</div>
+                : <div className="px-4 py-5 bg-white border rounded-xl">Não há demandas no momento</div>
         }
     </ul>
 }
