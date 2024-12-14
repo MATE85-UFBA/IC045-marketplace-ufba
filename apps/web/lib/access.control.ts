@@ -1,6 +1,6 @@
-import {loadUserFromLocalStorage} from "@/lib/user.storage";
-import {User, UserProfileType, UserRole} from "@/types/user";
-import {useRouter} from "next/navigation";
+import { loadUserFromLocalStorage } from '@/lib/user.storage';
+import { User, UserProfileType, UserRole } from '@/types/user';
+import { useRouter } from 'next/navigation';
 
 const profileAccessControl: Record<string, UserProfileType[]> = {
     '/cadastro-demandas': [UserProfileType.COMPANY],
@@ -40,8 +40,7 @@ export function checkAccessAndRedirect(router: ReturnType<typeof useRouter>, cur
         if (!user || !hasAccess(user, currentRoute)) {
             router.push('/login');
         }
-    } catch (e) {
-
+    } catch {
+        return;
     }
-
 }
