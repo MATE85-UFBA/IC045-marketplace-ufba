@@ -7,8 +7,6 @@ interface MyResearchGroupListProps  {
 }
 
 function MyResearchGroupList({ pesquisador }: MyResearchGroupListProps) {
-    console.log(typeof pesquisador)
-    console.log(pesquisador);
     const data  : MyResearchGroup[] =  pesquisador.groupsAsMember;
 
     return <ul className="grid grid-cols-2 gap-3">

@@ -16,8 +16,17 @@ export class ResearchersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/myresearchgroup')
-  async myResearchGroups(@Request() req: { user: { userId: string } }) {
-    return this.researchService.myResearchGroups(req.user.userId, true);
+  async myResearchGroups(
+    @Request() req: { user: { userId: string } },
+    @Query('search') search: string,
+    @Query('order') order: 'asc' | 'desc',
+  ) {
+    return this.researchService.myResearchGroups(
+      req.user.userId,
+      true,
+      search,
+      order,
+    );
   }
 
   @Get(':id')
