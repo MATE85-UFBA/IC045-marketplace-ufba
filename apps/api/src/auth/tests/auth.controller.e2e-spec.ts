@@ -9,8 +9,8 @@ import { AppModule } from '@/core/app.module';
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
   const nonProfileUser: { email: string; password: string } = {
-    email: 'reginaldo.rossi@email.com.br',
-    password: 'mycrazysecurepassword',
+    email: 'maria.bethania@email.com.br',
+    password: 'superpassword',
   };
 
   beforeAll(async () => {
