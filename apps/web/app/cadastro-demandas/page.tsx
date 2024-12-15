@@ -202,7 +202,7 @@ const mappedKeywords = keywords.map(({name, id}) => ({label: name, value:id}))
 
             {errors.description && <span>This field is required</span>}
 
-            <div className="flex flex-row-reverse gap-4 justify-center mt-10">
+            <div className="flex flex-row gap-4 justify-center mt-10">
               <Button
                 type="submit"
                 className="rounded-full py-2.5 px-8"
