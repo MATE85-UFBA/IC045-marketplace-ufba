@@ -61,3 +61,15 @@ jobs:
         run: |
           cd apps/api
           npm run test
+
+
+      - name: Frontend Install
+        run: |
+          cd apps/web
+          npm ci
+
+      - name: Frontend Build
+        run: |
+          cd apps/web
+          npm run build
+      

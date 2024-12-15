@@ -23,9 +23,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.enableCors({
-    origin: process.env.FRONT_END_ORIGIN || 'http://localhost:3001',
-    methods: ['GET', 'POST', 'DELETE'],
-    credentials: true,
+    origin: '*',
   });
 
   const serverPort = process.env.SERVER_PORT || 8080;
