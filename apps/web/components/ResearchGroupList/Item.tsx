@@ -1,9 +1,6 @@
-import Link from "next/link";
-import { Button } from "../ui/button";
-import Image from "next/image";
-import { TbUserCircle } from "react-icons/tb";
-import { ResearchGroup } from "./types";
-import { FaImagePortrait } from "react-icons/fa6";
+import Link from 'next/link';
+import { Button } from '../ui/button';
+import { ResearchGroup } from './types';
 
 function truncate(str: string, n: number, useWordBoundary: boolean) {
   if (str.length <= n) {

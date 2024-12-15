@@ -1,5 +1,3 @@
-import { formatDistanceToNow } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
 import { TbUserCircle } from 'react-icons/tb';
