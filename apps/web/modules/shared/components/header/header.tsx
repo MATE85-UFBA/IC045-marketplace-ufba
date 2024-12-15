@@ -21,6 +21,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/modules/shared/ui/pop
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Separator } from '@/modules/shared/ui/separator';
+import Image from 'next/image';
 
 const headerLinks = {
   none: [
@@ -107,7 +108,7 @@ const Header = () => {
     <header className="flex justify-center shadow-custom bg-white">
       <div className="flex justify-between px-4 w-full max-w-7xl">
         <Link href={"/"} className="flex items-center gap-3 py-4">
-          <img src={ufbaLogo} alt="logo ufba" />
+          <Image src={ufbaLogo} alt="logo ufba" />
           <h1 className="text-3xl font-bold text-blue-strong">COOPERA-UFBA</h1>
         </Link>
         <div className="flex gap-5 items-center">
@@ -206,7 +207,7 @@ const Header = () => {
     <Drawer direction="right">
       <header className="flex justify-between shadow-custom bg-white p-4">
         <Link href={"/"} className="flex items-center gap-3">
-          <img src={ufbaLogo} alt="logo ufba" />
+          <Image src={ufbaLogo} alt="logo ufba" />
           <h1 className="text-3xl font-bold text-blue-strong">COOPERA-UFBA</h1>
         </Link>
         <DrawerTrigger>
@@ -222,7 +223,7 @@ const Header = () => {
                 href={"/"}
                 className="flex items-center justify-center gap-3 py-4"
               >
-                <img src={ufbaLogo} alt="logo ufba" />
+                <Image src={ufbaLogo} alt="logo ufba" />
                 <h1 className="text-3xl font-bold text-blue-strong">
                   COOPERA-UFBA
                 </h1>

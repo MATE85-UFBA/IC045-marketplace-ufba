@@ -17,6 +17,7 @@ import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/context/UserContext';
 import { authStore } from '@/context/loginContext';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const headerLinks = {
   NONE: [
@@ -108,7 +109,7 @@ const Header = () => {
     <header className="flex justify-center shadow-custom bg-white z-50">
       <div className="flex justify-between px-4 w-full max-w-screen-xl">
         <Link href={"/"} className="flex items-center gap-3 py-4">
-          <img src={ufbaLogo} alt="logo ufba" />
+          <Image src={ufbaLogo} alt="logo ufba" />
           <h1 className="text-3xl font-bold text-blue-strong">COOPERA-UFBA</h1>
         </Link>
         <div className="flex gap-5 items-center">
@@ -215,7 +216,7 @@ const Header = () => {
       <header className="shadow-custom bg-white p-4 z-50">
         <div className="flex justify-between max-w-screen-xl mx-auto">
           <Link href={"/"} className="flex items-center gap-3">
-            <img src={ufbaLogo} alt="logo ufba" />
+            <Image src={ufbaLogo} alt="logo ufba" />
             <h1 className="text-3xl font-bold text-blue-strong">
               COOPERA-UFBA
             </h1>
@@ -234,7 +235,7 @@ const Header = () => {
                 href={"/"}
                 className="flex items-center justify-center gap-3 py-4"
               >
-                <img src={ufbaLogo} alt="logo ufba" />
+                <Image src={ufbaLogo} alt="logo ufba" />
                 <h1 className="text-3xl font-bold text-blue-strong">
                   COOPERA-UFBA
                 </h1>

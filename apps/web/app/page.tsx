@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import homeBanner from '@/public/home-banner.png';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -29,7 +30,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <img
+        <Image
           src={homeBanner}
           alt="Banner da página inicial"
           className="relative xl:-right-8 max-lg:my-8 lg lg:max-xl:h-80"
