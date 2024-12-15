@@ -19,18 +19,14 @@ import { useToast } from '@/hooks/use-toast';
 import { checkAccessAndRedirect } from '@/lib/access.control';
 import { usePathname, useRouter } from 'next/navigation';
 import { FiInfo } from 'react-icons/fi';
-import { MultiSelect } from '@/components/ui/multi-select';
 import { useState } from 'react';
-import useGetKeywords from '@/api/keywords/use-get-keywords';
-import useAddKeyword from '@/api/keywords/use-add-keyword';
+import Keywords from '@/components/keywords';
 
 const CadastrarDemanda = () => {
   const router = useRouter();
   checkAccessAndRedirect(router, usePathname());
 const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
-const {data: keywords = [], refetch} = useGetKeywords();
-const mappedKeywords = keywords.map(({name, id}) => ({label: name, value:id}))
-  
+
   const {
     handleSubmit,
     register,
@@ -56,28 +52,6 @@ const mappedKeywords = keywords.map(({name, id}) => ({label: name, value:id}))
       });
     }
   );
-
-  const { mutate: keywordMutate } = useAddKeyword(
-    () => {
-      toast({
-        variant: "success",
-        title: "Sucesso",
-        description: "A palavra-chave foi cadastrada com sucesso.",
-      });
-    },
-    () => {
-      toast({
-        variant: "destructive",
-        title: "Ocorreu um error",
-        description: "Ocorreu um erro ao tentar criar nova palavra-chave.",
-      });
-    }
-  );
-
-  async function handleKeyword(name: string){
-    keywordMutate(name);
-    await refetch();
-  }
 
   const onSubmit = (data: CreateDemand) => {
     const demandData: CreateDemand = {
@@ -185,20 +159,7 @@ const mappedKeywords = keywords.map(({name, id}) => ({label: name, value:id}))
               </div>
             </div>
 
-            <div className="font-bold text-base text-blue-strong">
-              <label>Palavra-chave</label>
-              <div className="flex items-center mt-2">
-                <MultiSelect
-                  options={mappedKeywords}
-                  onValueChange={setSelectedKeywords}
-                  defaultValue={selectedKeywords}
-                  placeholder="Selecione palavras-chave"
-                  variant="inverted"
-                  maxCount={3}
-                  empty={(search) => <div className={"px-10"}><Button onClick={() => handleKeyword(search)}> Criar {search}</Button></div>}
-                />
-              </div>
-            </div>
+            <Keywords onChange={setSelectedKeywords} defaultValue={selectedKeywords} />
 
             {errors.description && <span>This field is required</span>}
 
