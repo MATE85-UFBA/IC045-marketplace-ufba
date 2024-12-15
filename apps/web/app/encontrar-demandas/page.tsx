@@ -14,14 +14,32 @@ import {
 } from "@/components/ui/select";
 import { FiSearch } from "react-icons/fi";
 import useGetAllDemands from "@/api/demandas/use-get-all-demands";
+import { useState } from "react";
+import { Demanda } from "@/modules/minhas-demandas/interfaces/demanda";
+import useGetFilterDemands from "@/api/demandas/use-get-filter-demands";
+import { toast } from "@/hooks/use-toast";
 
 function EncontrarDemandas() {
   const { data: demands = [] } = useGetAllDemands();
+  const [filter, setFilter] = useState<string>("");
+  const [filteredDemands, setFilteredDemands] = useState<Demanda[]>();
+
+  const filterDemands = useGetFilterDemands(
+    (data) => {
+      setFilteredDemands(data);
+      toast({ title: "Demandas buscadas com sucesso!" });
+    },
+    () => toast({ title: "Falha na Busca!" })
+  );
+
+  const handleFilter = () => {
+    filterDemands.mutate(filter);
+  };
 
   return (
-    <main className="max-w-screen-xl w-full px-8 mx-auto mb-auto grid md:grid-cols-[auto_1fr] md:grid-rows-[auto_auto_1fr] md:gap-3">
-      <h1 className="font-semibold text-4xl mt-12 mb-8 md:col-span-2">
-        Encontrar demandas
+    <main className="max-w-screen-xl px-8 mx-auto mb-auto grid grid-cols-[auto_1fr] md:gap-3">
+      <h1 className="font-semibold text-4xl mt-12 mb-8 col-span-2">
+        Encontrar Demandas
       </h1>
 
       <aside className="bg-white h-fit border py-4 px-5 rounded-2xl min-w-60 lg:min-w-80 hidden md:flex md:flex-col md:gap-5 row-span-2">
@@ -89,17 +107,20 @@ function EncontrarDemandas() {
         </div>
       </aside>
 
-      <div className="flex gap-2 mb-4 md:mb-0">
+      <div className="flex gap-2">
         <Input
           className="bg-white h-12 rounded-lg"
+          onBlur={(e) => setFilter(e.target.value)}
           placeholder="Buscar demanda"
         />
-        <Button className="h-12 rounded-lg">
+        <Button onClick={handleFilter} className="h-12 rounded-lg">
           <FiSearch />
         </Button>
       </div>
 
-      <DemandList demands={demands} />
+      <DemandList
+        demands={filteredDemands && filter !== "" ? filteredDemands : demands}
+      />
     </main>
   );
 }

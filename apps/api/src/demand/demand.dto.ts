@@ -23,3 +23,9 @@ export class UpdateDemandDTO {
 
   keywords?: string[];
 }
+
+export class SuggestDemandDTO {
+  id: string;
+  name: string;
+  description: string;
+}

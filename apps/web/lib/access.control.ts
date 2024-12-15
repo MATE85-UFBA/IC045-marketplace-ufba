@@ -39,8 +39,7 @@ export function checkAccessAndRedirect(router: ReturnType<typeof useRouter>, cur
         if (!user || !hasAccess(user, currentRoute)) {
             router.push('/login');
         }
-    } catch{
-        return
+    } catch {
+        return;
     }
-
 }
