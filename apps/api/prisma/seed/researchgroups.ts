@@ -33,6 +33,9 @@ export async function SeedResearchGroups(prisma: PrismaClient) {
     members: {
       connect: [{ userId: '6d78e1e5-5917-4a81-bce6-65610e79d4f1' }],
     },
+    knowledgeAreas: {
+      connect: [{ id: '581a9d3a-e512-47e4-8a9b-3c3a672f9f75'}],
+    }
   };
   try {
     await prisma.researchGroup.create({

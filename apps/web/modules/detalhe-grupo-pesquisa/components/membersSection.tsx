@@ -12,6 +12,7 @@ import React from "react";
 import { TMember } from "../types/researchgroup.type";
 import { translateResearchType } from "@/modules/shared/utils/translateReasearchType.util";
 
+
 type TProps = {
   members: TMember[];
 };
@@ -32,6 +33,7 @@ export default function MembersSection(props: TProps) {
             <TableHead className="text-blue-strong font-semibold text-lg sm:text-2xl">
               Papel
             </TableHead>
+
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -46,6 +48,7 @@ export default function MembersSection(props: TProps) {
                 </TableCell>
                 <TableCell className="text-blue-light py-6">
                   {translateResearchType(member.researcherType)}
+
                 </TableCell>
               </TableRow>
             );

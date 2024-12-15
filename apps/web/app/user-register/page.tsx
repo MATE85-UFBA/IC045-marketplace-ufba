@@ -1,42 +1,33 @@
 "use client";
-import { Card } from "@/components/ui/card";
-import Image from "next/image";
-import Logo from "./assets/logo.png";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../../components/ui/form";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../components/ui/select";
-import Link from "next/link";
-import { MoveLeftIcon } from "lucide-react";
+import { Card } from '@/components/ui/card';
+import Image from 'next/image';
+import Logo from './assets/logo.png';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Link from 'next/link';
+import { EyeIcon, EyeOffIcon, MoveLeftIcon } from 'lucide-react';
 
-import { useForm } from "react-hook-form";
-import { observer } from "mobx-react-lite";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useForm } from 'react-hook-form';
+import { observer } from 'mobx-react-lite';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import {registerSchema} from "./register.form.schema";
-import { registerStore } from "@/context/userRegisterContext";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema } from './register.form.schema';
+import { registerStore } from '@/context/userRegisterContext';
+
+type UserType = "COMPANY" | "RESEARCHER"
 
 export default observer(function Cadastro() {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordConfirmationVisible, setPasswordConfirmationVisible] = useState(false);
   const form = useForm({
     resolver: zodResolver(registerSchema),
   });
   const router = useRouter();
-  const [utype, setUtype] = useState<"empresa" | "pesquisador">("empresa");
+  const [utype, setUtype] = useState<UserType>("COMPANY");
 
   const onSubmit = form.handleSubmit(async (data) => {
     await registerStore.registerUser(
@@ -52,25 +43,8 @@ export default observer(function Cadastro() {
   });
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        height: "100vh",
-        justifyContent: "center",
-      }}
-    >
-      <Card
-        style={{
-          maxWidth: 416,
-          maxHeight: 760,
-          margin: "auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: 48,
-        }}
-      >
+    <div className="flex items-center justify-center flex-1 py-8">
+      <Card className="w-full max-w-lg bg-white px-8 py-8 rounded-lg shadow-lg border-none flex flex-col items-center justify-center">
         <div
           style={{
             display: "flex",
@@ -83,7 +57,7 @@ export default observer(function Cadastro() {
           <h1 style={{ fontSize: 48 }}>NEXUS</h1>
         </div>
         <Form {...form}>
-          <form onSubmit={onSubmit} style={{ marginTop: 40, width: 320 }}>
+          <form onSubmit={onSubmit} className="mt-4 w-full">
             {registerStore.errorMessage && (
               <div style={{ color: "red", marginBottom: 16 }}>
                 {registerStore.errorMessage}
@@ -92,20 +66,24 @@ export default observer(function Cadastro() {
             <FormField
               control={form.control}
               name="utype"
-              render={({ field }) => (
+              render={() => (
                 <FormItem>
-                  <FormLabel style={{ fontSize: 16 }}>Tipo de Cadastro</FormLabel>
+                  <FormLabel style={{ fontSize: 16 }}>
+                    Tipo de Cadastro
+                  </FormLabel>
                   <FormControl>
                     <Select
                       value={utype}
-                      onValueChange={(value) => setUtype(value as "empresa" | "pesquisador")}
+                      onValueChange={(value: UserType) =>
+                        setUtype(value)
+                      }
                     >
-                      <SelectTrigger style={{ marginTop: 0 }}>
+                      <SelectTrigger>
                         <SelectValue placeholder={"empresa"} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="empresa">Empresa</SelectItem>
-                        <SelectItem value="pesquisador">Pesquisador</SelectItem>
+                        <SelectItem value="COMPANY">Empresa</SelectItem>
+                        <SelectItem value="RESEARCHER">Pesquisador</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -120,7 +98,10 @@ export default observer(function Cadastro() {
                 <FormItem style={{ marginTop: 16 }}>
                   <FormLabel style={{ fontSize: 16 }}>Nome</FormLabel>
                   <FormControl>
-                    <Input style={{ marginTop: 0 }} placeholder="Digite seu nome" {...field} />
+                    <Input
+                      placeholder="Digite seu nome"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -131,9 +112,12 @@ export default observer(function Cadastro() {
               name="email"
               render={({ field }) => (
                 <FormItem style={{ marginTop: 16 }}>
-                  <FormLabel style={{ fontSize: 16 }}>Email</FormLabel>
+                  <FormLabel style={{ fontSize: 16 }}>E-mail</FormLabel>
                   <FormControl>
-                    <Input style={{ marginTop: 0 }} placeholder="Digite seu e-mail" {...field} />
+                    <Input
+                      placeholder="Digite seu e-mail"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -143,17 +127,37 @@ export default observer(function Cadastro() {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem style={{ marginTop: 16 }}>
+                <FormItem style={{ marginTop: 16 }} className="relative">
                   <FormLabel style={{ fontSize: 16 }}>Senha</FormLabel>
                   <FormControl>
                     <Input
-                      style={{ marginTop: 0 }}
+                      className="pr-8"
                       placeholder="Digite sua senha"
-                      type="password"
+                      type={passwordVisible ? "text" : "password"}
                       {...field}
                     />
                   </FormControl>
                   <FormMessage />
+                  <span className="absolute right-3 top-8">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPasswordVisible(!passwordVisible);
+                        }}
+                      >
+                        {passwordVisible ? (
+                          <EyeIcon
+                            size={20}
+                            className="cursor-pointer text-slate-600"
+                          />
+                        ) : (
+                          <EyeOffIcon
+                            size={20}
+                            className="cursor-pointer text-slate-600"
+                          />
+                        )}
+                      </button>
+                    </span>
                 </FormItem>
               )}
             />
@@ -161,48 +165,54 @@ export default observer(function Cadastro() {
               control={form.control}
               name="passwordConfirmation"
               render={({ field }) => (
-                <FormItem style={{ marginTop: 16 }}>
-                  <FormLabel style={{ fontSize: 16 }}>Confirme sua senha</FormLabel>
+                <FormItem style={{ marginTop: 16 }} className="relative">
+                  <FormLabel style={{ fontSize: 16 }}>
+                    Confirme sua senha
+                  </FormLabel>
                   <FormControl>
                     <Input
-                      style={{ marginTop: 0 }}
+                      className="pr-8"
                       placeholder="Confirme sua senha"
-                      type="password"
+                      type={passwordConfirmationVisible ? "text" : "password"}
                       {...field}
                     />
                   </FormControl>
                   <FormMessage />
+                  <span className="absolute right-3 top-8">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPasswordConfirmationVisible(!passwordConfirmationVisible);
+                        }}
+                      >
+                        {passwordConfirmationVisible ? (
+                          <EyeIcon
+                            size={20}
+                            className="cursor-pointer text-slate-600"
+                          />
+                        ) : (
+                          <EyeOffIcon
+                            size={20}
+                            className="cursor-pointer text-slate-600"
+                          />
+                        )}
+                      </button>
+                    </span>
                 </FormItem>
               )}
             />
             <Button
               type="submit"
-              style={{
-                width: 320,
-                height: 55,
-                borderRadius: 64,
-                marginTop: 32,
-                backgroundColor: "#6D5BD0",
-              }}
+              className="w-full rounded-full h-12 mt-4"
               disabled={registerStore.isLoading}
             >
               {registerStore.isLoading ? "Cadastrando..." : "Cadastrar"}
             </Button>
           </form>
         </Form>
-        <Link href={"/login"}>
-          <div
-            style={{
-              display: "flex",
-              marginBottom: 41,
-              marginTop: 16,
-              alignItems: "center",
-              color: "#6E6893",
-            }}
-          >
-            <MoveLeftIcon />
-            <p style={{ marginLeft: 5, fontSize: 12 }}>Voltar para login</p>
-          </div>
+        <Link href={"/login"} className="flex items-center justify-center mt-4 hover:underline">
+          <MoveLeftIcon />
+          <p style={{ marginLeft: 5, fontSize: 12 }}>Voltar para login</p>
         </Link>
       </Card>
     </div>

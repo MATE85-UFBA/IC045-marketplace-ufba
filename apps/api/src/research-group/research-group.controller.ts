@@ -61,4 +61,14 @@ export class ResearchGroupController {
   delete(@Param('id') id: string) {
     return this.researchGroupsService.delete(id);
   }
+
+  @Post('search')
+  search(@Query('data') query: string, @Query('area') area: string) {
+    return this.researchGroupsService.search(query, area);
+  }
+
+  @Get('/knowledgearea/all')
+  findAllKnowledgeAreas() {
+    return this.researchGroupsService.findAllKnowledgeAreas();
+  }
 }
