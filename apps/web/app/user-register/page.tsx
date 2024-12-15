@@ -1,7 +1,5 @@
 "use client";
 import { Card } from '@/components/ui/card';
-import Image from 'next/image';
-import Logo from './assets/logo.png';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,6 +23,13 @@ export default observer(function Cadastro() {
   const [passwordConfirmationVisible, setPasswordConfirmationVisible] = useState(false);
   const form = useForm({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      utype: "COMPANY",
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+    },
   });
   const router = useRouter();
   const [utype, setUtype] = useState<UserType>("COMPANY");
@@ -53,8 +58,7 @@ export default observer(function Cadastro() {
             gap: 10,
           }}
         >
-          <Image src={Logo} alt="logo" width={55} height={90} />
-          <h1 style={{ fontSize: 48 }}>NEXUS</h1>
+          <h1 style={{ fontSize: 48 }}>Cadastre-se</h1>
         </div>
         <Form {...form}>
           <form onSubmit={onSubmit} className="mt-4 w-full">
