@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { TbUserCircle } from 'react-icons/tb';
 import { ResearchGroup } from './type';
@@ -14,7 +13,7 @@ function Item({idPesquisador,researchgroup}:ItemProp) {
         <div className="grid grid-cols-[auto_1fr] grid-rows-2 gap-x-1.5">
             {
                 researchgroup.image
-                    ? <Image src="" alt="Logo do Grupo de Pesquisa" className="row-span-2 col-start-1 row-start-1" />
+                    ? <img src="" alt="Logo do Grupo de Pesquisa" className="row-span-2 col-start-1 row-start-1" />
                     : <TbUserCircle className="text-primary font-normal size-16 row-span-2 col-start-1" />
             }
             <h2 className="self-end font-semibold text-lg leading-none gap-3">{researchgroup.name}</h2>

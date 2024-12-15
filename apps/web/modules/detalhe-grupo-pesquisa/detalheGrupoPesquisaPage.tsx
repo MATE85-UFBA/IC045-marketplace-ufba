@@ -10,7 +10,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { CustomIcon } from '../components/icon/customIcon';
-import Image from 'next/image';
 import MembersSection from './components/membersSection';
 import { useParams } from 'next/navigation';
 import useGetResearchGroup from '@/api/grupos/use-get-research-group';
@@ -70,7 +69,7 @@ export default function DetalheGrupoPesquisaPage() {
 
         <div className="flex w-[100%] gap-5">
           <div className="flex gap-5 p-5 items-center justify-center flex-col max-w-[30%] bg-[#fff] border-[2px] rounded-md border-[#C6C2DE]">
-            <Image
+            <img
               src="https://ufba.br/sites/portal.ufba.br/files/noticias/brasao_ufba_-_copia.jpg"
               alt="Grupo de Pesquisa"
               className="max-w-[80%]"

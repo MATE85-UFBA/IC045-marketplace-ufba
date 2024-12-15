@@ -1,6 +1,6 @@
 "use client";
 
-import useAddProject from "@/api/projects/use-add-project";
+import useAddProject from '@/api/projects/use-add-project';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,20 +8,22 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/breadcrumb';
+import { Button } from '@/components/ui/button';
 
-import { useToast } from "@/hooks/use-toast";
-import { CreateProject } from "@/types/project";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useToast } from '@/hooks/use-toast';
+import { CreateProject } from '@/types/project';
+import { CalendarIcon } from '@radix-ui/react-icons';
+import { useParams, useRouter } from 'next/navigation';
 
-import { useForm } from "react-hook-form";
-import { ProjectFormData } from "./types/project-form-data";
+import { useForm } from 'react-hook-form';
+import { ProjectFormData } from './types/project-form-data';
+import Keywords from '@/components/keywords';
+import { useState } from 'react';
 
 const CadastrarProjeto = () => {
-  // Tipagem simulada para evitar erro
+  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+
 
   const {
     handleSubmit,
@@ -31,7 +33,7 @@ const CadastrarProjeto = () => {
   const { toast } = useToast();
   const params = useParams<{ id: string }>();
   const router = useRouter();
-  const { mutate, isPending } = useAddProject(
+  const { mutate } = useAddProject(
     () => {
       toast({
         variant: "success",
@@ -49,18 +51,21 @@ const CadastrarProjeto = () => {
     }
   );
 
+  const [keywordRequired, setKeywordRequired] = useState<boolean>(false);
   const onSubmit = (data: ProjectFormData) => {
-    const keywords: string[] = data.keywords
-      .split(",")
-      .map((keyword) => keyword.trim());
 
+    if(!selectedKeywords.length){
+      setKeywordRequired(true)
+      return
+    }
+    
     const projectData: CreateProject = {
       researchGroupId: params.id,
       name: data.name,
       description: data.description,
       started_at: new Date(data.started_at),
       finished_at: data.finished_at && new Date(data.finished_at),
-      keywords: keywords,
+      keywords: selectedKeywords,
     };
     mutate(projectData);
   };
@@ -123,17 +128,10 @@ const CadastrarProjeto = () => {
 
             {errors.description && <span>Este Campo é obrigatório</span>}
 
-            <label className="font-bold text-blue-strong mt-4">
-              Palavras-Chave (Separadas por vírgula)
-              <input
-                type="text"
-                placeholder="Ex: Palavra-Chave 1, Palavra-Chave 2"
-                className="w-full py-3 px-4 text-base font-normal rounded-lg border mt-2"
-                {...register("keywords", { required: true })}
-              />
-            </label>
+            <Keywords onChange={setSelectedKeywords } defaultValue={selectedKeywords} />
 
-            {errors.keywords && <span>Este Campo é obrigatório</span>}
+            {keywordRequired && <span>Este Campo é obrigatório</span>}
+
 
             <div className="grid grid-cols-2 gap-4">
               <label className="flex gap-2 font-bold text-blue-strong mt-4">
