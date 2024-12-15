@@ -145,10 +145,9 @@ export class DemandService {
       orderBy: {
         createdAt: 'desc', // Ordena pelas demandas mais recentes
       },
-      select: {
-        id: true,
-        name: true,
-        description: true, // Não inclui `createdAt` no retorno
+      include: {
+        company: true,
+        keywords: true,
       },
       take: 10, // Limita os resultados a 10 sugestões
     });

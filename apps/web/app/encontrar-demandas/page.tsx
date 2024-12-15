@@ -13,10 +13,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FiSearch } from "react-icons/fi";
-import useGetAllDemands from "@/api/use-get-all-demands";
+import useGetAllDemands from "@/api/demandas/use-get-all-demands";
 import { useState } from "react";
 import { Demanda } from "@/modules/minhas-demandas/interfaces/demanda";
-import useGetFilterDemands from "@/api/use-get-filter-demands";
+import useGetFilterDemands from "@/api/demandas/use-get-filter-demands";
 import { toast } from "@/hooks/use-toast";
 
 function EncontrarDemandas() {
