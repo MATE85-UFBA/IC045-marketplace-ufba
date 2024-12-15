@@ -9,8 +9,6 @@ async function getResearchGroup(groupId: string): Promise<TResearchGroup> {
     `/researchgroup/${groupId}?members=true&projects=true`
   );
 
-  console.log(data);
-
   return data;
 }
 

@@ -34,7 +34,6 @@ export function hasAccess(user: User, route: string): boolean {
 }
 
 export function checkAccessAndRedirect(router: ReturnType<typeof useRouter>, currentRoute: string) {
-
     try {
         const user = loadUserFromLocalStorage();
         if (!user || !hasAccess(user, currentRoute)) {

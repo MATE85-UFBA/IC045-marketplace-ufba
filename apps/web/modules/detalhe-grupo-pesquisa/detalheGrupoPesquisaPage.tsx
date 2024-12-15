@@ -1,22 +1,20 @@
 "use client";
 import {
   Breadcrumb,
-  BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbSeparator,
+  BreadcrumbList,
   BreadcrumbPage,
-} from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { CustomIcon } from "../components/icon/customIcon";
-import Image from "next/image";
-import MembersSection from "./components/membersSection";
-import { useParams } from "next/navigation";
-import useGetResearchGroup from "@/api/grupos/use-get-research-group";
-import { is } from "date-fns/locale";
-import { TMember } from "./types/researchgroup.type";
-import Link from "next/link";
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { Button } from '@/components/ui/button';
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import { CustomIcon } from '../components/icon/customIcon';
+import Image from 'next/image';
+import MembersSection from './components/membersSection';
+import { useParams } from 'next/navigation';
+import useGetResearchGroup from '@/api/grupos/use-get-research-group';
+import Link from 'next/link';
 
 export default function DetalheGrupoPesquisaPage() {
   const params = useParams();
@@ -24,8 +22,6 @@ export default function DetalheGrupoPesquisaPage() {
 
   const {
     data: researchGroup,
-    isError,
-    error,
     isLoading,
   } = useGetResearchGroup(groupId as string);
   const handleAddProject = () => {
@@ -74,7 +70,7 @@ export default function DetalheGrupoPesquisaPage() {
 
         <div className="flex w-[100%] gap-5">
           <div className="flex gap-5 p-5 items-center justify-center flex-col max-w-[30%] bg-[#fff] border-[2px] rounded-md border-[#C6C2DE]">
-            <img
+            <Image
               src="https://ufba.br/sites/portal.ufba.br/files/noticias/brasao_ufba_-_copia.jpg"
               alt="Grupo de Pesquisa"
               className="max-w-[80%]"

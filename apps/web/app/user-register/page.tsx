@@ -1,36 +1,22 @@
 "use client";
-import { Card } from "@/components/ui/card";
-import Image from "next/image";
-import Logo from "./assets/logo.png";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../../components/ui/form";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../components/ui/select";
-import Link from "next/link";
-import { EyeOffIcon, MoveLeftIcon } from "lucide-react";
+import { Card } from '@/components/ui/card';
+import Image from 'next/image';
+import Logo from './assets/logo.png';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Link from 'next/link';
+import { EyeIcon, EyeOffIcon, MoveLeftIcon } from 'lucide-react';
 
 import { useForm } from 'react-hook-form';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "./register.form.schema";
-import { registerStore } from "@/context/userRegisterContext";
-import { EyeIcon } from "lucide-react";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema } from './register.form.schema';
+import { registerStore } from '@/context/userRegisterContext';
 
 type UserType = "COMPANY" | "RESEARCHER"
 

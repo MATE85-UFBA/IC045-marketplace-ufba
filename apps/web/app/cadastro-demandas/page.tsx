@@ -7,27 +7,30 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from '@/components/ui/breadcrumb';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { useForm } from "react-hook-form";
-import useAddDemand from "@/api/demandas/use-add-demand";
-import { CreateDemand } from "@/types/demand";
-import { useToast } from "@/hooks/use-toast";
-import { checkAccessAndRedirect } from "@/lib/access.control";
-import { usePathname, useRouter } from "next/navigation";
-import { FiInfo } from "react-icons/fi";
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { useForm } from 'react-hook-form';
+import useAddDemand from '@/api/demandas/use-add-demand';
+import { CreateDemand } from '@/types/demand';
+import { useToast } from '@/hooks/use-toast';
+import { checkAccessAndRedirect } from '@/lib/access.control';
+import { usePathname, useRouter } from 'next/navigation';
+import { FiInfo } from 'react-icons/fi';
+import { MultiSelect } from '@/components/ui/multi-select';
+import { useState } from 'react';
+import useGetKeywords from '@/api/keywords/use-get-keywords';
+import useAddKeyword from '@/api/keywords/use-add-keyword';
 
 const CadastrarDemanda = () => {
   const router = useRouter();
   checkAccessAndRedirect(router, usePathname());
-
+const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+const {data: keywords = [], refetch} = useGetKeywords();
+const mappedKeywords = keywords.map(({name, id}) => ({label: name, value:id}))
+  
   const {
     handleSubmit,
     register,
@@ -54,6 +57,28 @@ const CadastrarDemanda = () => {
     }
   );
 
+  const { mutate: keywordMutate } = useAddKeyword(
+    () => {
+      toast({
+        variant: "success",
+        title: "Sucesso",
+        description: "A palavra-chave foi cadastrada com sucesso.",
+      });
+    },
+    () => {
+      toast({
+        variant: "destructive",
+        title: "Ocorreu um error",
+        description: "Ocorreu um erro ao tentar criar nova palavra-chave.",
+      });
+    }
+  );
+
+  async function handleKeyword(name: string){
+    keywordMutate(name);
+    await refetch();
+  }
+
   const onSubmit = (data: CreateDemand) => {
     const demandData: CreateDemand = {
       name: data.name,
@@ -64,6 +89,7 @@ const CadastrarDemanda = () => {
           : [data.links]
         : [],
       public: data.public === "on",
+      keywords: selectedKeywords
     };
 
     mutate(demandData);
@@ -159,9 +185,24 @@ const CadastrarDemanda = () => {
               </div>
             </div>
 
+            <div className="font-bold text-base text-blue-strong">
+              <label>Palavra-chave</label>
+              <div className="flex items-center mt-2">
+                <MultiSelect
+                  options={mappedKeywords}
+                  onValueChange={setSelectedKeywords}
+                  defaultValue={selectedKeywords}
+                  placeholder="Selecione palavras-chave"
+                  variant="inverted"
+                  maxCount={3}
+                  empty={(search) => <div className={"px-10"}><Button onClick={() => handleKeyword(search)}> Criar {search}</Button></div>}
+                />
+              </div>
+            </div>
+
             {errors.description && <span>This field is required</span>}
 
-            <div className="flex flex-row-reverse gap-4 justify-center mt-10">
+            <div className="flex flex-row gap-4 justify-center mt-10">
               <Button
                 type="submit"
                 className="rounded-full py-2.5 px-8"

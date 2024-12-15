@@ -1,7 +1,16 @@
-import React from "react";
+import React from 'react';
+import Link from 'next/link';
+import { loginFormSchema, LoginUserFormData } from '@/app/login/login.form.schema';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { authStore } from '@/context/loginContext';
+import loginStore from '@/context/loginContext/login.context';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -13,6 +22,7 @@ export default function LoginPage() {
   async function loginUser(data: LoginUserFormData) {
     await loginStore.login(data.email, data.password, router); // Pass router to login method
   }
+
   return (
     <main className="h-screen flex flex-col items-center justify-center">
       <section className="w-full max-w-sm bg-white px-8 py-8 rounded-lg shadow-lg">
