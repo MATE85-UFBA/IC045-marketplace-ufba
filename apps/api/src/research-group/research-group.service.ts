@@ -33,6 +33,7 @@ export class ResearchGroupService {
         urlCNPQ: group.urlCNPQ,
         img: group.img,
         researcherId: group.researcherId,
+        knowledgeAreaId: group.knowledgeAreaId,
       },
     });
 
@@ -43,6 +44,7 @@ export class ResearchGroupService {
       urlCNPQ: createdGroup.urlCNPQ,
       img: createdGroup.img,
       researcherId: createdGroup.researcherId,
+      knowledgeAreaId: group.knowledgeAreaId,
     };
   }
 
@@ -66,6 +68,7 @@ export class ResearchGroupService {
       img: group.img,
       researcherId: group.researcherId,
       leader: group.leader,
+      knowledgeAreaId: group.knowledgeAreaId,
     };
   }
 
@@ -91,6 +94,7 @@ export class ResearchGroupService {
       researcherId: group.researcherId,
       leader: group.leader,
       members: group.members,
+      knowledgeAreaId: group.knowledgeAreaId,
     };
   }
 
@@ -116,6 +120,7 @@ export class ResearchGroupService {
       researcherId: group.researcherId,
       leader: group.leader,
       projects: group.projects,
+      knowledgeAreaId: group.knowledgeAreaId,
     };
   }
 
@@ -143,6 +148,7 @@ export class ResearchGroupService {
       leader: group.leader,
       projects: group.projects,
       members: group.members,
+      knowledgeAreaId: group.knowledgeAreaId,
     };
   }
 
@@ -157,6 +163,7 @@ export class ResearchGroupService {
         urlCNPQ: group.urlCNPQ,
         img: group.img,
         researcherId: group.researcherId,
+        knowledgeAreaId: group.knowledgeAreaId,
       },
     });
 
@@ -167,6 +174,7 @@ export class ResearchGroupService {
       urlCNPQ: updatedGroup.urlCNPQ,
       img: updatedGroup.img,
       researcherId: updatedGroup.researcherId,
+      knowledgeAreaId: group.knowledgeAreaId,
     };
   }
 
@@ -184,6 +192,7 @@ export class ResearchGroupService {
       urlCNPQ: group.urlCNPQ,
       img: group.img,
       researcherId: group.researcherId,
+      knowledgeAreaId: group.knowledgeAreaId,
     };
   }
 

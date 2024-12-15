@@ -28,7 +28,7 @@ const CadastrarGruposPesquisa = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    setValue('knowledgeArea', knowledgeArea);
+    setValue('knowledgeAreaId', knowledgeArea);
   }, [knowledgeArea, setValue]);
 
   const { mutate, isPending } = useAddResearchGroup(
@@ -52,7 +52,7 @@ const CadastrarGruposPesquisa = () => {
     const researchGroupData: CreateResearchGroup = {
       name: data.name,
       description: data.description,
-      knowledgeArea: data.knowledgeArea, 
+      knowledgeAreaId: data.knowledgeAreaId, 
       urlCNPQ: data.urlCNPQ,
     };
 
@@ -104,7 +104,7 @@ const CadastrarGruposPesquisa = () => {
 
               <label className="font-bold text-blue-strong mt-4">
                 Área de Pesquisa*
-                <Select onValueChange={setKnowledgeArea} {...register("knowledgeArea", { required: true })}>
+                <Select onValueChange={setKnowledgeArea} {...register("knowledgeAreaId", { required: true })}>
                   <SelectTrigger className="w-full py-6 px-4 text-base font-medium rounded-lg border mt-2 data-[placeholder]:text-muted-foreground">
                     <SelectValue placeholder="Selecione..." />
                   </SelectTrigger>
@@ -116,7 +116,7 @@ const CadastrarGruposPesquisa = () => {
                     <SelectItem value="fc607ea2-d3a9-4fc7-8c37-a222088650fd">Letras</SelectItem>
                   </SelectContent>
                 </Select>
-                {errors.knowledgeArea && (
+                {errors.knowledgeAreaId && (
                   <span className="text-red font-normal text-sm">
                     Área de Pesquisa é obrigatória
                   </span>

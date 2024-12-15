@@ -76,28 +76,30 @@ enum ResearcherType {
 }
 
 model ResearchGroup {
-  id             String          @id @default(uuid())
-  name           String          @unique
-  description    String
-  urlCNPQ        String?
-  img            String?
-  leader         Researcher      @relation(fields: [researcherId], references: [userId], name: "ResearchGroupLeader")
-  researcherId   String
-  knowledgeAreas KnowledgeArea[]
-  members        Researcher[]    @relation("ResearchGroupMembers")
-  projects       Project[]
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  Notifications  Notification[]
+  id              String          @id @default(uuid())
+  name            String          @unique
+  description     String
+  urlCNPQ         String?
+  img             String?
+  leader          Researcher      @relation(fields: [researcherId], references: [userId], name: "ResearchGroupLeader")
+  researcherId    String
+  knowledgeArea   KnowledgeArea?  @relation(fields: [knowledgeAreaId], references: [id], name: "ResearchGroupArea")
+  knowledgeAreaId String?
+  members         Researcher[]    @relation("ResearchGroupMembers")
+  projects        Project[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  Notifications   Notification[]
 }
 
 model KnowledgeArea {
   id                   String          @id @default(uuid())
   name                 String
-  researchGroupsOfArea ResearchGroup[]
+  researchGroupsOfArea ResearchGroup[] @relation("ResearchGroupArea")
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt
 }
+
 
 model Project {
   id              String        @id @default(uuid())

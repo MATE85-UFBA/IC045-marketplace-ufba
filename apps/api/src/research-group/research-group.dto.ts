@@ -30,7 +30,7 @@ export class CreateResearchGroupDto {
 
   @IsOptional()
   @IsUUID()
-  knowledgeArea: string;
+  knowledgeAreaId: string;
 
   @IsOptional()
   @IsArray()
@@ -64,10 +64,9 @@ export class UpdateResearchGroupDto {
   @IsUUID()
   researcherId?: string;
 
-  @IsOptional()
-  @IsArray()
-  @IsUUID('all', { each: true })
-  knowledgeAreas?: string[];
+  @IsNotEmpty()
+  @IsUUID()
+  knowledgeAreaId: string;
 
   @IsOptional()
   @IsArray()

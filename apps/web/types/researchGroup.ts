@@ -2,6 +2,6 @@ export type CreateResearchGroup = {
   name: string
   description: string
   urlCNPQ?: string
-  knowledgeArea: string
+  knowledgeAreaId: string
   img?: string
 }
