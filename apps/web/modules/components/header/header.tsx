@@ -1,23 +1,34 @@
 "use client";
 
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-import '../../../app/globals.css';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
-import { FiMenu } from 'react-icons/fi';
+import "../../../app/globals.css";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { FiMenu } from "react-icons/fi";
 
-import ufbaLogo from '@/public/logo.png';
-import { TbBell, TbUserCircle } from 'react-icons/tb';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { formatDistanceToNow } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import { Separator } from '@/components/ui/separator';
-import { useUser } from '@/context/UserContext';
-import { authStore } from '@/context/loginContext';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import ufbaLogo from "@/public/logo.png";
+import { TbBell, TbUserCircle } from "react-icons/tb";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { Separator } from "@/components/ui/separator";
+import { useUser } from "@/context/UserContext";
+import { authStore } from "@/context/loginContext";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const headerLinks = {
   NONE: [
@@ -45,10 +56,10 @@ const headerLinks = {
       label: "Encontrar demandas",
       path: "/encontrar-demandas",
     },
-    {
-      label: "Minhas Propostas",
-      path: "/minhas-propostas",
-    },
+    // {
+    //   label: "Minhas Propostas",
+    //   path: "/minhas-propostas",
+    // },
     {
       label: "Meus Grupos de pesquisa",
       path: "/meus-grupos-pesquisa",
