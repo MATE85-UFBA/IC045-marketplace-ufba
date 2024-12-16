@@ -2,16 +2,16 @@
 
 import { DemandList } from "@/components/DemandList";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// import { Label } from "@/components/ui/label";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
 import { FiSearch } from "react-icons/fi";
 import useGetAllDemands from "@/api/demandas/use-get-all-demands";
 import { useState } from "react";
@@ -37,12 +37,10 @@ function EncontrarDemandas() {
   };
 
   return (
-    <main className="max-w-screen-xl w-full px-8 mx-auto mb-auto grid md:grid-cols-[auto_1fr] md:grid-rows-[auto_auto_1fr] md:gap-3">
-      <h1 className="font-semibold text-4xl mt-12 mb-8 md:col-span-2">
-        Encontrar demandas
-      </h1>
+    <main className="max-w-screen-xl w-full px-8 mx-auto mb-auto grid md:grid-rows-[auto_auto_1fr] md:gap-3">
+      <h1 className="font-semibold text-4xl mt-12 mb-8">Encontrar demandas</h1>
 
-      <aside className="bg-white h-fit border py-4 px-5 rounded-2xl min-w-60 lg:min-w-80 hidden md:flex md:flex-col md:gap-5 row-span-2">
+      {/* <aside className="bg-white h-fit border py-4 px-5 rounded-2xl min-w-60 lg:min-w-80 hidden md:flex md:flex-col md:gap-5 row-span-2">
         <div>
           <Label className="font-semibold">Área</Label>
 
@@ -105,7 +103,7 @@ function EncontrarDemandas() {
             </SelectContent>
           </Select>
         </div>
-      </aside>
+      </aside> */}
 
       <div className="flex gap-2">
         <Input
