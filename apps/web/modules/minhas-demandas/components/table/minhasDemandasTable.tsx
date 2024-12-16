@@ -36,10 +36,6 @@ const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
       accessorKey: "createdAt",
       header: "Criado Em",
       cell: ({ row }) => format(row.getValue("createdAt"), "dd/MM/yyyy"),
-    },
-  ];
-
-  const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),

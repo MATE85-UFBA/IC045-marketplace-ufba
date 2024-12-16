@@ -31,11 +31,8 @@ export class CreateProjectDto {
 }
 
 export class UpdateProjectDto {
-  @IsOptional()
   @IsString()
   name?: string;
-
-  @IsOptional()
   @IsISO8601()
   started_at?: Date;
 
