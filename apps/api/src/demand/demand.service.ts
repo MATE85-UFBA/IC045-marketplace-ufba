@@ -164,4 +164,32 @@ export class DemandService {
       take: 10, // Limita os resultados a 10 sugestões
     });
   }
+
+  async suggestFilter(
+    query: string,
+    userId: string,
+  ): Promise<{ id: string; name: string; description: string }[]> {
+    return this.prismaService.demand.findMany({
+      where: {
+        companyId: userId,
+        OR: [
+          { name: { contains: query, mode: 'insensitive' } },
+          { description: { contains: query, mode: 'insensitive' } },
+          {
+            keywords: {
+              some: { name: { contains: query, mode: 'insensitive' } },
+            },
+          },
+        ],
+      },
+      orderBy: {
+        createdAt: 'desc', // Ordena pelas demandas mais recentes
+      },
+      include: {
+        company: true,
+        keywords: true,
+      },
+      take: 10, // Limita os resultados a 10 sugestões
+    });
+  }
 }

@@ -1,21 +1,30 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { CustomIcon } from '@/modules/components/icon/customIcon';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { CustomIcon } from "@/modules/components/icon/customIcon";
 
-import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
-import { IoSearch } from 'react-icons/io5';
-import { PiSortAscending } from 'react-icons/pi';
+import { HiOutlineAdjustmentsVertical } from "react-icons/hi2";
+import { IoSearch } from "react-icons/io5";
+import { PiSortAscending } from "react-icons/pi";
 
-const MinhasDemandasFilter = () => {
+interface Props {
+  setFilter: (filter: string) => void;
+  handleFilter: () => any;
+}
+
+const MinhasDemandasFilter = ({ setFilter, handleFilter }: Props) => {
   return (
     <div className="flex flex-col sm:flex-row gap-2">
       <div className="flex gap-2 w-full">
-        <Input className="bg-white px-4 h-12" placeholder="Buscar" />
-        <Button className="size-12">
+        <Input
+          onBlur={(e) => setFilter(e.target.value)}
+          className="bg-white px-4 h-12"
+          placeholder="Buscar"
+        />
+        <Button onClick={handleFilter} className="size-12">
           <CustomIcon icon={IoSearch} className="!size-6" />
         </Button>
       </div>
-      <div className="flex gap-2  ">
+      <div className="flex gap-2">
         <Button variant={"tertiary"} className="size-12">
           <CustomIcon icon={HiOutlineAdjustmentsVertical} className="!size-6" />
         </Button>

@@ -46,6 +46,18 @@ export class DemandController {
     return this.demandService.suggest(query);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('/suggest-filter')
+  async myFilter(
+    @Query('query') query: string,
+    @Request() req: { user: { userId: string } },
+  ): Promise<SuggestDemandDTO[]> {
+    if (!query || query.length < 3) {
+      return [];
+    }
+    return this.demandService.suggestFilter(query, req.user.userId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.demandService.findOne(id);
