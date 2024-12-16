@@ -35,7 +35,7 @@ export default function DetalheGrupoPesquisaPage() {
     isLoading,
   } = useGetResearchGroup(groupId as string);
   const handleAddProject = () => {
-    router.push(`/cadastro-projetos`);
+    router.push(`/cadastro-projetos/${groupId}`);
   };
   const handleTabChange = (tab: ETabs) => {
     setSelectedTab(tab);
@@ -53,7 +53,6 @@ export default function DetalheGrupoPesquisaPage() {
   }
   return (
     <main className="p-8 w-full flex justify-center flex-grow ">
-
       <section className="max-w-7xl w-full">
         <div className="flex  flex-col">
           <Breadcrumb>
