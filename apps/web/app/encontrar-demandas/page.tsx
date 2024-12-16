@@ -37,7 +37,7 @@ function EncontrarDemandas() {
   };
 
   return (
-    <main className="max-w-screen-xl w-full px-8 mx-auto mb-auto grid md:grid-rows-[auto_auto_1fr] md:gap-3">
+    <main className="max-w-screen-xl w-full px-8 pb-8 mx-auto mb-auto grid md:grid-rows-[auto_auto_1fr] gap-2 md:gap-3">
       <h1 className="font-semibold text-4xl mt-12 mb-8">Encontrar demandas</h1>
 
       {/* <aside className="bg-white h-fit border py-4 px-5 rounded-2xl min-w-60 lg:min-w-80 hidden md:flex md:flex-col md:gap-5 row-span-2">
