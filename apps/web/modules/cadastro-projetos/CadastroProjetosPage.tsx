@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { ProjectFormData } from "./types/project-form-data";
 import Keywords from "@/components/keywords";
 import { useState } from "react";
+import { isBefore } from "date-fns";
 
 const CadastrarProjeto = () => {
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
@@ -57,6 +58,19 @@ const CadastrarProjeto = () => {
       return;
     }
 
+    if (
+      data.finished_at &&
+      isBefore(new Date(data.finished_at), new Date(data.started_at))
+    ) {
+      toast({
+        variant: "destructive",
+        title: "Data inválida",
+        description: "Data de finalização deve ser posterior a data de início.",
+      });
+
+      return;
+    }
+
     const projectData: CreateProject = {
       researchGroupId: params.id,
       name: data.name,
@@ -65,8 +79,6 @@ const CadastrarProjeto = () => {
       finished_at: data.finished_at ? new Date(data.finished_at) : undefined,
       keywords: selectedKeywords,
     };
-
-    console.log(projectData);
 
     mutate(projectData);
   };
