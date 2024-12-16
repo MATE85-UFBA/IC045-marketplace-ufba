@@ -62,9 +62,12 @@ const CadastrarProjeto = () => {
       name: data.name,
       description: data.description,
       started_at: new Date(data.started_at),
-      finished_at: data.finished_at && new Date(data.finished_at),
+      finished_at: data.finished_at ? new Date(data.finished_at) : undefined,
       keywords: selectedKeywords,
     };
+
+    console.log(projectData);
+
     mutate(projectData);
   };
 
