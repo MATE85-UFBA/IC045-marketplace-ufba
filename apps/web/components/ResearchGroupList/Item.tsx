@@ -31,7 +31,7 @@ function Item(researchgroup: ResearchGroup) {
         variant={"outline"}
         className="px-9 py-2.5 rounded-full mt-3 xs:mt-0"
       >
-        <Link href={`/detalhe-grupo-pesquisa/${researchgroup.id}`}>
+        <Link href={`/grupos-pesquisa/${researchgroup.id}`}>
           ver mais
         </Link>
 

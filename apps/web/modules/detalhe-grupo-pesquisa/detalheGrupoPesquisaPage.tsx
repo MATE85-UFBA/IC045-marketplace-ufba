@@ -35,7 +35,7 @@ export default function DetalheGrupoPesquisaPage() {
     isLoading,
   } = useGetResearchGroup(groupId as string);
   const handleAddProject = () => {
-    router.push(`/cadastro-projetos/${groupId}`);
+    router.push(`/grupos-pesquisa/${groupId}/cadastro-projetos`);
   };
   const handleTabChange = (tab: ETabs) => {
     setSelectedTab(tab);

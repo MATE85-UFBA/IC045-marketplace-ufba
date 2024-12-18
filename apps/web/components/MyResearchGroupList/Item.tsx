@@ -18,13 +18,13 @@ function Item({idPesquisador,researchgroup}:ItemProp) {
             }
             <h2 className="self-end font-semibold text-lg leading-none gap-3">{researchgroup.name}</h2>
             <p className="px-3 py-2 justify-self-start bg-border rounded-full text-xs">{idPesquisador === researchgroup.leader.userId ? 'Líder' : 'Membro'}</p>
-            
+
             <Button
                 asChild
                 variant={"outline"}
                 className="px-9 py-2.5 rounded-full mt-3 xs:mt-0"
             >
-                <Link href={`/detalhe-grupo-pesquisa/${researchgroup.id}`}>
+                <Link href={`/grupos-pesquisa/${researchgroup.id}`}>
                 ver mais
                 </Link>
 

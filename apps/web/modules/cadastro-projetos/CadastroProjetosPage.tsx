@@ -91,7 +91,7 @@ const CadastrarProjeto = () => {
             <BreadcrumbItem>
               <BreadcrumbLink
                 className="hover:text-blue-strong"
-                href={`/detalhe-grupo-pesquisa/${params.id}`}
+                href={`/grupos-pesquisa/${params.id}`}
               >
                 Detalhes do Grupo de Pesquisa
               </BreadcrumbLink>

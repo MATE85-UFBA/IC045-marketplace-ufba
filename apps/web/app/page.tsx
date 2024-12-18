@@ -24,7 +24,7 @@ export default function Home() {
               className="rounded-full text-base px-9 py-2.5"
               asChild
             >
-              <Link href="/encontrar-grupo-pesquisa">
+              <Link href="/grupos-pesquisa">
                 Conecte-se com especialistas
               </Link>
             </Button>

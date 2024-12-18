@@ -26,7 +26,7 @@ const ContactResearchGroup = () => {
             <BreadcrumbItem>
               <BreadcrumbLink
                 className="hover:text-blue-strong"
-                href="/encontrar-grupo-pesquisa"
+                href="/grupos-pesquisa"
               >
                 Encontrar Grupo de Pesquisa
               </BreadcrumbLink>

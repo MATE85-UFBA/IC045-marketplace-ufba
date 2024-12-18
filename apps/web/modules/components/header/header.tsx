@@ -38,13 +38,13 @@ const headerLinks = {
     },
     {
       label: "Encontrar Grupos de Pesquisa",
-      path: "/encontrar-grupo-pesquisa",
+      path: "/grupos-pesquisa",
     },
   ],
   COMPANY: [
     {
       label: "Encontrar Grupos de Pesquisa",
-      path: "/encontrar-grupo-pesquisa",
+      path: "/grupos-pesquisa",
     },
     {
       label: "Minhas demandas",
@@ -62,7 +62,7 @@ const headerLinks = {
     // },
     {
       label: "Meus Grupos de pesquisa",
-      path: "/meus-grupos-pesquisa",
+      path: "/grupos-pesquisa/meus-grupos",
     },
   ],
   ADMIN: [
