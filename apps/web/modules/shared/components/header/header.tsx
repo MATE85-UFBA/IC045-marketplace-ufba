@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-import "../../../app/globals.css";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
   Drawer,
