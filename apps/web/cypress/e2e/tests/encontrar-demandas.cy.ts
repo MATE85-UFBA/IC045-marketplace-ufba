@@ -5,12 +5,12 @@ describe('Just show page', () => {
 
   beforeEach(() => {
     login("reginaldo.rossi@email.com.br", "mycrazysecurepassword");
-    cy.visit(`${FRONT_END_URL}/encontrar-demandas`);
+    cy.visit(`${FRONT_END_URL}/demandas`);
   });
 
   it('Should show the page', () => {
 
-    cy.url().should('contain', '/encontrar-demandas'); 
+    cy.url().should('contain', '/demandas');
   });
 
 });

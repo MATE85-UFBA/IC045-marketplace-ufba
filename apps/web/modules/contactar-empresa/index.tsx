@@ -28,7 +28,7 @@ const ContactCompany = () => {
             <BreadcrumbItem>
               <BreadcrumbLink
                 className="hover:text-blue-strong"
-                href="/encontrar-demandas"
+                href="/demandas"
               >
                 Encontrar demandas
               </BreadcrumbLink>
@@ -46,7 +46,7 @@ const ContactCompany = () => {
             Contactar Empresa
           </h2>
           <Button asChild className="rounded-full w-fit">
-            <Link href={"/encontrar-demandas"}>
+            <Link href={"/demandas"}>
               <CustomIcon icon={PiArrowBendDoubleUpLeft} className="!size-5" />
               Voltar ao menu de demandas
             </Link>

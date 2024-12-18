@@ -27,7 +27,7 @@ const headerLinks = {
     {
 
       label: "Encontrar demandas",
-      path: "/encontrar-demandas",
+      path: "/demandas",
     },
     {
       label: "Encontrar Grupos de Pesquisa",
@@ -42,13 +42,13 @@ const headerLinks = {
     {
 
       label: "Minhas demandas",
-      path: "/minhas-demandas",
+      path: "/demandas/criadas",
     },
   ],
   researcher: [
     {
       label: "Encontrar demandas",
-      path: "/encontrar-demandas",
+      path: "/demandas",
     },
     {
       label: "Minhas Propostas",
@@ -144,7 +144,7 @@ const Header = () => {
                 </Link>
               </Button>
               <Button asChild className="rounded-full py-2.5 px-8">
-                <Link href={"/user-register"} className="font-medium">
+                <Link href={"/cadastrar-usuario"} className="font-medium">
                   Cadastar-se
                 </Link>
               </Button>
@@ -268,7 +268,7 @@ const Header = () => {
               </Button>
 
               <Button asChild className="rounded-full w-full py-2.5 px-8">
-                <Link href={"/user-register"} className="font-medium">
+                <Link href={"/cadastrar-usuario"} className="font-medium">
                   Cadastar-se
                 </Link>
               </Button>

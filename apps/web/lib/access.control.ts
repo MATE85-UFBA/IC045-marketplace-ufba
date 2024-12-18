@@ -4,17 +4,17 @@ import { useRouter } from 'next/navigation';
 
 const profileAccessControl: Record<string, UserProfileType[]> = {
     '/cadastro-demandas': [UserProfileType.COMPANY],
-    '/minhas-demandas': [UserProfileType.COMPANY],
+    '/demandas/criadas': [UserProfileType.COMPANY],
     '/dashboard': [UserProfileType.RESEARCHER],
-    '/user-register': [UserProfileType.ANY],
+    '/cadastrar-usuario': [UserProfileType.ANY],
     '/login': [UserProfileType.ANY]
 };
 
 const roleAccessControl: Record<string, UserRole[]> = {
     '/cadastro-demandas': [UserRole.ANY],
-    '/minhas-demandas': [UserRole.ANY],
+    '/demandas/criadas': [UserRole.ANY],
     '/dashboard': [UserRole.ADMIN],
-    '/user-register': [UserRole.ANY],
+    '/cadastrar-usuario': [UserRole.ANY],
     '/login': [UserRole.ANY],
 };
 

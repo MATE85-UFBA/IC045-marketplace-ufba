@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { loginFormSchema, LoginUserFormData } from '@/app/login/login.form.schema';
+import { loginFormSchema, LoginUserFormData } from '@/app/(auth)/login/login.form.schema';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -87,7 +87,7 @@ export default function LoginPage() {
 
         <p className="text-xs text-center mt-12">
           Ainda não possui uma conta?{" "}
-          <Link href="/user-register" className="text-center underline">
+          <Link href="/cadastrar-usuario" className="text-center underline">
             Cadastre-se
           </Link>
         </p>

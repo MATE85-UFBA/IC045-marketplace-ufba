@@ -42,7 +42,7 @@ const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
         description: "A demanda foi cadastrada com sucesso.",
       });
 
-      router.push("/minhas-demandas");
+      router.push("/demandas/criadas");
     },
     () => {
       toast({
@@ -77,7 +77,7 @@ const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
             <BreadcrumbItem>
               <BreadcrumbLink
                 className="hover:text-blue-strong"
-                href="/minhas-demandas"
+                href="/demandas/criadas"
               >
                 Minhas demandas
               </BreadcrumbLink>

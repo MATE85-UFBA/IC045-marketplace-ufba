@@ -42,7 +42,7 @@ describe('Login page', () => {
     cy.get('input[id="password"]').type('anyPassword');
 
     cy.get('form').submit();
-    cy.contains('O e-mail é obrigatório').should('be.visible'); 
+    cy.contains('O e-mail é obrigatório').should('be.visible');
   });
 
   it('should show message for empty password', () => {
@@ -54,12 +54,12 @@ describe('Login page', () => {
   });
 
   it('Go to forgot password', () => {
-    cy.get('a[href="/recuperar-senha"]').click(); 
-    cy.url().should('contain', '/recuperar-senha'); 
+    cy.get('a[href="/recuperar-senha"]').click();
+    cy.url().should('contain', '/recuperar-senha');
   });
 
   it('Go to register', () => {
-    cy.get('a[href="/user-register"]').click(); 
-    cy.url().should('contain', '/user-register'); 
+    cy.get('a[href="/cadastrar-usuario"]').click();
+    cy.url().should('contain', '/cadastrar-usuario');
   });
 });

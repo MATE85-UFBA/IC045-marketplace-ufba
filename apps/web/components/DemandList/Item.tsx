@@ -17,7 +17,7 @@ function Item(demand: Demanda) {
         <div className="flex xs:items-center justify-between mb-8 flex-col xs:flex-row">
             <h2 className="text-3xl font-semibold">{demand.name}</h2>
             <Button asChild variant={'outline'} className="px-9 py-2.5 rounded-full mt-3 xs:mt-0">
-                <Link href={'/encontrar-demandas'}>Entrar em contato</Link>
+                <Link href={'/demandas'}>Entrar em contato</Link>
             </Button>
         </div>
 

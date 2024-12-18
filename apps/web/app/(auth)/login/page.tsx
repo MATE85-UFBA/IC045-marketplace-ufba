@@ -120,7 +120,7 @@ const Login = observer(() => {
 
         <p className="text-xs text-center mt-12">
           Ainda não possui uma conta?{" "}
-          <Link href="/user-register" className="text-center underline">
+          <Link href="/cadastrar-usuario" className="text-center underline">
             Cadastre-se
           </Link>
         </p>
