@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/modules/components/header/header";
-import Footer from "@/modules/components/footer/footer";
+import Header from "@/modules/shared/components/header/header";
+import Footer from "@/modules/shared/components/footer/footer";
 import ReactQueryProvider from "@/lib/react-query";
 import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "@/components/ui/toaster";

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { PiArrowBendDoubleUpLeft } from "react-icons/pi";
-import { CustomIcon } from "../components/icon/customIcon";
+import { CustomIcon } from "../shared/components/icon/customIcon";
 import Link from "next/link";
 import {
   Select,

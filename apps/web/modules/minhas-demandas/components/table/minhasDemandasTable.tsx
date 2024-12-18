@@ -18,7 +18,7 @@ import {
 import { FaTrash } from "react-icons/fa";
 import { IoMdCreate } from "react-icons/io";
 import { Demanda } from "../../interfaces/demanda";
-import { CustomIcon } from "@/modules/components/icon/customIcon";
+import { CustomIcon } from "@/modules/shared/components/icon/customIcon";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { format } from "date-fns";
 interface Params {

@@ -3,7 +3,7 @@
 import { MyResearchGroupList } from "@/components/MyResearchGroupList";
 import MeusGruposPesquisaFilter from "@/modules/meus-grupos-pesquisa/components/filter/meusGruposPesquisaFilter";
 import { Button } from "@/components/ui/button";
-import { CustomIcon } from '@/modules/components/icon/customIcon';
+import { CustomIcon } from '@/modules/shared/components/icon/customIcon';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import useGetMyResearchGroups from '@/api/research-group/use-get-my-research-group';
 import { useState } from "react";
@@ -19,8 +19,8 @@ function MeusGruposPesquisa() {
         const searchValue = document.querySelector('input')?.value;
         setSearch(searchValue ?? "");
     }
-    
-    
+
+
     return <main className='flex justify-center flex-grow m-8'>
         <section className="flex flex-col w-full max-w-7xl pt-12 gap-6">
           <div className="flex justify-between">
@@ -32,8 +32,8 @@ function MeusGruposPesquisa() {
             </Button>
           </div>
           <MeusGruposPesquisaFilter handleSearch={handleSearch} setOrder={ setOrder } order={ order } />
-          
-          { pesquisador && 
+
+          { pesquisador &&
             <MyResearchGroupList pesquisador={pesquisador} />}
         </section>
     </main>

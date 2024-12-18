@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CustomIcon } from "@/modules/components/icon/customIcon";
+import { CustomIcon } from "@/modules/shared/components/icon/customIcon";
 
 import { HiOutlineAdjustmentsVertical } from "react-icons/hi2";
 import { IoSearch } from "react-icons/io5";

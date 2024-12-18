@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { CustomIcon } from "@/modules/components/icon/customIcon";
+import { CustomIcon } from "@/modules/shared/components/icon/customIcon";
 import MinhasDemandasFilter from "@/modules/minhas-demandas/components/filter/minhasDemandasFilter";
 import MinhasDemandasTable from "@/modules/minhas-demandas/components/table/minhasDemandasTable";
 import { IoIosAddCircleOutline } from "react-icons/io";

@@ -1,9 +1,10 @@
 "use client";
 
-import Link from 'next/link';
-import { Button } from '@/modules/shared/ui/button';
-import '../../../app/globals.css';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
+import "../../../app/globals.css";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
   Drawer,
   DrawerClose,
@@ -11,63 +12,65 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@/modules/shared/ui/drawer';
-import { FiMenu } from 'react-icons/fi';
+} from "@/components/ui/drawer";
+import { FiMenu } from "react-icons/fi";
 
-import ufbaLogo from '@/public/logo.png';
-import { TbBell, TbUserCircle } from 'react-icons/tb';
-import { Popover, PopoverContent, PopoverTrigger } from '@/modules/shared/ui/popover';
-import { formatDistanceToNow } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import { Separator } from '@/modules/shared/ui/separator';
-import Image from 'next/image';
+import ufbaLogo from "@/public/logo.png";
+import { TbBell, TbUserCircle } from "react-icons/tb";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { Separator } from "@/components/ui/separator";
+import { useUser } from "@/context/UserContext";
+import { authStore } from "@/context/loginContext";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const headerLinks = {
-  none: [
+  NONE: [
     {
-
       label: "Encontrar demandas",
       path: "/demandas",
     },
     {
       label: "Encontrar Grupos de Pesquisa",
-      path: "/",
+      path: "/grupos-pesquisa",
     },
   ],
-  company: [
+  COMPANY: [
     {
       label: "Encontrar Grupos de Pesquisa",
-      path: "/",
+      path: "/grupos-pesquisa",
     },
     {
-
       label: "Minhas demandas",
       path: "/demandas/criadas",
     },
   ],
-  researcher: [
+  RESEARCHER: [
     {
       label: "Encontrar demandas",
       path: "/demandas",
     },
-    {
-      label: "Minhas Propostas",
-      path: "/",
-    },
+    // {
+    //   label: "Minhas Propostas",
+    //   path: "/minhas-propostas",
+    // },
     {
       label: "Meus Grupos de pesquisa",
-      path: "/",
+      path: "/grupos-pesquisa/meus-grupos",
     },
   ],
-};
-
-type UserType = "none" | "company" | "researcher";
-
-type User = {
-  id: string;
-  name: string;
-  img?: string;
-  utype: UserType;
+  ADMIN: [
+    {
+      label: "Painel Administrativo",
+      path: "/painel-administrativo",
+    },
+  ],
 };
 
 type Notification = {
@@ -79,46 +82,49 @@ type Notification = {
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width: 64rem)");
 
-  // Todo: Obter do localstorage que deve estar sempre atualizado
-  // Todo: Criar context para user
-  const user = {
-    id: "",
-    name: "",
-    utype: "none",
-  } as User;
+  const router = useRouter();
+
+  const { user, setUser } = useUser();
+
+  const linksType = user
+    ? user.role === "ADMIN"
+      ? "ADMIN"
+      : user.utype
+    : "NONE";
 
   const notifications = [
     {
       id: "1",
       title: "Proposta recebida para [Nome da demanda]!",
-
       datetime: new Date(),
     },
     {
       id: "2",
-
       title: "Proposta recebida para [Nome da demanda]!",
-
       datetime: new Date(),
     },
     {
       id: "3",
-
       title: "Proposta recebida para [Nome da demanda]!",
-
       datetime: new Date(),
     },
   ] as Notification[];
 
+  function handleLogout() {
+    authStore.logout();
+    setUser(null);
+    router.push("/");
+  }
+
   return isDesktop ? (
-    <header className="flex justify-center shadow-custom bg-white">
-      <div className="flex justify-between px-4 w-full max-w-7xl">
+    <header className="flex justify-center shadow-custom bg-white z-50">
+      <div className="flex justify-between px-4 w-full max-w-screen-xl">
         <Link href={"/"} className="flex items-center gap-3 py-4">
           <Image src={ufbaLogo} alt="logo ufba" />
           <h1 className="text-3xl font-bold text-blue-strong">COOPERA-UFBA</h1>
         </Link>
         <div className="flex gap-5 items-center">
-          {headerLinks[user.utype].map((link, index) => (
+          {headerLinks[linksType].map((link, index) => (
             <Link
               key={index}
               href={link.path}
@@ -129,7 +135,7 @@ const Header = () => {
           ))}
         </div>
         <div className="flex gap-2.5 items-center content-center">
-          {user.utype === "none" ? (
+          {linksType === "NONE" ? (
             <>
               <Button
                 variant={"outline"}
@@ -196,14 +202,19 @@ const Header = () => {
                   <TbUserCircle className="text-primary/80 hover:text-primary size-8 cursor-pointer" />
                 </PopoverTrigger>
                 <PopoverContent className="grid gap-2">
-                  <Link href={"/"} className="font-medium hover:underline">
-
+                  <Link
+                    href={"/perfil"}
+                    className="font-medium hover:underline text-blue-strong"
+                  >
                     Meu perfil
-
                   </Link>
-                  <Link href={"/"} className="font-medium hover:underline">
+                  <Button
+                    variant="link"
+                    onClick={handleLogout}
+                    className="font-medium hover:underline outline-none text-blue-strong text-base text-left p-0 justify-start h-auto"
+                  >
                     Sair
-                  </Link>
+                  </Button>
                 </PopoverContent>
               </Popover>
             </div>
@@ -213,14 +224,18 @@ const Header = () => {
     </header>
   ) : (
     <Drawer direction="right">
-      <header className="flex justify-between shadow-custom bg-white p-4">
-        <Link href={"/"} className="flex items-center gap-3">
-          <Image src={ufbaLogo} alt="logo ufba" />
-          <h1 className="text-3xl font-bold text-blue-strong">COOPERA-UFBA</h1>
-        </Link>
-        <DrawerTrigger>
-          <FiMenu className="text-primary text-3xl" />
-        </DrawerTrigger>
+      <header className="shadow-custom bg-white p-4 z-50">
+        <div className="flex justify-between max-w-screen-xl mx-auto">
+          <Link href={"/"} className="flex items-center gap-3">
+            <Image src={ufbaLogo} alt="logo ufba" />
+            <h1 className="text-3xl font-bold text-blue-strong">
+              COOPERA-UFBA
+            </h1>
+          </Link>
+          <DrawerTrigger>
+            <FiMenu className="text-primary text-3xl" />
+          </DrawerTrigger>
+        </div>
       </header>
 
       <DrawerContent>
@@ -241,7 +256,7 @@ const Header = () => {
         </DrawerHeader>
 
         <nav className="flex flex-col gap-4 px-4">
-          {headerLinks[user.utype].map((link, index) => (
+          {headerLinks[linksType].map((link, index) => (
             <DrawerClose key={index} className="text-left" asChild>
               <Link
                 href={link.path}
@@ -252,7 +267,7 @@ const Header = () => {
             </DrawerClose>
           ))}
 
-          {user.utype === "none" ? (
+          {linksType === "NONE" ? (
             <>
               <Button
                 variant={"outline"}
@@ -285,21 +300,20 @@ const Header = () => {
               </DrawerClose>
               <DrawerClose className="text-left" asChild>
                 <Link
-                  href="/"
+                  href="/perfil"
                   className="items-center font-bold text-blue-strong"
                 >
-
                   Meu perfil
-
                 </Link>
               </DrawerClose>
               <DrawerClose className="text-left" asChild>
-                <Link
-                  href="/"
-                  className="items-center font-bold text-blue-strong"
+                <Button
+                  variant="link"
+                  onClick={handleLogout}
+                  className="font-bold text-blue-strong outline-none text-base text-left p-0 justify-start h-auto"
                 >
                   Sair
-                </Link>
+                </Button>
               </DrawerClose>
             </>
           )}

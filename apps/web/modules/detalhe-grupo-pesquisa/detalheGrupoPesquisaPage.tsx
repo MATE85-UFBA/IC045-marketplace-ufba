@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { CustomIcon } from "../components/icon/customIcon";
+import { CustomIcon } from "../shared/components/icon/customIcon";
 import Image from "next/image";
 import MembersSection from "./components/membersSection";
 import { useParams, useRouter } from "next/navigation";
