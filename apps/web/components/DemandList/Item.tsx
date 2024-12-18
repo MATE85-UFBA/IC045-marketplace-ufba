@@ -1,10 +1,10 @@
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import Image from 'next/image';
 import Link from 'next/link';
 import { TbUserCircle } from 'react-icons/tb';
 import { Button } from '../ui/button';
 import { Address } from './types';
+import { Demanda } from '@/modules/minhas-demandas/interfaces/demanda';
 
 function addressToString(address?: Address) {
     if (!address) return;
@@ -12,7 +12,7 @@ function addressToString(address?: Address) {
     return `${address.city}, ${address.state} - ${address.country}`
 }
 
-function Item(demand: Demand) {
+function Item(demand: Demanda) {
     return <li className="px-4 py-5 bg-white border rounded-2xl">
         <div className="flex xs:items-center justify-between mb-8 flex-col xs:flex-row">
             <h2 className="text-3xl font-semibold">{demand.name}</h2>
@@ -36,7 +36,7 @@ function Item(demand: Demand) {
         <div className="grid grid-cols-[auto_1fr] grid-rows-2 gap-x-1.5">
             {
                 demand.company.image
-                    ? <Image src="" alt="Logo da Empresa" className="row-span-2 col-start-1 row-start-1" />
+                    ? <img src="" alt="Logo da Empresa" className="row-span-2 col-start-1 row-start-1" />
                     : <TbUserCircle className="text-primary font-normal size-16 row-span-2 col-start-1" />
             }
 

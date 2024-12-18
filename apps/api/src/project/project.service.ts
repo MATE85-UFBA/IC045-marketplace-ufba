@@ -20,6 +20,9 @@ export class ProjectService {
     if (projectAlreadyExists)
       throw new ConflictException('Projeto já cadastrado');
 
+    const { keywords = [] } = project;
+    const keywordsIds = keywords.map((k) => ({ id: k }));
+
     const createdProject = await this.prismaService.project.create({
       data: {
         name: project.name,
@@ -27,6 +30,9 @@ export class ProjectService {
         finished_at: project.finished_at,
         researchGroupId: project.researchGroupId,
         demandId: project.demandId,
+        keywords: {
+          connect: keywordsIds,
+        },
       },
     });
 
@@ -104,7 +110,7 @@ export class ProjectService {
   }
 
   async findByName(name: string) {
-    return await this.prismaService.project.findFirst({
+    return this.prismaService.project.findFirst({
       where: {
         name,
       },

@@ -3,4 +3,5 @@ export type CreateDemand = {
   description: string
   links?: string[]
   public: boolean | string
+  keywords?: string[]
 }

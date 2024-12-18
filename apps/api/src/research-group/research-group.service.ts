@@ -127,7 +127,17 @@ export class ResearchGroupService {
       include: {
         leader: true,
         projects: true,
-        members: true,
+        members: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -193,5 +203,39 @@ export class ResearchGroupService {
         name,
       },
     });
+  }
+
+  async search(query: string, area: string) {
+    return await this.prismaService.researchGroup.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            description: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+        ],
+        AND: [
+          area
+            ? {
+                knowledgeAreas: {
+                  some: { name: { in: area.split('/'), mode: 'insensitive' } },
+                },
+              }
+            : {},
+        ],
+      },
+    });
+  }
+
+  async findAllKnowledgeAreas() {
+    return await this.prismaService.knowledgeArea.findMany();
   }
 }
