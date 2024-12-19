@@ -3,25 +3,25 @@ require('dotenv').config({ path: ['.env.ci', '.env'] });
 
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ResearcherType, UserRole } from '@prisma/client';
+import { ResearcherType, UserRole, UserStatus } from '@prisma/client';
 import { PrismaService } from '@/infra/database/prisma.service'; // Import PrismaService
 import {
   NotFoundException,
   ConflictException,
 } from '@nestjs/common/exceptions';
-import { UsersService } from '@/user/user.service';
+import { UserService } from '@/user/user.service';
 import { CreateUserDto } from '@/user/user.dto';
 import { hashPassword } from '@/user/utils/hashPassword.util';
 
 describe('Integration test - UsersService', () => {
-  let service: UsersService;
+  let service: UserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService, PrismaService], // Add PrismaService to providers
+      providers: [UserService, PrismaService], // Add PrismaService to providers
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
+    service = module.get<UserService>(UserService);
   });
 
   it('should be defined', () => {
@@ -30,15 +30,15 @@ describe('Integration test - UsersService', () => {
 });
 
 describe('Integration test - UsersService - findOne', () => {
-  let service: UsersService;
+  let service: UserService;
   let prismaService: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService, PrismaService],
+      providers: [UserService, PrismaService],
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
+    service = module.get<UserService>(UserService);
     prismaService = module.get<PrismaService>(PrismaService);
   });
 
@@ -53,6 +53,7 @@ describe('Integration test - UsersService - findOne', () => {
       resetToken: 'reset token example',
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(mockUser);
@@ -78,15 +79,15 @@ describe('Integration test - UsersService - findOne', () => {
 });
 
 describe('Integration test - UsersService - create', () => {
-  let service: UsersService;
+  let service: UserService;
   let prismaService: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService, PrismaService],
+      providers: [UserService, PrismaService],
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
+    service = module.get<UserService>(UserService);
     prismaService = module.get<PrismaService>(PrismaService);
   });
 
@@ -107,6 +108,7 @@ describe('Integration test - UsersService - create', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
@@ -140,6 +142,7 @@ describe('Integration test - UsersService - create', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest
@@ -153,15 +156,15 @@ describe('Integration test - UsersService - create', () => {
 });
 
 describe('Integration test - UsersService - create with researcher', () => {
-  let service: UsersService;
+  let service: UserService;
   let prismaService: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService, PrismaService],
+      providers: [UserService, PrismaService],
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
+    service = module.get<UserService>(UserService);
     prismaService = module.get<PrismaService>(PrismaService);
   });
 
@@ -186,6 +189,7 @@ describe('Integration test - UsersService - create with researcher', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
@@ -204,15 +208,15 @@ describe('Integration test - UsersService - create with researcher', () => {
 });
 
 describe('Integration test - UsersService - create with company', () => {
-  let service: UsersService;
+  let service: UserService;
   let prismaService: PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService, PrismaService],
+      providers: [UserService, PrismaService],
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
+    service = module.get<UserService>(UserService);
     prismaService = module.get<PrismaService>(PrismaService);
   });
 
@@ -238,6 +242,7 @@ describe('Integration test - UsersService - create with company', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
 
     jest.spyOn(prismaService.user, 'findUnique').mockResolvedValue(null);
@@ -256,16 +261,16 @@ describe('Integration test - UsersService - create with company', () => {
 });
 
 describe('Integration test with database - findOne', () => {
-  let service: UsersService;
+  let service: UserService;
   let prismaService: PrismaService;
   let savedUserId: string;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService, PrismaService],
+      providers: [UserService, PrismaService],
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
+    service = module.get<UserService>(UserService);
     prismaService = module.get<PrismaService>(PrismaService);
 
     const createdUser = await prismaService.user.create({

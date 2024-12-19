@@ -1,23 +1,31 @@
 "use client";
-import { Button } from '@/components/ui/button';
-import { CustomIcon } from '@/modules/components/icon/customIcon';
-import MinhasDemandasFilter from '@/modules/minhas-demandas/components/filter/minhasDemandasFilter';
-import MinhasDemandasTable from '@/modules/minhas-demandas/components/table/minhasDemandasTable';
-import { IoIosAddCircleOutline } from 'react-icons/io';
-import useGetMyDemands from '@/api/use-get-my-demands';
-import { useRouter } from 'next/navigation';
-import useDeleteDemand from '@/api/use-delete-demand';
-import { useToast } from '@/hooks/use-toast';
+import { Button } from "@/components/ui/button";
+import { CustomIcon } from "@/modules/components/icon/customIcon";
+import MinhasDemandasFilter from "@/modules/minhas-demandas/components/filter/minhasDemandasFilter";
+import MinhasDemandasTable from "@/modules/minhas-demandas/components/table/minhasDemandasTable";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import useGetMyDemands from "@/api/demandas/use-get-my-demands";
+import { useRouter } from "next/navigation";
+import useDeleteDemand from "@/api/demandas/use-delete-demand";
+import { useToast } from "@/hooks/use-toast";
+import useGetMyFilterDemands from "@/api/demandas/use-get-my-filter-demands";
+import { useState } from "react";
+import { Demanda } from "@/modules/minhas-demandas/interfaces/demanda";
 
 const MinhasDemandas = () => {
   const { data: demands = [] } = useGetMyDemands();
+  const [filter, setFilter] = useState<string>("");
+  const [filteredDemands, setFilteredDemands] = useState<Demanda[]>();
   const router = useRouter();
-  const { toast } = useToast()
-
+  const { toast } = useToast();
 
   const deleteDemandaMutation = useDeleteDemand(
-    () => toast({title: "Demanda removida com sucesso!"}),
-    () => toast({title: "Não foi possivel remover demanda."})
+    () => toast({ title: "Demanda removida com sucesso!", variant: "success" }),
+    () =>
+      toast({
+        title: "Não foi possivel remover demanda.",
+        variant: "destructive",
+      })
   );
 
   const handleRedirect = () => {
@@ -31,9 +39,19 @@ const MinhasDemandas = () => {
 
     if (shouldDelete) {
       deleteDemandaMutation.mutate(id);
-
-      router.push("/minhas-demandas");
     }
+  };
+
+  const filterDemands = useGetMyFilterDemands(
+    (data) => {
+      setFilteredDemands(data);
+      toast({ title: "Demandas buscadas com sucesso!" });
+    },
+    () => toast({ title: "Falha na Busca!" })
+  );
+
+  const handleFilter = () => {
+    filterDemands.mutate(filter);
   };
 
   return (
@@ -41,16 +59,19 @@ const MinhasDemandas = () => {
       <section className="flex flex-col w-full max-w-7xl pt-12 gap-6">
         <div className="flex justify-between">
           <h1 className="font-bold text-2xl text-blue-strong sm:text-4xl">
-            Minhas Demandas
+            Minhas demandas
           </h1>
           <Button className="rounded-full" onClick={handleRedirect}>
             <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" /> Nova
             demanda
           </Button>
         </div>
-        <MinhasDemandasFilter />
+        <MinhasDemandasFilter
+          setFilter={setFilter}
+          handleFilter={handleFilter}
+        />
         <MinhasDemandasTable
-          data={demands}
+          data={filteredDemands && filter !== "" ? filteredDemands : demands}
           onEdit={() => undefined}
           onDelete={handleDelete}
         />

@@ -1,4 +1,4 @@
-type Keyword = {id: string, name :string }
+export type Keyword = {id: string, name :string }
 export interface Demanda {
   id: string;
   name: string;

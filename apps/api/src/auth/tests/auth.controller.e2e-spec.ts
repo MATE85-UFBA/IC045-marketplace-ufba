@@ -4,20 +4,14 @@ require('dotenv').config({ path: ['.env.ci', '.env'] });
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import * as bcrypt from 'bcrypt';
-import { PrismaService } from '@/infra/database/prisma.service';
 import { AppModule } from '@/core/app.module';
-import { UserRole } from '.prisma/client';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
-  let prisma: PrismaService;
-
-  const testUser = {
-    email: 'emailTesting123@email.com',
-    password: 'password123',
+  const nonProfileUser: { email: string; password: string } = {
+    email: 'maria.bethania@email.com.br',
+    password: 'superpassword',
   };
-  const createdUserIds: string[] = [];
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -26,41 +20,14 @@ describe('AuthController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-
-    prisma = moduleFixture.get(PrismaService);
-
-    // Create test user
-    const hashedPassword = await bcrypt.hash(testUser.password, 10);
-    const createdUser = await prisma.user.create({
-      data: {
-        email: 'emailTesting123@email.com',
-        name: 'Name for test',
-        password: hashedPassword,
-        role: UserRole.USER,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-    });
-    createdUserIds.push(createdUser.id);
-  });
-
-  afterAll(async () => {
-    await prisma.user.deleteMany({
-      where: {
-        id: {
-          in: createdUserIds,
-        },
-      },
-    });
-    await app.close();
   });
 
   it('/auth/login (POST) - success', async () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        email: testUser.email,
-        password: testUser.password,
+        email: nonProfileUser.email,
+        password: nonProfileUser.password,
       });
 
     expect(response.status).toBe(200);
@@ -70,8 +37,8 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        email: testUser.email,
-        password: testUser.password,
+        email: nonProfileUser.email,
+        password: nonProfileUser.password,
       });
 
     expect(response.body.access_token).toBeDefined();
@@ -93,7 +60,7 @@ describe('AuthController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        email: testUser.email,
+        email: nonProfileUser.email,
         password: 'wrongpassword',
       });
 
@@ -109,5 +76,39 @@ describe('AuthController (e2e)', () => {
       });
 
     expect(response.status).toBe(401);
+  });
+
+  it('/auth/login (POST) - Expect researcher profile user', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send({
+        email: 'fred.durao@email.com.br',
+        password: 'senhaufba',
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('utype', 'RESEARCHER');
+  });
+  it('/auth/login (POST) - Student user, Expect RESEARCHER profile user', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send({
+        email: 'anakin.skywalker@email.com.br',
+        password: 'senhastarwars',
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('utype', 'RESEARCHER');
+  });
+  it('/auth/login (POST) - Expect company profile user', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send({
+        email: 'atendimento@coelba.com.br',
+        password: 'supercoelba',
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('utype', 'COMPANY');
   });
 });

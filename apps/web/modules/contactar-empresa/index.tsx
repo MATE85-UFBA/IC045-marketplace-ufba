@@ -30,7 +30,7 @@ const ContactCompany = () => {
                 className="hover:text-blue-strong"
                 href="/encontrar-demandas"
               >
-                Encontrar Demandas
+                Encontrar demandas
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -56,7 +56,7 @@ const ContactCompany = () => {
       <section className="flex flex-col lg:flex-row gap-6 max-w-7xl">
         <aside className=" lg:w-1/4 bg-white p-5 flex flex-col rounded-xl border gap-4 h-hull">
           <h3 className="text-2xl sm:text-3xl font-semibold text-blue-strong self-center">
-            Título da Demanda
+            Título da demanda
           </h3>
           <span className="text-sm text-blue-light mt-2">
             Publicado há 2 dias

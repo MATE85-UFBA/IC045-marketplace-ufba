@@ -9,13 +9,13 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './user.service';
+import { UserService } from './user.service';
 import { ChangePasswordDto, CreateUserDto } from './user.dto';
 import { JwtAuthGuard } from '@/auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersSevice: UsersService) {}
+  constructor(private readonly usersSevice: UserService) {}
 
   @Post()
   create(@Body() user: CreateUserDto) {

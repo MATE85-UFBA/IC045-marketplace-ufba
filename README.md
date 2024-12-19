@@ -1,8 +1,10 @@
-# NEXUS - Conectando demandas do Mercado a Grupos de Pesquisa da UFBA
+# COOPERA-UFBA - Conectando demandas do Mercado a Grupos de Pesquisa da UFBA
+
+Acesse o projeto aqui [COOPERA-UFBA](http://195.200.2.55:3001/)
 
 ## Descrição
 
-O projeto NEXUS proposto como forma de avaliação da disciplina **IC045/MATE85 - Tópicos em Sistemas de Informação e Web** tem como objetivo construir um marketplace que auxilie na conexão de demandas de desenvolvimento tecnológico de empresas, organizações públicas ou do terceiro setor aos Grupos de Pesquisa da UFBA que realizam pesquisas nesse âmbito. O intuito é fomentar a colaboração e a pesquisa, assim como acelerar a inovação no país.
+O projeto COOPERA-UFBA proposto como forma de avaliação da disciplina **IC045/MATE85 - Tópicos em Sistemas de Informação e Web** tem como objetivo construir um marketplace que auxilie na conexão de demandas de desenvolvimento tecnológico de empresas, organizações públicas ou do terceiro setor aos Grupos de Pesquisa da UFBA que realizam pesquisas nesse âmbito. O intuito é fomentar a colaboração e a pesquisa, assim como acelerar a inovação no país.
 
 ## Tecnologias Utilizadas
 

@@ -1,9 +1,9 @@
 import {
-  IsNotEmpty,
-  IsUUID,
-  IsString,
-  IsOptional,
   IsISO8601,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
 } from 'class-validator';
 
 export class CreateProjectDto {
@@ -26,6 +26,8 @@ export class CreateProjectDto {
   @IsOptional()
   @IsUUID()
   demandId: string;
+
+  keywords?: string[];
 }
 
 export class UpdateProjectDto {
@@ -48,4 +50,6 @@ export class UpdateProjectDto {
   @IsOptional()
   @IsUUID()
   demandId?: string;
+
+  keywords?: string[];
 }

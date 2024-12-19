@@ -1,19 +1,22 @@
-import { Item } from './Item';
-import { Demanda } from '@/modules/minhas-demandas/interfaces/demanda';
+import { Item } from "./Item";
+import { Demanda } from "@/modules/minhas-demandas/interfaces/demanda";
 
 type DemandListProps = {
-    demands: Demanda[]
-}
+  demands: Demanda[];
+};
 
 function DemandList({ demands }: DemandListProps) {
-    console.log(typeof demands)
-    return <ul className="flex flex-col gap-6">
-        {
-            demands.length
-                ? demands.map(demand => <Item key={demand.id} {...demand} />)
-                : <div>Não há demandas no momento</div>
-        }
+  return (
+    <ul className="flex flex-col gap-6">
+      {demands.length ? (
+        demands.map((demand) => <Item key={demand.id} {...demand} />)
+      ) : (
+        <div className="px-4 py-5 bg-white border rounded-xl">
+          Não há demandas no momento
+        </div>
+      )}
     </ul>
+  );
 }
 
-export { DemandList }
+export { DemandList };

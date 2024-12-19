@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-primary py-5 flex justify-center mt-12">
+    <footer className="bg-primary py-5 flex justify-center">
       <p className="text-white font-bold w-fit text-center">
         Copyright © 2024
         {new Date().getFullYear() === 2024
