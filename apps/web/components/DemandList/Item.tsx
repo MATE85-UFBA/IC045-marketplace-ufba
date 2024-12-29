@@ -1,3 +1,4 @@
+"use client";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import Link from "next/link";
@@ -5,6 +6,7 @@ import { TbUserCircle } from "react-icons/tb";
 import { Button } from "../ui/button";
 import { Address } from "./types";
 import { Demanda } from "@/modules/minhas-demandas/interfaces/demanda";
+import { usePathname } from "next/navigation";
 
 function addressToString(address?: Address) {
   if (!address) return;
@@ -13,6 +15,8 @@ function addressToString(address?: Address) {
 }
 
 function Item(demand: Demanda) {
+  const pathname = usePathname();
+
   return (
     <li className="px-4 py-5 bg-white border rounded-2xl">
       <div className="flex xs:items-center justify-between mb-8 flex-col xs:flex-row">
@@ -22,7 +26,18 @@ function Item(demand: Demanda) {
           variant={"outline"}
           className="px-9 py-2.5 rounded-full mt-3 xs:mt-0"
         >
-          <Link href={"/encontrar-demandas"}>Entrar em contato</Link>
+          <Link
+            href={{
+              pathname: `${pathname}/contactar-empresa`,
+              query: {
+                idDemanda: demand.id,
+                nomeContato: demand.company.contactName,
+                emailContato: demand.company.contactEmail,
+              },
+            }}
+          >
+            Entrar em contato
+          </Link>
         </Button>
       </div>
 
@@ -49,7 +64,7 @@ function Item(demand: Demanda) {
         </ul>
       )}
 
-      <div className="grid grid-cols-[auto_1fr] grid-rows-2 gap-x-1.5">
+      <div className="grid grid-cols-[auto_1fr] grid-rows-4 gap-x-1.5">
         {demand.company.image ? (
           <img
             src=""
@@ -60,9 +75,17 @@ function Item(demand: Demanda) {
           <TbUserCircle className="text-primary font-normal size-16 row-span-2 col-start-1" />
         )}
 
-        <p className="self-end font-semibold text-lg leading-none">
-          {demand.company.name}
+        <p className="self-end font-semibold text-lg leading-none self-center">
+          {demand.company.user.name}
         </p>
+        <div className="flex flex-col col-start-2 gap-2">
+          <span className="leading-none text-blue-light text-sm">
+            {demand.company.contactEmail}
+          </span>
+          <span className="leading-none text-blue-light text-sm ">
+            {demand.company.contactPhone}
+          </span>
+        </div>
         <p className="self-start text-blue-light text-sm">
           {addressToString(demand.company.address)}
         </p>

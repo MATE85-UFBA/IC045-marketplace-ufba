@@ -19,7 +19,32 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-const ContactCompany = () => {
+import useGetOneDemand from "@/api/demandas/use-get-one-demand";
+import { useEffect, useState } from "react";
+import { Demanda } from "../minhas-demandas/interfaces/demanda";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
+interface Props {
+  query: any;
+}
+const ContactCompany = ({ query }: Props) => {
+  const [demanda, setDemanda] = useState<Demanda>();
+  const getDemand = useGetOneDemand(
+    (data) => {
+      setDemanda(data);
+    },
+    () => {}
+  );
+
+  useEffect(() => {
+    const idDemanda = query.get("idDemanda");
+
+    if (idDemanda) getDemand.mutate(idDemanda);
+  }, [query]);
+
+  console.log(demanda);
+
   return (
     <main className="p-8 w-full flex flex-col flex-grow items-center">
       <section className="max-w-7xl itens-center w-full flex flex-col">
@@ -56,28 +81,43 @@ const ContactCompany = () => {
       <section className="flex flex-col lg:flex-row gap-6 max-w-7xl">
         <aside className=" lg:w-1/4 bg-white p-5 flex flex-col rounded-xl border gap-4 h-hull">
           <h3 className="text-2xl sm:text-3xl font-semibold text-blue-strong self-center">
-            Título da demanda
+            {demanda ? demanda.name : ""}
           </h3>
           <span className="text-sm text-blue-light mt-2">
-            Publicado há 2 dias
+            Publicado{" "}
+            {demanda
+              ? formatDistanceToNow(demanda.createdAt, {
+                  locale: ptBR,
+                  addSuffix: true,
+                })
+              : ""}
           </span>
           <p className="text-blue-strong text-justify leading-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-            commodo, nisi ut maximus porttitor, lacus mauris fermentum elit, sed
-            aliquet orci eros vitae felis. Aliquam in massa vitae metus viverra
-            volutpat nec sit amet libero. Vestibulum vel ligula tincidunt,
-            faucibus est ac, rutrum lectus. Integer id odio consectetur,
-            malesuada metus a, suscipit arcu.
+            {demanda ? demanda.description : ""}
           </p>
           <div className="flex flex-wrap gap-2">
-            <div className="bg-secondary rounded-full py-2 px-3 text-xs text-blue-strong w-28 text-center">
-              Área do projeto
-            </div>
-            <div className="bg-secondary rounded-full py-2 px-3 text-xs text-blue-strong w-28 text-center">
-              Palavra chave
-            </div>
+            {demanda
+              ? demanda.projects?.map((project) => (
+                  <div
+                    key={project.id}
+                    className="bg-secondary rounded-full py-2 px-3 text-xs text-blue-strong w-28 text-center"
+                  >
+                    {project.name}
+                  </div>
+                ))
+              : ""}
+            {demanda
+              ? demanda.keywords?.map((keyoword) => (
+                  <div
+                    key={keyoword.id}
+                    className="bg-secondary rounded-full py-2 px-3 text-xs text-blue-strong w-28 text-center"
+                  >
+                    {keyoword.name}
+                  </div>
+                ))
+              : ""}
           </div>
-          <span className="font-semibold">Empresa</span>
+          <span className="font-semibold">Empresa {demanda?.company?.user.name}</span>
         </aside>
         <section className="lg:w-3/4 bg-white shadow rounded-xl p-5">
           <section>
@@ -91,7 +131,7 @@ const ContactCompany = () => {
               <span className="font-semibold">Projeto: </span> Nome do projeto
             </p>
             <p className="text-xl">
-              <span className="font-semibold">Empresa: </span> Nome da Empresa
+              <span className="font-semibold">Empresa: </span> {demanda?.company?.user.name}
             </p>
           </section>
           <hr className="my-4" />

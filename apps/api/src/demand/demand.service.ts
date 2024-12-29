@@ -42,7 +42,11 @@ export class DemandService {
           },
         },
         include: {
-          company: true,
+          company: {
+            include: {
+              user: true,
+            },
+          },
           keywords: true,
         },
       }) || []
@@ -59,7 +63,11 @@ export class DemandService {
           },
         },
         include: {
-          company: true,
+          company: {
+            include: {
+              user: true,
+            },
+          },
           keywords: true,
         },
       }) || []
@@ -96,6 +104,15 @@ export class DemandService {
       where: {
         id,
         public: true,
+      },
+      include: {
+        projects: true,
+        company: {
+          include: {
+            user: true,
+          },
+        },
+        keywords: true,
       },
     });
 
@@ -158,7 +175,11 @@ export class DemandService {
         createdAt: 'desc', // Ordena pelas demandas mais recentes
       },
       include: {
-        company: true,
+        company: {
+          include: {
+            user: true,
+          },
+        },
         keywords: true,
       },
       take: 10, // Limita os resultados a 10 sugestões
@@ -186,7 +207,11 @@ export class DemandService {
         createdAt: 'desc', // Ordena pelas demandas mais recentes
       },
       include: {
-        company: true,
+        company: {
+          include: {
+            user: true,
+          },
+        },
         keywords: true,
       },
       take: 10, // Limita os resultados a 10 sugestões

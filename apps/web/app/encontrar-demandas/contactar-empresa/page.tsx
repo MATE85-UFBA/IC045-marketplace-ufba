@@ -1,7 +1,11 @@
+"use client";
+
 import ContactCompany from "@/modules/contactar-empresa";
+import { useSearchParams } from "next/navigation";
 
 const ContactarEmpresa = () => {
-  return <ContactCompany />;
+  const searchParams = useSearchParams();
+  return <ContactCompany query={searchParams} />;
 };
 
 export default ContactarEmpresa;
