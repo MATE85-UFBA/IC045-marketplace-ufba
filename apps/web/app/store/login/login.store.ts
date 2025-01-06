@@ -29,8 +29,12 @@ class LoginStore {
       persistUserToLocalStorage(user);
       this.isAuthenticated = true;
       router.push(this.whenLoginSuccessURL);
-    } catch (error: any) {
-      this.errorMessage = error.message || "Login failed.";
+    } catch (error) {
+      if (error instanceof Error) { 
+        this.errorMessage = error.message || "Falha ao realizar o login."; 
+      } else {
+        this.errorMessage = "Ocorreu um erro inesperado"; 
+      }
     } finally {
       this.isLoading = false;
     }
