@@ -31,7 +31,7 @@ class UserRegisterStore {
     try {
       await userService.register(getUserFromData(userData));
       router.push(this.successUrl);
-    } catch (error: any) {
+    } catch (error: Error) {
       this.errorMessage = error.message || "Failed to register user.";
       throw error;
     } finally {

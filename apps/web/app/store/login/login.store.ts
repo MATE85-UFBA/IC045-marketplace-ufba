@@ -29,7 +29,7 @@ class LoginStore {
       persistUserToLocalStorage(user);
       this.isAuthenticated = true;
       router.push(this.whenLoginSuccessURL);
-    } catch (error: any) {
+    } catch (error: Error) {
       this.errorMessage = error.message || "Login failed.";
     } finally {
       this.isLoading = false;

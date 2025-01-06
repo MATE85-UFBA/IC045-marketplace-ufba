@@ -51,7 +51,7 @@ class HttpService {
       });
     }
   
-    async delete<T>(endpoint: string): Promise<Response> {
+    async delete(endpoint: string): Promise<Response> {
       return this.request(endpoint, { method: "DELETE" });
     }
   }
