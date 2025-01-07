@@ -1,9 +1,12 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: ['.env.ci', '.env'] });
 import { PrismaService } from '@/infra/database/prisma.service';
 import { UpdateUserDto } from '@/user/user.dto';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User, UserRole, UserStatus } from '@prisma/client';
 import { AdminService } from './admin.service';
 import { v4 as uuidv4 } from 'uuid';
+import { AuthModule } from '@/auth/auth.module';
 
 describe('Admin Service - System test', () => {
   let adminService: AdminService;
@@ -12,6 +15,7 @@ describe('Admin Service - System test', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [AuthModule],
       providers: [AdminService, PrismaService],
     }).compile();
 

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: ['.env.ci', '.env'] });
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
@@ -9,9 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
 import { JwtService } from '@nestjs/jwt';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config({ path: ['.env.ci', '.env'] });
+import { AuthModule } from '@/auth/auth.module';
 
 describe('UsersController (editUser)', () => {
   let app: INestApplication;
@@ -26,7 +26,7 @@ describe('UsersController (editUser)', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       controllers: [AdminController],
-      imports: [AppModule],
+      imports: [AppModule, AuthModule],
       providers: [AdminService, JwtService, PrismaService],
     }).compile();
 
