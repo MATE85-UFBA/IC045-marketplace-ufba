@@ -36,7 +36,7 @@ interface EditFormProps {
   user: UserType;
   closeModal: () => void;
 }
-const router = useRouter();
+
 
 export function EditForm({ user, closeModal }: EditFormProps) {
 
@@ -50,6 +50,7 @@ export function EditForm({ user, closeModal }: EditFormProps) {
   });
 
   const { toast } = useToast();
+  const router = useRouter();
   
   const { mutate, isPending } = useAdminUpdateUser(user.id,
     () => {
@@ -58,7 +59,7 @@ export function EditForm({ user, closeModal }: EditFormProps) {
         title: "Sucesso",
         description: "Permissões atualizadas com sucesso.",
       });
-
+      
       router.refresh();
     },
     () => {
