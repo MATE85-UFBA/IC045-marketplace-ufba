@@ -29,7 +29,6 @@ describe('UsersController (editUser)', () => {
 
     app = moduleFixture.createNestApplication();
     jwtService = app.get<JwtService>(JwtService);
-    adminservice = app.get<AdminService>(AdminService);
     prisma = app.get<PrismaService>(PrismaService);
 
     await app.init();
@@ -74,7 +73,7 @@ describe('UsersController (editUser)', () => {
     };
 
     const response = await request(app.getHttpServer())
-      .put(`/admin/users/${testUser.id}`)
+      .patch(`/admin/users/${testUser.id}`)
       .set('Authorization', `Bearer ${adminToken}`)
       .send(updatedUserData);
 
@@ -97,7 +96,7 @@ describe('UsersController (editUser)', () => {
     };
 
     const response = await request(app.getHttpServer())
-      .put(`/admin/users/${testUser.id}`)
+      .patch(`/admin/users/${testUser.id}`)
       .set('Authorization', `Bearer ${userToken}`)
       .send(updatedUserData);
 
