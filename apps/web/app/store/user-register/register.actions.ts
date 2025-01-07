@@ -11,8 +11,8 @@ export function getUserFromData(userData: {
     passwordConfirmation: string
   }): CreateUser {
 
-    var company: CreateUserCompany | undefined;
-    var researcher: CreateUserResearcher | undefined;
+    let company: CreateUserCompany | undefined;
+    let researcher: CreateUserResearcher | undefined;
 
     if (userData.utype == COMPANY) {
         company = {
