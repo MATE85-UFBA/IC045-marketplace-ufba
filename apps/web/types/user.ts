@@ -16,6 +16,12 @@ export enum UserRole {
     ANY = 'ANY',
 }
 
+export enum UserStatus {
+    APPROVED = 'APPROVED',
+    BLOCK = 'BLOCK',
+    PENDING = 'PENDING',
+}
+
 export interface User {
     id: string,
     name: string,
@@ -24,4 +30,10 @@ export interface User {
     img: string,
     utype: UserProfileType,
     access_token: string
+}
+
+export interface AdminUpdateUser {
+
+    role: UserRole,
+    status: UserStatus
 }
