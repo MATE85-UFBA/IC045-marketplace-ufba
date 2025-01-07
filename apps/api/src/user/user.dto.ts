@@ -5,7 +5,7 @@ import {
   IsOptional,
   Matches,
 } from 'class-validator';
-import { ResearcherType, UserRole } from '@prisma/client';
+import { ResearcherType, UserRole, UserStatus } from '@prisma/client';
 
 export class CreateCompanyDto {
   contactName?: string;
@@ -21,6 +21,12 @@ export class CreateResearcherDto {
 
   @IsEnum(ResearcherType)
   researcherType?: ResearcherType;
+}
+
+export class UpdateUserDto {
+  @IsEnum(UserRole)
+  role: UserRole;
+  status: UserStatus;
 }
 
 export class CreateUserDto {
@@ -44,17 +50,6 @@ export class CreateUserDto {
 
   @IsOptional()
   researcher?: CreateResearcherDto;
-}
-
-export class UpdateUserDto {
-  name?: string;
-  img?: string;
-  email?: string;
-  password?: string;
-
-  @IsOptional()
-  @IsEnum(UserRole)
-  role?: UserRole;
 }
 
 export class ChangePasswordDto {
