@@ -84,7 +84,7 @@ describe('DemandController (e2e)', () => {
     userService = {
       findOne: jest.fn().mockResolvedValue({ ...user }),
     };
- 
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       controllers: [DemandController],
       imports: [AuthModule],
