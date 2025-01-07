@@ -41,25 +41,15 @@ describe('AdminController', () => {
     const users = [
       {
         id: '1',
-
         name: 'John',
-
         email: 'john@example.com',
-
         role: UserRole.USER,
-
         img: null,
-
         password: 'password',
-
         status: UserStatus.APPROVED,
-
         utype: UserTypes.NONE,
-
         resetToken: null,
-
         createdAt: new Date(),
-
         updatedAt: new Date(),
       },
     ];

@@ -84,14 +84,14 @@ describe('DemandController (e2e)', () => {
     userService = {
       findOne: jest.fn().mockResolvedValue({ ...user }),
     };
-
+ 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       controllers: [DemandController],
       imports: [AuthModule],
       providers: [
         { provide: DemandService, useValue: demandService },
         { provide: UserService, useValue: userService },
-        JwtService, // Real JwtService
+        JwtService,
       ],
     }).compile();
 
