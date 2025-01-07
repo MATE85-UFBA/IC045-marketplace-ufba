@@ -10,6 +10,9 @@ import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
 import { JwtService } from '@nestjs/jwt';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config({ path: ['.env.ci', '.env'] });
+
 describe('UsersController (editUser)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
