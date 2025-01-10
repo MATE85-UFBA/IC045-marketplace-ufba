@@ -12,14 +12,6 @@ export class CreateProjectDto {
   name: string;
 
   @IsNotEmpty()
-  @IsISO8601()
-  started_at: Date;
-
-  @IsOptional()
-  @IsISO8601()
-  finished_at?: Date;
-
-  @IsNotEmpty()
   @IsUUID()
   researchGroupId: string;
 
@@ -34,14 +26,6 @@ export class UpdateProjectDto {
   @IsOptional()
   @IsString()
   name?: string;
-
-  @IsOptional()
-  @IsISO8601()
-  started_at?: Date;
-
-  @IsOptional()
-  @IsISO8601()
-  finished_at?: Date;
 
   @IsOptional()
   @IsUUID()

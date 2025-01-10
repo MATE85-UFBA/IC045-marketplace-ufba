@@ -35,9 +35,6 @@ export default function ProjectsSection(props: TProps) {
                 <TableCell className="text-blue-light py-6">
                   {project.name}
                 </TableCell>
-                <TableCell className="text-blue-light py-6">
-                  {project.finished_at ?? "Em andamento"}
-                </TableCell>
               </TableRow>
             );
           })}

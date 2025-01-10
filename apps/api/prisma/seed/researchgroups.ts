@@ -18,7 +18,6 @@ export async function SeedResearchGroups(prisma: PrismaClient) {
       create: [
         {
           name: 'Recommending Stores for Shopping Mall Customers with RecStore',
-          started_at: '2023-11-24T10:30:00Z',
         },
       ],
     },
