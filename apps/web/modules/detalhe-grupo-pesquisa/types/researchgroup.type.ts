@@ -1,9 +1,29 @@
-type EResearcherType = "TEACHER" | "STUDENT";
+
+export type EResearcherType = "TEACHER" | "STUDENT";
+
 
 export type TLeader = {
   userId: string;
   urlLattes: string | null;
   researcherType: EResearcherType;
+  createdAt: string;
+  updatedAt: string;
+};
+
+
+export type TUser = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+export type TProject = {
+  id: string;
+  name: string;
+  started_at: string;
+  finished_at: string | null;
+  researchGroupId: string;
+  demandId: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -14,6 +34,8 @@ export type TMember = {
   researcherType: EResearcherType;
   createdAt: string;
   updatedAt: string;
+  user: TUser;
+
 };
 
 export type TResearchGroup = {
@@ -25,4 +47,6 @@ export type TResearchGroup = {
   researcherId: string;
   leader: TLeader;
   members: TMember[];
+  projects: TProject[];
+
 };

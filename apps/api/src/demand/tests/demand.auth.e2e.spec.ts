@@ -91,7 +91,7 @@ describe('DemandController (e2e)', () => {
       providers: [
         { provide: DemandService, useValue: demandService },
         { provide: UserService, useValue: userService },
-        JwtService, // Real JwtService
+        JwtService,
       ],
     }).compile();
 

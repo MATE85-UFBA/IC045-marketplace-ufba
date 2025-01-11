@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,12 +21,14 @@ import {
 } from "@/components/ui/select";
 import { UserType } from "../../types/user";
 import { Input } from "@/components/ui/input";
+import { AdminUpdateUser, UserRole, UserStatus } from "@/types/user";
+import useAdminUpdateUser from "@/api/admin/user/use-update-users";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
-  id: z.string(),
   name: z.string(),
   role: z.string(),
-  utype: z.string(),
   status: z.string(),
 });
 
@@ -36,28 +37,49 @@ interface EditFormProps {
   closeModal: () => void;
 }
 
+
 export function EditForm({ user, closeModal }: EditFormProps) {
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      id: user.id,
       name: user.name,
       role: user.role,
-      utype: user.utype,
       status: user.status,
     },
   });
 
+  const { toast } = useToast();
+  const router = useRouter();
+  
+  const { mutate, isPending } = useAdminUpdateUser(user.id,
+    () => {
+      toast({
+        variant: "success",
+        title: "Sucesso",
+        description: "Permissões atualizadas com sucesso.",
+      });
+      
+      router.refresh();
+    },
+    () => {
+      toast({
+        variant: "destructive",
+        title: "Ocorreu um problema",
+        description: "Não foi possível atualizar as permissões.",
+      });
+    }
+  );
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
+
     closeModal();
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+
+    const userData: AdminUpdateUser = {
+      role: data.role as UserRole,
+      status: data.status as UserStatus,
+    }
+    mutate(userData);
   }
 
   return (
@@ -106,27 +128,6 @@ export function EditForm({ user, closeModal }: EditFormProps) {
 
         <FormField
           control={form.control}
-          name="utype"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Tipo de acesso</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger className="bg-white h-12 text-blue-strong">
-                    <SelectValue placeholder="Selecione o tipo do usuário" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="COMPANY">Empresa</SelectItem>
-                  <SelectItem value="RESEARCHER">Pesquisador</SelectItem>
-                </SelectContent>
-              </Select>
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="status"
           render={({ field }) => (
             <FormItem>
@@ -157,7 +158,7 @@ export function EditForm({ user, closeModal }: EditFormProps) {
             Cancelar
           </Button>
           <Button type="submit" className="w-full">
-            Salvar
+           { isPending ? "Salvando" : "Salvar" }
           </Button>
         </div>
       </form>

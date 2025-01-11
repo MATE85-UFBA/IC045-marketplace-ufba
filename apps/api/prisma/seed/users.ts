@@ -4,11 +4,11 @@ import { PrismaClient, UserRole } from '@prisma/client';
 export async function SeedUsers(prisma: PrismaClient) {
   const users = [
     {
-      name: 'Reginaldo Rossi',
-      email: 'reginaldo.rossi@email.com.br',
+      name: 'Administrador',
+      email: 'administrador@email.com.br',
       role: UserRole.ADMIN,
       img: '',
-      password: await hashPassword('mycrazysecurepassword'),
+      password: await hashPassword('superadmin'),
     },
     {
       name: 'Maria Bethânia',
@@ -59,7 +59,7 @@ export async function SeedUsers(prisma: PrismaClient) {
       id: '6d78e1e5-5917-4a81-bce6-65610e79d4f1',
       name: 'Fred Durão',
       email: 'fred.durao@email.com.br',
-      role: UserRole.ADMIN,
+      role: UserRole.USER,
       img: '',
       password: await hashPassword('senhaufba'),
     },
