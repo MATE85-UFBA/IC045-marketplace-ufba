@@ -34,7 +34,7 @@ const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
     },
     {
       accessorKey: "createdAt",
-      header: "Criado Em",
+      header: "Data de criação",
       cell: ({ row }) => format(row.getValue("createdAt"), "dd/MM/yyyy"),
     },
   ];
