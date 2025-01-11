@@ -10,7 +10,7 @@ services:
       
   node:
     image: "node:22-alpine"
-    user: "node"
+    user: "root"
     working_dir: /home/node/app
     volumes:
       - ./apps/api:/home/node/app
@@ -24,7 +24,7 @@ services:
 
   frontend:
     image: "node:22-alpine"
-    user: "node"
+    user: "root"
     working_dir: /home/node/web
     volumes:
       - ./apps/web:/home/node/web
@@ -38,7 +38,7 @@ services:
 
   prisma:
     image: "node:22-alpine"
-    user: "node"
+    user: "root"
     working_dir: /home/node/app
     volumes:
       - ./apps/api:/home/node/app

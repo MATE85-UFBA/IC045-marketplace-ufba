@@ -1,6 +1,6 @@
 # COOPERA-UFBA - Conectando demandas do Mercado a Grupos de Pesquisa da UFBA
 
-Acesse o projeto aqui [COOPERA-UFBA](http://195.200.2.55:3001/)
+**Acesse o projeto aqui [COOPERA-UFBA](https://coopera.eduardovasconcelos.live/)**
 
 ## Descrição
 
@@ -53,21 +53,3 @@ A elaboração da arquitetura foi desenvolvida na plataforma **diagrams.net**. P
 - [Pedro](https://github.com/1pedro)
 - [João Pedro](https://github.com/JhonPrFer)
 - [Jonathan Bispo ](https://github.com/jonathanbisp)
-
-
-
-
-url: http://195.200.2.55:3001/cadastro-demanda
-
-
-
-
-
-
-
-
-
-
-
-
-

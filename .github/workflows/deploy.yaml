@@ -1,8 +1,8 @@
-name: Deploy Nexus
+name: Deploy COOPERA
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
 
 jobs:
   deploy:
@@ -10,6 +10,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: "Limpar diretório na VPS"
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.HOST}} 
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          port: ${{secrets.PORT}}
+          script: |
+            rm -rf /marketplace/IC045-marketplace-ufba/*
       
       - name: "Copiar arquivos para a VPS"
         uses: appleboy/scp-action@v0.1.7
@@ -19,4 +29,26 @@ jobs:
           password: ${{secrets.PASSWORD}}
           port: ${{secrets.PORT}}
           source: "."
-          target: "/home/nexus"
+          target: "/marketplace/IC045-marketplace-ufba"
+
+      - name: "Executar script de produção"
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.HOST}} 
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          port: ${{secrets.PORT}}
+          script: |
+            cd /marketplace/IC045-marketplace-ufba/prod
+            ./update_env.sh
+
+      - name: "Executar o docker-compose"
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.HOST}} 
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          port: ${{secrets.PORT}}
+          script: |
+            cd /marketplace/IC045-marketplace-ufba/prod
+            docker-compose up -d

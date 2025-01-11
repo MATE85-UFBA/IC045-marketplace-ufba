@@ -1,6 +1,8 @@
 services:
   db:
     image: postgres:latest
+    networks:
+      - nginxproxymanager_default
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: marketplace_db
@@ -13,7 +15,9 @@ services:
     user: "root"
     working_dir: /home/node/app
     volumes:
-      - ./apps/api:/home/node/app
+      - /marketplace/IC045-marketplace-ufba/apps/api:/home/node/app
+    networks:
+      - nginxproxymanager_default
     depends_on:
       - db
     expose:
@@ -27,7 +31,9 @@ services:
     user: "root"
     working_dir: /home/node/web
     volumes:
-      - ./apps/web:/home/node/web
+      - /marketplace/IC045-marketplace-ufba/apps/web:/home/node/web
+    networks:
+      - nginxproxymanager_default
     depends_on:
       - node
     expose:
@@ -41,7 +47,9 @@ services:
     user: "root"
     working_dir: /home/node/app
     volumes:
-      - ./apps/api:/home/node/app
+      - /marketplace/IC045-marketplace-ufba/apps/api:/home/node/app
+    networks:
+      - nginxproxymanager_default
     depends_on:
       - node
     expose:
@@ -49,3 +57,8 @@ services:
     ports: # use if it is necessary to expose the container to the host machine
       - "5555:5555"
     entrypoint: sh -c 'npx prisma studio'
+
+networks:
+  nginxproxymanager_default:
+    name: nginxproxymanager_default
+    external: true
