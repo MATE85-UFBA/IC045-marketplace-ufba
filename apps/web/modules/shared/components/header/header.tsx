@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "@/modules/shared/ui/button";
-
-import "../../../app/globals.css";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import Link from 'next/link';
+import { Button } from '@/modules/shared/ui/button';
+import '../../../app/globals.css';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import {
   Drawer,
   DrawerClose,
@@ -12,25 +11,22 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/modules/shared/ui/drawer";
-import { FiMenu } from "react-icons/fi";
-import Image from "next/image";
+} from '@/modules/shared/ui/drawer';
+import { FiMenu } from 'react-icons/fi';
 
-import ufbaLogo from "@/public/logo.png";
-import { TbBell, TbUserCircle } from "react-icons/tb";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/modules/shared/ui/popover";
-import { formatDistanceToNow } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import { Separator } from "@/modules/shared/ui/separator";
+import ufbaLogo from '@/public/logo.png';
+import { TbBell, TbUserCircle } from 'react-icons/tb';
+import { Popover, PopoverContent, PopoverTrigger } from '@/modules/shared/ui/popover';
+import { formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { Separator } from '@/modules/shared/ui/separator';
+import Image from 'next/image';
 
 const headerLinks = {
   none: [
     {
-      label: "Encontrar Demandas",
+
+      label: "Encontrar demandas",
       path: "/encontrar-demandas",
     },
     {
@@ -44,13 +40,14 @@ const headerLinks = {
       path: "/",
     },
     {
-      label: "Minhas Demandas",
+
+      label: "Minhas demandas",
       path: "/minhas-demandas",
     },
   ],
   researcher: [
     {
-      label: "Encontrar Demandas",
+      label: "Encontrar demandas",
       path: "/encontrar-demandas",
     },
     {
@@ -93,17 +90,22 @@ const Header = () => {
   const notifications = [
     {
       id: "1",
-      title: "Proposta recebida para [Nome da Demanda]!",
+      title: "Proposta recebida para [Nome da demanda]!",
+
       datetime: new Date(),
     },
     {
       id: "2",
-      title: "Proposta recebida para [Nome da Demanda]!",
+
+      title: "Proposta recebida para [Nome da demanda]!",
+
       datetime: new Date(),
     },
     {
       id: "3",
-      title: "Proposta recebida para [Nome da Demanda]!",
+
+      title: "Proposta recebida para [Nome da demanda]!",
+
       datetime: new Date(),
     },
   ] as Notification[];
@@ -195,7 +197,9 @@ const Header = () => {
                 </PopoverTrigger>
                 <PopoverContent className="grid gap-2">
                   <Link href={"/"} className="font-medium hover:underline">
-                    Meu Perfil
+
+                    Meu perfil
+
                   </Link>
                   <Link href={"/"} className="font-medium hover:underline">
                     Sair
@@ -284,7 +288,9 @@ const Header = () => {
                   href="/"
                   className="items-center font-bold text-blue-strong"
                 >
-                  Meu Perfil
+
+                  Meu perfil
+
                 </Link>
               </DrawerClose>
               <DrawerClose className="text-left" asChild>

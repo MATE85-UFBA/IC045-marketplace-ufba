@@ -6,27 +6,20 @@ import { Button } from "@/components/ui/button";
 import { CustomIcon } from '@/modules/components/icon/customIcon';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import useGetMyResearchGroups from '@/api/research-group/use-get-my-research-group';
+import { useState } from "react";
 
 
 function MeusGruposPesquisa() {
-   /*
-    const researchgroups = [
-        {
-            id: 1,
-            name: "Lasid",
-            img: ""
-        },
-        {
-            id: 2,
-            name: "Onda Digital",
-            img: ""
-        }
-    ]
-  */
 
-    const { data: pesquisador }  = useGetMyResearchGroups();
+    const [search, setSearch] = useState("");
+    const [order, setOrder] = useState<'asc' | 'desc'>("asc");
+    const { data: pesquisador }  = useGetMyResearchGroups(search, order);
 
-    console.log(pesquisador);
+    function handleSearch() {
+        const searchValue = document.querySelector('input')?.value;
+        setSearch(searchValue ?? "");
+    }
+    
     
     return <main className='flex justify-center flex-grow m-8'>
         <section className="flex flex-col w-full max-w-7xl pt-12 gap-6">
@@ -38,7 +31,7 @@ function MeusGruposPesquisa() {
               <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" /> Novo grupo de pesquisa
             </Button>
           </div>
-          <MeusGruposPesquisaFilter />
+          <MeusGruposPesquisaFilter handleSearch={handleSearch} setOrder={ setOrder } order={ order } />
           
           { pesquisador && 
             <MyResearchGroupList pesquisador={pesquisador} />}

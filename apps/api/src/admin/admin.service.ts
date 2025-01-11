@@ -2,6 +2,7 @@ import { getUserType } from '@/user/utils/user.types.util';
 import { PrismaService } from '../infra/database/prisma.service';
 import { UpdateUserDto } from '../user/user.dto';
 import { Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AdminService {
@@ -45,18 +46,18 @@ export class AdminService {
     }));
   }
 
-  async editUser(id: string, updatedUserData: UpdateUserDto) {
-    const updatedUser = await this.prismaService.user.update({
-      where: { id },
-      data: updatedUserData,
-    });
+  async editUser(userId: string, updateUserDto: UpdateUserDto) {
+    const { role, status } = updateUserDto;
 
-    return {
-      id: updatedUser.id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      role: updatedUser.role,
+    const data: Partial<User> = {
+      role,
+      status,
     };
+
+    await this.prismaService.user.update({
+      where: { id: userId },
+      data,
+    });
   }
 
   async deleteUser(id: string) {

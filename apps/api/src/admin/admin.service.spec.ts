@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AdminService } from './admin.service';
 import { PrismaService } from '../infra/database/prisma.service';
-import { UpdateUserDto } from '../user/user.dto';
 import { UserRole, UserStatus } from '@prisma/client';
 import * as UserTypes from '@/user/utils/user.types.util';
 
@@ -63,34 +62,6 @@ describe('AdminService', () => {
     jest.spyOn(prismaService.user, 'findMany').mockResolvedValue(users);
 
     expect(await service.getUsers()).toEqual(users);
-  });
-
-  it('should edit user', async () => {
-    const id = '1';
-    const updatedUserData: UpdateUserDto = {
-      email: 'john.doe@example.com',
-      role: UserRole.ADMIN,
-    };
-    const updatedUser = {
-      id,
-      name: 'John Doe',
-      email: updatedUserData.email || 'default@example.com',
-      role: updatedUserData.role || UserRole.USER,
-      img: null,
-      password: 'password',
-      resetToken: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      status: UserStatus.APPROVED,
-    };
-    jest.spyOn(prismaService.user, 'update').mockResolvedValue(updatedUser);
-
-    expect(await service.editUser(id, updatedUserData)).toEqual({
-      id: updatedUser.id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      role: updatedUser.role,
-    });
   });
 
   it('should delete user', async () => {

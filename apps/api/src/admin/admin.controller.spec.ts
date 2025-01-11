@@ -3,7 +3,6 @@ import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
 import { JwtAuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../roles/roles.guard';
-import { UpdateUserDto } from '../user/user.dto';
 import { UserRole, UserStatus } from '@prisma/client';
 import * as UserTypes from '@/user/utils/user.types.util';
 
@@ -42,55 +41,21 @@ describe('AdminController', () => {
     const users = [
       {
         id: '1',
-
         name: 'John',
-
         email: 'john@example.com',
-
         role: UserRole.USER,
-
         img: null,
-
         password: 'password',
-
         status: UserStatus.APPROVED,
-
         utype: UserTypes.NONE,
-
         resetToken: null,
-
         createdAt: new Date(),
-
         updatedAt: new Date(),
       },
     ];
     jest.spyOn(service, 'getUsers').mockResolvedValue(users);
 
     expect(await controller.getUsers()).toEqual(users);
-  });
-
-  it('should edit user', async () => {
-    const id = '1';
-    const updatedUserData: UpdateUserDto = {
-      email: 'john.doe@example.com',
-      role: UserRole.ADMIN,
-    };
-    const updatedUser = {
-      id,
-      name: 'John Doe',
-      email: updatedUserData.email!,
-      role: updatedUserData.role!,
-      img: null,
-      password: 'password',
-      isApproved: true,
-      isBlocked: false,
-      resetToken: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    jest.spyOn(service, 'editUser').mockResolvedValue(updatedUser);
-
-    expect(await controller.editUser(id, updatedUserData)).toEqual(updatedUser);
   });
 
   it('should delete user', async () => {

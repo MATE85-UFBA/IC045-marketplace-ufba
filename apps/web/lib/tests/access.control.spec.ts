@@ -13,7 +13,7 @@ describe('Access Control Functions', () => {
                 img: '',
                 access_token: ''
             }
-            expect(hasAccess(user, '/cadastrar-demanda')).toBe(true);
+            expect(hasAccess(user, '/cadastro-demandas')).toBe(true);
         });
 
         it('should return false when user profile type is not allowed', () => {
@@ -25,7 +25,7 @@ describe('Access Control Functions', () => {
                 img: '',
                 access_token: ''
             }
-            expect(hasAccess(user, '/cadastrar-demanda')).toBe(false);
+            expect(hasAccess(user, '/cadastro-demandas')).toBe(false);
         });
 
         it('should return false when user role is not allowed', () => {

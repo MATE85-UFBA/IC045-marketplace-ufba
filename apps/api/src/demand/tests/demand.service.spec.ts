@@ -1,6 +1,6 @@
 import { ForbiddenException } from '@nestjs/common';
 
-import { demands } from '@/research-group/tests/fixtures';
+import { demands } from './fixtures';
 import { DemandController } from '@/demand/demand.controller';
 import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common/exceptions';
@@ -109,6 +109,9 @@ describe('DemandService', () => {
         status: 'CREATED',
         updatedAt: expect.any(Date),
         createdAt: expect.any(Date),
+        keywords: {
+          connect: [],
+        },
       },
       where: {
         id: 'some-id',

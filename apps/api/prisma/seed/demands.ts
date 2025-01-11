@@ -5,7 +5,8 @@ export async function SeedDemands(prisma: PrismaClient) {
     {
       id: '21a64aad-5c76-45a7-82b9-20fd56be6ad6',
       companyId: '09e1f3d8-6ff2-4187-8e99-55de3fb97040',
-      description: 'Lorem ipsum',
+      description:
+        'Análise de sistemas de distribuição de energia elétrica baseados em geradores renováveis, com o objetivo de desenvolver modelos eficientes e sustentáveis para a geração e distribuição de energia limpa.',
       public: true,
       name: 'Distribuição de energia por gerador',
       keywords: {
@@ -24,10 +25,11 @@ export async function SeedDemands(prisma: PrismaClient) {
     },
     {
       id: 'c75aa063-49fc-4ea7-9fe5-70ae81ae2234',
-      companyId: '6d78e1e5-5917-4a81-bce6-65610e79d4f1',
-      description: 'Lorem ipsum',
+      companyId: '0e1bc090-3273-4eb9-acdd-e214e8cd724f',
+      description:
+        'Analisar o potencial de tecnologias de energia inteligente para promover a sustentabilidade energética, reduzindo o desperdício e incentivando o uso de fontes renováveis.',
       public: true,
-      name: 'Minha demanda 01',
+      name: 'Energia inteligente e o reaproveitamento da energia desperdiçada',
       keywords: {
         connect: [
           { id: 'd86ad682-ef80-45bf-baf9-ee1af330ba04' },
@@ -44,10 +46,11 @@ export async function SeedDemands(prisma: PrismaClient) {
     },
     {
       id: '5330f15d-8319-4a69-a964-0f6f04cbc4ec',
-      companyId: '6d78e1e5-5917-4a81-bce6-65610e79d4f1',
-      description: 'Lorem ipsum',
+      companyId: '09e1f3d8-6ff2-4187-8e99-55de3fb97040',
+      description:
+        'Desenvolvimento de técnicas avançadas de processamento de imagem para gerar modelos precisos de plantações brasileiras, otimizando o manejo agrícola e a produção de alimentos.',
       public: true,
-      name: 'Minha demanda 02',
+      name: 'Processamento de imagem para criação de modelagens de plantios brasileiros',
       keywords: {
         connect: [
           { id: 'd86ad682-ef80-45bf-baf9-ee1af330ba04' },
@@ -64,10 +67,11 @@ export async function SeedDemands(prisma: PrismaClient) {
     },
     {
       id: 'ad574c8c-1810-4d01-8ff4-d45095ec5028\n',
-      companyId: '6d78e1e5-5917-4a81-bce6-65610e79d4f1',
-      description: 'Lorem ipsum',
+      companyId: '09e1f3d8-6ff2-4187-8e99-55de3fb97040',
+      description:
+        'Desenvolvimento de técnicas para reduzir o consumo energético e o impacto ambiental na geração de modelos para Engenharia de Software, promovendo a sustentabilidade no desenvolvimento de software.',
       public: true,
-      name: 'Minha demanda 03',
+      name: 'Economia de recursos para geração de modelos para Engenharia de Software',
       keywords: {
         connect: [
           { id: 'd86ad682-ef80-45bf-baf9-ee1af330ba04' },
