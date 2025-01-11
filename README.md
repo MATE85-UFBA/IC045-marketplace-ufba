@@ -2,6 +2,8 @@
 
 Acesse o projeto aqui [COOPERA-UFBA](http://195.200.2.55:3001/)
 
+Instrução para execução do sistema [clique aqui](https://docs.google.com/document/d/1yt6UcOyFNssNe9YfNS8Ujq660qgT9srje9f2xUI928Y/edit?usp=sharing)
+
 ## Descrição
 
 O projeto COOPERA-UFBA proposto como forma de avaliação da disciplina **IC045/MATE85 - Tópicos em Sistemas de Informação e Web** tem como objetivo construir um marketplace que auxilie na conexão de demandas de desenvolvimento tecnológico de empresas, organizações públicas ou do terceiro setor aos Grupos de Pesquisa da UFBA que realizam pesquisas nesse âmbito. O intuito é fomentar a colaboração e a pesquisa, assim como acelerar a inovação no país.
