@@ -86,6 +86,16 @@ const Header = () => {
 
   const { user, setUser } = useUser();
 
+  const formatName = (name: string) => {
+    const firstName = name.split(" ")[0];
+    return (
+      <p className="self-center text-primary font-bold">
+        Olá,{" "}
+        {firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase()}
+      </p>
+    );
+  };
+
   const linksType = user
     ? user.role === "ADMIN"
       ? "ADMIN"
@@ -157,6 +167,7 @@ const Header = () => {
             </>
           ) : (
             <div className="flex gap-2">
+              {user?.name ? formatName(user.name) : ""}
               <Popover>
                 <PopoverTrigger>
                   <TbBell className="text-primary/80 hover:text-primary size-8 cursor-pointer" />
@@ -196,7 +207,6 @@ const Header = () => {
                   )}
                 </PopoverContent>
               </Popover>
-
               <Popover>
                 <PopoverTrigger>
                   <TbUserCircle className="text-primary/80 hover:text-primary size-8 cursor-pointer" />
