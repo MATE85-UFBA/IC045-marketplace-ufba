@@ -95,7 +95,7 @@ export class DemandService {
 
     return this.prismaService.demand.update({
       where: { id },
-      data: { ...updated, keywords: { connect: keywordsIds } },
+      data: { ...updated, keywords: { set: [], connect: keywordsIds } },
     });
   }
 
@@ -117,7 +117,7 @@ export class DemandService {
     });
 
     if (!demand) {
-      throw new NotFoundException('Demanda não encontrado');
+      throw new NotFoundException('Demanda não encontrada');
     }
 
     return demand;
@@ -132,6 +132,7 @@ export class DemandService {
             user: true,
           },
         },
+        keywords: true,
       },
     });
 
