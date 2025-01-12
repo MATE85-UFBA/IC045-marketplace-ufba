@@ -11,7 +11,7 @@ import loginStore from "@/context/loginContext/login.context";
 import { authStore } from "@/context/loginContext";
 import { loadUserFromLocalStorage } from "@/lib/user.storage";
 import { useState } from "react";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, MoveLeftIcon } from "lucide-react";
 
 const Login = observer(() => {
   const router = useRouter();
@@ -116,6 +116,13 @@ const Login = observer(() => {
             </span>
           )}
         </form>
+        <Link
+          href={"/"}
+          className="flex items-center justify-center mt-4 hover:underline"
+        >
+          <MoveLeftIcon />
+          <p style={{ marginLeft: 5, fontSize: 12 }}>Voltar para Home</p>
+        </Link>
 
         <p className="text-xs text-center mt-12">
           Ainda não possui uma conta?{" "}

@@ -42,6 +42,10 @@ const MinhasDemandas = () => {
     }
   };
 
+  const handleEdit = (id: string) => {
+    router.push(`/minhas-demandas/${id}`);
+  };  
+
   const filterDemands = useGetMyFilterDemands(
     (data) => {
       setFilteredDemands(data);
@@ -72,7 +76,7 @@ const MinhasDemandas = () => {
         />
         <MinhasDemandasTable
           data={filteredDemands && filter !== "" ? filteredDemands : demands}
-          onEdit={() => undefined}
+          onEdit={handleEdit}
           onDelete={handleDelete}
         />
       </section>
