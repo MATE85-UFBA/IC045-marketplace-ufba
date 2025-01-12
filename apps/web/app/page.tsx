@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useUser } from "@/context/UserContext";
 
 export default function Home() {
-  const { user, setUser } = useUser();
+  const { user } = useUser();
   return (
     <main className="max-w-screen-xl mx-auto px-8 pb-8">
       <section className="flex flex-col lg:flex-row items-center py-8">
