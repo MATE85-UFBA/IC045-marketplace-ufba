@@ -3,6 +3,8 @@ name: Deploy COOPERA
 on:
   push:
     branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
 
 jobs:
   deploy:
@@ -31,7 +33,7 @@ jobs:
           source: "."
           target: "/marketplace/IC045-marketplace-ufba/"
 
-      - name: "Renomear o ".env.ci" da api para ".env"
+      - name: "Renomear o '.env.ci' da api para '.env'"
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{secrets.HOST}} 
