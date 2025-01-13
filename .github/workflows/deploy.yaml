@@ -31,6 +31,17 @@ jobs:
           source: "."
           target: "/marketplace/IC045-marketplace-ufba"
 
+      - name: "Renomear o ".env.ci" da api para ".env"
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.HOST}} 
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          port: ${{secrets.PORT}}
+          script: |
+            cd /marketplace/IC045-marketplace-ufba/apps/api/
+            mv .env.ci .env
+
       - name: "Executar script de produção"
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -42,7 +53,7 @@ jobs:
             cd /marketplace/IC045-marketplace-ufba/prod
             ./update_env.sh
 
-      - name: "Executar o docker-compose"
+      - name: "Levantando o banco de dados"
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{secrets.HOST}} 
@@ -50,5 +61,17 @@ jobs:
           password: ${{secrets.PASSWORD}}
           port: ${{secrets.PORT}}
           script: |
-            cd /marketplace/IC045-marketplace-ufba/prod
-            docker-compose up -d
+            cd /opt/docker/testes/
+            docker-compose up
+
+      - name: "Executar o pm2 para levantar o sistema"
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.HOST}} 
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          port: ${{secrets.PORT}}
+          script: |
+            pm2 start coopera-front
+            pm2 start coopera-back
+            pm2 start coopera-prisma

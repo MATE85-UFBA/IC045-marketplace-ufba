@@ -11,7 +11,7 @@ services:
       - "5432:5432"
       
   node:
-    image: "node:22-alpine"
+    image: "node:22"
     user: "root"
     working_dir: /home/node/app
     volumes:
@@ -22,7 +22,7 @@ services:
       - db
     expose:
       - "8080"
-    ports: # use if it is necessary to expose the container to the host machine
+    ports: 
       - "8080:8080"
     entrypoint: sh -c 'rm -rf node_modules && npm install && npx prisma db push && npx prisma generate && npm run seed-db && npm run build && npm run start:prod'
 
@@ -38,7 +38,7 @@ services:
       - node
     expose:
       - "3001"
-    ports: # use if it is necessary to expose the container to the host machine
+    ports: 
       - "3001:3001"
     entrypoint: sh -c 'npm install && npm run build && npm run start'
 
@@ -54,7 +54,7 @@ services:
       - node
     expose:
       - "5555"
-    ports: # use if it is necessary to expose the container to the host machine
+    ports: 
       - "5555:5555"
     entrypoint: sh -c 'npx prisma studio'
 
