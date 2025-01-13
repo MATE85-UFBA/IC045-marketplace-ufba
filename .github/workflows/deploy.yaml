@@ -62,7 +62,7 @@ jobs:
           port: ${{secrets.PORT}}
           script: |
             cd /opt/docker/testes/
-            docker-compose up
+            docker-compose up -d
 
       - name: "Executar o pm2 para levantar o sistema"
         uses: appleboy/ssh-action@v1.0.3
