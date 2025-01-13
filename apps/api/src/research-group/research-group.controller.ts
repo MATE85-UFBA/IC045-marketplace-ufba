@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Put,
-  Request,
   Query,
   NotFoundException,
 } from '@nestjs/common';
