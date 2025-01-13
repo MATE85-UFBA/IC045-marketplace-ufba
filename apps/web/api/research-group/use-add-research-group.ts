@@ -10,7 +10,6 @@ async function addResearchGroup(_data: CreateResearchGroup) {
     JSON.stringify(_data),
     { headers: { "content-type": "application/json" } }
   );
-
   return data;
 }
 

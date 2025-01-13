@@ -18,6 +18,7 @@ import {
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
+import { useUser } from "@/context/UserContext";
 import useAddResearchGroup from "@/api/research-group/use-add-research-group";
 import useGetAllKnowledgeAreas from "@/api/research-group/use-get-all-knowledgeAreas";
 import { CreateResearchGroup } from "@/types/researchGroup";
@@ -30,6 +31,7 @@ const CadastrarGruposPesquisa = () => {
     setValue,
     formState: { errors },
   } = useForm<CreateResearchGroup>();
+  const { user, setUser } = useUser();
   const [knowledgeArea, setKnowledgeArea] = useState("");
   const { data: knowledgeAreas } = useGetAllKnowledgeAreas();
   const [areas, setAreas] = useState<{ id: string; name: string }[]>([]);
@@ -64,6 +66,7 @@ const CadastrarGruposPesquisa = () => {
       name: data.name,
       description: data.description,
       knowledgeArea: data.knowledgeArea,
+      researcherId: user ? user?.id : "",
       urlCNPQ: data.urlCNPQ,
     };
 
