@@ -86,6 +86,16 @@ const Header = () => {
 
   const { user, setUser } = useUser();
 
+  const formatName = (name: string) => {
+    const firstName = name.split(" ")[0];
+    return (
+      <p className="self-center text-primary font-bold">
+        Olá,{" "}
+        {firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase()}
+      </p>
+    );
+  };
+
   const linksType = user
     ? user.role === "ADMIN"
       ? "ADMIN"
@@ -151,12 +161,13 @@ const Header = () => {
               </Button>
               <Button asChild className="rounded-full py-2.5 px-8">
                 <Link href={"/user-register"} className="font-medium">
-                  Cadastar-se
+                  Cadastrar-se
                 </Link>
               </Button>
             </>
           ) : (
             <div className="flex gap-2">
+              {user?.name ? formatName(user.name) : ""}
               <Popover>
                 <PopoverTrigger>
                   <TbBell className="text-primary/80 hover:text-primary size-8 cursor-pointer" />
@@ -196,7 +207,6 @@ const Header = () => {
                   )}
                 </PopoverContent>
               </Popover>
-
               <Popover>
                 <PopoverTrigger>
                   <TbUserCircle className="text-primary/80 hover:text-primary size-8 cursor-pointer" />
@@ -208,6 +218,24 @@ const Header = () => {
                   >
                     Meu perfil
                   </Link>
+
+                  {["COMPANY", "RESEARCHER"].includes(linksType) && (
+                    <>
+                      <Link
+                        key={linksType}
+                        href={
+                          linksType === "COMPANY"
+                            ? "/minhas-demandas"
+                            : "/meus-grupos-pesquisa"
+                        }
+                        className="font-medium hover:underline text-blue-strong"
+                      >
+                        {linksType === "COMPANY"
+                          ? "Minhas demandas"
+                          : "Meus Grupos de pesquisa"}
+                      </Link>
+                    </>
+                  )}
                   <Button
                     variant="link"
                     onClick={handleLogout}
@@ -284,7 +312,7 @@ const Header = () => {
 
               <Button asChild className="rounded-full w-full py-2.5 px-8">
                 <Link href={"/user-register"} className="font-medium">
-                  Cadastar-se
+                  Cadastrar-se
                 </Link>
               </Button>
             </>
@@ -306,6 +334,25 @@ const Header = () => {
                   Meu perfil
                 </Link>
               </DrawerClose>
+              {["COMPANY", "RESEARCHER"].includes(linksType) && (
+                <>
+                  <DrawerClose className="text-left" asChild>
+                    <Link
+                      key={linksType}
+                      href={
+                        linksType === "COMPANY"
+                          ? "/minhas-demandas"
+                          : "/meus-grupos-pesquisa"
+                      }
+                      className="items-center font-bold text-blue-strong"
+                    >
+                      {linksType === "COMPANY"
+                        ? "Minhas demandas"
+                        : "Meus Grupos de pesquisa"}
+                    </Link>
+                  </DrawerClose>
+                </>
+              )}
               <DrawerClose className="text-left" asChild>
                 <Button
                   variant="link"

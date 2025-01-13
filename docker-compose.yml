@@ -7,9 +7,9 @@ services:
       POSTGRES_PASSWORD: root
     ports:
       - "5432:5432"
-      
+
   node:
-    image: "node:22-alpine"
+    image: "node:22-alpine3.20"
     user: "node"
     working_dir: /home/node/app
     volumes:
