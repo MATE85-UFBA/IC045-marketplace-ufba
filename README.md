@@ -1,6 +1,6 @@
 # COOPERA-UFBA - Conectando demandas do Mercado a Grupos de Pesquisa da UFBA
 
-Acesse o projeto aqui [COOPERA-UFBA](http://195.200.2.55:3001/)
+Acesse o projeto aqui [COOPERA-UFBA](https://coopera.eduardovasconcelos.live/)
 
 Instrução para execução do sistema [clique aqui](https://docs.google.com/document/d/1yt6UcOyFNssNe9YfNS8Ujq660qgT9srje9f2xUI928Y/edit?usp=sharing)
 
