@@ -4,5 +4,7 @@ export type CreateResearchGroup = {
   urlCNPQ?: string;
   researcherId: string;
   knowledgeArea: string;
+  knowledgeAreas?: string[];
+  members?: string[];
   img?: string;
 };

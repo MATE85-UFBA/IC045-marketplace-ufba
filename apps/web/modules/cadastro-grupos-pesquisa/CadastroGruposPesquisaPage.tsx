@@ -66,7 +66,9 @@ const CadastrarGruposPesquisa = () => {
       name: data.name,
       description: data.description,
       knowledgeArea: data.knowledgeArea,
+      knowledgeAreas: [data.knowledgeArea],
       researcherId: user ? user?.id : "",
+      members: [user ? user?.id : ""],
       urlCNPQ: data.urlCNPQ,
     };
 

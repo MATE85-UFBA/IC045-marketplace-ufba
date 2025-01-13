@@ -25,7 +25,8 @@ export class ResearchGroupService {
       });
     if (groupAlreadyExists)
       throw new ConflictException('Grupo de pesquisa já cadastrado');
-
+    const memberId = group.members?.map((m) => ({ userId: m }));
+    const knowledgeAreasId = group.knowledgeAreas?.map((k) => ({ id: k }));
     const createdGroup = await this.prismaService.researchGroup.create({
       data: {
         name: group.name,
@@ -33,6 +34,12 @@ export class ResearchGroupService {
         urlCNPQ: group.urlCNPQ,
         img: group.img,
         researcherId: group.researcherId,
+        members: {
+          connect: memberId,
+        },
+        knowledgeAreas: {
+          connect: knowledgeAreasId,
+        },
       },
     });
 
