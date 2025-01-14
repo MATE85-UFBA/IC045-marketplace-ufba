@@ -6,7 +6,7 @@ async function getResearchGroup(groupId: string): Promise<TResearchGroup> {
   const apiURL = process.env.NEXT_PUBLIC_API_URL || "";
 
   const { data } = await api(apiURL, false).get<TResearchGroup>(
-    `/researchgroup/${groupId}?members=true&projects=true`
+    `/researchgroup/${groupId}?members=true&competences=true`
   );
 
   return data;

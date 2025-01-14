@@ -14,11 +14,10 @@ export async function SeedResearchGroups(prisma: PrismaClient) {
         { userId: '789e4567-e89b-12d3-a456-426614174000' },
       ],
     },
-    projects: {
+    competences: {
       create: [
         {
           name: 'Recommending Stores for Shopping Mall Customers with RecStore',
-          started_at: '2023-11-24T10:30:00Z',
         },
       ],
     },

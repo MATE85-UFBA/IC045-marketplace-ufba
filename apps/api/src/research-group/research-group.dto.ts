@@ -41,7 +41,7 @@ export class CreateResearchGroupDto {
   @IsOptional()
   @IsArray()
   @IsUUID('all', { each: true })
-  projects?: string[];
+  competences?: string[];
 }
 
 export class UpdateResearchGroupDto {
@@ -78,5 +78,5 @@ export class UpdateResearchGroupDto {
   @IsOptional()
   @IsArray()
   @IsUUID('all', { each: true })
-  projects?: string[];
+  competences?: string[];
 }

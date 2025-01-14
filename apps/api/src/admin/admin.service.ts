@@ -97,7 +97,7 @@ export class AdminService {
         name: true,
         _count: {
           select: {
-            projects: true,
+            competences: true,
           },
         },
       },

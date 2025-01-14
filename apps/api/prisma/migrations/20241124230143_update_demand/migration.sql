@@ -100,7 +100,7 @@ CREATE TABLE "KnowledgeArea" (
 );
 
 -- CreateTable
-CREATE TABLE "Project" (
+CREATE TABLE "Competence" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "started_at" TIMESTAMP(3) NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE "Project" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Competence_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -151,7 +151,7 @@ CREATE TABLE "Attachment" (
 );
 
 -- CreateTable
-CREATE TABLE "_KeywordToProject" (
+CREATE TABLE "_KeywordToCompetence" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL
 );
@@ -181,13 +181,13 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "ResearchGroup_name_key" ON "ResearchGroup"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Project_name_key" ON "Project"("name");
+CREATE UNIQUE INDEX "Competence_name_key" ON "Competence"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "_KeywordToProject_AB_unique" ON "_KeywordToProject"("A", "B");
+CREATE UNIQUE INDEX "_KeywordToCompetence_AB_unique" ON "_KeywordToCompetence"("A", "B");
 
 -- CreateIndex
-CREATE INDEX "_KeywordToProject_B_index" ON "_KeywordToProject"("B");
+CREATE INDEX "_KeywordToCompetence_B_index" ON "_KeywordToCompetence"("B");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_ResearchGroupMembers_AB_unique" ON "_ResearchGroupMembers"("A", "B");
@@ -217,10 +217,10 @@ ALTER TABLE "Researcher" ADD CONSTRAINT "Researcher_userId_fkey" FOREIGN KEY ("u
 ALTER TABLE "ResearchGroup" ADD CONSTRAINT "ResearchGroup_researcherId_fkey" FOREIGN KEY ("researcherId") REFERENCES "Researcher"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Project" ADD CONSTRAINT "Project_researchGroupId_fkey" FOREIGN KEY ("researchGroupId") REFERENCES "ResearchGroup"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Competence" ADD CONSTRAINT "Competence_researchGroupId_fkey" FOREIGN KEY ("researchGroupId") REFERENCES "ResearchGroup"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Project" ADD CONSTRAINT "Project_demandId_fkey" FOREIGN KEY ("demandId") REFERENCES "Demand"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Competence" ADD CONSTRAINT "Competence_demandId_fkey" FOREIGN KEY ("demandId") REFERENCES "Demand"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Demand" ADD CONSTRAINT "Demand_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -235,10 +235,10 @@ ALTER TABLE "Notification" ADD CONSTRAINT "Notification_researchGroupId_fkey" FO
 ALTER TABLE "Attachment" ADD CONSTRAINT "Attachment_demandId_fkey" FOREIGN KEY ("demandId") REFERENCES "Demand"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_KeywordToProject" ADD CONSTRAINT "_KeywordToProject_A_fkey" FOREIGN KEY ("A") REFERENCES "Keyword"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "_KeywordToCompetence" ADD CONSTRAINT "_KeywordToCompetence_A_fkey" FOREIGN KEY ("A") REFERENCES "Keyword"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_KeywordToProject" ADD CONSTRAINT "_KeywordToProject_B_fkey" FOREIGN KEY ("B") REFERENCES "Project"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "_KeywordToCompetence" ADD CONSTRAINT "_KeywordToCompetence_B_fkey" FOREIGN KEY ("B") REFERENCES "Competence"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_ResearchGroupMembers" ADD CONSTRAINT "_ResearchGroupMembers_A_fkey" FOREIGN KEY ("A") REFERENCES "ResearchGroup"("id") ON DELETE CASCADE ON UPDATE CASCADE;

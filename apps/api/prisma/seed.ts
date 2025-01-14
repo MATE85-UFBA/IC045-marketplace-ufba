@@ -7,7 +7,7 @@ import { SeedKeywords } from './seed/keywords';
 import { SeedUsers } from './seed/users';
 import { SeedResearchers } from './seed/researchers';
 import { SeedResearchGroups } from './seed/researchgroups';
-import { SeedProjects } from './seed/projects';
+import { SeedCompetences } from './seed/competences';
 import { SeedCompanies } from './seed/companies';
 import { SeedDemands } from './seed/demands';
 import { SeedNotifications } from './seed/notifications';
@@ -21,7 +21,7 @@ async function main() {
   await SeedResearchers(prisma);
   await SeedResearchGroups(prisma);
   await SeedCompanies(prisma);
-  await SeedProjects(prisma);
+  await SeedCompetences(prisma);
   await SeedDemands(prisma);
   await SeedNotifications(prisma);
 

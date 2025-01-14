@@ -1,12 +1,12 @@
 export type Keyword = { id: string; name: string };
-export type Project = { id: string; name: string };
+export type Competence = { id: string; name: string };
 export interface Demanda {
   id: string;
   name: string;
   description: string;
   status: string; //todo fazer um enum
   createdAt: string;
-  projects: Project[];
+  competences: Competence[];
   company: {
     image: string;
     contactName: string;
@@ -22,6 +22,6 @@ export interface Demanda {
     };
   };
   keywords: Keyword[];
-  public : boolean;
+  public: boolean;
   links: string[];
 }

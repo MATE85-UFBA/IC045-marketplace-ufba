@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/lib/axios";
-import { CreateProject } from "@/types/project";
+import { CreateCompetence } from "@/types/competence";
 
-async function addProject(_data: CreateProject) {
+async function addCompetence(_data: CreateCompetence) {
   const apiURL = process.env.NEXT_PUBLIC_API_URL || "";
 
   const { data } = await api(apiURL, true).post(
-    `/project`,
+    `/competence`,
     JSON.stringify(_data),
     { headers: { "content-type": "application/json" } }
   );
@@ -14,12 +14,12 @@ async function addProject(_data: CreateProject) {
   return data;
 }
 
-export default function useAddProject(
+export default function useAddCompetence(
   onSuccess: () => void,
   onError: () => void
 ) {
   return useMutation({
-    mutationFn: (data: CreateProject) => addProject(data),
+    mutationFn: (data: CreateCompetence) => addCompetence(data),
     onSuccess,
     onError,
   });

@@ -97,12 +97,12 @@ const ContactCompany = ({ query }: Props) => {
           </p>
           <div className="flex flex-wrap gap-2">
             {demanda
-              ? demanda.projects?.map((project) => (
+              ? demanda.competences?.map((competence) => (
                   <div
-                    key={project.id}
+                    key={competence.id}
                     className="bg-secondary rounded-full py-2 px-3 text-xs text-blue-strong w-28 text-center"
                   >
-                    {project.name}
+                    {competence.name}
                   </div>
                 ))
               : ""}
@@ -117,7 +117,9 @@ const ContactCompany = ({ query }: Props) => {
                 ))
               : ""}
           </div>
-          <span className="font-semibold">Empresa {demanda?.company?.user.name}</span>
+          <span className="font-semibold">
+            Empresa {demanda?.company?.user.name}
+          </span>
         </aside>
         <section className="lg:w-3/4 bg-white shadow rounded-xl p-5">
           <section>
@@ -128,10 +130,12 @@ const ContactCompany = ({ query }: Props) => {
           <hr className="my-4" />
           <section className="flex flex-col gap-4">
             <p className="text-xl">
-              <span className="font-semibold">Projeto: </span> Nome do projeto
+              <span className="font-semibold">Competência: </span> Nome da
+              competência
             </p>
             <p className="text-xl">
-              <span className="font-semibold">Empresa: </span> {demanda?.company?.user.name}
+              <span className="font-semibold">Empresa: </span>{" "}
+              {demanda?.company?.user.name}
             </p>
           </section>
           <hr className="my-4" />
@@ -148,7 +152,7 @@ const ContactCompany = ({ query }: Props) => {
               </SelectContent>
             </Select>
             <h4 className="font-semibold text-xl">Mensagem</h4>
-            <Textarea placeholder="Descreva para a empresa a sua proposta para o projeto..." />
+            <Textarea placeholder="Descreva para a empresa a sua proposta para a competência..." />
             <Button
               type="submit"
               className="rounded-full w-fit self-end py-2 px-8"

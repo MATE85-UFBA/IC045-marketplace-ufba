@@ -1,8 +1,7 @@
-export type CreateProject = {
+export type CreateCompetence = {
   researchGroupId: string;
   name: string;
   description: string;
-  started_at: Date;
-  finished_at?: Date;
+  links?: string[];
   keywords: string[];
 };
