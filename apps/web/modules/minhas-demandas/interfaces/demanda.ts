@@ -22,4 +22,6 @@ export interface Demanda {
     };
   };
   keywords: Keyword[];
+  public : boolean;
+  links: string[];
 }

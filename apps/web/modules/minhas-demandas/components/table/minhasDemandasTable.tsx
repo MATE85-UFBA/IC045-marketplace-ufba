@@ -34,7 +34,7 @@ const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
     },
     {
       accessorKey: "createdAt",
-      header: "Criado Em",
+      header: "Data de criação",
       cell: ({ row }) => format(row.getValue("createdAt"), "dd/MM/yyyy"),
     },
   ];
@@ -89,7 +89,7 @@ const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
                     <Button
                       variant={"ghost"}
                       size={"icon"}
-                      onClick={() => onEdit(row.id)}
+                      onClick={() => onEdit(row.original.id)}
                       title="Editar"
                     >
                       <CustomIcon icon={IoMdCreate} className="!size-5" />

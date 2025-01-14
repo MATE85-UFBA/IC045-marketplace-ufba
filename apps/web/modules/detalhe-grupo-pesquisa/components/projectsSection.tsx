@@ -22,10 +22,11 @@ export default function ProjectsSection(props: TProps) {
             <TableHead className="text-blue-strong font-semibold text-lg sm:text-2xl">
               Nome
             </TableHead>
-
+            {/*
             <TableHead className="text-blue-strong font-semibold text-lg sm:text-2xl">
               Status
             </TableHead>
+            */}
           </TableRow>
         </TableHeader>
         <TableBody>

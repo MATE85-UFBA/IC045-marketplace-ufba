@@ -1,9 +1,12 @@
 import { makeAutoObservable } from "mobx";
 
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { deleteUserFromLocalStorage, persistUserToLocalStorage } from "@/lib/user.storage";
+import {
+  deleteUserFromLocalStorage,
+  persistUserToLocalStorage,
+} from "@/lib/user.storage";
 import userService from "@/api/user.service";
-import {User} from "@/types/user";
+import { User, UserProfileType, UserRole } from "@/types/user";
 
 class LoginContext {
   isLoading: boolean = false;
@@ -17,6 +20,21 @@ class LoginContext {
     makeAutoObservable(this);
   }
 
+  redirectUser(userRole: UserRole, userType: UserProfileType) {
+    switch (userRole) {
+      case UserRole.ADMIN:
+        return "/painel-administrativo";
+    }
+    switch (userType) {
+      case UserProfileType.COMPANY:
+        return "/encontrar-grupo-pesquisa";
+      case UserProfileType.RESEARCHER:
+        return "/encontrar-demandas";
+      default:
+        return "/";
+    }
+  }
+
   async login(email: string, password: string, router: AppRouterInstance) {
     this.isLoading = true;
     this.errorMessage = "";
@@ -24,9 +42,10 @@ class LoginContext {
     try {
       const user: User = await userService.login(email, password);
       this.user = user;
-      persistUserToLocalStorage({...user, email});
+      persistUserToLocalStorage({ ...user, email });
       this.isAuthenticated = true;
-      router.push(this.whenLoginSuccessURL);
+
+      router.push(this.redirectUser(user.role, user.utype));
     } catch (error: any) {
       this.errorMessage = error.message || "Login failed.";
     } finally {
