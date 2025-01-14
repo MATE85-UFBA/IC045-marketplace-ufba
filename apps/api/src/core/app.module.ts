@@ -9,7 +9,7 @@ import { AuthService } from '@/auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { DemandModule } from '@/demand/demand.module';
 import { AdminModule } from '@/admin/admin.module';
-import { ProjectModule } from '@/project/project.module';
+import { CompetenceModule } from '@/competence/competence.module';
 import { ResearchGroupsModule } from '@/research-group/research-group.module';
 import { ResearchersModule } from '@/researchers/researchers.module';
 import { MailModule } from '@/mailsend/mail.module';
@@ -25,7 +25,7 @@ import { KeywordsModule } from '@/keywords/keywords.module';
     UsersModule,
     DemandModule,
     AdminModule,
-    ProjectModule,
+    CompetenceModule,
     ResearchGroupsModule,
     ResearchersModule,
     MailModule,

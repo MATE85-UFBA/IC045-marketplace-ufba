@@ -101,14 +101,14 @@ export class ResearchGroupService {
     };
   }
 
-  async findOneWithProjects(id: string) {
+  async findOneWithCompetences(id: string) {
     const group = await this.prismaService.researchGroup.findUnique({
       where: {
         id,
       },
       include: {
         leader: true,
-        projects: true,
+        competences: true,
       },
     });
 
@@ -122,7 +122,7 @@ export class ResearchGroupService {
       img: group.img,
       researcherId: group.researcherId,
       leader: group.leader,
-      projects: group.projects,
+      competences: group.competences,
     };
   }
 
@@ -133,7 +133,7 @@ export class ResearchGroupService {
       },
       include: {
         leader: true,
-        projects: true,
+        competences: true,
         members: {
           include: {
             user: {
@@ -158,7 +158,7 @@ export class ResearchGroupService {
       img: group.img,
       researcherId: group.researcherId,
       leader: group.leader,
-      projects: group.projects,
+      competences: group.competences,
       members: group.members,
     };
   }

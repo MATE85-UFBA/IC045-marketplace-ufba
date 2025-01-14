@@ -145,7 +145,7 @@ describe('AdminService', () => {
         description: 'Description 1',
         urlCNPQ: null,
         researcherId: '1',
-        _count: { projects: 2 },
+        _count: { competences: 2 },
       },
 
       {
@@ -157,7 +157,7 @@ describe('AdminService', () => {
         description: 'Description 2',
         urlCNPQ: null,
         researcherId: '2',
-        _count: { projects: 4 },
+        _count: { competences: 4 },
       },
     ];
     jest

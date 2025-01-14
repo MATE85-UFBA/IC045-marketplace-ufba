@@ -50,16 +50,16 @@ export class ResearchGroupController {
   findOne(
     @Param('id') id: string,
     @Query('members') members?: boolean,
-    @Query('projects') projects?: boolean,
+    @Query('competences') competences?: boolean,
   ) {
-    if (members && projects) {
+    if (members && competences) {
       return this.researchGroupsService.findOneComplete(id);
     }
     if (members) {
       return this.researchGroupsService.findOneWithMembers(id);
     }
-    if (projects) {
-      return this.researchGroupsService.findOneWithProjects(id);
+    if (competences) {
+      return this.researchGroupsService.findOneWithCompetences(id);
     }
     return this.researchGroupsService.findOne(id);
   }

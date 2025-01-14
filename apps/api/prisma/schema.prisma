@@ -40,12 +40,12 @@ enum UserStatus {
 }
 
 model Keyword {
-  id        String    @id @default(uuid())
-  name      String
-  projects  Project[]
-  demands   Demand[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id          String       @id @default(uuid())
+  name        String
+  competences Competence[]
+  demands     Demand[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model Company {
@@ -85,7 +85,7 @@ model ResearchGroup {
   researcherId   String
   knowledgeAreas KnowledgeArea[]
   members        Researcher[]    @relation("ResearchGroupMembers")
-  projects       Project[]
+  competences    Competence[]
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   Notifications  Notification[]
@@ -99,7 +99,7 @@ model KnowledgeArea {
   updatedAt            DateTime        @updatedAt
 }
 
-model Project {
+model Competence {
   id              String        @id @default(uuid())
   name            String        @unique
   researchGroup   ResearchGroup @relation(fields: [researchGroupId], references: [id])
@@ -119,7 +119,7 @@ model Demand {
   companyId     String
   status        String         @default("CREATED")
   public        Boolean        @default(true)
-  projects      Project[]
+  competences   Competence[]
   keywords      Keyword[]
   notifications Notification[]
   attachments   Attachment[]

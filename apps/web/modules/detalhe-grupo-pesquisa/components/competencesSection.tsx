@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/table";
 
 import React from "react";
-import { TProject } from "../types/researchgroup.type";
+import { TCompetence } from "../types/researchgroup.type";
 
 type TProps = {
-  projects: TProject[];
+  competences: TCompetence[];
 };
-export default function ProjectsSection(props: TProps) {
+export default function CompetencesSection(props: TProps) {
   return (
     <div className="bg-white rounded-2xl px-3 py-4 w-[100%]">
       <Table>
@@ -30,11 +30,11 @@ export default function ProjectsSection(props: TProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {props.projects.map((project) => {
+          {props.competences.map((competence) => {
             return (
               <TableRow>
                 <TableCell className="text-blue-light py-6">
-                  {project.name}
+                  {competence.name}
                 </TableCell>
               </TableRow>
             );

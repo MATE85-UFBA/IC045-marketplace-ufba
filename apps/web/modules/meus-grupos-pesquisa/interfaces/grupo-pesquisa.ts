@@ -11,7 +11,7 @@ export interface GrupoPesquisa {
     typeReseacher: string;
   };
   members: [];
-  projects: [];
+  competences: [];
   knowlegdeAreas: [];
   createdAt: string;
   /*
@@ -33,7 +33,7 @@ export interface GrupoPesquisa {
             urlCNPQ: "",
             leader: "",
             members: [],
-            projects: [],
+            competences: [],
             knowlegdeAreas: [ { id: 1, name: "Ações afirmativas" }, { id: 2, name: "Inclusão Digital"} ]
 
 

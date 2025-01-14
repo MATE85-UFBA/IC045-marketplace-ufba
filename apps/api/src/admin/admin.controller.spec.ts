@@ -112,12 +112,12 @@ describe('AdminController', () => {
       {
         id: '1',
         name: 'Group 1',
-        _count: { projects: 2 },
+        _count: { competences: 2 },
       },
       {
         id: '2',
         name: 'Group 2',
-        _count: { projects: 4 },
+        _count: { competences: 4 },
       },
     ];
     jest

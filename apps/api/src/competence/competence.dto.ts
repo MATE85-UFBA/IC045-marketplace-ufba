@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
-export class CreateProjectDto {
+export class CreateCompetenceDto {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -16,7 +16,7 @@ export class CreateProjectDto {
   keywords?: string[];
 }
 
-export class UpdateProjectDto {
+export class UpdateCompetenceDto {
   @IsOptional()
   @IsString()
   name?: string;

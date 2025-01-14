@@ -1,6 +1,6 @@
 "use client";
 
-import useAddProject from "@/api/projects/use-add-project";
+import useAddCompetence from "@/api/competences/use-add-competence";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,33 +12,33 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { useToast } from "@/hooks/use-toast";
-import { CreateProject } from "@/types/project";
+import { CreateCompetence } from "@/types/competence";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { useParams, useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
-import { ProjectFormData } from "./types/project-form-data";
+import { CompetenceFormData } from "./types/competence-form-data";
 import Keywords from "@/components/keywords";
 import { useState } from "react";
 import { isBefore } from "date-fns";
 
-const CadastrarProjeto = () => {
+const CadastrarCompetencia = () => {
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
 
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<ProjectFormData>();
+  } = useForm<CompetenceFormData>();
   const { toast } = useToast();
   const params = useParams<{ id: string }>();
   const router = useRouter();
-  const { mutate } = useAddProject(
+  const { mutate } = useAddCompetence(
     () => {
       toast({
         variant: "success",
         title: "Sucesso",
-        description: "O projeto foi cadastrado com sucesso.",
+        description: "A competência foi cadastrado com sucesso.",
       });
       router.back();
     },
@@ -46,19 +46,19 @@ const CadastrarProjeto = () => {
       toast({
         variant: "destructive",
         title: "Ocorreu um error",
-        description: "Ocorreu um erro ao tentar criar novo projeto.",
+        description: "Ocorreu um erro ao tentar criar nova competência.",
       });
     }
   );
 
   const [keywordRequired, setKeywordRequired] = useState<boolean>(false);
-  const onSubmit = (data: ProjectFormData) => {
+  const onSubmit = (data: CompetenceFormData) => {
     if (!selectedKeywords.length) {
       setKeywordRequired(true);
       return;
     }
 
-    const projectData: CreateProject = {
+    const competenceData: CreateCompetence = {
       researchGroupId: params.id,
       name: data.name,
       description: data.description,
@@ -70,7 +70,7 @@ const CadastrarProjeto = () => {
       keywords: selectedKeywords,
     };
 
-    mutate(projectData);
+    mutate(competenceData);
   };
 
   return (
@@ -89,14 +89,14 @@ const CadastrarProjeto = () => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbPage className="text-primary font-bold">
-                Cadastrar Projetos
+                Cadastrar Competências
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
         <div className="flex mb-4">
           <h1 className="text-4xl font-bold text-blue-strong">
-            Cadastrar Projeto
+            Cadastrar Competência
           </h1>
         </div>
         <div className="p-4 bg-white shadow rounded-xl mt-4 h-[700] max-w-[1350]">
@@ -109,7 +109,7 @@ const CadastrarProjeto = () => {
               <input
                 {...register("name", { required: true })}
                 type="text"
-                placeholder="Título do projeto"
+                placeholder="Título da competência"
                 className="w-full py-3 px-4 text-base font-medium rounded-lg border mt-2"
               />
               {errors.name && (
@@ -150,7 +150,7 @@ const CadastrarProjeto = () => {
 
             <div className="flex flex-row gap-4 justify-center mt-10">
               <Button type="submit" className="rounded-full py-2.5 px-8">
-                Cadastrar projeto
+                Cadastrar competência
               </Button>
               <Button
                 variant={"outline"}
@@ -167,4 +167,4 @@ const CadastrarProjeto = () => {
   );
 };
 
-export default CadastrarProjeto;
+export default CadastrarCompetencia;

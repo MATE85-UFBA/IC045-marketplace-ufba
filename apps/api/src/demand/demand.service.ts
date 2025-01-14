@@ -106,7 +106,7 @@ export class DemandService {
         public: true,
       },
       include: {
-        projects: true,
+        competences: true,
         company: {
           include: {
             user: true,

@@ -1,19 +1,19 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProjectController } from '../project.controller';
-import { ProjectService } from '../project.service';
+import { CompetenceController } from '../competence.controller';
+import { CompetenceService } from '../competence.service';
 import { PrismaService } from '@/infra/database/prisma.service';
 import { ResearchGroupService } from '@/research-group/research-group.service';
 
-describe('ProjectController', () => {
-  let controller: ProjectController;
+describe('CompetenceController', () => {
+  let controller: CompetenceController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ProjectController],
-      providers: [ProjectService, PrismaService, ResearchGroupService],
+      controllers: [CompetenceController],
+      providers: [CompetenceService, PrismaService, ResearchGroupService],
     }).compile();
 
-    controller = module.get<ProjectController>(ProjectController);
+    controller = module.get<CompetenceController>(CompetenceController);
   });
 
   it('should be defined', () => {

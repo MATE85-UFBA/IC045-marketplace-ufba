@@ -15,18 +15,20 @@ import MembersSection from "./components/membersSection";
 import { useParams, useRouter } from "next/navigation";
 import useGetResearchGroup from "@/api/grupos/use-get-research-group";
 import React from "react";
-import ProjectsSection from "./components/projectsSection";
+import CompetencesSection from "./components/competencesSection";
 
 enum ETabs {
   MEMBERS = "membros",
-  PROJECTS = "projetos",
+  COMPETENCES = "competencias",
 }
 export default function DetalheGrupoPesquisaPage() {
   const params = useParams();
   const router = useRouter();
   const groupId = params.id;
 
-  const [selectedTab, setSelectedTab] = React.useState<ETabs>(ETabs.PROJECTS);
+  const [selectedTab, setSelectedTab] = React.useState<ETabs>(
+    ETabs.COMPETENCES
+  );
 
   const {
     data: researchGroup,
@@ -34,8 +36,8 @@ export default function DetalheGrupoPesquisaPage() {
     error,
     isLoading,
   } = useGetResearchGroup(groupId as string);
-  const handleAddProject = () => {
-    router.push(`/cadastro-projetos/${groupId}`);
+  const handleAddCompetence = () => {
+    router.push(`/cadastro-competencias/${groupId}`);
   };
   const handleTabChange = (tab: ETabs) => {
     setSelectedTab(tab);
@@ -60,7 +62,7 @@ export default function DetalheGrupoPesquisaPage() {
               <BreadcrumbItem>
                 <BreadcrumbLink
                   className="hover:text-blue-strong"
-                  href="/cadastro-projetos"
+                  href="/cadastro-competencias"
                 >
                   Grupos de Pesquisa
                 </BreadcrumbLink>
@@ -79,9 +81,9 @@ export default function DetalheGrupoPesquisaPage() {
               {researchGroup?.name}
             </h1>
 
-            <Button className="rounded-full" onClick={handleAddProject}>
+            <Button className="rounded-full" onClick={handleAddCompetence}>
               <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" />{" "}
-              Novo Projeto
+              Nova Competência
             </Button>
           </div>
         </div>
@@ -104,10 +106,10 @@ export default function DetalheGrupoPesquisaPage() {
               <Button
                 className="rounded-full"
                 onClick={() => {
-                  handleTabChange(ETabs.PROJECTS);
+                  handleTabChange(ETabs.COMPETENCES);
                 }}
               >
-                Projetos
+                Competências
               </Button>
 
               <Button
@@ -123,7 +125,7 @@ export default function DetalheGrupoPesquisaPage() {
               selectedTab == ETabs.MEMBERS ? (
                 <MembersSection members={researchGroup?.members} />
               ) : (
-                <ProjectsSection projects={researchGroup?.projects} />
+                <CompetencesSection competences={researchGroup?.competences} />
               )
             ) : (
               <div>Carregando...</div>

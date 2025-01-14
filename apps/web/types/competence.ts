@@ -1,4 +1,4 @@
-export type CreateProject = {
+export type CreateCompetence = {
   researchGroupId: string;
   name: string;
   description: string;

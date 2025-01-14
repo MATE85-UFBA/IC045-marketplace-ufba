@@ -14,7 +14,7 @@ export type TUser = {
   email: string;
 };
 
-export type TProject = {
+export type TCompetence = {
   id: string;
   name: string;
   researchGroupId: string;
@@ -41,5 +41,5 @@ export type TResearchGroup = {
   researcherId: string;
   leader: TLeader;
   members: TMember[];
-  projects: TProject[];
+  competences: TCompetence[];
 };
