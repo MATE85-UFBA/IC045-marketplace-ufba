@@ -26,7 +26,7 @@ export default function DetalheGrupoPesquisaPage() {
   const router = useRouter();
   const groupId = params.id;
 
-  const [selectedTab, setSelectedTab] = React.useState<ETabs>(ETabs.MEMBERS);
+  const [selectedTab, setSelectedTab] = React.useState<ETabs>(ETabs.PROJECTS);
 
   const {
     data: researchGroup,
@@ -104,19 +104,19 @@ export default function DetalheGrupoPesquisaPage() {
               <Button
                 className="rounded-full"
                 onClick={() => {
-                  handleTabChange(ETabs.MEMBERS);
+                  handleTabChange(ETabs.PROJECTS);
                 }}
               >
-                Lista de Membros
+                Projetos
               </Button>
 
               <Button
                 className="rounded-full"
                 onClick={() => {
-                  handleTabChange(ETabs.PROJECTS);
+                  handleTabChange(ETabs.MEMBERS);
                 }}
               >
-                Lista de Projetos
+                Membros
               </Button>
             </div>
             {researchGroup ? (

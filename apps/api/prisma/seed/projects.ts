@@ -17,7 +17,7 @@ export async function SeedProjects(prisma: PrismaClient) {
     },
   ];
   const project1 = {
-    name: 'Recommend System',
+    name: 'Recommend System of model LLM for Software Engineering',
     researchGroupId: '5df58413-dadb-446b-91d7-e82ffce3e24a',
     keywords: {
       connect: [{ id: '34341378-0816-4fd1-8044-53d7f1a875b9' }],

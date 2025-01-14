@@ -111,6 +111,7 @@ describe('DemandService', () => {
         createdAt: expect.any(Date),
         keywords: {
           connect: [],
+          set: [],
         },
       },
       where: {

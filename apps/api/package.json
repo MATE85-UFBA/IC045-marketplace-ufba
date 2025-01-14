@@ -11,7 +11,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main.js",
     "seed-db": "ts-node prisma/seed.ts",
     "ci:migrate-prisma": "DATABASE_URL=postgresql://postgres:root@localhost:5432/database?schema=public prisma db push",
     "ci:seed-db": "DATABASE_URL=postgresql://postgres:root@localhost:5432/database?schema=public ts-node prisma/seed.ts",

@@ -1,9 +1,12 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import homeBanner from "@/public/home-banner.png";
 import Link from "next/link";
 import Image from "next/image";
+import { useUser } from "@/context/UserContext";
 
 export default function Home() {
+  const { user } = useUser();
   return (
     <main className="max-w-screen-xl mx-auto px-8 pb-8">
       <section className="flex flex-col lg:flex-row items-center py-8">
@@ -15,20 +18,22 @@ export default function Home() {
             Cadastre seu projeto e descubra grupos de pesquisa prontos para
             desenvolver soluções de impacto!
           </p>
-          <div className="flex gap-4 flex-col sm:flex-row max-lg:justify-center">
-            <Button className="rounded-full text-base px-9 py-2.5" asChild>
-              <Link href="/cadastro-demandas">Cadastre sua ideia</Link>
-            </Button>
-            <Button
-              variant={"outline"}
-              className="rounded-full text-base px-9 py-2.5"
-              asChild
-            >
-              <Link href="/encontrar-grupo-pesquisa">
-                Conecte-se com especialistas
-              </Link>
-            </Button>
-          </div>
+          {!user && (
+            <div className="flex gap-4 flex-col sm:flex-row max-lg:justify-center">
+              <Button className="rounded-full text-base px-9 py-2.5" asChild>
+                <Link href="/cadastro-demandas">Cadastre sua ideia</Link>
+              </Button>
+              <Button
+                variant={"outline"}
+                className="rounded-full text-base px-9 py-2.5"
+                asChild
+              >
+                <Link href="/encontrar-grupo-pesquisa">
+                  Conecte-se com especialistas
+                </Link>
+              </Button>
+            </div>
+          )}
         </div>
         <Image
           src={homeBanner}

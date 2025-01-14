@@ -1,6 +1,8 @@
 services:
   db:
     image: postgres:latest
+    networks:
+      - nginxproxymanager_default
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: marketplace_db
@@ -9,30 +11,34 @@ services:
       - "5432:5432"
       
   node:
-    image: "node:22-alpine"
+    image: "node:22"
     user: "root"
     working_dir: /home/node/app
     volumes:
-      - ./apps/api:/home/node/app
+      - /marketplace/IC045-marketplace-ufba/apps/api:/home/node/app
+    networks:
+      - nginxproxymanager_default
     depends_on:
       - db
     expose:
       - "8080"
-    ports: # use if it is necessary to expose the container to the host machine
+    ports: 
       - "8080:8080"
-    entrypoint: sh -c 'rm -rf node_modules && npm install && npx prisma db push && npx prisma generate && npm run seed-db && npm run build && npm run start'
+    entrypoint: sh -c 'rm -rf node_modules && npm install && npx prisma db push && npx prisma generate && npm run seed-db && npm run build && npm run start:prod'
 
   frontend:
     image: "node:22-alpine"
     user: "root"
     working_dir: /home/node/web
     volumes:
-      - ./apps/web:/home/node/web
+      - /marketplace/IC045-marketplace-ufba/apps/web:/home/node/web
+    networks:
+      - nginxproxymanager_default
     depends_on:
       - node
     expose:
       - "3001"
-    ports: # use if it is necessary to expose the container to the host machine
+    ports: 
       - "3001:3001"
     entrypoint: sh -c 'npm install && npm run build && npm run start'
 
@@ -41,11 +47,18 @@ services:
     user: "root"
     working_dir: /home/node/app
     volumes:
-      - ./apps/api:/home/node/app
+      - /marketplace/IC045-marketplace-ufba/apps/api:/home/node/app
+    networks:
+      - nginxproxymanager_default
     depends_on:
       - node
     expose:
       - "5555"
-    ports: # use if it is necessary to expose the container to the host machine
+    ports: 
       - "5555:5555"
     entrypoint: sh -c 'npx prisma studio'
+
+networks:
+  nginxproxymanager_default:
+    name: nginxproxymanager_default
+    external: true
