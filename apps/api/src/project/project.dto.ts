@@ -1,23 +1,9 @@
-import {
-  IsISO8601,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  IsUUID,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateProjectDto {
   @IsNotEmpty()
   @IsString()
   name: string;
-
-  @IsNotEmpty()
-  @IsISO8601()
-  started_at: Date;
-
-  @IsOptional()
-  @IsISO8601()
-  finished_at?: Date;
 
   @IsNotEmpty()
   @IsUUID()
@@ -34,14 +20,6 @@ export class UpdateProjectDto {
   @IsOptional()
   @IsString()
   name?: string;
-
-  @IsOptional()
-  @IsISO8601()
-  started_at?: Date;
-
-  @IsOptional()
-  @IsISO8601()
-  finished_at?: Date;
 
   @IsOptional()
   @IsUUID()
