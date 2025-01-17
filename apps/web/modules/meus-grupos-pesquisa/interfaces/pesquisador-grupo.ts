@@ -9,4 +9,5 @@ export type MyResearchGroup = {
 export type PesquisadorGrupo = {
   id: string;
   groupsAsMember: MyResearchGroup[];
+  groupsAsLeader: MyResearchGroup[];
 }

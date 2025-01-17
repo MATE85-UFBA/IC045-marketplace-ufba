@@ -19,6 +19,7 @@ export interface Demanda {
     };
     user: {
       name: string;
+      id: string;
     };
   };
   keywords: Keyword[];

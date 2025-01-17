@@ -24,6 +24,9 @@ export class CompanyService {
             throw new NotFoundException("Company not found");
         }
 
-        this.mailService.sendTextEmail(company?.email, "Coopera UFBA - Nova demanda", `Nova demanda de pesquisa do grupo ${research_group}. <br> ${message}`);
+
+        this.mailService.sendTextEmail(company?.email, "Coopera UFBA - Nova mensagem", `Nova mensagem do grupo de pesquisa: ${research_group}. <br> Mensagem: <br> ${message}`);
+
+        return "Email sent";
     }
 }
