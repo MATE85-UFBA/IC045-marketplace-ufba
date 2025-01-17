@@ -7,8 +7,19 @@ export class CompanyController {
   constructor(private companyService: CompanyService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post("/send-email")
-  sendEmail(@Body() body: { message: string; research_group: string; companyId: string }) {
-    return this.companyService.sendEmail(body.message, body.research_group, body.companyId);
+  @Post('/send-email')
+  sendEmail(
+    @Body()
+    body: {
+      message: string;
+      research_group: string;
+      companyId: string;
+    },
+  ) {
+    return this.companyService.sendEmail(
+      body.message,
+      body.research_group,
+      body.companyId,
+    );
   }
 }

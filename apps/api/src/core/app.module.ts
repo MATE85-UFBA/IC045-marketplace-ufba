@@ -31,7 +31,7 @@ import { CompanyModule } from '@/company/company.module';
     ResearchersModule,
     MailModule,
     KeywordsModule,
-    CompanyModule
+    CompanyModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, PrismaService, JwtService],
