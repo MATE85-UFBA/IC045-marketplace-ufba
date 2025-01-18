@@ -58,25 +58,15 @@ const CadastrarProjeto = () => {
       return;
     }
 
-    if (
-      data.finished_at &&
-      isBefore(new Date(data.finished_at), new Date(data.started_at))
-    ) {
-      toast({
-        variant: "destructive",
-        title: "Data inválida",
-        description: "Data de finalização deve ser posterior a data de início.",
-      });
-
-      return;
-    }
-
     const projectData: CreateProject = {
       researchGroupId: params.id,
       name: data.name,
       description: data.description,
-      started_at: new Date(data.started_at),
-      finished_at: data.finished_at ? new Date(data.finished_at) : undefined,
+      links: data.links
+        ? Array.isArray(data.links)
+          ? data.links
+          : [data.links]
+        : [],
       keywords: selectedKeywords,
     };
 
@@ -148,29 +138,15 @@ const CadastrarProjeto = () => {
 
             {keywordRequired && <span>Este Campo é obrigatório</span>}
 
-            <div className="grid grid-cols-2 gap-4">
-              <label className="flex gap-2 font-bold text-blue-strong mt-4">
-                Data de Início*
-                <CalendarIcon className="w-6 h-6" />
-                <input
-                  type="date"
-                  {...register("started_at", { required: true })}
-                  className="w-full py-3 px-4 text-base font-normal rounded-lg border"
-                />
-              </label>
-
-              {errors.started_at && <span>Este Campo é obrigatório</span>}
-
-              <label className="flex gap-2 font-bold text-blue-strong mt-4">
-                Data de Fim
-                <CalendarIcon className="w-6 h-6" />
-                <input
-                  type="date"
-                  {...register("finished_at", { required: false })}
-                  className="w-full py-3 px-4 text-base font-normal rounded-lg border"
-                />
-              </label>
-            </div>
+            <label className="font-bold text-blue-strong mt-4">
+              Links Úteis
+              <input
+                type="url"
+                placeholder="Informe links úteis"
+                className="w-full py-3 px-4 text-base font-normal rounded-lg border mt-2"
+                {...register("links", { required: false })}
+              />
+            </label>
 
             <div className="flex flex-row gap-4 justify-center mt-10">
               <Button type="submit" className="rounded-full py-2.5 px-8">
