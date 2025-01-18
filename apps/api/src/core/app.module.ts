@@ -14,6 +14,7 @@ import { ResearchGroupsModule } from '@/research-group/research-group.module';
 import { ResearchersModule } from '@/researchers/researchers.module';
 import { MailModule } from '@/mailsend/mail.module';
 import { KeywordsModule } from '@/keywords/keywords.module';
+import { CompanyModule } from '@/company/company.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { KeywordsModule } from '@/keywords/keywords.module';
     ResearchersModule,
     MailModule,
     KeywordsModule,
+    CompanyModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, PrismaService, JwtService],

@@ -89,7 +89,7 @@ export class ResearchersService {
                 },
               },
               orderBy: {
-                createdAt: order,
+                createdAt: order || 'asc',
               },
             }
           : false,
