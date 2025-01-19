@@ -73,6 +73,10 @@ const CadastrarDemanda = () => {
     mutate(demandData);
   };
 
+  const handleRedirect = () => {
+    router.back();
+  };
+
   return (
     <main className="p-8 w-full flex justify-center">
       <section className="max-w-7xl w-full">
@@ -182,6 +186,7 @@ const CadastrarDemanda = () => {
               <Button
                 variant={"outline"}
                 className="rounded-full py-2.5 px-8"
+                onClick={handleRedirect}
                 type="reset"
               >
                 Cancelar

@@ -15,12 +15,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { FaTrash } from "react-icons/fa";
 import { IoMdCreate } from "react-icons/io";
 import { Demanda } from "../../interfaces/demanda";
 import { CustomIcon } from "@/modules/components/icon/customIcon";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { format } from "date-fns";
+import { DeleteModal } from "../modal/deleteModal";
 interface Params {
   data: Demanda[];
   onDelete: (id: string) => void;
@@ -94,14 +94,10 @@ const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
                     >
                       <CustomIcon icon={IoMdCreate} className="!size-5" />
                     </Button>
-                    <Button
-                      variant={"ghost"}
-                      size={"icon"}
-                      onClick={() => onDelete(row.original.id)}
-                      title="Apagar"
-                    >
-                      <CustomIcon icon={FaTrash} className="!size-5" />
-                    </Button>
+                    <DeleteModal
+                      onDelete={onDelete}
+                      demandId={row.original.id}
+                    />
                   </div>
                 </TableCell>
               </TableRow>

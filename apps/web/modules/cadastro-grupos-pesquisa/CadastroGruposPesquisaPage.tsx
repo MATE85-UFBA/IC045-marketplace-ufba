@@ -23,6 +23,7 @@ import useAddResearchGroup from "@/api/research-group/use-add-research-group";
 import useGetAllKnowledgeAreas from "@/api/research-group/use-get-all-knowledgeAreas";
 import { CreateResearchGroup } from "@/types/researchGroup";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const CadastrarGruposPesquisa = () => {
   const {
@@ -36,6 +37,7 @@ const CadastrarGruposPesquisa = () => {
   const { data: knowledgeAreas } = useGetAllKnowledgeAreas();
   const [areas, setAreas] = useState<{ id: string; name: string }[]>([]);
   const { toast } = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     setValue("knowledgeArea", knowledgeArea);
@@ -73,6 +75,10 @@ const CadastrarGruposPesquisa = () => {
     };
 
     mutate(researchGroupData);
+  };
+
+  const handleRedirect = () => {
+    router.back();
   };
 
   return (
@@ -145,7 +151,9 @@ const CadastrarGruposPesquisa = () => {
                 </SelectTrigger>
                 <SelectContent>
                   {areas.map((area) => (
-                    <SelectItem value={area.id}>{area.name}</SelectItem>
+                    <SelectItem key={area.id} value={area.id}>
+                      {area.name}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -187,6 +195,7 @@ const CadastrarGruposPesquisa = () => {
                 variant={"outline"}
                 className="rounded-full py-2.5 px-8"
                 type="reset"
+                onClick={handleRedirect}
               >
                 Cancelar
               </Button>
