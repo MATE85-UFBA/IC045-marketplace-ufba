@@ -9,6 +9,7 @@ const columns: ColumnDef<UserType>[] = [
     accessorKey: "name",
     header: ({ column }) => (
       <Button
+        className="font-bold text-xl"
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
@@ -23,6 +24,7 @@ const columns: ColumnDef<UserType>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="font-bold text-xl"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -42,6 +44,7 @@ const columns: ColumnDef<UserType>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="font-bold text-xl"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -67,6 +70,7 @@ const columns: ColumnDef<UserType>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="font-bold text-xl"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -89,7 +93,9 @@ const columns: ColumnDef<UserType>[] = [
   },
   {
     id: "actions",
-    header: () => <div className="text-blue-light">Ações</div>,
+    header: () => (
+      <div className="text-blue-light font-bold text-xl">Ações</div>
+    ),
     cell: ({ row }) => {
       const { original } = row;
       return <EditModal {...original} />;

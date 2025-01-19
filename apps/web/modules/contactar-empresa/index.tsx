@@ -28,6 +28,8 @@ import useSendMail from "@/api/demandas/use-send-email";
 import { useToast } from "@/hooks/use-toast";
 import useGetMyResearchGroups from "@/api/research-group/use-get-my-research-group";
 import { MyResearchGroup } from "../meus-grupos-pesquisa/interfaces/pesquisador-grupo";
+import { useUser } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
 
 interface Props {
   query: any;
@@ -35,7 +37,11 @@ interface Props {
 const ContactCompany = ({ query }: Props) => {
   const [demanda, setDemanda] = useState<Demanda>();
   const [message, setMessage] = useState<string>("");
-  const [myResearchGroups, setMyResearchGroups] = useState<MyResearchGroup[]>([]);
+  const [myResearchGroups, setMyResearchGroups] = useState<MyResearchGroup[]>(
+    []
+  );
+  const { user } = useUser();
+  const router = useRouter();
   const [selectedGroup, setSelectedGroup] = useState<string>("");
   const getDemand = useGetOneDemand(
     (data) => {
@@ -44,33 +50,37 @@ const ContactCompany = ({ query }: Props) => {
     () => {}
   );
 
+  if (!user) {
+    router.push("/login");
+  }
+
   const { toast } = useToast();
 
   const { mutate, isPending } = useSendMail(
-          () => {
-              toast({
-                  variant: "success",
-                  title: "Sucesso",
-                  description: "O email foi enviado com sucesso.",
-              });
-          },
-          () => {
-              toast({
-                  variant: "destructive",
-                  title: "Ocorreu um error",
-                  description: "Ocorreu um erro ao tentar enviar o email.",
-              });
-          },
-      );
+    () => {
+      toast({
+        variant: "success",
+        title: "Sucesso",
+        description: "O email foi enviado com sucesso.",
+      });
+    },
+    () => {
+      toast({
+        variant: "destructive",
+        title: "Ocorreu um error",
+        description: "Ocorreu um erro ao tentar enviar o email.",
+      });
+    }
+  );
 
-    const myResearchGroup = useGetMyResearchGroups("", "");
+  const myResearchGroup = useGetMyResearchGroups("", "asc");
 
   useEffect(() => {
     const idDemanda = query.get("idDemanda");
 
     if (idDemanda) {
-      getDemand.mutate(idDemanda)
-    };
+      getDemand.mutate(idDemanda);
+    }
   }, [query]);
 
   useEffect(() => {
@@ -82,15 +92,14 @@ const ContactCompany = ({ query }: Props) => {
     }
   }, [myResearchGroup.data]);
 
-    const handleSubmitSendMail = ()=>{
-
-      if (demanda) mutate({
+  const handleSubmitSendMail = () => {
+    if (demanda)
+      mutate({
         message: message,
         research_group: selectedGroup,
-        companyId: demanda.company.user.id
+        companyId: demanda.company.user.id,
       });
-    } 
-  
+  };
 
   return (
     <main className="p-8 w-full flex flex-col flex-grow items-center">
@@ -164,7 +173,9 @@ const ContactCompany = ({ query }: Props) => {
                 ))
               : ""}
           </div>
-          <span className="font-semibold">Empresa {demanda?.company?.user.name}</span>
+          <span className="font-semibold">
+            Empresa {demanda?.company?.user.name}
+          </span>
         </aside>
         <section className="lg:w-3/4 bg-white shadow rounded-xl p-5">
           <section>
@@ -175,10 +186,8 @@ const ContactCompany = ({ query }: Props) => {
           <hr className="my-4" />
           <section className="flex flex-col gap-4">
             <p className="text-xl">
-              <span className="font-semibold">Projeto: </span> Nome do projeto
-            </p>
-            <p className="text-xl">
-              <span className="font-semibold">Empresa: </span> {demanda?.company?.user.name}
+              <span className="font-semibold">Empresa: </span>{" "}
+              {demanda?.company?.user.name}
             </p>
           </section>
           <hr className="my-4" />
@@ -189,17 +198,20 @@ const ContactCompany = ({ query }: Props) => {
                 <SelectValue placeholder="Selecione o Grupo de Pesquisa" />
               </SelectTrigger>
               <SelectContent>
-                {myResearchGroups && (
+                {myResearchGroups &&
                   myResearchGroups.map((group: any) => (
                     <SelectItem key={group.id} value={group.name}>
                       {group.name}
                     </SelectItem>
-                  ))
-                )}
+                  ))}
               </SelectContent>
             </Select>
             <h4 className="font-semibold text-xl">Mensagem</h4>
-            <Textarea placeholder="Descreva para a empresa a sua proposta para o projeto..." onChange={(e)=> setMessage(e.target.value) } required />
+            <Textarea
+              placeholder="Descreva para a empresa a sua proposta para o projeto..."
+              onChange={(e) => setMessage(e.target.value)}
+              required
+            />
             <Button
               type="submit"
               className="rounded-full w-fit self-end py-2 px-8"

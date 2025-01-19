@@ -73,6 +73,10 @@ const CadastrarProjeto = () => {
     mutate(projectData);
   };
 
+  const handleRedirect = () => {
+    router.back();
+  };
+
   return (
     <main className="p-8 w-full flex flex-1 justify-center">
       <section className="max-w-7xl w-full">
@@ -156,6 +160,7 @@ const CadastrarProjeto = () => {
                 variant={"outline"}
                 className="rounded-full py-2.5 px-8"
                 type="reset"
+                onClick={handleRedirect}
               >
                 Cancelar
               </Button>

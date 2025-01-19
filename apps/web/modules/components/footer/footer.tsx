@@ -5,7 +5,7 @@ const Footer = () => {
         Copyright © 2024
         {new Date().getFullYear() === 2024
           ? " "
-          : `- ${new Date().getFullYear()} `}
+          : ` - ${new Date().getFullYear()} `}
         Todos os direitos reservados
       </p>
     </footer>
