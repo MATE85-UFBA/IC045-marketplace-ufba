@@ -1,14 +1,23 @@
 import { PrismaService } from '@/infra/database/prisma.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateDemandDTO, UpdateDemandDTO } from './demand.dto';
-import { Demand } from '@prisma/client';
+import { Demand, UserStatus } from '@prisma/client';
+import { UserService } from '@/user/user.service';
 
 @Injectable()
 export class DemandService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly userService: UserService,
+  ) {}
 
   async create(demand: CreateDemandDTO, companyId: string): Promise<Demand> {
-    const { name, description } = demand;
+    const { name, description, keywords = [] } = demand;
+    const keywordsIds = keywords.map((k) => ({ id: k }));
 
     return this.prismaService.demand.create({
       data: {
@@ -16,6 +25,9 @@ export class DemandService {
         description: description,
         name: name,
         public: demand.public,
+        keywords: {
+          connect: keywordsIds,
+        },
       },
     });
   }
@@ -30,7 +42,11 @@ export class DemandService {
           },
         },
         include: {
-          company: true,
+          company: {
+            include: {
+              user: true,
+            },
+          },
           keywords: true,
         },
       }) || []
@@ -47,7 +63,11 @@ export class DemandService {
           },
         },
         include: {
-          company: true,
+          company: {
+            include: {
+              user: true,
+            },
+          },
           keywords: true,
         },
       }) || []
@@ -62,24 +82,140 @@ export class DemandService {
   }
 
   async patch(id: string, demand: UpdateDemandDTO): Promise<Demand> {
+    const { keywords = [] } = demand;
+    const keywordsIds = keywords.map((k) => ({ id: k }));
+
+    delete demand.keywords;
+
     const savedDemand = await this.prismaService.demand.findUniqueOrThrow({
       where: { id },
     });
 
     const updated = { ...savedDemand, ...demand };
 
-    return this.prismaService.demand.update({ where: { id }, data: updated });
+    return this.prismaService.demand.update({
+      where: { id },
+      data: { ...updated, keywords: { set: [], connect: keywordsIds } },
+    });
   }
 
   async findOne(id: string): Promise<Demand> {
     const demand = await this.prismaService.demand.findUnique({
-      where: { id },
+      where: {
+        id,
+        public: true,
+      },
+      include: {
+        projects: true,
+        company: {
+          include: {
+            user: true,
+          },
+        },
+        keywords: true,
+      },
     });
 
     if (!demand) {
-      throw new NotFoundException('Demanda não encontrado');
+      throw new NotFoundException('Demanda não encontrada');
     }
 
     return demand;
+  }
+
+  async findOneIncludingPrivate(id: string, userId: string): Promise<Demand> {
+    const demand = await this.prismaService.demand.findUnique({
+      where: { id },
+      include: {
+        company: {
+          include: {
+            user: true,
+          },
+        },
+        keywords: true,
+      },
+    });
+
+    if (!demand) {
+      throw new NotFoundException('Demanda não encontrada');
+    }
+
+    if (demand.public) {
+      return demand;
+    }
+
+    const user = await this.userService.findOneWithProfiles(userId);
+
+    if (user.researcher && user.status == UserStatus.APPROVED) {
+      return demand;
+    }
+
+    if (demand?.company?.user?.id == userId) {
+      return demand;
+    }
+
+    throw new ForbiddenException('Você não tem acesso a esta demanda');
+  }
+
+  async suggest(
+    query: string,
+  ): Promise<{ id: string; name: string; description: string }[]> {
+    return this.prismaService.demand.findMany({
+      where: {
+        OR: [
+          { name: { contains: query, mode: 'insensitive' } },
+          { description: { contains: query, mode: 'insensitive' } },
+          {
+            keywords: {
+              some: { name: { contains: query, mode: 'insensitive' } },
+            },
+          },
+        ],
+      },
+      orderBy: {
+        createdAt: 'desc', // Ordena pelas demandas mais recentes
+      },
+      include: {
+        company: {
+          include: {
+            user: true,
+          },
+        },
+        keywords: true,
+      },
+      take: 10, // Limita os resultados a 10 sugestões
+    });
+  }
+
+  async suggestFilter(
+    query: string,
+    userId: string,
+  ): Promise<{ id: string; name: string; description: string }[]> {
+    return this.prismaService.demand.findMany({
+      where: {
+        companyId: userId,
+        OR: [
+          { name: { contains: query, mode: 'insensitive' } },
+          { description: { contains: query, mode: 'insensitive' } },
+          {
+            keywords: {
+              some: { name: { contains: query, mode: 'insensitive' } },
+            },
+          },
+        ],
+      },
+      orderBy: {
+        createdAt: 'desc', // Ordena pelas demandas mais recentes
+      },
+      include: {
+        company: {
+          include: {
+            user: true,
+          },
+        },
+        keywords: true,
+      },
+      take: 10, // Limita os resultados a 10 sugestões
+    });
   }
 }

@@ -25,7 +25,8 @@ export class ResearchGroupService {
       });
     if (groupAlreadyExists)
       throw new ConflictException('Grupo de pesquisa já cadastrado');
-
+    const memberId = group.members?.map((m) => ({ userId: m }));
+    const knowledgeAreasId = group.knowledgeAreas?.map((k) => ({ id: k }));
     const createdGroup = await this.prismaService.researchGroup.create({
       data: {
         name: group.name,
@@ -33,6 +34,12 @@ export class ResearchGroupService {
         urlCNPQ: group.urlCNPQ,
         img: group.img,
         researcherId: group.researcherId,
+        members: {
+          connect: memberId,
+        },
+        knowledgeAreas: {
+          connect: knowledgeAreasId,
+        },
       },
     });
 
@@ -127,7 +134,17 @@ export class ResearchGroupService {
       include: {
         leader: true,
         projects: true,
-        members: true,
+        members: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -193,5 +210,39 @@ export class ResearchGroupService {
         name,
       },
     });
+  }
+
+  async search(query: string, area: string) {
+    return await this.prismaService.researchGroup.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            description: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+        ],
+        AND: [
+          area
+            ? {
+                knowledgeAreas: {
+                  some: { name: { in: area.split('/'), mode: 'insensitive' } },
+                },
+              }
+            : {},
+        ],
+      },
+    });
+  }
+
+  async findAllKnowledgeAreas() {
+    return await this.prismaService.knowledgeArea.findMany();
   }
 }

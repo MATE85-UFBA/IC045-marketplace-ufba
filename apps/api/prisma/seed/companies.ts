@@ -13,7 +13,8 @@ export async function SeedCompanies(prisma: PrismaClient) {
             id: '7405974c-6ef1-4d0c-9be0-962b7d97c8d9',
             name: 'Gestão de consumo elétrico de dispositivo de IoT.',
             public: true,
-            description: 'teste description',
+            description:
+              'Otimização do consumo energético de dispositivos IoT através de monitoramento e controle em tempo real, promovendo a sustentabilidade e reduzindo custos.',
           },
         ],
       },
@@ -21,12 +22,6 @@ export async function SeedCompanies(prisma: PrismaClient) {
     {
       userId: '09e1f3d8-6ff2-4187-8e99-55de3fb97040',
       contactName: 'Contact',
-      contactEmail: 'contact@nvidia.com',
-      contactPhone: '(71) 00000-0000',
-    },
-    {
-      userId: '6d78e1e5-5917-4a81-bce6-65610e79d4f1',
-      contactName: 'Fred durao inc.',
       contactEmail: 'contact@nvidia.com',
       contactPhone: '(71) 00000-0000',
     },

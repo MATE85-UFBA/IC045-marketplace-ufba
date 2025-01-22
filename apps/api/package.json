@@ -11,7 +11,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main.js",
     "seed-db": "ts-node prisma/seed.ts",
     "ci:migrate-prisma": "DATABASE_URL=postgresql://postgres:root@localhost:5432/database?schema=public prisma db push",
     "ci:seed-db": "DATABASE_URL=postgresql://postgres:root@localhost:5432/database?schema=public ts-node prisma/seed.ts",
@@ -33,6 +33,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^8.0.7",
     "@prisma/client": "^5.20.0",
+    "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
@@ -40,7 +41,8 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

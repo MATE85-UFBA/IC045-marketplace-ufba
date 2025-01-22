@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AdminService } from './admin.service';
 import { PrismaService } from '../infra/database/prisma.service';
-import { UpdateUserDto } from '@/user/user.dto';
-import { UserRole } from '@prisma/client';
+import { UserRole, UserStatus } from '@prisma/client';
+import * as UserTypes from '@/user/utils/user.types.util';
 
 describe('AdminService', () => {
   let service: AdminService;
@@ -19,6 +19,20 @@ describe('AdminService', () => {
               findMany: jest.fn(),
               update: jest.fn(),
               delete: jest.fn(),
+            },
+            researcher: {
+              count: jest.fn(),
+            },
+            company: {
+              count: jest.fn(),
+            },
+            researchGroup: {
+              count: jest.fn(),
+              findMany: jest.fn(),
+            },
+            demand: {
+              count: jest.fn(),
+              groupBy: jest.fn(),
             },
           },
         },
@@ -41,38 +55,13 @@ describe('AdminService', () => {
         resetToken: null,
         createdAt: new Date(),
         updatedAt: new Date(),
+        status: UserStatus.APPROVED,
+        utype: UserTypes.NONE,
       },
     ];
     jest.spyOn(prismaService.user, 'findMany').mockResolvedValue(users);
 
     expect(await service.getUsers()).toEqual(users);
-  });
-
-  it('should edit user', async () => {
-    const id = '1';
-    const updatedUserData: UpdateUserDto = {
-      email: 'john.doe@example.com',
-      role: UserRole.ADMIN,
-    };
-    const updatedUser = {
-      id,
-      name: 'John Doe',
-      email: updatedUserData.email || 'default@example.com',
-      role: updatedUserData.role || UserRole.USER,
-      img: null,
-      password: 'password',
-      resetToken: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    jest.spyOn(prismaService.user, 'update').mockResolvedValue(updatedUser);
-
-    expect(await service.editUser(id, updatedUserData)).toEqual({
-      id: updatedUser.id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      role: updatedUser.role,
-    });
   });
 
   it('should delete user', async () => {
@@ -87,9 +76,96 @@ describe('AdminService', () => {
       resetToken: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      status: UserStatus.APPROVED,
     };
     jest.spyOn(prismaService.user, 'delete').mockResolvedValue(deletedUser);
 
     expect(await service.deleteUser(id)).toEqual(deletedUser);
+  });
+
+  it('should get entity counts', async () => {
+    jest.spyOn(prismaService.researcher, 'count').mockResolvedValue(10);
+    jest.spyOn(prismaService.company, 'count').mockResolvedValue(5);
+    jest.spyOn(prismaService.researchGroup, 'count').mockResolvedValue(3);
+    jest.spyOn(prismaService.demand, 'count').mockResolvedValue(20);
+
+    expect(await service.getEntityCounts()).toEqual({
+      companies: 5,
+      researchers: 10,
+      researchGroups: 3,
+      demands: 20,
+    });
+  });
+
+  it('should get demands by company', async () => {
+    const demandsByCompany = [
+      {
+        companyId: '1',
+        _count: { id: 5 },
+        id: '1',
+        name: 'Demand 1',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        status: 'CREATED',
+        description: 'Description 1',
+        public: true,
+        _min: {},
+        _max: {},
+      },
+
+      {
+        companyId: '2',
+        _count: { id: 3 },
+        id: '2',
+        name: 'Demand 2',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        status: 'CREATED',
+        description: 'Description 2',
+        public: true,
+        _min: {},
+        _max: {},
+      },
+    ];
+    jest
+      .spyOn(prismaService.demand, 'groupBy')
+      .mockResolvedValue(demandsByCompany);
+
+    expect(await service.getDemandsByCompany()).toEqual(demandsByCompany);
+  });
+
+  it('should get demands by research group', async () => {
+    const demandsByResearchGroup = [
+      {
+        id: '1',
+        name: 'Group 1',
+        img: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        description: 'Description 1',
+        urlCNPQ: null,
+        researcherId: '1',
+        _count: { projects: 2 },
+      },
+
+      {
+        id: '2',
+        name: 'Group 2',
+        img: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        description: 'Description 2',
+        urlCNPQ: null,
+        researcherId: '2',
+        _count: { projects: 4 },
+      },
+    ];
+    jest
+      .spyOn(prismaService.researchGroup, 'findMany')
+      .mockResolvedValue(demandsByResearchGroup);
+
+    expect(await service.getDemandsByResearchGroup()).toEqual(
+      demandsByResearchGroup,
+    );
   });
 });

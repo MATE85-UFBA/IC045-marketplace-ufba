@@ -3,38 +3,43 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Post,
   Put,
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './user.service';
+import { UserService } from './user.service';
 import { ChangePasswordDto, CreateUserDto } from './user.dto';
 import { JwtAuthGuard } from '@/auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersSevice: UsersService) {}
+  constructor(private readonly usersService: UserService) {}
 
   @Post()
   create(@Body() user: CreateUserDto) {
-    return this.usersSevice.create(user);
+    return this.usersService.create(user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersSevice.findOne(id);
+  findOne(@Request() req: { user: { userId: string } }) {
+    return this.usersService.findOne(req.user.userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
-  update(@Param('id') id: string, @Body() user: CreateUserDto) {
-    return this.usersSevice.update(id, user);
+  update(
+    @Body() user: CreateUserDto,
+    @Request() req: { user: { userId: string } },
+  ) {
+    return this.usersService.update(req.user.userId, user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.usersSevice.delete(id);
+  delete(@Request() req: { user: { userId: string } }) {
+    return this.usersService.delete(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -44,6 +49,6 @@ export class UsersController {
     @Request() req: { user: { userId: string } },
   ) {
     const id = req.user.userId;
-    return this.usersSevice.changePassword(id, data);
+    return this.usersService.changePassword(id, data);
   }
 }

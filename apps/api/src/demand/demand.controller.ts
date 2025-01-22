@@ -9,17 +9,22 @@ import {
   Post,
   Request,
   UseGuards,
+  Query,
 } from '@nestjs/common';
-import { CreateDemandDTO, UpdateDemandDTO } from './demand.dto';
+import {
+  CreateDemandDTO,
+  UpdateDemandDTO,
+  SuggestDemandDTO,
+} from './demand.dto';
 import { DemandService } from '@/demand/demand.service';
 import { JwtAuthGuard } from '@/auth/auth.guard';
-import { UsersService } from '@/user/user.service';
+import { UserService } from '@/user/user.service';
 
 @Controller('demand')
 export class DemandController {
   constructor(
     private readonly demandService: DemandService,
-    private readonly userService: UsersService,
+    private readonly userService: UserService,
   ) {}
 
   @Get('/all')
@@ -33,9 +38,38 @@ export class DemandController {
     return this.demandService.my(req.user.userId);
   }
 
+  @Get('/suggest')
+  async suggest(@Query('query') query: string): Promise<SuggestDemandDTO[]> {
+    if (!query || query.length < 3) {
+      return [];
+    }
+    return this.demandService.suggest(query);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/suggest-filter')
+  async myFilter(
+    @Query('query') query: string,
+    @Request() req: { user: { userId: string } },
+  ): Promise<SuggestDemandDTO[]> {
+    if (!query || query.length < 3) {
+      return [];
+    }
+    return this.demandService.suggestFilter(query, req.user.userId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.demandService.findOne(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/private/:id')
+  findOnePrivate(
+    @Param('id') id: string,
+    @Request() req: { user: { userId: string } },
+  ) {
+    return this.demandService.findOneIncludingPrivate(id, req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
