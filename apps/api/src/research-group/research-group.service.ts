@@ -8,13 +8,17 @@ import {
   CreateResearchGroupDto,
   UpdateResearchGroupDto,
 } from './research-group.dto';
+import { MailService } from '../mailsend/mail.service';
 
 @Injectable()
 export class ResearchGroupService {
   findAll() {
     return this.prismaService.researchGroup.findMany();
   }
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly mailService: MailService,
+    private readonly prismaService: PrismaService,
+  ) {}
 
   async create(group: CreateResearchGroupDto) {
     const groupAlreadyExists =
@@ -244,5 +248,41 @@ export class ResearchGroupService {
 
   async findAllKnowledgeAreas() {
     return await this.prismaService.knowledgeArea.findMany();
+  }
+
+  async sendEmail(
+    message: string,
+    demandName: string,
+    researchGroupId: string,
+    companyName: string,
+  ) {
+    const group = await this.prismaService.researchGroup.findUnique({
+      where: {
+        id: researchGroupId,
+      },
+      select: {
+        name: true,
+        leader: {
+          select: {
+            user: {
+              select: {
+                email: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    if (!group) {
+      throw new NotFoundException('Grupo de pesquisa não encontrado');
+    }
+
+    this.mailService.sendTextEmail(
+      group.leader.user.email,
+      'Coopera UFBA - Nova mensagem',
+      `Nova mensagem da empresa: <strong>${companyName}</strong>, sobre a demanda: <strong>${demandName}</strong>. <br> Mensagem: <br> ${message}`,
+    );
+
+    return 'Email sent';
   }
 }
