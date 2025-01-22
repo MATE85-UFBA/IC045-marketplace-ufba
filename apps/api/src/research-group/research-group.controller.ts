@@ -8,6 +8,7 @@ import {
   Put,
   Query,
   NotFoundException,
+  UploadedFile,
 } from '@nestjs/common';
 import { ResearchGroupService } from './research-group.service';
 import {
@@ -15,6 +16,9 @@ import {
   UpdateResearchGroupDto,
 } from './research-group.dto';
 import { ResearchersService } from '@/researchers/researchers.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 //TODO colocar os useGuard
 @Controller('researchgroup')
@@ -87,4 +91,32 @@ export class ResearchGroupController {
   findAllKnowledgeAreas() {
     return this.researchGroupsService.findAllKnowledgeAreas();
   }
+
+  @Post('upload/:id')
+  @FileInterceptor(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './uploads/research-groups', // Pasta para salvar as imagens
+        filename: (req, file, callback) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          callback(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
+        },
+      }),
+      fileFilter: (req: any, file: { mimetype: string; }, callback: (arg0: null, arg1: boolean) => void) => {
+        if (!file.mimetype.match(/\/(jpg|jpeg|png)$/)) {
+          return callback(new BadRequestException('Apenas imagens são permitidas.'), false);
+        }
+        callback(null, true);
+      },
+    }),
+  )
+  async uploadImage(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) {
+    if (!file) {
+      throw new BadRequestException('Arquivo de imagem não encontrado.');
+    }
+    const updatedGroup = await this.researchGroupsService.updateImage(id, file.filename);
+    return updatedGroup;
+  }
+
 }
