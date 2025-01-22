@@ -245,4 +245,19 @@ export class ResearchGroupService {
   async findAllKnowledgeAreas() {
     return await this.prismaService.knowledgeArea.findMany();
   }
+
+  async updateImage(id: string, imgPath: string) {
+    const group = await this.prismaService.researchGroup.findUnique({
+      where: { id },
+    });
+
+    if (!group) {
+      throw new NotFoundException('Grupo de pesquisa não encontrado.');
+    }
+
+    return await this.prismaService.researchGroup.update({
+      where: { id },
+      data: { img: imgPath },
+    });
+  }
 }
