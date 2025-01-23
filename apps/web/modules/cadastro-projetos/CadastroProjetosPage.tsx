@@ -62,11 +62,7 @@ const CadastrarProjeto = () => {
       researchGroupId: params.id,
       name: data.name,
       description: data.description,
-      links: data.links
-        ? Array.isArray(data.links)
-          ? data.links
-          : [data.links]
-        : [],
+      link: data.link,
       keywords: selectedKeywords,
     };
 
@@ -143,12 +139,12 @@ const CadastrarProjeto = () => {
             {keywordRequired && <span>Este Campo é obrigatório</span>}
 
             <label className="font-bold text-blue-strong mt-4">
-              Links Úteis
+              Link
               <input
                 type="url"
-                placeholder="Informe links úteis"
+                placeholder="Informe link do projeto"
                 className="w-full py-3 px-4 text-base font-normal rounded-lg border mt-2"
-                {...register("links", { required: false })}
+                {...register("link", { required: false })}
               />
             </label>
 

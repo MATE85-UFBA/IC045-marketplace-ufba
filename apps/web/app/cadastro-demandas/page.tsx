@@ -61,11 +61,7 @@ const CadastrarDemanda = () => {
     const demandData: CreateDemand = {
       name: data.name,
       description: data.description,
-      links: data.links
-        ? Array.isArray(data.links)
-          ? data.links
-          : [data.links]
-        : [],
+      link: data.link,
       public: data.public === "on",
       keywords: selectedKeywords,
     };
@@ -147,14 +143,13 @@ const CadastrarDemanda = () => {
               </Tooltip>
             </div>
 
-            {errors.links && <span>This field is required</span>}
             <label className="font-bold text-blue-strong mt-4">
-              Links Úteis
+              Link
               <input
                 type="url"
-                placeholder="Informe links úteis"
+                placeholder="Informe link da demanda"
                 className="w-full py-3 px-4 text-base font-normal rounded-lg border mt-2"
-                {...register("links", { required: false })}
+                {...register("link", { required: false })}
               />
             </label>
 

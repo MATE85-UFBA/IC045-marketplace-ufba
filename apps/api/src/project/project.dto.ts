@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUrl,
+  IsUUID,
+} from 'class-validator';
 
 export class CreateProjectDto {
   @IsNotEmpty()
@@ -12,6 +18,10 @@ export class CreateProjectDto {
   @IsOptional()
   @IsUUID()
   demandId: string;
+
+  @IsOptional()
+  @IsUrl()
+  link?: string;
 
   keywords?: string[];
 }
@@ -28,6 +38,10 @@ export class UpdateProjectDto {
   @IsOptional()
   @IsUUID()
   demandId?: string;
+
+  @IsOptional()
+  @IsUrl()
+  link?: string;
 
   keywords?: string[];
 }
