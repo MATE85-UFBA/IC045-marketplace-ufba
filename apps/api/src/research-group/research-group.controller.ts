@@ -20,9 +20,9 @@ import {
 } from './research-group.dto';
 import { ResearchersService } from '@/researchers/researchers.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { Express } from 'express';
 
 //TODO colocar os useGuard
 @Controller('researchgroup')
@@ -101,7 +101,7 @@ export class ResearchGroupController {
     FileInterceptor('image', {
       storage: diskStorage({
         destination: './uploads/research-groups', // Pasta para salvar as imagens
-        filename: (req: any, file: any, callback: any) => {
+        filename: (_: any, file: any, callback: any) => {
           const uniqueSuffix =
             Date.now() + '-' + Math.round(Math.random() * 1e9);
           const ext = extname(file.originalname);
@@ -113,6 +113,7 @@ export class ResearchGroupController {
         file: { mimetype: string },
         callback: (arg0: null, arg1: boolean) => void,
       ) => {
+        console.log({ file });
         if (!file.mimetype.match(/\/(jpg|jpeg|png)$/)) {
           return callback(
             // @ts-ignore
