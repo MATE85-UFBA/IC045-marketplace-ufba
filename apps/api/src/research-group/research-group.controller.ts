@@ -1,15 +1,18 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   Put,
   Query,
-  NotFoundException,
   UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+
 import { ResearchGroupService } from './research-group.service';
 import {
   CreateResearchGroupDto,
@@ -19,6 +22,7 @@ import { ResearchersService } from '@/researchers/researchers.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { Express } from 'express';
 
 //TODO colocar os useGuard
 @Controller('researchgroup')
@@ -93,30 +97,44 @@ export class ResearchGroupController {
   }
 
   @Post('upload/:id')
-  @FileInterceptor(
+  @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
         destination: './uploads/research-groups', // Pasta para salvar as imagens
-        filename: (req, file, callback) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        filename: (req: any, file: any, callback: any) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
           const ext = extname(file.originalname);
           callback(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
         },
       }),
-      fileFilter: (req: any, file: { mimetype: string; }, callback: (arg0: null, arg1: boolean) => void) => {
+      fileFilter: (
+        req: any,
+        file: { mimetype: string },
+        callback: (arg0: null, arg1: boolean) => void,
+      ) => {
         if (!file.mimetype.match(/\/(jpg|jpeg|png)$/)) {
-          return callback(new BadRequestException('Apenas imagens são permitidas.'), false);
+          return callback(
+            // @ts-ignore
+            new BadRequestException('Apenas imagens são permitidas.'),
+            false,
+          );
         }
         callback(null, true);
       },
     }),
   )
-  async uploadImage(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) {
+  async uploadImage(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
     if (!file) {
       throw new BadRequestException('Arquivo de imagem não encontrado.');
     }
-    const updatedGroup = await this.researchGroupsService.updateImage(id, file.filename);
+    const updatedGroup = await this.researchGroupsService.updateImage(
+      id,
+      file.filename,
+    );
     return updatedGroup;
   }
-
 }
