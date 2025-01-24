@@ -59,7 +59,7 @@ const EditarDemanda = () => {
       setSelectedKeywords(demanda.keywords.map((keyword) => keyword.id));
       setValue("name", demanda.name);
       setValue("description", demanda.description);
-      setValue("links", demanda.links);
+      setValue("link", demanda.link);
     }
   }, [demanda]);
 
@@ -92,6 +92,7 @@ const EditarDemanda = () => {
       //         ? data.links
       //         : [data.links]
       //     : [],
+      link: data.link,
       public: data.public,
       keywords: selectedKeywords,
     };
@@ -188,15 +189,15 @@ const EditarDemanda = () => {
               </div>
             )}
 
-            {errors.links && <span>This field is required</span>}
+            {errors.link && <span>This field is required</span>}
             <label className="font-bold text-blue-strong mt-4">
               Link
               <input
                 type="url"
                 placeholder="Informe link da demanda"
                 className="w-full py-3 px-4 text-base font-normal rounded-lg border mt-2"
-                {...register("links", { required: false })}
-                defaultValue={demanda?.links}
+                {...register("link", { required: false })}
+                defaultValue={demanda?.link}
               />
             </label>
 
