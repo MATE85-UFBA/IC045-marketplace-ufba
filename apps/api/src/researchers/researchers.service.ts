@@ -90,7 +90,7 @@ export class ResearchersService {
                 img: true,
               },
               orderBy: {
-                createdAt: order,
+                createdAt: order || 'asc',
               },
             }
           : false,
