@@ -87,6 +87,7 @@ export class ResearchersService {
                     userId: true,
                   },
                 },
+                img: true,
               },
               orderBy: {
                 createdAt: order || 'asc',
