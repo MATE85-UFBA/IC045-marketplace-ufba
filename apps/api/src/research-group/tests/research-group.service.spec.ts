@@ -29,7 +29,7 @@ describe('Integration test - ResearchGroupService - findOne', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ResearchGroupService, PrismaService],
+      providers: [MailService, ResearchGroupService, PrismaService],
     }).compile();
 
     service = module.get<ResearchGroupService>(ResearchGroupService);
