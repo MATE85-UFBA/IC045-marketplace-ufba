@@ -3,12 +3,13 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   Put,
   Query,
-  NotFoundException,
 } from '@nestjs/common';
+
 import { ResearchGroupService } from './research-group.service';
 import {
   CreateResearchGroupDto,
@@ -27,6 +28,11 @@ export class ResearchGroupController {
   @Post()
   async create(@Body() researchGroup: CreateResearchGroupDto) {
     //TODO Verificar se um líder de projeto existe e se é um Pesquisador
+
+    if (researchGroup.img) {
+      researchGroup.img = `/uploads/${researchGroup.img}`;
+    }
+
     const researcher = await this.researcherService.findOne(
       researchGroup.researcherId,
       false,
@@ -86,5 +92,23 @@ export class ResearchGroupController {
   @Get('/knowledgearea/all')
   findAllKnowledgeAreas() {
     return this.researchGroupsService.findAllKnowledgeAreas();
+  }
+
+  @Post('/send-email')
+  sendEmail(
+    @Body()
+    body: {
+      message: string;
+      demandName: string;
+      researchGroupId: string;
+      companyName: string;
+    },
+  ) {
+    return this.researchGroupsService.sendEmail(
+      body.message,
+      body.demandName,
+      body.researchGroupId,
+      body.companyName,
+    );
   }
 }

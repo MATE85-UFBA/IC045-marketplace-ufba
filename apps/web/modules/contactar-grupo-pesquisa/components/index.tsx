@@ -1,6 +1,7 @@
 "use client";
 import useGetMyDemands from "@/api/demandas/use-get-my-demands";
 import useGetResearchGroup from "@/api/grupos/use-get-research-group";
+import useSendMail from "@/api/research-group/use-receive-email-from-company";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -30,7 +31,7 @@ interface Props {
 
 const ContactResearchGroup = ({ query }: Props) => {
   const { data: demands = [] } = useGetMyDemands();
-  const [group, setGroup] = useState();
+  const [group, setGroup] = useState<{ id: string; name: string } | null>(null);
   const [selectedDemand, setSelectedDemand] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const router = useRouter();
@@ -41,7 +42,7 @@ const ContactResearchGroup = ({ query }: Props) => {
     router.push("/login");
   }
 
-  /* const { toast } = useToast();
+  const { toast } = useToast();
 
   const { mutate, isPending } = useSendMail(
     () => {
@@ -58,7 +59,7 @@ const ContactResearchGroup = ({ query }: Props) => {
         description: "Ocorreu um erro ao tentar enviar o email.",
       });
     }
-  ); */
+  ); 
 
   if (user?.utype === "RESEARCHER") {
     router.back();
@@ -75,10 +76,13 @@ const ContactResearchGroup = ({ query }: Props) => {
   }
 
   const handleSubmitSendMail = () => {
-    /* if (group)
+    if (researchGroup && user)
       mutate({
-        
-      }); */
+        message,
+        demandName: selectedDemand,
+        researchGroupId: researchGroup?.id,
+        companyName: user.name,
+      });
   };
 
   if (isLoading) {
