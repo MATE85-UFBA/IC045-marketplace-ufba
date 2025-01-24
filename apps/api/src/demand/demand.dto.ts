@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsUrl } from 'class-validator';
 
 export class CreateDemandDTO {
   @IsNotEmpty()
@@ -9,6 +9,7 @@ export class CreateDemandDTO {
 
   public?: boolean;
 
+  @IsOptional()
   @IsUrl()
   link?: string;
 
@@ -22,6 +23,7 @@ export class UpdateDemandDTO {
   @IsNotEmpty()
   description?: string;
 
+  @IsOptional()
   @IsUrl()
   link?: string;
 
