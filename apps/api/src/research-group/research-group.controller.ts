@@ -93,4 +93,22 @@ export class ResearchGroupController {
   findAllKnowledgeAreas() {
     return this.researchGroupsService.findAllKnowledgeAreas();
   }
+
+  @Post('/send-email')
+  sendEmail(
+    @Body()
+    body: {
+      message: string;
+      demandName: string;
+      researchGroupId: string;
+      companyName: string;
+    },
+  ) {
+    return this.researchGroupsService.sendEmail(
+      body.message,
+      body.demandName,
+      body.researchGroupId,
+      body.companyName,
+    );
+  }
 }
