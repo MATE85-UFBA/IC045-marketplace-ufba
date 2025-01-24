@@ -1,21 +1,24 @@
 "use client";
 import {
   Breadcrumb,
-  BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbSeparator,
+  BreadcrumbList,
   BreadcrumbPage,
-} from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { IoIosAddCircleOutline } from "react-icons/io";
-import { CustomIcon } from "../components/icon/customIcon";
-import Image from "next/image";
-import MembersSection from "./components/membersSection";
-import { useParams, useRouter } from "next/navigation";
-import useGetResearchGroup from "@/api/grupos/use-get-research-group";
-import React from "react";
-import ProjectsSection from "./components/projectsSection";
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { Button } from '@/components/ui/button';
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import { CustomIcon } from '../components/icon/customIcon';
+import MembersSection from './components/membersSection';
+import { useParams, useRouter } from 'next/navigation';
+import useGetResearchGroup from '@/api/grupos/use-get-research-group';
+import React from 'react';
+import ProjectsSection from './components/projectsSection';
+import { TbUserCircle } from 'react-icons/tb';
+
+const apiURL = process.env.NEXT_PUBLIC_API_URL || ''
+
 
 enum ETabs {
   MEMBERS = "membros",
@@ -51,6 +54,15 @@ export default function DetalheGrupoPesquisaPage() {
       </main>
     );
   }
+
+  console.log({researchGroup})
+
+  const imageComponent = !!(researchGroup?.img) && researchGroup.img.includes("/uploads") ?
+    <img
+      src={`${apiURL}${researchGroup?.img}`}
+      alt="Grupo de Pesquisa"
+      className="max-w-[80%]"
+    /> : <TbUserCircle className="text-primary font-normal size-16 row-span-2 col-start-1" />
   return (
     <main className="p-8 w-full flex justify-center flex-grow ">
       <section className="max-w-7xl w-full">
@@ -88,11 +100,7 @@ export default function DetalheGrupoPesquisaPage() {
 
         <div className="flex w-[100%] gap-5">
           <div className="flex gap-5 p-5 items-center justify-center flex-col max-w-[30%] bg-[#fff] border-[2px] rounded-md border-[#C6C2DE]">
-            <img
-              src="https://ufba.br/sites/portal.ufba.br/files/noticias/brasao_ufba_-_copia.jpg"
-              alt="Grupo de Pesquisa"
-              className="max-w-[80%]"
-            />
+            {imageComponent}
 
             <h1 className="font-size-lg text-2xl">{researchGroup?.name}</h1>
 
