@@ -37,7 +37,7 @@ export class FileController {
         console.log({ file });
         if (!file.mimetype.match(/\/(jpg|jpeg|png)$/)) {
           return callback(
-            // @ts-ignore
+            // @ts-expect-error should be null
             new BadRequestException('Apenas imagens são permitidas.'),
             false,
           );
