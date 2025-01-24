@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { FileController } from '@/file/file.controller';
-import { FileService } from '@/file/file.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
@@ -11,7 +10,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     }),
   ],
   controllers: [FileController],
-  providers: [FileService],
-  exports: [FileService],
+  providers: [],
+  exports: [],
 })
 export class FileModule {}

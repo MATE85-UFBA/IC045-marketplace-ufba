@@ -7,7 +7,6 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '@/auth/auth.guard';
-import { FileService } from '@/file/file.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -16,7 +15,7 @@ import { Express } from 'express';
 @UseGuards(JwtAuthGuard)
 @Controller('file')
 export class FileController {
-  constructor(private readonly fileService: FileService) {}
+  constructor() {}
 
   @Post()
   @UseInterceptors(
