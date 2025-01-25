@@ -73,9 +73,9 @@ jobs:
           port: ${{secrets.PORT}}
           script: |
             cd /opt/scripts
-            pm2 remove coopera-front
+            pm2 delete coopera-front
             pm2 start coopera-front
-            pm2 remove coopera-back
+            pm2 delete coopera-back
             pm2 start coopera-back
-            pm2 remove coopera-prisma
+            pm2 delete coopera-prisma
             pm2 start coopera-prisma
