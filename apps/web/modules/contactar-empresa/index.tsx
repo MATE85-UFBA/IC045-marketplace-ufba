@@ -54,6 +54,10 @@ const ContactCompany = ({ query }: Props) => {
     router.push("/login");
   }
 
+  if (user?.utype !== "RESEARCHER") {
+    router.back();
+  }
+
   const { toast } = useToast();
 
   const { mutate, isPending } = useSendMail(

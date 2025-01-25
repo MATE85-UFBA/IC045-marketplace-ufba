@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { Address } from "./types";
 import { Demanda } from "@/modules/minhas-demandas/interfaces/demanda";
 import { usePathname } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 function addressToString(address?: Address) {
   if (!address) return;
@@ -16,29 +17,32 @@ function addressToString(address?: Address) {
 
 function Item(demand: Demanda) {
   const pathname = usePathname();
+  const { user } = useUser();
 
   return (
     <li className="px-4 py-5 bg-white border rounded-2xl">
       <div className="flex xs:items-center justify-between mb-8 flex-col xs:flex-row">
         <h2 className="text-3xl font-semibold">{demand.name}</h2>
-        <Button
-          asChild
-          variant={"outline"}
-          className="px-9 py-2.5 rounded-full mt-3 xs:mt-0"
-        >
-          <Link
-            href={{
-              pathname: `${pathname}/contactar-empresa`,
-              query: {
-                idDemanda: demand.id,
-                nomeContato: demand.company.contactName,
-                emailContato: demand.company.contactEmail,
-              },
-            }}
+        {user?.utype !== "COMPANY" && (
+          <Button
+            asChild
+            variant={"outline"}
+            className="px-9 py-2.5 rounded-full mt-3 xs:mt-0"
           >
-            Entrar em contato
-          </Link>
-        </Button>
+            <Link
+              href={{
+                pathname: `${pathname}/contactar-empresa`,
+                query: {
+                  idDemanda: demand.id,
+                  nomeContato: demand.company.contactName,
+                  emailContato: demand.company.contactEmail,
+                },
+              }}
+            >
+              Entrar em contato
+            </Link>
+          </Button>
+        )}
       </div>
 
       <p className="text-blue-light text-sm mb-4">

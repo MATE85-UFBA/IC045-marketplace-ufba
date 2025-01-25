@@ -21,6 +21,7 @@ import { ProjectFormData } from "./types/project-form-data";
 import Keywords from "@/components/keywords";
 import { useState } from "react";
 import { isBefore } from "date-fns";
+import { useUser } from "@/context/UserContext";
 
 const CadastrarProjeto = () => {
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
@@ -30,9 +31,16 @@ const CadastrarProjeto = () => {
     register,
     formState: { errors },
   } = useForm<ProjectFormData>();
+  const { user } = useUser();
+
   const { toast } = useToast();
   const params = useParams<{ id: string }>();
   const router = useRouter();
+
+  if (!user) {
+    router.push("/login");
+  }
+
   const { mutate } = useAddProject(
     () => {
       toast({
