@@ -6,19 +6,19 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { Button } from '@/components/ui/button';
-import { IoIosAddCircleOutline } from 'react-icons/io';
-import { CustomIcon } from '../components/icon/customIcon';
-import MembersSection from './components/membersSection';
-import { useParams, useRouter } from 'next/navigation';
-import useGetResearchGroup from '@/api/grupos/use-get-research-group';
-import React from 'react';
-import ProjectsSection from './components/projectsSection';
-import { TbUserCircle } from 'react-icons/tb';
+} from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { CustomIcon } from "../components/icon/customIcon";
+import MembersSection from "./components/membersSection";
+import { useParams, useRouter } from "next/navigation";
+import useGetResearchGroup from "@/api/grupos/use-get-research-group";
+import React from "react";
+import ProjectsSection from "./components/projectsSection";
+import { TbUserCircle } from "react-icons/tb";
+import { useUser } from "@/context/UserContext";
 
-const apiURL = process.env.NEXT_PUBLIC_API_URL || ''
-
+const apiURL = process.env.NEXT_PUBLIC_API_URL || "";
 
 enum ETabs {
   MEMBERS = "membros",
@@ -31,10 +31,11 @@ export default function DetalheGrupoPesquisaPage() {
 
   const [selectedTab, setSelectedTab] = React.useState<ETabs>(ETabs.PROJECTS);
 
+  const { user } = useUser();
+
   const {
     data: researchGroup,
     isError,
-    error,
     isLoading,
   } = useGetResearchGroup(groupId as string);
   const handleAddProject = () => {
@@ -55,14 +56,18 @@ export default function DetalheGrupoPesquisaPage() {
     );
   }
 
-  console.log({researchGroup})
+  console.log({ researchGroup });
 
-  const imageComponent = !!(researchGroup?.img) && researchGroup.img.includes("/uploads") ?
-    <img
-      src={`${apiURL}${researchGroup?.img}`}
-      alt="Grupo de Pesquisa"
-      className="max-w-[80%]"
-    /> : <TbUserCircle className="text-primary font-normal size-16 row-span-2 col-start-1" />
+  const imageComponent =
+    !!researchGroup?.img && researchGroup.img.includes("/uploads") ? (
+      <img
+        src={`${apiURL}${researchGroup?.img}`}
+        alt="Grupo de Pesquisa"
+        className="max-w-[80%]"
+      />
+    ) : (
+      <TbUserCircle className="text-primary font-normal size-16 row-span-2 col-start-1" />
+    );
   return (
     <main className="p-8 w-full flex justify-center flex-grow ">
       <section className="max-w-7xl w-full">
