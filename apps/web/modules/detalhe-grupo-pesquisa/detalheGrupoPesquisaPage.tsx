@@ -85,10 +85,12 @@ export default function DetalheGrupoPesquisaPage() {
               {researchGroup?.name}
             </h1>
 
-            <Button className="rounded-full" onClick={handleAddProject}>
-              <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" />{" "}
-              Novo Projeto
-            </Button>
+            {user && (user.utype === "RESEARCHER" || user.role === "ADMIN") && (
+              <Button className="rounded-full" onClick={handleAddProject}>
+                <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" />{" "}
+                Novo Projeto
+              </Button>
+            )}
           </div>
         </div>
 
