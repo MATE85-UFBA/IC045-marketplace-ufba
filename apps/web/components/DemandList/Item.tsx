@@ -8,7 +8,6 @@ import { Address } from "./types";
 import { Demanda } from "@/modules/minhas-demandas/interfaces/demanda";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/context/UserContext";
-import { use } from "chai";
 
 function addressToString(address?: Address) {
   if (!address) return;
