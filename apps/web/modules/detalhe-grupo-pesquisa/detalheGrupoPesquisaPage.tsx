@@ -41,6 +41,9 @@ export default function DetalheGrupoPesquisaPage() {
   const handleAddProject = () => {
     router.push(`/cadastro-projetos/${groupId}`);
   };
+  const handleAddMember = () => {
+    router.push(`/cadastro-membros/${groupId}`);
+  };
   const handleTabChange = (tab: ETabs) => {
     setSelectedTab(tab);
   };
@@ -96,12 +99,25 @@ export default function DetalheGrupoPesquisaPage() {
               {researchGroup?.name}
             </h1>
 
-            {user && (user.utype === "RESEARCHER" || user.role === "ADMIN") && (
-              <Button className="rounded-full" onClick={handleAddProject}>
-                <CustomIcon icon={IoIosAddCircleOutline} className="!size-5" />{" "}
-                Novo Projeto
-              </Button>
-            )}
+            {user &&
+              (user.utype === "RESEARCHER" || user.role === "ADMIN") &&
+              (selectedTab == ETabs.PROJECTS ? (
+                <Button className="rounded-full" onClick={handleAddProject}>
+                  <CustomIcon
+                    icon={IoIosAddCircleOutline}
+                    className="!size-5"
+                  />{" "}
+                  Novo Projeto
+                </Button>
+              ) : (
+                <Button className="rounded-full" onClick={handleAddMember}>
+                  <CustomIcon
+                    icon={IoIosAddCircleOutline}
+                    className="!size-5"
+                  />{" "}
+                  Novo Membro
+                </Button>
+              ))}
           </div>
         </div>
 
