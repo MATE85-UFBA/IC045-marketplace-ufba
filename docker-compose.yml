@@ -20,7 +20,7 @@ services:
       - "8080"
     ports: 
       - "8080:8080"
-    entrypoint: sh -c 'rm -rf node_modules && npm install && npx prisma db push && npx prisma generate && npm run seed-db && npm run start:dev'
+    entrypoint: sh -c 'rm -rf node_modules && npm install --legacy-peer-deps && npx prisma db push && npx prisma generate && npm run seed-db && npm run start:dev'
 
   frontend:
     image: "node:22-alpine"

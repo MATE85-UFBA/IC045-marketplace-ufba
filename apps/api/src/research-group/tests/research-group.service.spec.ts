@@ -5,13 +5,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ResearchGroupService } from '@/research-group/research-group.service';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { PrismaService } from '@/infra/database/prisma.service';
+import { MailService } from '@/mailsend/mail.service';
 
 describe('ResearchGroupService', () => {
   let service: ResearchGroupService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ResearchGroupService, PrismaService],
+      providers: [MailService, ResearchGroupService, PrismaService],
     }).compile();
 
     service = module.get<ResearchGroupService>(ResearchGroupService);
@@ -28,7 +29,7 @@ describe('Integration test - ResearchGroupService - findOne', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ResearchGroupService, PrismaService],
+      providers: [MailService, ResearchGroupService, PrismaService],
     }).compile();
 
     service = module.get<ResearchGroupService>(ResearchGroupService);

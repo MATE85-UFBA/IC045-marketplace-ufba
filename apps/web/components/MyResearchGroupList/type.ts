@@ -3,7 +3,7 @@
 export type ResearchGroup = {
 	id: string;
 	name :string;
-	image?: string;
+	img?: string;
 	leader: {
 		userId:string;
 	} }

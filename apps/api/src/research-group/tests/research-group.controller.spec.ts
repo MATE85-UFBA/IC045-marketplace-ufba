@@ -3,6 +3,7 @@ import { ResearchGroupController } from '../research-group.controller';
 import { ResearchGroupService } from '../research-group.service';
 import { PrismaService } from '@/infra/database/prisma.service';
 import { ResearchersService } from '@/researchers/researchers.service';
+import { MailService } from '@/mailsend/mail.service';
 
 describe('ResearchGroupController', () => {
   let controller: ResearchGroupController;
@@ -10,7 +11,12 @@ describe('ResearchGroupController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ResearchGroupController],
-      providers: [ResearchGroupService, PrismaService, ResearchersService],
+      providers: [
+        MailService,
+        ResearchGroupService,
+        PrismaService,
+        ResearchersService,
+      ],
     }).compile();
 
     controller = module.get<ResearchGroupController>(ResearchGroupController);
