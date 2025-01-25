@@ -2,6 +2,6 @@ export type CreateProject = {
   researchGroupId: string;
   name: string;
   description: string;
-  links?: string[];
+  link?: string;
   keywords: string[];
 };

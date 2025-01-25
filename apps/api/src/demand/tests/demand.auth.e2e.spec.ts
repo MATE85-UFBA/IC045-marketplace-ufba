@@ -25,8 +25,18 @@ describe('DemandController (e2e)', () => {
   beforeAll(async () => {
     demandService = {
       my: jest.fn().mockResolvedValue([
-        { id: 'demand-1', title: 'Demand 1', ownerId: 'mock-user-id' },
-        { id: 'demand-2', title: 'Demand 2', ownerId: 'mock-user-id' },
+        {
+          id: 'demand-1',
+          title: 'Demand 1',
+          link: 'https://example.com/demand/1',
+          ownerId: 'mock-user-id',
+        },
+        {
+          id: 'demand-2',
+          title: 'Demand 2',
+          link: 'https://example.com/demand/2',
+          ownerId: 'mock-user-id',
+        },
       ]),
       findOne: jest.fn().mockImplementationOnce((id: string) => {
         if (id != '1') {
@@ -36,6 +46,7 @@ describe('DemandController (e2e)', () => {
             id: '1',
             name: 'demand 1',
             description: 'desc',
+            link: 'https://example.com/demand/1',
             status: 'CREATED',
             public: true,
           };
@@ -48,6 +59,7 @@ describe('DemandController (e2e)', () => {
             id: id,
             name: 'demand 2',
             description: 'desc',
+            link: 'https://example.com/demand/2',
             status: 'CREATED',
             public: true,
           };
@@ -118,8 +130,18 @@ describe('DemandController (e2e)', () => {
       .expect(200);
 
     expect(response.body).toEqual([
-      { id: 'demand-1', title: 'Demand 1', ownerId: 'mock-user-id' },
-      { id: 'demand-2', title: 'Demand 2', ownerId: 'mock-user-id' },
+      {
+        id: 'demand-1',
+        title: 'Demand 1',
+        link: 'https://example.com/demand/1',
+        ownerId: 'mock-user-id',
+      },
+      {
+        id: 'demand-2',
+        title: 'Demand 2',
+        link: 'https://example.com/demand/2',
+        ownerId: 'mock-user-id',
+      },
     ]);
   });
 
@@ -135,7 +157,7 @@ describe('DemandController (e2e)', () => {
     await request(app.getHttpServer()).get(`/demand/1`).expect(200);
   });
 
-  it('/:id (GET) one non public without token - forbidden', async () => {
+  it('/:id (GET) one non public demand without token - forbidden', async () => {
     await request(app.getHttpServer()).get(`/demand/private/2`).expect(401);
   });
 

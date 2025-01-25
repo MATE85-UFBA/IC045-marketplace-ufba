@@ -102,6 +102,7 @@ model KnowledgeArea {
 model Project {
   id              String        @id @default(uuid())
   name            String        @unique
+  link            String?
   researchGroup   ResearchGroup @relation(fields: [researchGroupId], references: [id])
   researchGroupId String
   demand          Demand?       @relation(fields: [demandId], references: [id])
@@ -114,6 +115,7 @@ model Project {
 model Demand {
   id            String         @id @default(uuid())
   name          String
+  link          String?
   company       Company        @relation(fields: [companyId], references: [userId])
   description   String
   companyId     String

@@ -1,6 +1,6 @@
 export type ProjectFormData = {
   name: string;
   description: string;
-  links: string;
+  link?: string;
   keywords: string;
 };

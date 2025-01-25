@@ -21,6 +21,7 @@ describe.only('DemandController (e2e)', () => {
       data: {
         name: 'demand',
         description: 'abcde',
+        link: 'https://example.com',
         company: {
           connect: {
             userId: companyId,
@@ -74,6 +75,7 @@ describe.only('DemandController (e2e)', () => {
       data: {
         name: 'New Demand',
         description: 'test description',
+        link: 'https://example.com',
         company: {
           connect: {
             userId: userId,
@@ -101,12 +103,14 @@ describe.only('DemandController (e2e)', () => {
     );
     expect(response.status).toBe(200);
     expect(response.body.name).toEqual('New Demand');
+    expect(response.body.link).toEqual('https://example.com');
   });
 
   it('/demand (POST)', async () => {
     const newDemand = {
       name: 'Test Demand',
       description: 'test description',
+      link: 'https://example.com',
     };
 
     const response = await request(app.getHttpServer())
@@ -117,12 +121,14 @@ describe.only('DemandController (e2e)', () => {
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('id');
     expect(response.body.name).toEqual('Test Demand');
+    expect(response.body.link).toEqual('https://example.com');
   });
 
   it('/demand/:id (PATCH)', async () => {
     const demand = await createDemand(prismaService, userId);
     const updateData = {
       name: 'Updated Name',
+      link: 'https://example.com/updated-link',
     };
 
     const response = await request(app.getHttpServer())
@@ -133,6 +139,7 @@ describe.only('DemandController (e2e)', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('id');
     expect(response.body.name).toBe(updateData.name);
+    expect(response.body.link).toBe(updateData.link);
 
     await deleteDemand(prismaService, demand.id);
   });
