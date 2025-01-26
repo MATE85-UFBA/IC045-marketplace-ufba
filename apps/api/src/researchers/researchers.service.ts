@@ -57,6 +57,24 @@ export class ResearchersService {
     return researcher;
   }
 
+  async findAll() {
+    const researchers = await this.prismaService.researcher.findMany({
+      select: {
+        urlLattes: true,
+        researcherType: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            img: true,
+          },
+        },
+      },
+    });
+    return researchers;
+  }
+
   async myResearchGroups(
     id: string,
     includeGroups: boolean,

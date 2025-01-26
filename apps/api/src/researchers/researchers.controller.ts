@@ -29,6 +29,11 @@ export class ResearchersController {
     );
   }
 
+  @Get('/all')
+  findAll() {
+    return this.researchService.findAll();
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string, @Query() query: FindResearcherDto) {
     const includeGroups = query.includeGroups ?? 'true';
