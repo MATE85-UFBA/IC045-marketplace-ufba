@@ -2,7 +2,7 @@ name: Deploy COOPERA
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: ["dev"]
 
 jobs:
   deploy:
@@ -14,17 +14,17 @@ jobs:
       - name: "Limpar diretório na VPS"
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{secrets.HOST}} 
+          host: ${{secrets.HOST}}
           username: ${{secrets.USERNAME}}
           password: ${{secrets.PASSWORD}}
           port: ${{secrets.PORT}}
           script: |
             rm -rf /marketplace/IC045-marketplace-ufba/*
-      
+
       - name: "Copiar arquivos para a VPS"
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{secrets.HOST}} 
+          host: ${{secrets.HOST}}
           username: ${{secrets.USERNAME}}
           password: ${{secrets.PASSWORD}}
           port: ${{secrets.PORT}}
@@ -34,7 +34,7 @@ jobs:
       - name: "Renomear o .env.ci da api para .env"
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{secrets.HOST}} 
+          host: ${{secrets.HOST}}
           username: ${{secrets.USERNAME}}
           password: ${{secrets.PASSWORD}}
           port: ${{secrets.PORT}}
@@ -45,7 +45,7 @@ jobs:
       - name: "Executar script de produção"
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{secrets.HOST}} 
+          host: ${{secrets.HOST}}
           username: ${{secrets.USERNAME}}
           password: ${{secrets.PASSWORD}}
           port: ${{secrets.PORT}}
@@ -56,7 +56,7 @@ jobs:
       - name: "Levantando o banco de dados"
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{secrets.HOST}} 
+          host: ${{secrets.HOST}}
           username: ${{secrets.USERNAME}}
           password: ${{secrets.PASSWORD}}
           port: ${{secrets.PORT}}
@@ -67,11 +67,15 @@ jobs:
       - name: "Executar o pm2 para levantar o sistema"
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{secrets.HOST}} 
+          host: ${{secrets.HOST}}
           username: ${{secrets.USERNAME}}
           password: ${{secrets.PASSWORD}}
           port: ${{secrets.PORT}}
           script: |
-            pm2 start coopera-front
-            pm2 start coopera-back
-            pm2 start coopera-prisma
+            cd /opt/scripts
+            pm2 delete coopera-front
+            pm2 start /opt/scripts/coopera-front.sh
+            pm2 delete coopera-back
+            pm2 start /opt/scripts/coopera-back.sh
+            pm2 delete coopera-prisma
+            pm2 start /opt/scripts/coopera-prisma.sh
