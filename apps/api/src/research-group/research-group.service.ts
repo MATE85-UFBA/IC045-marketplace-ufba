@@ -64,6 +64,7 @@ export class ResearchGroupService {
       },
       include: {
         leader: true,
+        knowledgeAreas: true,
       },
     });
 
@@ -77,6 +78,7 @@ export class ResearchGroupService {
       img: group.img,
       researcherId: group.researcherId,
       leader: group.leader,
+      knowledgeAreas: group.knowledgeAreas,
     };
   }
 
