@@ -34,8 +34,8 @@ export class DemandService {
   }
 
   async all(): Promise<Demand[]> {
-    return (
-      this.prismaService.demand.findMany({
+    const demands =
+      (await this.prismaService.demand.findMany({
         where: {
           public: true,
           status: {
@@ -43,6 +43,7 @@ export class DemandService {
           },
         },
         include: {
+          projects: true,
           company: {
             include: {
               user: true,
@@ -50,13 +51,19 @@ export class DemandService {
           },
           keywords: true,
         },
-      }) || []
-    );
+      })) || [];
+
+    return demands.map((demand) => {
+      if (demand.projects.length > 0) {
+        return { ...demand, status: 'COMPLETED' };
+      }
+      return demand;
+    });
   }
 
   async my(userId: string): Promise<Demand[]> {
-    return (
-      this.prismaService.demand.findMany({
+    const demands =
+      (await this.prismaService.demand.findMany({
         where: {
           companyId: userId,
           status: {
@@ -64,6 +71,7 @@ export class DemandService {
           },
         },
         include: {
+          projects: true,
           company: {
             include: {
               user: true,
@@ -71,8 +79,14 @@ export class DemandService {
           },
           keywords: true,
         },
-      }) || []
-    );
+      })) || [];
+
+    return demands.map((demand) => {
+      if (demand.projects.length > 0) {
+        return { ...demand, status: 'COMPLETED' };
+      }
+      return demand;
+    });
   }
 
   async delete(id: string) {
