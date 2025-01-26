@@ -14,6 +14,10 @@ export interface GrupoPesquisa {
   projects: [];
   knowlegdeAreas: [];
   createdAt: string;
+  knowledgeAreas?: {
+    id: number;
+    name: string;
+  }[];
   /*
   status: string; //todo fazer um enum
   company: {

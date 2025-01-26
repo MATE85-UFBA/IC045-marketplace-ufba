@@ -12,3 +12,11 @@ export type PesquisadorGrupo = {
     id: string;
     groupsAsMember: ResearchGroup[];
 }
+
+export type EditResearchGroup = {
+	name: string;
+	description: string;
+	urlCNPQ: string | undefined;
+	img?: string;
+	knowledgeArea: string[];
+}
