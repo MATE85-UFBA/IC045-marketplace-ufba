@@ -2,9 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CustomIcon } from "@/modules/components/icon/customIcon";
 
-import { HiOutlineAdjustmentsVertical } from "react-icons/hi2";
 import { IoSearch } from "react-icons/io5";
-import { PiSortAscending } from "react-icons/pi";
 
 interface Props {
   setFilter: (filter: string) => void;
@@ -24,7 +22,8 @@ const MinhasDemandasFilter = ({ setFilter, handleFilter }: Props) => {
           <CustomIcon icon={IoSearch} className="!size-6" />
         </Button>
       </div>
-      <div className="flex gap-2">
+      {/* //todo lógica de mais recente existe no filtro de meus grupos de pesquisa */}
+      {/* <div className="flex gap-2">
         <Button variant={"tertiary"} className="size-12">
           <CustomIcon icon={HiOutlineAdjustmentsVertical} className="!size-6" />
         </Button>
@@ -32,7 +31,7 @@ const MinhasDemandasFilter = ({ setFilter, handleFilter }: Props) => {
           Mais recentes
           <CustomIcon icon={PiSortAscending} className="!size-5" />
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -26,9 +26,8 @@ export class ProjectService {
     const createdProject = await this.prismaService.project.create({
       data: {
         name: project.name,
-        started_at: project.started_at,
-        finished_at: project.finished_at,
         researchGroupId: project.researchGroupId,
+        link: project.link,
         demandId: project.demandId,
         keywords: {
           connect: keywordsIds,
@@ -39,8 +38,7 @@ export class ProjectService {
     return {
       id: createdProject.id,
       name: createdProject.name,
-      started_at: createdProject.started_at,
-      finished_at: createdProject.finished_at,
+      link: createdProject.link,
       researchGroupId: createdProject.researchGroupId,
       demandId: createdProject.demandId,
       createdAt: createdProject.createdAt,
@@ -58,8 +56,7 @@ export class ProjectService {
     return {
       id: project.id,
       name: project.name,
-      started_at: project.started_at,
-      finished_at: project.finished_at,
+      link: project.link,
       researchGroupId: project.researchGroupId,
       demandId: project.demandId,
     };
@@ -77,8 +74,7 @@ export class ProjectService {
       },
       data: {
         name: project.name,
-        started_at: project.started_at,
-        finished_at: project.finished_at,
+        link: project.link,
         researchGroupId: project.researchGroupId,
         demandId: project.demandId,
       },
@@ -87,8 +83,7 @@ export class ProjectService {
     return {
       id: updatedProject.id,
       name: updatedProject.name,
-      started_at: updatedProject.started_at,
-      finished_at: updatedProject.finished_at,
+      link: updatedProject.link,
       researchGroupId: updatedProject.researchGroupId,
       demandId: updatedProject.demandId,
     };
@@ -102,8 +97,7 @@ export class ProjectService {
     return {
       id: project.id,
       name: project.name,
-      started_at: project.started_at,
-      finished_at: project.finished_at,
+      link: project.link,
       researchGroupId: project.researchGroupId,
       demandId: project.demandId,
     };

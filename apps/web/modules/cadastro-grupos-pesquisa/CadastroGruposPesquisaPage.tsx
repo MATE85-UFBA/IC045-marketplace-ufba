@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { useUser } from "@/context/UserContext";
@@ -23,6 +23,7 @@ import useAddResearchGroup from "@/api/research-group/use-add-research-group";
 import useGetAllKnowledgeAreas from "@/api/research-group/use-get-all-knowledgeAreas";
 import { CreateResearchGroup } from "@/types/researchGroup";
 import { useToast } from "@/hooks/use-toast";
+import { handleFileUpload } from "@/api/research-group/use-upload-file";
 
 const CadastrarGruposPesquisa = () => {
   const {
@@ -36,6 +37,11 @@ const CadastrarGruposPesquisa = () => {
   const { data: knowledgeAreas } = useGetAllKnowledgeAreas();
   const [areas, setAreas] = useState<{ id: string; name: string }[]>([]);
   const { toast } = useToast();
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = async (event: any) => {
+    setFile(event.target.files[0]);
+  };
 
   useEffect(() => {
     setValue("knowledgeArea", knowledgeArea);
@@ -61,7 +67,12 @@ const CadastrarGruposPesquisa = () => {
     }
   );
 
-  const onSubmit = (data: CreateResearchGroup) => {
+  const onSubmit = async (data: CreateResearchGroup) => {
+    let filename = null;
+    if (file) {
+      filename = await handleFileUpload(file);
+    }
+    console.log({ filename });
     const researchGroupData: CreateResearchGroup = {
       name: data.name,
       description: data.description,
@@ -70,6 +81,7 @@ const CadastrarGruposPesquisa = () => {
       researcherId: user ? user?.id : "",
       members: [user ? user?.id : ""],
       urlCNPQ: data.urlCNPQ,
+      img: filename,
     };
 
     mutate(researchGroupData);
@@ -155,16 +167,16 @@ const CadastrarGruposPesquisa = () => {
                 </span>
               )}
             </label>
-            {/*
-              <div className="font-bold text-base mt-4 text-blue-strong">
-                <label>Foto de perfil (TODO)</label>
-                <div className="flex items-center mt-4">
-                  <Button className="rounded-full py-2.5 px-8">
-                    Adicionar anexo
-                  </Button>
-                </div>
-              </div> 
-                  */}
+            <div className="font-bold text-base mt-4 text-blue-strong">
+              <label>Foto de perfil</label>
+              <div className="flex items-center mt-4">
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  multiple={false}
+                />
+              </div>
+            </div>
             <label className="font-bold text-blue-strong mt-4">
               Link do grupo no CNPQ
               <input

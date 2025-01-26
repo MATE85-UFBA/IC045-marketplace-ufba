@@ -35,8 +35,7 @@ describe('Integration test - ProjectService - FindOne', () => {
     const mockProject = {
       id: '123e4567-e89b-12d3-a456-426614174000',
       name: 'Project 1',
-      started_at: new Date(),
-      finished_at: new Date(),
+      link: 'https://example.com',
       researchGroupId: '123e4567-e89b-12d3-a456-426614174000',
       demandId: '123e4567-e89b-12d3-a456-426614174000',
       createdAt: new Date(),
@@ -52,8 +51,7 @@ describe('Integration test - ProjectService - FindOne', () => {
     expect(result).toEqual({
       id: mockProject.id,
       name: mockProject.name,
-      started_at: mockProject.started_at,
-      finished_at: mockProject.finished_at,
+      link: mockProject.link,
       researchGroupId: mockProject.researchGroupId,
       demandId: mockProject.demandId,
       //createdAt: mockProject.createdAt,
@@ -84,7 +82,7 @@ describe.skip('Integration test with database - findOne', () => {
     const createdProject = await prismaService.project.create({
       data: {
         name: 'Project 1',
-        started_at: new Date(),
+        link: 'https://example.com',
         researchGroupId: '123e4567-e89b-12d3-a456-426614174000',
         demandId: '123e4567-e89b-12d3-a456-426614174000',
       },

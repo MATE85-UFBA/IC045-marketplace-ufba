@@ -1,8 +1,8 @@
 import {
-  IsISO8601,
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUrl,
   IsUUID,
 } from 'class-validator';
 
@@ -12,20 +12,16 @@ export class CreateProjectDto {
   name: string;
 
   @IsNotEmpty()
-  @IsISO8601()
-  started_at: Date;
-
-  @IsOptional()
-  @IsISO8601()
-  finished_at?: Date;
-
-  @IsNotEmpty()
   @IsUUID()
   researchGroupId: string;
 
   @IsOptional()
   @IsUUID()
   demandId: string;
+
+  @IsOptional()
+  @IsUrl()
+  link?: string;
 
   keywords?: string[];
 }
@@ -36,20 +32,16 @@ export class UpdateProjectDto {
   name?: string;
 
   @IsOptional()
-  @IsISO8601()
-  started_at?: Date;
-
-  @IsOptional()
-  @IsISO8601()
-  finished_at?: Date;
-
-  @IsOptional()
   @IsUUID()
   researchGroupId?: string;
 
   @IsOptional()
   @IsUUID()
   demandId?: string;
+
+  @IsOptional()
+  @IsUrl()
+  link?: string;
 
   keywords?: string[];
 }

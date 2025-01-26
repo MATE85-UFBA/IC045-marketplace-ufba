@@ -1,7 +1,6 @@
 export type ProjectFormData = {
   name: string;
   description: string;
-  started_at: Date;
-  finished_at?: Date;
+  link?: string;
   keywords: string;
 };

@@ -21,6 +21,7 @@ import { ProjectFormData } from "./types/project-form-data";
 import Keywords from "@/components/keywords";
 import { useState } from "react";
 import { isBefore } from "date-fns";
+import { useUser } from "@/context/UserContext";
 
 const CadastrarProjeto = () => {
   const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
@@ -30,9 +31,16 @@ const CadastrarProjeto = () => {
     register,
     formState: { errors },
   } = useForm<ProjectFormData>();
+  const { user } = useUser();
+
   const { toast } = useToast();
   const params = useParams<{ id: string }>();
   const router = useRouter();
+
+  if (!user) {
+    router.push("/login");
+  }
+
   const { mutate } = useAddProject(
     () => {
       toast({
@@ -58,29 +66,19 @@ const CadastrarProjeto = () => {
       return;
     }
 
-    if (
-      data.finished_at &&
-      isBefore(new Date(data.finished_at), new Date(data.started_at))
-    ) {
-      toast({
-        variant: "destructive",
-        title: "Data inválida",
-        description: "Data de finalização deve ser posterior a data de início.",
-      });
-
-      return;
-    }
-
     const projectData: CreateProject = {
       researchGroupId: params.id,
       name: data.name,
       description: data.description,
-      started_at: new Date(data.started_at),
-      finished_at: data.finished_at ? new Date(data.finished_at) : undefined,
+      link: data.link,
       keywords: selectedKeywords,
     };
 
     mutate(projectData);
+  };
+
+  const handleRedirect = () => {
+    router.back();
   };
 
   return (
@@ -148,29 +146,15 @@ const CadastrarProjeto = () => {
 
             {keywordRequired && <span>Este Campo é obrigatório</span>}
 
-            <div className="grid grid-cols-2 gap-4">
-              <label className="flex gap-2 font-bold text-blue-strong mt-4">
-                Data de Início*
-                <CalendarIcon className="w-6 h-6" />
-                <input
-                  type="date"
-                  {...register("started_at", { required: true })}
-                  className="w-full py-3 px-4 text-base font-normal rounded-lg border"
-                />
-              </label>
-
-              {errors.started_at && <span>Este Campo é obrigatório</span>}
-
-              <label className="flex gap-2 font-bold text-blue-strong mt-4">
-                Data de Fim
-                <CalendarIcon className="w-6 h-6" />
-                <input
-                  type="date"
-                  {...register("finished_at", { required: false })}
-                  className="w-full py-3 px-4 text-base font-normal rounded-lg border"
-                />
-              </label>
-            </div>
+            <label className="font-bold text-blue-strong mt-4">
+              Link
+              <input
+                type="url"
+                placeholder="Informe link do projeto"
+                className="w-full py-3 px-4 text-base font-normal rounded-lg border mt-2"
+                {...register("link", { required: false })}
+              />
+            </label>
 
             <div className="flex flex-row gap-4 justify-center mt-10">
               <Button type="submit" className="rounded-full py-2.5 px-8">
@@ -180,6 +164,7 @@ const CadastrarProjeto = () => {
                 variant={"outline"}
                 className="rounded-full py-2.5 px-8"
                 type="reset"
+                onClick={handleRedirect}
               >
                 Cancelar
               </Button>

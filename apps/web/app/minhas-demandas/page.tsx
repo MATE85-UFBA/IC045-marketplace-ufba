@@ -33,13 +33,11 @@ const MinhasDemandas = () => {
   };
 
   const handleDelete = async (id: string) => {
-    const shouldDelete = confirm(
-      "Tem certeza que deseja remover essa demanda?"
-    );
+    deleteDemandaMutation.mutate(id);
+  };
 
-    if (shouldDelete) {
-      deleteDemandaMutation.mutate(id);
-    }
+  const handleEdit = (id: string) => {
+    router.push(`/minhas-demandas/${id}`);
   };
 
   const handleEdit = (id: string) => {

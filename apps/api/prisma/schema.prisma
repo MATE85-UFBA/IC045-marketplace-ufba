@@ -14,18 +14,18 @@ datasource db {
 }
 
 model User {
-  id          String          @id @default(uuid())
-  email       String          @unique
-  name        String
-  img         String?
-  password    String
-  role        UserRole        @default(USER)
-  status   UserStatus         @default(PENDING)     
-  resetToken  String?
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-  company     Company?
-  researcher  Researcher?
+  id         String      @id @default(uuid())
+  email      String      @unique
+  name       String
+  img        String?
+  password   String
+  role       UserRole    @default(USER)
+  status     UserStatus  @default(PENDING)
+  resetToken String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  company    Company?
+  researcher Researcher?
 }
 
 enum UserRole {
@@ -102,8 +102,7 @@ model KnowledgeArea {
 model Project {
   id              String        @id @default(uuid())
   name            String        @unique
-  started_at      DateTime
-  finished_at     DateTime?
+  link            String?
   researchGroup   ResearchGroup @relation(fields: [researchGroupId], references: [id])
   researchGroupId String
   demand          Demand?       @relation(fields: [demandId], references: [id])
@@ -116,6 +115,7 @@ model Project {
 model Demand {
   id            String         @id @default(uuid())
   name          String
+  link          String?
   company       Company        @relation(fields: [companyId], references: [userId])
   description   String
   companyId     String
