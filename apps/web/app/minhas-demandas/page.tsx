@@ -40,10 +40,6 @@ const MinhasDemandas = () => {
     router.push(`/minhas-demandas/${id}`);
   };
 
-  const handleEdit = (id: string) => {
-    router.push(`/minhas-demandas/${id}`);
-  };  
-
   const filterDemands = useGetMyFilterDemands(
     (data) => {
       setFilteredDemands(data);
