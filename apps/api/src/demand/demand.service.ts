@@ -54,7 +54,7 @@ export class DemandService {
       })) || [];
 
     return demands.map((demand) => {
-      if (demand.projects.length > 0) {
+      if (demand.projects && demand.projects.length > 0) {
         return { ...demand, status: 'COMPLETED' };
       }
       return demand;
@@ -82,7 +82,7 @@ export class DemandService {
       })) || [];
 
     return demands.map((demand) => {
-      if (demand.projects.length > 0) {
+      if (demand.projects && demand.projects.length > 0) {
         return { ...demand, status: 'COMPLETED' };
       }
       return demand;
