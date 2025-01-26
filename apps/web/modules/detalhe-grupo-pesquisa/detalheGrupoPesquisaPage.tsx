@@ -17,6 +17,7 @@ import React from "react";
 import ProjectsSection from "./components/projectsSection";
 import { TbUserCircle } from "react-icons/tb";
 import { useUser } from "@/context/UserContext";
+import Link from "next/link";
 
 const apiURL = process.env.NEXT_PUBLIC_API_URL || "";
 
@@ -77,7 +78,11 @@ export default function DetalheGrupoPesquisaPage() {
               <BreadcrumbItem>
                 <BreadcrumbLink
                   className="hover:text-blue-strong"
-                  href="/cadastro-projetos"
+                  href={
+                    user?.utype === "RESEARCHER"
+                      ? "/meus-grupos-pesquisa"
+                      : "/encontrar-grupo-pesquisa"
+                  }
                 >
                   Grupos de Pesquisa
                 </BreadcrumbLink>
@@ -112,6 +117,24 @@ export default function DetalheGrupoPesquisaPage() {
             <h1 className="font-size-lg text-2xl">{researchGroup?.name}</h1>
 
             <p>{researchGroup?.description}</p>
+            {user?.utype === "COMPANY" && (
+              <Button
+                asChild
+                variant={"outline"}
+                className="px-9 py-2.5 rounded-full mt-3 xs:mt-0"
+              >
+                <Link
+                  href={{
+                    pathname: `/encontrar-grupo-pesquisa/contactar-grupo-pesquisa`,
+                    query: {
+                      id: groupId,
+                    },
+                  }}
+                >
+                  Entrar em contato
+                </Link>
+              </Button>
+            )}
           </div>
 
           <div className="flex flex-col gap-5 w-[100%]">
