@@ -1,36 +1,31 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { IoMdCreate } from "react-icons/io";
-import { Demanda } from "../../interfaces/demanda";
-import { CustomIcon } from "@/modules/components/icon/customIcon";
-import { GoArrowLeft, GoArrowRight } from "react-icons/go";
-import { format } from "date-fns";
-import { DeleteModal } from "../modal/deleteModal";
+import { Button } from '@/components/ui/button';
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { IoMdCreate } from 'react-icons/io';
+import { Demanda } from '../../interfaces/demanda';
+import { CustomIcon } from '@/modules/components/icon/customIcon';
+import { GoArrowLeft, GoArrowRight } from 'react-icons/go';
+import { format } from 'date-fns';
+import { DeleteModal } from '../modal/deleteModal';
+import { statusToAlt, statusToBadge } from '@/lib/utils';
+
 interface Params {
   data: Demanda[];
   onDelete: (id: string) => void;
   onEdit: (id: string) => void;
 }
+
+
 const MinhasDemandasTable = ({ data, onDelete, onEdit }: Params) => {
   const columns: ColumnDef<Demanda>[] = [
     {
       accessorKey: "name",
       header: "Título",
+    },
+    {accessorKey: 'status',
+     header: "Status",
+      cell: ({ row }) => <div title={statusToAlt(row.getValue("status"))}>{statusToBadge(row.getValue("status"))} </div>,
     },
     {
       accessorKey: "createdAt",
