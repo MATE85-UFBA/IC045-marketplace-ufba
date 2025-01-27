@@ -1,6 +1,4 @@
-
 export type EResearcherType = "TEACHER" | "STUDENT";
-
 
 export type TLeader = {
   userId: string;
@@ -10,11 +8,15 @@ export type TLeader = {
   updatedAt: string;
 };
 
-
 export type TUser = {
   id: string;
   name: string;
   email: string;
+};
+
+export type TKeyword = {
+  id: string;
+  name: string;
 };
 
 export type TProject = {
@@ -26,6 +28,7 @@ export type TProject = {
   demandId: string | null;
   createdAt: string;
   updatedAt: string;
+  keywords: TKeyword[];
 };
 
 export type TMember = {
@@ -35,7 +38,6 @@ export type TMember = {
   createdAt: string;
   updatedAt: string;
   user: TUser;
-
 };
 
 export type TResearchGroup = {
@@ -48,5 +50,4 @@ export type TResearchGroup = {
   leader: TLeader;
   members: TMember[];
   projects: TProject[];
-
 };

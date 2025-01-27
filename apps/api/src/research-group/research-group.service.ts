@@ -133,7 +133,11 @@ export class ResearchGroupService {
       },
       include: {
         leader: true,
-        projects: true,
+        projects: {
+          include: {
+            keywords: true,
+          },
+        },
         members: {
           include: {
             user: {
