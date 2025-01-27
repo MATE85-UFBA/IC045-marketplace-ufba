@@ -14,13 +14,21 @@ export type TUser = {
   email: string;
 };
 
+export type TKeyword = {
+  id: string;
+  name: string;
+};
+
 export type TProject = {
   id: string;
   name: string;
+  started_at: string;
+  finished_at: string | null;
   researchGroupId: string;
   demandId: string | null;
   createdAt: string;
   updatedAt: string;
+  keywords: TKeyword[];
 };
 
 export type TMember = {
