@@ -74,8 +74,8 @@ jobs:
           script: |
             cd /opt/scripts
             pm2 delete coopera-front
-            pm2 start /opt/scripts/coopera-front.sh
             pm2 delete coopera-back
-            pm2 start /opt/scripts/coopera-back.sh
             pm2 delete coopera-prisma
+            pm2 start /opt/scripts/coopera-front.sh
             pm2 start /opt/scripts/coopera-prisma.sh
+            pm2 start /opt/scripts/coopera-back.sh
