@@ -20,13 +20,17 @@ export default function ProjectsSection(props: TProps) {
         <TableHeader>
           <TableRow>
             <TableHead className="text-blue-strong font-semibold text-lg sm:text-2xl">
-              Nome
+              Título
             </TableHead>
             {/*
             <TableHead className="text-blue-strong font-semibold text-lg sm:text-2xl">
               Status
             </TableHead>
             */}
+
+            <TableHead className="text-blue-strong font-semibold text-lg sm:text-2xl">
+              Palavras-Chaves
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -35,6 +39,21 @@ export default function ProjectsSection(props: TProps) {
               <TableRow>
                 <TableCell className="text-blue-light py-6">
                   {project.name}
+                </TableCell>
+                {/*
+                <TableCell className="text-blue-light py-6">
+                  {project.finished_at ?? "Em andamento"}
+                </TableCell>
+                */}
+
+                <TableCell className="text-blue-light py-6">
+                  {project.keywords.map((keyword) => {
+                    return (
+                      <span className="mr-2 text-blue-light bg-primary text-primary-foreground p-2 rounded-2xl">
+                        {keyword.name ? keyword.name : "N/A"}
+                      </span>
+                    );
+                  })}
                 </TableCell>
               </TableRow>
             );
